@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoyageVista – Accueil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Variables ────────────────────────────────── */
+    :root {
+      --bg:          #f5f3ef;
+      --surface:     #ffffff;
+      --border:      #e2ddd6;
+      --text:        #1a1714;
+      --muted:       #8a8078;
+      --accent:      #c9672b;
+      --accent-soft: #f5ece4;
+      --header-h:    64px;
+      --sidebar-w:   200px;
+      --radius:      12px;
+      --shadow:      0 2px 16px rgba(0,0,0,.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ───────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px 0 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    /* Logo with arrow-shape badge */
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      text-decoration: none;
+    }
+    .logo-badge {
+      position: relative;
+      height: var(--header-h);
+      background: var(--text);
+      display: flex;
+      align-items: center;
+      padding: 0 28px 0 24px;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    }
+    .logo-badge span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+
+    /* Right nav */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .icon-btn {
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text);
+      transition: background .18s, border-color .18s;
+      text-decoration: none;
+      position: relative;
+    }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    /* notification dot */
+    .icon-btn .dot {
+      position: absolute;
+      top: 6px; right: 6px;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--surface);
+    }
+
+    .btn-connexion {
+      height: 36px;
+      padding: 0 20px;
+      border: 1.5px solid var(--text);
+      border-radius: 8px;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+    .btn-connexion:hover { background: var(--text); color: #fff; }
+
+    /* ── LAYOUT ───────────────────────────────────── */
+    .layout {
+      display: flex;
+      padding-top: var(--header-h);
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ──────────────────────────────────── */
+    aside {
+      width: var(--sidebar-w);
+      min-height: calc(100vh - var(--header-h));
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      bottom: 0;
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 400;
+      color: var(--muted);
+      transition: background .15s, color .15s;
+      cursor: pointer;
+    }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+    .nav-item.active svg { stroke: #fff; }
+
+    /* ── MAIN ─────────────────────────────────────── */
+    main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding: 56px 48px;
+    }
+
+    /* ── HERO TAGLINE ─────────────────────────────── */
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.6rem;
+      font-weight: 400;
+      letter-spacing: -.01em;
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--text);
+    }
+    .hero-tagline strong {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ── SEARCH BAR ───────────────────────────────── */
+    .search-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .search-field {
+      flex: 1;
+      border: none;
+      border-right: 1px solid var(--border);
+      padding: 0;
+      position: relative;
+      min-width: 0;
+    }
+    .search-field:last-of-type { border-right: none; }
+
+    .search-field label {
+      display: block;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 14px 18px 2px;
+    }
+    .search-field input,
+    .search-field select {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 400;
+      color: var(--text);
+      background: transparent;
+      padding: 0 18px 14px;
+      appearance: none;
+      cursor: pointer;
+    }
+    .search-field input::placeholder { color: var(--border); }
+
+    /* Destinations field – wider */
+    .search-field.dest { flex: 1.6; }
+
+    /* Voyageurs dropdown wrapper */
+    .voyageurs-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+      padding: 20px 20px;
+      min-width: 240px;
+      z-index: 200;
+      display: none;
+    }
+    .voyageurs-panel.open { display: block; }
+
+    .voy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .voy-row:last-child { border-bottom: none; }
+    .voy-label { font-size: .9rem; }
+    .voy-label small { display: block; font-size: .75rem; color: var(--muted); }
+    .voy-counter {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .voy-btn {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, border-color .15s;
+    }
+    .voy-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+    .voy-count { font-weight: 600; min-width: 18px; text-align: center; }
+
+    .search-field.voyageurs-wrap { position: relative; cursor: pointer; user-select: none; }
+    .search-field.voyageurs-wrap .voy-display {
+      padding: 0 18px 14px;
+      font-size: .95rem;
+      color: var(--text);
+      min-height: 26px;
+    }
+    .voy-placeholder { color: var(--border); }
+
+    /* Search button */
+    .btn-search {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: .02em;
+      transition: background .18s, transform .12s;
+      white-space: nowrap;
+    }
+    .btn-search:hover { background: #b05520; }
+    .btn-search:active { transform: scale(.97); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<header>
+  <a href="accueil.html" class="logo">
+    <div class="logo-badge">
+      <span>VoyageVista</span>
+    </div>
+  </a>
+
+  <div class="header-right">
+    <!-- Mon espace -->
+    <a href="mon-espace.html" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <!-- Notifications -->
+    <a href="notifications.html" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <!-- Connexion -->
+    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ LAYOUT ═══════════════════════════ -->
+<div class="layout">
+
+  <!-- ─────────── SIDEBAR ─────────── -->
+  <aside>
+    <a href="accueil.html" class="nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Accueil
+    </a>
+    <a href="catalogue.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Catalogue
+    </a>
+    <a href="transport.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+      Transport
+    </a>
+    <a href="hebergement.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      Hébergement
+    </a>
+    <a href="activites.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Activités
+    </a>
+    <a href="itineraire.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>
+      Itinéraire
+    </a>
+    <a href="panier.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Panier
+    </a>
+    <a href="notifications.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Notifications
+    </a>
+    <a href="mon-espace.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      Mon espace
+    </a>
+  </aside>
+
+  <!-- ─────────── MAIN CONTENT ─────────── -->
+  <main>
+    <p class="hero-tagline">Planifiez. <strong>Vivez.</strong> Explorez.</p>
+
+    <!-- Search bar -->
+    <div class="search-wrap">
+
+      <!-- Destinations -->
+      <div class="search-field dest">
+        <label for="dest">Destinations</label>
+        <input id="dest" type="text" placeholder="Où voulez-vous aller ?" />
+      </div>
+
+      <!-- Départ -->
+      <div class="search-field">
+        <label for="depart">Départ</label>
+        <input id="depart" type="date" />
+      </div>
+
+      <!-- Retour -->
+      <div class="search-field">
+        <label for="retour">Retour</label>
+        <input id="retour" type="date" />
+      </div>
+
+      <!-- Voyageurs -->
+      <div class="search-field voyageurs-wrap" id="voyageursField">
+        <label>Voyageurs</label>
+        <div class="voy-display" id="voyDisplay">
+          <span class="voy-placeholder">Ajouter des voyageurs</span>
+        </div>
+        <div class="voyageurs-panel" id="voyPanel">
+          <div class="voy-row">
+            <div class="voy-label">Adultes <small>18 ans et +</small></div>
+            <div class="voy-counter">
+              <button class="voy-btn" onclick="changeCount('adults',-1,event)">−</button>
+              <span class="voy-count" id="adultsCount">0</span>
+              <button class="voy-btn" onclick="changeCount('adults',1,event)">+</button>
+            </div>
+          </div>
+          <div class="voy-row">
+            <div class="voy-label">Enfants <small>2 – 17 ans</small></div>
+            <div class="voy-counter">
+              <button class="voy-btn" onclick="changeCount('children',-1,event)">−</button>
+              <span class="voy-count" id="childrenCount">0</span>
+              <button class="voy-btn" onclick="changeCount('children',1,event)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <button class="btn-search" onclick="lancerRecherche()">Chercher</button>
+    </div>
+  </main>
+
+</div>
+
+<script>
+  const counts = { adults: 0, children: 0 };
+
+  // Toggle voyageurs panel
+  document.getElementById('voyageursField').addEventListener('click', function(e) {
+    if (e.target.classList.contains('voy-btn')) return;
+    document.getElementById('voyPanel').classList.toggle('open');
+  });
+
+  // Close panel when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!document.getElementById('voyageursField').contains(e.target)) {
+      document.getElementById('voyPanel').classList.remove('open');
+    }
+  });
+
+  function changeCount(type, delta, e) {
+    e.stopPropagation();
+    counts[type] = Math.max(0, counts[type] + delta);
+    document.getElementById(type + 'Count').textContent = counts[type];
+    updateVoyDisplay();
+  }
+
+  function updateVoyDisplay() {
+    const total = counts.adults + counts.children;
+    const el = document.getElementById('voyDisplay');
+    if (total === 0) {
+      el.innerHTML = '<span class="voy-placeholder">Ajouter des voyageurs</span>';
+    } else {
+      let parts = [];
+      if (counts.adults)   parts.push(counts.adults + ' adulte' + (counts.adults > 1 ? 's' : ''));
+      if (counts.children) parts.push(counts.children + ' enfant' + (counts.children > 1 ? 's' : ''));
+      el.textContent = parts.join(', ');
+    }
+  }
+
+  function lancerRecherche() {
+    const dest   = document.getElementById('dest').value;
+    const depart = document.getElementById('depart').value;
+    const retour = document.getElementById('retour').value;
+    const total  = counts.adults + counts.children;
+    if (!dest) { alert('Veuillez indiquer une destination.'); return; }
+    alert(`Recherche lancée !\nDestination : ${dest}\nDépart : ${depart || '–'}\nRetour : ${retour || '–'}\nVoyageurs : ${total || '–'}`);
+  }
+</script>
+</body>
+</html>
