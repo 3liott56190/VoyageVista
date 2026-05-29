@@ -718,9 +718,12 @@
   }
 
   function closeOverlay() {
-    document.getElementById('overlay-connexion').style.display = 'none';
-    document.body.style.overflow = '';
-  }
+  document.getElementById('overlay-connexion').style.display = 'none';
+  document.body.style.overflow = '';
+  history.pushState(null, '', window.location.href);
+  window.location.reload();
+}
+
 
   /* Fermer avec Échap */
   document.addEventListener('keydown', e => {
