@@ -1,0 +1,727 @@
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+$conn = mysqli_connect("127.0.0.1", "root", "root", "destination", 3306);
+if (!$conn) {
+    die("Connexion FAILED : " . mysqli_connect_error());
+}
+
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$destination = null;
+$error = null;
+
+if ($id <= 0) {
+    $error = 'Destination introuvable.';
+} else {
+    $result = mysqli_query($conn, "SELECT * FROM destinations WHERE id_destination = $id AND statut_validation = 'valide'");
+    $destination = mysqli_fetch_assoc($result);
+    if (!$destination) $error = 'Destination introuvable ou non disponible.';
+}
+
+mysqli_close($conn);
+
+// Points forts par catégorie
+$pointsForts = [
+    'Plage'      => ['Plages de sable fin', 'Eaux turquoise', 'Activités nautiques', 'Couchers de soleil', 'Restaurants en bord de mer', 'Snorkeling & plongée'],
+    'Montagne'   => ['Randonnées épiques', 'Paysages sauvages', 'Villages authentiques', 'Air pur & nature', 'Refuges de montagne', 'Faune locale'],
+    'Ville'      => ['Architecture unique', 'Gastronomie locale', 'Musées & culture', 'Vie nocturne animée', 'Marchés & shopping', 'Transports en commun'],
+    'Aventure'   => ['Expériences hors sentiers', 'Activités sportives', 'Rencontres locales', 'Paysages spectaculaires', 'Itinéraires flexibles', 'Guides experts'],
+    'Culture'    => ['Patrimoine historique', 'Sites classés UNESCO', 'Artisanat local', 'Cuisine traditionnelle', 'Festivals & événements', 'Musées incontournables'],
+    'Nature'     => ['Biodiversité exceptionnelle', 'Parcs naturels', 'Observation de la faune', 'Randonnées balisées', 'Paysages volcaniques', 'Sources naturelles'],
+    'Romantique' => ['Cadre intimiste', 'Restaurants gastronomiques', 'Hébergements boutique', 'Vieille ville pittoresque', 'Promenades au coucher du soleil', 'Activités en duo'],
+];
+$points = $pointsForts[$destination['categorie'] ?? ''] ?? ['Expérience unique', 'Découvertes inoubliables', 'Guides locaux', 'Hébergements sélectionnés', 'Prix compétitifs', 'Support 24/7'];
+
+$moisIdeaux = [
+    'Asie'     => 'Nov – Avr (idéal)',
+    'Europe'   => 'Mai – Sep (idéal)',
+    'Afrique'  => 'Oct – Mar (idéal)',
+    'Amérique' => 'Déc – Avr (idéal)',
+];
+$mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoyageVista – <?= $destination ? htmlspecialchars($destination['nom']) : 'Destination' ?></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #f5f3ef;
+      --surface:     #ffffff;
+      --border:      #e2ddd6;
+      --text:        #1a1714;
+      --muted:       #788a7b;
+      --accent:      #013819;
+      --accent-soft: #e4f5ea;
+      --header-h:    64px;
+      --sidebar-w:   200px;
+      --radius:      14px;
+      --shadow:      0 2px 16px rgba(0,0,0,.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow);
+    }
+    .header-left { display: flex; align-items: center; gap: 0; height: 100%; }
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge {
+      height: var(--header-h); background: var(--accent);
+      display: flex; align-items: center; padding: 0 28px 0 24px;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    }
+    .logo-badge span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: .02em; white-space: nowrap; }
+    .btn-back {
+      display: flex; align-items: center; gap: 7px;
+      margin-left: 24px; color: var(--muted); font-size: .875rem; font-weight: 500;
+      text-decoration: none; transition: color .18s;
+    }
+    .btn-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .btn-back:hover { color: var(--accent); }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 40px; height: 40px; border: 1.5px solid var(--border); border-radius: 50%;
+      background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text); transition: background .18s, border-color .18s; text-decoration: none; position: relative;
+    }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .icon-btn .dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; border: 2px solid var(--surface); }
+    .btn-connexion {
+      height: 36px; padding: 0 20px; border: 1.5px solid var(--accent); border-radius: 8px;
+      background: transparent; font-family: 'DM Sans', sans-serif; font-size: .875rem; font-weight: 500;
+      cursor: pointer; transition: background .18s, color .18s;
+    }
+    .btn-connexion:hover { background: var(--accent); color: #fff; }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border);
+      position: fixed; top: var(--header-h); left: 0; bottom: 0;
+      padding: 20px 12px; display: flex; flex-direction: column; gap: 4px;
+      overflow-y: auto; z-index: 80;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px;
+      text-decoration: none; font-size: .9rem; font-weight: 400; color: var(--muted);
+      transition: background .15s, color .15s;
+    }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item.active svg { stroke: #fff; }
+
+    /* ── MAIN ── */
+    main { margin-left: var(--sidebar-w); padding-top: var(--header-h); min-height: 100vh; }
+
+    /* ── GALERIE PHOTO ── */
+    .gallery {
+      position: relative; width: 100%; height: 420px;
+      background: linear-gradient(135deg, #ddd5c8 0%, #c4b5a0 100%);
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+    }
+    .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      color: rgba(255,255,255,.7);
+    }
+    .gallery-placeholder svg { width: 48px; height: 48px; stroke: currentColor; fill: none; stroke-width: 1.2; opacity: .6; }
+    .gallery-placeholder span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; }
+    .gallery-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.9); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15); transition: background .18s, transform .15s;
+    }
+    .gallery-nav:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
+    .gallery-nav svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 2; }
+    .gallery-nav.prev { left: 20px; }
+    .gallery-nav.next { right: 20px; }
+    .gallery-badge {
+      position: absolute; top: 20px; left: 20px;
+      display: flex; gap: 8px;
+    }
+    .gbadge { padding: 5px 13px; border-radius: 99px; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .gbadge-coeur  { background: #fde8e8; color: #c0363a; border: 1px solid #f5b8ba; }
+    .gbadge-reduction { background: #fef2e0; color: #c07a10; border: 1px solid #f5d89a; }
+    .gbadge-populaire { background: #1a1714; color: #fff; }
+    .gbadge-recommande { background: var(--accent); color: #fff; }
+
+    /* ── CONTENT AREA ── */
+    .content-wrap { display: flex; gap: 32px; padding: 36px 40px 80px; align-items: flex-start; }
+    .content-main { flex: 1; min-width: 0; }
+
+    /* ── TITRE & MÉTA ── */
+    .dest-header { margin-bottom: 20px; }
+    .dest-breadcrumb { font-size: .75rem; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; }
+    .dest-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; line-height: 1.15; margin-bottom: 10px; }
+    .dest-stars { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+    .stars-icons { color: #e4b70a; font-size: 1rem; letter-spacing: 1px; }
+    .stars-val { font-weight: 600; font-size: .9rem; color: var(--text); }
+    .stars-count { font-size: .8rem; color: var(--muted); }
+    .dest-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 5px 14px; border-radius: 99px; border: 1.5px solid var(--border);
+      font-size: .78rem; font-weight: 500; color: var(--muted); background: var(--surface);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .chip svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .chip.accent { background: var(--accent-soft); border-color: #c0dcc4; color: var(--accent); }
+
+    /* ── TABS ── */
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin: 28px 0 24px; }
+    .tab-btn {
+      padding: 10px 24px; background: none; border: none; border-bottom: 2px solid transparent;
+      margin-bottom: -2px; font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 500;
+      color: var(--muted); cursor: pointer; transition: color .18s, border-color .18s;
+    }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── APERÇU ── */
+    .section-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .section-title-lg { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 14px; }
+    .desc-text { font-size: .9rem; line-height: 1.75; color: #444; margin-bottom: 28px; }
+
+    .points-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin-bottom: 28px; }
+    .point-item { display: flex; align-items: center; gap: 10px; font-size: .875rem; color: var(--text); }
+    .point-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--accent-soft); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .point-icon svg { width: 11px; height: 11px; stroke: var(--accent); fill: none; stroke-width: 2.5; }
+
+    .info-cards { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+    .info-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 120px; }
+    .info-card-label { font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .info-card-value { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--accent); }
+    .info-card-sub { font-size: .72rem; color: var(--muted); }
+
+    /* ── AVIS ── */
+    .avis-empty { padding: 40px 0; text-align: center; color: var(--muted); font-size: .9rem; }
+    .avis-empty svg { width: 40px; height: 40px; stroke: var(--muted); fill: none; stroke-width: 1.3; opacity: .4; margin-bottom: 10px; }
+
+    /* ── SIDEBAR RÉSERVATION ── */
+    .booking-sidebar {
+      width: 300px; flex-shrink: 0;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      position: sticky; top: calc(var(--header-h) + 24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+    }
+    .booking-price { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .booking-price-label { font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .booking-price-val { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .booking-price-pp { font-size: .78rem; color: var(--muted); }
+    .booking-note-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+    .booking-note-row .stars-icons { font-size: .85rem; }
+    .booking-note-row span { font-size: .82rem; color: var(--muted); }
+
+    .booking-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+    /* Compteur voyageurs */
+    .voy-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .voy-row:last-of-type { border-bottom: none; }
+    .voy-label { font-size: .875rem; font-weight: 500; }
+    .voy-label small { display: block; font-size: .72rem; color: var(--muted); font-weight: 400; }
+    .voy-counter { display: flex; align-items: center; gap: 10px; }
+    .voy-btn {
+      width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--border);
+      background: transparent; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, border-color .15s; color: var(--text);
+    }
+    .voy-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+    .voy-count { font-weight: 700; min-width: 22px; text-align: center; font-size: 1rem; }
+
+    .booking-total {
+      margin-top: 16px; padding: 14px 16px;
+      background: var(--accent-soft); border: 1.5px solid #c0dcc4; border-radius: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .booking-total-label { font-size: .8rem; font-weight: 600; color: var(--accent); }
+    .booking-total-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+
+    .booking-total-detail { font-size: .72rem; color: var(--muted); text-align: right; margin-top: 4px; }
+
+    .btn-reserver {
+      display: block; width: 100%; margin-top: 16px;
+      height: 48px; background: var(--accent); color: #fff; border: none;
+      border-radius: 10px; font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      transition: background .18s, transform .12s;
+    }
+    .btn-reserver:hover { background: #086720; }
+    .btn-reserver:active { transform: scale(.98); }
+    .btn-reserver:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+
+    .booking-note-info { margin-top: 12px; font-size: .75rem; color: var(--muted); text-align: center; line-height: 1.5; }
+    .booking-note-info svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 2; vertical-align: middle; margin-right: 3px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--text); color: rgba(255,255,255,.7); }
+    .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .footer-tagline { font-size: .875rem; line-height: 1.6; margin-bottom: 16px; }
+    .footer-col h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin-bottom: 14px; }
+    .footer-col a { display: block; color: rgba(255,255,255,.6); text-decoration: none; font-size: .875rem; margin-bottom: 8px; transition: color .15s; }
+    .footer-col a:hover { color: var(--accent-soft); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; font-size: .8rem; }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom-links a:hover { color: #fff; }
+
+    /* ── ERROR ── */
+    .error-state { margin-left: var(--sidebar-w); padding-top: var(--header-h); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; }
+    .error-state svg { width: 56px; height: 56px; stroke: var(--muted); fill: none; stroke-width: 1.2; opacity: .4; }
+    .error-state h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; }
+    .error-state p { color: var(--muted); font-size: .9rem; }
+    .error-state a { margin-top: 8px; padding: 10px 24px; background: var(--accent); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .9rem; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--text); color: #fff; padding: 14px 24px; border-radius: 10px;
+      font-size: .875rem; font-weight: 500; opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .3s; z-index: 999; white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-left">
+    <a href="Accueil.php" class="logo">
+      <div class="logo-badge"><span>VoyageVista</span></div>
+    </a>
+    <a href="catalogue.php" class="btn-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour au catalogue
+    </a>
+  </div>
+  <div class="header-right">
+    <a href="mon-espace.php" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="notifications.php" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <button class="btn-connexion" onclick="window.location='connexion.php'">Connexion</button>
+  </div>
+</header>
+
+<!-- ── SIDEBAR ── -->
+<aside id="sidebar">
+  <a href="Accueil.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
+  </a>
+  <a href="catalogue.php" class="nav-item active">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue
+  </a>
+  <a href="transport.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport
+  </a>
+  <a href="hebergement.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement
+  </a>
+  <a href="activites.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités
+  </a>
+  <a href="itineraire.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire
+  </a>
+  <a href="panier.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier
+  </a>
+  <a href="notifications.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications
+  </a>
+  <a href="mon-espace.php" class="nav-item">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace
+  </a>
+</aside>
+
+<?php if ($error): ?>
+<!-- ── ERREUR ── -->
+<div class="error-state">
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <h2>Destination introuvable</h2>
+  <p><?= htmlspecialchars($error) ?></p>
+  <a href="catalogue.php">← Retour au catalogue</a>
+</div>
+
+<?php else:
+  $d = $destination;
+  $prixBase = (float)$d['prix_par_personne'];
+  $note     = (float)$d['note_moyenne'];
+  $fullStars = floor($note);
+  $halfStar  = ($note - $fullStars) >= 0.5;
+  $starsHTML = str_repeat('★', $fullStars) . ($halfStar ? '½' : '') . str_repeat('☆', 5 - $fullStars - ($halfStar ? 1 : 0));
+?>
+
+<!-- ── MAIN ── -->
+<main>
+
+  <!-- GALERIE -->
+  <div class="gallery" id="gallery">
+    <img
+      src="<?= htmlspecialchars($d['image_url'] ?? '') ?>"
+      alt="<?= htmlspecialchars($d['nom']) ?>"
+      id="galleryImg"
+      onerror="this.style.display='none'; document.getElementById('galleryPlaceholder').style.display='flex';"
+    />
+    <div class="gallery-placeholder" id="galleryPlaceholder" style="display:none;">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span><?= htmlspecialchars($d['nom']) ?></span>
+    </div>
+
+    <!-- Badges -->
+    <div class="gallery-badge">
+      <?php if ($d['badge'] === 'Coup de cœur'): ?>
+        <span class="gbadge gbadge-coeur">Coup de cœur</span>
+      <?php elseif ($d['badge'] === 'Réduction'): ?>
+        <span class="gbadge gbadge-reduction">Réduction</span>
+      <?php endif; ?>
+      <?php if ($d['tag_populaire']): ?>
+        <span class="gbadge gbadge-populaire">Populaire</span>
+      <?php endif; ?>
+      <?php if ($d['tag_recommande']): ?>
+        <span class="gbadge gbadge-recommande">Recommandé</span>
+      <?php endif; ?>
+    </div>
+
+    <!-- Nav galerie (fonctionnel avec plusieurs images ou décoratif) -->
+    <button class="gallery-nav prev" onclick="prevImg()" title="Photo précédente">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="gallery-nav next" onclick="nextImg()" title="Photo suivante">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- CONTENU -->
+  <div class="content-wrap">
+
+    <!-- COLONNE PRINCIPALE -->
+    <div class="content-main">
+
+      <!-- En-tête destination -->
+      <div class="dest-header">
+        <div class="dest-breadcrumb"><?= htmlspecialchars($d['continent']) ?> · <?= htmlspecialchars($d['pays']) ?></div>
+        <h1 class="dest-title"><?= htmlspecialchars($d['nom']) ?>, <?= htmlspecialchars($d['pays']) ?></h1>
+        <div class="dest-stars">
+          <span class="stars-icons"><?= $starsHTML ?></span>
+          <span class="stars-val"><?= number_format($note, 1) ?></span>
+          <span class="stars-count">· Note des voyageurs</span>
+        </div>
+        <div class="dest-chips">
+          <span class="chip accent">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <?= (int)$d['duree_min_jours'] ?> – <?= (int)$d['duree_max_jours'] ?> jours recommandés
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <?= htmlspecialchars($mois) ?>
+          </span>
+          <span class="chip">
+            <?= htmlspecialchars($d['categorie']) ?>
+          </span>
+          <span class="chip">
+            <?= htmlspecialchars($d['continent']) ?>
+          </span>
+        </div>
+      </div>
+
+      <!-- Infos rapides -->
+      <div class="info-cards">
+        <div class="info-card">
+          <span class="info-card-label">Prix de base</span>
+          <span class="info-card-value"><?= number_format($prixBase, 0, ',', ' ') ?> €</span>
+          <span class="info-card-sub">par personne</span>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Durée</span>
+          <span class="info-card-value"><?= (int)$d['duree_min_jours'] ?>–<?= (int)$d['duree_max_jours'] ?> j</span>
+          <span class="info-card-sub">séjour recommandé</span>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Catégorie</span>
+          <span class="info-card-value"><?= htmlspecialchars($d['categorie']) ?></span>
+          <span class="info-card-sub"><?= htmlspecialchars($d['pays']) ?></span>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Note</span>
+          <span class="info-card-value"><?= number_format($note, 1) ?> / 5</span>
+          <span class="info-card-sub">voyageurs satisfaits</span>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('apercu', this)">Aperçu</button>
+        <button class="tab-btn" onclick="switchTab('avis', this)">Avis</button>
+      </div>
+
+      <!-- TAB : APERÇU -->
+      <div class="tab-panel active" id="tab-apercu">
+        <div class="section-label">À propos</div>
+        <div class="section-title-lg">À propos de <?= htmlspecialchars($d['nom']) ?></div>
+        <p class="desc-text"><?= nl2br(htmlspecialchars($d['description'] ?? 'Description non disponible.')) ?></p>
+
+        <div class="section-label">Points forts</div>
+        <div class="points-grid">
+          <?php foreach ($points as $pt): ?>
+          <div class="point-item">
+            <div class="point-icon">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <?= htmlspecialchars($pt) ?>
+          </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <!-- TAB : AVIS -->
+      <div class="tab-panel" id="tab-avis">
+        <div class="avis-empty">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <p>Les avis voyageurs arrivent bientôt.<br><small style="color:var(--muted);">Soyez le premier à partager votre expérience&nbsp;!</small></p>
+        </div>
+      </div>
+
+    </div><!-- /content-main -->
+
+    <!-- ── SIDEBAR RÉSERVATION ── -->
+    <aside class="booking-sidebar">
+
+      <div class="booking-price">
+        <div class="booking-price-label">À partir de</div>
+        <div>
+          <span class="booking-price-val" id="displayPrice"><?= number_format($prixBase, 0, ',', ' ') ?>&nbsp;€</span>
+          <span class="booking-price-pp"> / pers.</span>
+        </div>
+        <div class="booking-note-row">
+          <span class="stars-icons"><?= str_repeat('★', $fullStars) ?></span>
+          <span><?= number_format($note, 1) ?> · voyageurs</span>
+        </div>
+      </div>
+
+      <div class="booking-section-label" style="margin-top:4px;">Voyageurs</div>
+
+      <div class="voy-row">
+        <div class="voy-label">Adultes <small>18 ans et +</small></div>
+        <div class="voy-counter">
+          <button class="voy-btn" onclick="changeCount('adults', -1)">−</button>
+          <span class="voy-count" id="adultsCount">1</span>
+          <button class="voy-btn" onclick="changeCount('adults', +1)">+</button>
+        </div>
+      </div>
+      <div class="voy-row">
+        <div class="voy-label">Enfants <small>2 – 17 ans</small></div>
+        <div class="voy-counter">
+          <button class="voy-btn" onclick="changeCount('children', -1)">−</button>
+          <span class="voy-count" id="childrenCount">0</span>
+          <button class="voy-btn" onclick="changeCount('children', +1)">+</button>
+        </div>
+      </div>
+
+      <div class="booking-total" id="bookingTotal">
+        <div>
+          <div class="booking-total-label">Total estimé</div>
+        </div>
+        <div class="booking-total-val" id="totalPrice"><?= number_format($prixBase, 0, ',', ' ') ?>&nbsp;€</div>
+      </div>
+      <div class="booking-total-detail" id="totalDetail">1 adulte × <?= number_format($prixBase, 0, ',', ' ') ?> €</div>
+
+      <button class="btn-reserver" id="btnReserver" onclick="ajouterAuPanier()">
+        Réserver ce voyage
+      </button>
+
+      <p class="booking-note-info">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="8"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
+        Annulation gratuite sous 48 h. Sans frais cachés.
+      </p>
+
+    </aside>
+
+  </div><!-- /content-wrap -->
+</main>
+
+<?php endif; ?>
+
+<!-- ── FOOTER ── -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.php">Toutes les destinations</a>
+        <a href="transport.php">Transports</a>
+        <a href="hebergement.php">Hébergements</a>
+        <a href="activites.php">Activités</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.php">Connexion</a>
+        <a href="mon-espace.php">Mon espace</a>
+        <a href="panier.php">Mon panier</a>
+        <a href="itineraire.php">Mes itinéraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="a-propos.php">À propos</a>
+        <a href="cgu.php">CGU</a>
+        <a href="contact.php">Contact</a>
+        <a href="#">Réseaux sociaux</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Tous droits réservés</span>
+      <div class="footer-bottom-links">
+        <a href="cgu.php">CGU</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="contact.php">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+  // ── Prix de base (depuis PHP) ──────────────────────────────
+  const PRIX_BASE = <?= json_encode($prixBase ?? 0) ?>;
+  const DEST_ID   = <?= json_encode((int)($d['id_destination'] ?? 0)) ?>;
+  const DEST_NOM  = <?= json_encode($d['nom'] ?? '') ?>;
+
+  // ── Compteurs voyageurs ────────────────────────────────────
+  const counts = { adults: 1, children: 0 };
+
+  function changeCount(type, delta) {
+    const min = (type === 'adults') ? 1 : 0; // au moins 1 adulte
+    counts[type] = Math.max(min, counts[type] + delta);
+    document.getElementById(type + 'Count').textContent = counts[type];
+    updateTotal();
+  }
+
+  function updateTotal() {
+    const total = counts.adults + counts.children;
+    const montant = total * PRIX_BASE;
+
+    // Formatage FR
+    const fmt = n => n.toLocaleString('fr-FR') + '\u00a0€';
+
+    document.getElementById('totalPrice').textContent = fmt(montant);
+
+    let detail = [];
+    if (counts.adults)   detail.push(counts.adults   + ' adulte'  + (counts.adults   > 1 ? 's' : '') + ' × ' + PRIX_BASE.toLocaleString('fr-FR') + ' €');
+    if (counts.children) detail.push(counts.children + ' enfant'  + (counts.children > 1 ? 's' : '') + ' × ' + PRIX_BASE.toLocaleString('fr-FR') + ' €');
+    document.getElementById('totalDetail').textContent = detail.join(' + ');
+
+    // Désactiver si 0 voyageurs (ne devrait pas arriver)
+    document.getElementById('btnReserver').disabled = (total === 0);
+  }
+
+  // ── Ajout au panier ───────────────────────────────────────
+  function ajouterAuPanier() {
+    const total = counts.adults + counts.children;
+    if (total === 0) return;
+
+    const montant = total * PRIX_BASE;
+
+    // Stockage sessionStorage pour usage futur par panier.php
+    const item = {
+      id_destination: DEST_ID,
+      nom:            DEST_NOM,
+      prix_unitaire:  PRIX_BASE,
+      adultes:        counts.adults,
+      enfants:        counts.children,
+      total_personnes:total,
+      montant_total:  montant
+    };
+
+    // On ajoute à un tableau dans sessionStorage
+    let panier = [];
+    try { panier = JSON.parse(sessionStorage.getItem('voyagevista_panier') || '[]'); } catch(e) {}
+
+    // Si la destination est déjà dans le panier, on met à jour
+    const idx = panier.findIndex(p => p.id_destination === DEST_ID);
+    if (idx >= 0) panier[idx] = item; else panier.push(item);
+    sessionStorage.setItem('voyagevista_panier', JSON.stringify(panier));
+
+    showToast('✓ ' + DEST_NOM + ' ajouté au panier !');
+  }
+
+  // ── Toast ─────────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── Tabs ─────────────────────────────────────────────────
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  // ── Galerie (décorative si 1 seule image) ─────────────────
+  // Pour étendre plus tard avec plusieurs images par destination
+  const images = [<?= json_encode($d['image_url'] ?? '') ?>];
+  let imgIndex = 0;
+
+  function prevImg() {
+    imgIndex = (imgIndex - 1 + images.length) % images.length;
+    updateGallery();
+  }
+  function nextImg() {
+    imgIndex = (imgIndex + 1) % images.length;
+    updateGallery();
+  }
+  function updateGallery() {
+    const img = document.getElementById('galleryImg');
+    if (img) { img.style.display = 'block'; img.src = images[imgIndex]; }
+    document.getElementById('galleryPlaceholder').style.display = 'none';
+  }
+
+  // ── Sidebar stops at footer ────────────────────────────────
+  const sidebar = document.getElementById('sidebar');
+  const footer  = document.getElementById('footer');
+  function updateSidebarBottom() {
+    if (!sidebar || !footer) return;
+    const footerTop = footer.getBoundingClientRect().top;
+    const winH = window.innerHeight;
+    sidebar.style.bottom = footerTop < winH ? (winH - footerTop) + 'px' : '0px';
+  }
+  window.addEventListener('scroll', updateSidebarBottom);
+  window.addEventListener('resize', updateSidebarBottom);
+  updateSidebarBottom();
+
+  // Init
+  updateTotal();
+</script>
+
+</body>
+</html>
