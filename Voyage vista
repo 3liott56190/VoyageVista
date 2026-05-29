@@ -1,2 +1,531 @@
-faites edit this file ici pour ajouter votre code
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoyageVista – Choisissez votre profil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+  <style>
+    :root {
+      --bg:          #f5f3ef;
+      --surface:     #ffffff;
+      --border:      #e2ddd6;
+      --text:        #1a1714;
+      --muted:       #8a8078;
+      --accent:      #c9672b;
+      --accent-soft: #f5ece4;
+      --accent-dark: #b05520;
+      --header-h:    64px;
+      --radius:      12px;
+      --shadow:      0 2px 16px rgba(0,0,0,.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px 0 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge {
+      position: relative;
+      height: var(--header-h);
+      background: var(--text);
+      display: flex;
+      align-items: center;
+      padding: 0 28px 0 24px;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    }
+    .logo-badge span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+
+    .header-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .82rem;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+    .header-step-badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 99px;
+      letter-spacing: .02em;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--header-h) + 48px) 24px 64px;
+    }
+
+    /* ── HERO TEXT ── */
+    .eyebrow {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.4rem;
+      font-weight: 400;
+      letter-spacing: -.01em;
+      text-align: center;
+      margin-bottom: 14px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .hero-tagline strong {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-size: .9rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 48px;
+      max-width: 440px;
+      line-height: 1.65;
+    }
+
+    /* ── SÉPARATEUR ── */
+    .divider {
+      width: 36px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0 auto 44px;
+      opacity: .45;
+    }
+
+    /* ── CARDS ── */
+    .role-cards {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 700px;
+      flex-wrap: wrap;
+    }
+
+    .role-card {
+      flex: 1;
+      min-width: 180px;
+      max-width: 210px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 20px 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .2s, box-shadow .2s, border-color .2s, background .2s;
+      box-shadow: var(--shadow);
+      position: relative;
+      text-align: center;
+    }
+    .role-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(201,103,43,.15);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .role-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(201,103,43,.18);
+    }
+
+    /* Coche de sélection */
+    .card-check {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(.5);
+      transition: opacity .2s, transform .2s;
+    }
+    .card-check svg {
+      width: 12px;
+      height: 12px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.5;
+    }
+    .role-card.selected .card-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Icône */
+    .card-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .role-card:hover .card-icon,
+    .role-card.selected .card-icon {
+      background: #fff;
+      border-color: var(--accent);
+    }
+    .card-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.6;
+    }
+
+    /* Titre */
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Description */
+    .card-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Badge rôle */
+    .card-badge {
+      font-size: .67rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+    .badge-user  { background: #f5ece4; color: #a0521e; border: 1px solid #f0d0b8; }
+    .badge-presta { background: #eaf3e8; color: #3a7230; border: 1px solid #c2dabb; }
+    .badge-admin { background: #ededf8; color: #443faa; border: 1px solid #c5c2ee; }
+
+    /* ── BOUTON CONTINUER ── */
+    .action-wrap {
+      margin-top: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-continuer {
+      height: 48px;
+      padding: 0 44px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: .02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: .4;
+      pointer-events: none;
+      transition: background .18s, transform .12s, opacity .2s;
+    }
+    .btn-continuer svg {
+      width: 16px;
+      height: 16px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.2;
+    }
+    .btn-continuer.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .btn-continuer.active:hover { background: var(--accent-dark); }
+    .btn-continuer.active:active { transform: scale(.97); }
+
+    .action-hint {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,.7);
+    }
+    .footer-inner {
+      padding: 40px 48px 28px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .footer-tagline {
+      font-size: .875rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .footer-col h4 {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .footer-col a {
+      display: block;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      font-size: .875rem;
+      margin-bottom: 8px;
+      transition: color .15s;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .8rem;
+    }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom-links a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="accueil.html" class="logo">
+    <div class="logo-badge"><span>VoyageVista</span></div>
+  </a>
+  <div class="header-step">
+    <span class="header-step-badge">Étape 1 / 2</span>
+    Choisissez votre profil
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <p class="eyebrow">Bienvenue sur VoyageVista</p>
+  <h1 class="hero-tagline">Qui êtes-<strong>vous</strong> ?</h1>
+  <p class="hero-subtitle">Sélectionnez votre rôle pour accéder à l'expérience qui vous correspond.</p>
+  <div class="divider"></div>
+
+  <div class="role-cards" role="group" aria-label="Sélection du rôle">
+
+    <!-- Utilisateur -->
+    <div class="role-card" id="card-user" onclick="selectRole('user')" tabindex="0" role="button" aria-pressed="false">
+      <div class="card-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <div class="card-title">Utilisateur</div>
+      <div class="card-desc">Planifiez vos voyages, réservez des séjours et gérez vos itinéraires.</div>
+      <span class="card-badge badge-user">Voyageur</span>
+    </div>
+
+    <!-- Prestataire -->
+    <div class="role-card" id="card-presta" onclick="selectRole('presta')" tabindex="0" role="button" aria-pressed="false">
+      <div class="card-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+      </div>
+      <div class="card-title">Prestataire</div>
+      <div class="card-desc">Publiez vos offres, gérez vos disponibilités et suivez vos réservations.</div>
+      <span class="card-badge badge-presta">Professionnel</span>
+    </div>
+
+    <!-- Administrateur -->
+    <div class="role-card" id="card-admin" onclick="selectRole('admin')" tabindex="0" role="button" aria-pressed="false">
+      <div class="card-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="card-title">Administrateur</div>
+      <div class="card-desc">Supervisez la plateforme, validez les offres et gérez les utilisateurs.</div>
+      <span class="card-badge badge-admin">Accès restreint</span>
+    </div>
+
+  </div>
+
+  <div class="action-wrap">
+    <button class="btn-continuer" id="btn-continuer" onclick="handleContinue()" disabled>
+      Continuer
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <p class="action-hint" id="action-hint">Cliquez sur un profil pour continuer</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.html">Toutes les destinations</a>
+        <a href="transport.html">Transports</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="activites.html">Activités</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.html">Connexion</a>
+        <a href="mon-espace.html">Mon espace</a>
+        <a href="panier.html">Mon panier</a>
+        <a href="itineraire.html">Mes itinéraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="a-propos.html">À propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Réseaux sociaux</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Tous droits réservés</span>
+      <div class="footer-bottom-links">
+        <a href="cgu.html">CGU</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const destinations = {
+    user:   'accueil.html',
+    presta: 'espace-prestataire.html',
+    admin:  'admin-dashboard.html'
+  };
+  const labels = {
+    user:   'Utilisateur',
+    presta: 'Prestataire',
+    admin:  'Administrateur'
+  };
+
+  let selected = null;
+
+  function selectRole(role) {
+    selected = role;
+
+    ['user', 'presta', 'admin'].forEach(r => {
+      const card = document.getElementById('card-' + r);
+      card.classList.toggle('selected', r === role);
+      card.setAttribute('aria-pressed', r === role ? 'true' : 'false');
+    });
+
+    const btn = document.getElementById('btn-continuer');
+    btn.classList.add('active');
+    btn.removeAttribute('disabled');
+
+    document.getElementById('action-hint').textContent =
+      'Profil sélectionné : ' + labels[role];
+  }
+
+  function handleContinue() {
+    if (!selected) return;
+    window.location.href = destinations[selected];
+  }
+
+  /* Navigation clavier (Entrée / Espace sur les cards) */
+  document.querySelectorAll('.role-card').forEach(card => {
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+</script>
+</body>
+</html>
