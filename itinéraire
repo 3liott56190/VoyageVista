@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoyageVista – Mon Itinéraire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:               #f5f3ef;
+      --surface:          #ffffff;
+      --border:           #e2ddd6;
+      --text:             #1a1714;
+      --muted:            #788a7b;
+      --accent:           #013819;
+      --accent-soft:      #e4f5ea;
+      --accent-dark:      #012503;
+      --header-h:         64px;
+      --sidebar-w:        200px;
+      --radius:           14px;
+      --shadow:           0 2px 16px rgba(0,0,0,.07);
+      --color-transport:  #2563eb;
+      --color-heberg:     #059669;
+      --color-activite:   #7c3aed;
+      --color-dest:       #c9672b;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── HEADER ── */
+    header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow); }
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge { height: var(--header-h); background: var(--accent); display: flex; align-items: center; padding: 0 28px 0 24px; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%); }
+    .logo-badge span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: .02em; white-space: nowrap; }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn { width: 40px; height: 40px; border: 1.5px solid var(--border); border-radius: 50%; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text); transition: background .18s, border-color .18s; text-decoration: none; position: relative; }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .icon-btn .dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; border: 2px solid var(--surface); }
+    .btn-connexion { height: 36px; padding: 0 20px; border: 1.5px solid var(--accent-dark); border-radius: 8px; background: transparent; font-family: 'DM Sans', sans-serif; font-size: .875rem; font-weight: 500; cursor: pointer; transition: background .18s, color .18s; }
+    .btn-connexion:hover { background: var(--accent); color: #fff; }
+
+    /* ── SIDEBAR NAV ── */
+    aside.nav-sidebar { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); position: fixed; top: var(--header-h); left: 0; bottom: 0; padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto; z-index: 80; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-size: .9rem; font-weight: 400; color: var(--muted); transition: background .15s, color .15s; }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item.active svg { stroke: #fff; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { margin-top: var(--header-h); margin-left: var(--sidebar-w); background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .page-header-left { display: flex; flex-direction: column; gap: 3px; }
+    .page-eyebrow { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+    .page-sub { font-size: .82rem; color: var(--muted); }
+    .page-header-right { display: flex; gap: 10px; align-items: center; }
+    .btn-secondary { height: 36px; padding: 0 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--surface); font-family: 'DM Sans', sans-serif; font-size: .82rem; font-weight: 500; color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: border-color .18s, background .18s; white-space: nowrap; }
+    .btn-secondary:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+    .btn-secondary svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .btn-primary { height: 36px; padding: 0 16px; border: none; border-radius: 8px; background: var(--accent); font-family: 'DM Sans', sans-serif; font-size: .82rem; font-weight: 600; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background .18s; white-space: nowrap; }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 2; }
+
+    /* ── TABS SÉJOURS ── */
+    .tabs-bar { margin-left: var(--sidebar-w); background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; gap: 0; overflow-x: auto; }
+    .tab-btn { padding: 14px 20px; border: none; border-bottom: 2px solid transparent; background: none; font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; transition: color .15s, border-color .15s; display: flex; align-items: center; gap: 8px; }
+    .tab-btn:hover { color: var(--accent); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+    .tab-btn .tab-badge { background: var(--accent); color: #fff; font-size: .65rem; font-weight: 700; padding: 1px 6px; border-radius: 99px; }
+    .tab-add { margin-left: 8px; padding: 6px 14px; border: 1.5px dashed var(--border); border-radius: 8px; background: none; font-family: 'DM Sans', sans-serif; font-size: .8rem; color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: border-color .18s, color .18s; white-space: nowrap; }
+    .tab-add:hover { border-color: var(--accent); color: var(--accent); }
+    .tab-del { margin-left: 6px; width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.2); display: none; align-items: center; justify-content: center; cursor: pointer; font-size: .7rem; color: inherit; }
+    .tab-btn.active .tab-del { display: flex; }
+
+    /* ── LAYOUT PRINCIPAL ── */
+    .main-layout { margin-left: var(--sidebar-w); display: flex; align-items: flex-start; padding: 24px; gap: 20px; flex: 1; }
+
+    /* ── PANNEAU GAUCHE : TIMELINE ── */
+    .composition-panel { width: 340px; flex-shrink: 0; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; position: sticky; top: calc(var(--header-h) + 128px); max-height: calc(100vh - var(--header-h) - 148px); overflow-y: auto; }
+    .comp-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .comp-count { font-size: .72rem; font-weight: 500; color: var(--muted); font-family: 'DM Sans', sans-serif; }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; flex: 1; }
+    .tl-item { display: flex; gap: 10px; position: relative; padding-bottom: 18px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .tl-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .tl-dot.transport  { background: var(--color-transport); }
+    .tl-dot.heberg     { background: var(--color-heberg); }
+    .tl-dot.activite   { background: var(--color-activite); }
+    .tl-dot.dest       { background: var(--color-dest); }
+    .tl-line { width: 2px; flex: 1; background: var(--border); margin-top: 4px; min-height: 12px; }
+    .tl-item:last-child .tl-line { display: none; }
+    .tl-content { flex: 1; min-width: 0; }
+    .tl-type { font-size: .67rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1px; }
+    .tl-type.transport { color: var(--color-transport); }
+    .tl-type.heberg    { color: var(--color-heberg); }
+    .tl-type.activite  { color: var(--color-activite); }
+    .tl-type.dest      { color: var(--color-dest); }
+    .tl-name { font-size: .88rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tl-detail { font-size: .73rem; color: var(--muted); line-height: 1.5; margin-top: 1px; }
+    .tl-prix { font-size: .76rem; font-weight: 700; color: var(--text); margin-top: 2px; }
+    .tl-remove { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 3px; transition: all .15s; opacity: 0; }
+    .tl-item:hover .tl-remove { opacity: 1; }
+    .tl-remove:hover { background: #fee; border-color: #e88; }
+    .tl-remove svg { width: 10px; height: 10px; stroke: var(--muted); fill: none; stroke-width: 2.5; }
+    .tl-remove:hover svg { stroke: #c0363a; }
+
+    /* Boutons ajouter */
+    .comp-actions { display: flex; flex-direction: column; gap: 7px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .btn-add { height: 36px; border: 1.5px dashed var(--border); border-radius: 8px; background: var(--bg); font-family: 'DM Sans', sans-serif; font-size: .8rem; font-weight: 500; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all .18s; }
+    .btn-add svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .btn-add:hover { border-style: solid; }
+    .btn-add.t-add:hover  { border-color: var(--color-transport); color: var(--color-transport); background: #eff6ff; }
+    .btn-add.h-add:hover  { border-color: var(--color-heberg);    color: var(--color-heberg);    background: #f0fdf4; }
+    .btn-add.a-add:hover  { border-color: var(--color-activite);  color: var(--color-activite);  background: #faf5ff; }
+
+    /* Alerte retour */
+    .alert-w { margin-top: 12px; padding: 9px 12px; background: #fff9e6; border: 1px solid #f5d87a; border-radius: 8px; font-size: .73rem; color: #92610a; display: flex; align-items: flex-start; gap: 7px; line-height: 1.5; }
+    .alert-w svg { width: 13px; height: 13px; stroke: #92610a; fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 1px; }
+    .hidden { display: none !important; }
+
+    /* État vide */
+    .empty-comp { text-align: center; padding: 32px 16px; color: var(--muted); }
+    .empty-comp svg { width: 34px; height: 34px; stroke: var(--muted); fill: none; stroke-width: 1.3; opacity: .4; margin-bottom: 10px; }
+    .empty-comp p { font-size: .8rem; line-height: 1.7; }
+    .empty-comp strong { color: var(--accent); }
+
+    /* ── PANNEAU DROIT ── */
+    .right-panel { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+    /* Carte */
+    .map-placeholder { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; height: 300px; position: relative; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center; }
+    .map-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #e8f0e8 0%, #d0e4d0 50%, #c0d8c0 100%); }
+    .map-bg::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 25% 35%, rgba(255,255,255,.5) 0%, transparent 35%), radial-gradient(circle at 75% 65%, rgba(255,255,255,.35) 0%, transparent 30%); }
+    .map-label { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(0,0,0,.3); }
+    .map-label svg { width: 28px; height: 28px; stroke: rgba(0,0,0,.22); fill: none; stroke-width: 1.5; }
+    .map-label span { font-size: .78rem; font-style: italic; }
+    .map-point { position: absolute; width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,.22); font-size: .62rem; font-weight: 700; color: #fff; cursor: pointer; z-index: 2; transition: transform .18s; }
+    .map-point:hover { transform: scale(1.18); z-index: 10; }
+    .map-point.t-pt  { background: var(--color-transport); }
+    .map-point.h-pt  { background: var(--color-heberg); }
+    .map-point.a-pt  { background: var(--color-activite); }
+    .map-point.d-pt  { background: var(--color-dest); }
+    .map-tooltip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; font-size: .7rem; padding: 5px 9px; border-radius: 6px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .18s; }
+    .map-point:hover .map-tooltip { opacity: 1; }
+
+    /* Légende carte */
+    .map-legend { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; flex-wrap: wrap; z-index: 3; }
+    .legend-item { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,.85); border-radius: 99px; padding: 3px 9px; font-size: .68rem; font-weight: 600; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Récapitulatif */
+    .recap-panel { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); }
+    .recap-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .recap-sejour-name { font-size: .75rem; font-weight: 500; color: var(--muted); font-family: 'DM Sans', sans-serif; }
+    .recap-rows { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+    .recap-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .recap-row-left { display: flex; align-items: center; gap: 8px; font-size: .84rem; color: var(--text); }
+    .recap-row-price { font-size: .86rem; font-weight: 600; color: var(--text); }
+    .recap-sep { height: 1px; background: var(--border); margin: 10px 0; }
+    .recap-total-wrap { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 6px; }
+    .recap-total-label { font-size: .82rem; color: var(--muted); }
+    .recap-total-price { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--accent); }
+    .recap-mention { font-size: .7rem; color: var(--muted); margin-bottom: 16px; }
+    .btn-reserver { width: 100%; height: 44px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: .92rem; font-weight: 600; cursor: pointer; transition: background .18s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-reserver:hover { background: var(--accent-dark); }
+    .btn-reserver:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-reserver svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.2; }
+
+    /* Bandeau info localStorage */
+    .info-banner { margin-left: var(--sidebar-w); background: var(--accent-soft); border-bottom: 1px solid #b8dfc0; padding: 10px 32px; font-size: .8rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+    .info-banner svg { width: 14px; height: 14px; stroke: var(--accent); fill: none; stroke-width: 2; flex-shrink: 0; }
+    .info-banner strong { font-weight: 600; }
+
+    /* ── MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .22s; }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--surface); border-radius: 16px; width: 460px; max-width: calc(100vw - 32px); max-height: 80vh; overflow-y: auto; padding: 26px; box-shadow: 0 24px 64px rgba(0,0,0,.2); transform: translateY(18px); transition: transform .22s; }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+    .modal-close { width: 30px; height: 30px; border: 1.5px solid var(--border); border-radius: 50%; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: var(--accent-soft); }
+    .modal-close svg { width: 13px; height: 13px; stroke: var(--text); fill: none; stroke-width: 2; }
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+    .form-input, .form-select { width: 100%; height: 40px; padding: 0 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .86rem; color: var(--text); background: var(--bg); outline: none; transition: border-color .18s; appearance: none; }
+    .form-input:focus, .form-select:focus { border-color: var(--accent); background: #fff; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .modal-footer { display: flex; gap: 10px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); justify-content: flex-end; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 10px; font-size: .84rem; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,.2); z-index: 999; display: flex; align-items: center; gap: 8px; transform: translateY(80px); opacity: 0; transition: all .35s cubic-bezier(.22,.68,0,1.2); pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+    /* Nouveau séjour modal */
+    .sejour-modal-content { display: flex; flex-direction: column; gap: 14px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--text); color: rgba(255,255,255,.7); }
+    .footer-inner { padding: 36px 48px 24px; margin-left: var(--sidebar-w); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 28px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .footer-tagline { font-size: .85rem; line-height: 1.6; }
+    .footer-col h4 { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin-bottom: 12px; }
+    .footer-col a { display: block; color: rgba(255,255,255,.6); text-decoration: none; font-size: .85rem; margin-bottom: 7px; transition: color .15s; }
+    .footer-col a:hover { color: #6fcf97; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 18px; display: flex; align-items: center; justify-content: space-between; font-size: .78rem; }
+    .footer-bottom-links { display: flex; gap: 18px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom-links a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="accueil.php" class="logo">
+    <div class="logo-badge"><span>VoyageVista</span></div>
+  </a>
+  <div class="header-right">
+    <a href="mon-espace.php" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="notifications.php" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+  </div>
+</header>
+
+<!-- SIDEBAR NAV -->
+<aside class="nav-sidebar">
+  <a href="accueil.php"      class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+  <a href="catalogue.php"   class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+  <a href="transport.php"   class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+  <a href="hebergement.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+  <a href="activites.php"   class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+  <a href="itineraire.php"  class="nav-item active"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+  <a href="panier.php"      class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+  <a href="notifications.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+  <a href="mon-espace.php"  class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+</aside>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-left">
+    <span class="page-eyebrow">Planifier</span>
+    <h1 class="page-title">Mon Itinéraire</h1>
+    <p class="page-sub">Vos sélections des autres onglets apparaissent ici automatiquement.</p>
+  </div>
+  <div class="page-header-right">
+    <button class="btn-secondary" onclick="exportPDF()">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Exporter PDF
+    </button>
+    <button class="btn-secondary" onclick="partagerItineraire()">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Partager
+    </button>
+    <button class="btn-primary" onclick="ouvrirNouveauSejour()">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nouveau séjour
+    </button>
+  </div>
+</div>
+
+<!-- BANDEAU INFO -->
+<div class="info-banner">
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span>Les éléments ajoutés depuis le <strong>Catalogue</strong>, <strong>Hébergement</strong>, <strong>Transport</strong> et <strong>Activités</strong> s'accumulent ici automatiquement. Vous pouvez aussi en ajouter manuellement ci-dessous.</span>
+</div>
+
+<!-- TABS SÉJOURS -->
+<div class="tabs-bar" id="tabs-bar">
+  <!-- Rendu par JS -->
+  <button class="tab-add" onclick="ouvrirNouveauSejour()">
+    <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Nouveau séjour
+  </button>
+</div>
+
+<!-- LAYOUT PRINCIPAL -->
+<div class="main-layout">
+
+  <!-- PANNEAU GAUCHE : TIMELINE -->
+  <div class="composition-panel">
+    <div class="comp-title">
+      Composition du séjour
+      <span class="comp-count" id="comp-count">0 élément</span>
+    </div>
+    <div class="timeline" id="timeline"></div>
+    <div class="comp-actions">
+      <button class="btn-add t-add" onclick="ouvrirModal('transport')">
+        <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+        + Ajouter un transport manuellement
+      </button>
+      <button class="btn-add h-add" onclick="ouvrirModal('hebergement')">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        + Ajouter un hébergement manuellement
+      </button>
+      <button class="btn-add a-add" onclick="ouvrirModal('activite')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        + Ajouter une activité manuellement
+      </button>
+    </div>
+    <div class="alert-w hidden" id="alert-retour">
+      <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Transport retour non ajouté · Pensez à compléter votre itinéraire
+    </div>
+  </div>
+
+  <!-- PANNEAU DROIT -->
+  <div class="right-panel">
+
+    <!-- Carte simulée -->
+    <div class="map-placeholder" id="map-container">
+      <div class="map-bg"></div>
+      <div class="map-label" id="map-label">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Ajoutez des éléments pour voir votre parcours</span>
+      </div>
+      <div class="map-legend" id="map-legend" style="display:none;">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-transport)"></div>Transport</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-heberg)"></div>Hébergement</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-activite)"></div>Activité</div>
+      </div>
+    </div>
+
+    <!-- Récapitulatif -->
+    <div class="recap-panel">
+      <div class="recap-title">
+        Récapitulatif
+        <span class="recap-sejour-name" id="recap-sejour-name"></span>
+      </div>
+      <div class="recap-rows" id="recap-rows"></div>
+      <div class="recap-sep"></div>
+      <div class="recap-total-wrap">
+        <span class="recap-total-label">Total estimé</span>
+        <span class="recap-total-price" id="recap-total">0 €</span>
+      </div>
+      <p class="recap-mention">Prix indicatifs · Taxes et frais inclus · Sous réserve de disponibilités</p>
+      <button class="btn-reserver" id="btn-reserver" onclick="reserver()" disabled>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        Valider et réserver
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.php">Toutes les destinations</a>
+        <a href="transport.php">Transports</a>
+        <a href="hebergement.php">Hébergements</a>
+        <a href="activites.php">Activités</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.php">Connexion</a>
+        <a href="mon-espace.php">Mon espace</a>
+        <a href="panier.php">Mon panier</a>
+        <a href="itineraire.php">Mes itinéraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="a-propos.php">À propos</a>
+        <a href="cgu.php">CGU</a>
+        <a href="contact.php">Contact</a>
+        <a href="#">Réseaux sociaux</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Tous droits réservés</span>
+      <div class="footer-bottom-links">
+        <a href="cgu.php">CGU</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="contact.php">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="fermerModalSiDehors(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Ajouter</div>
+      <button class="modal-close" onclick="fermerModal()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="fermerModal()">Annuler</button>
+      <button class="btn-primary" id="modal-confirm" onclick="confirmerAjout()">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Ajouter à l'itinéraire
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Élément ajouté</span>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+//  GESTION DES SÉJOURS VIA LOCALSTORAGE
+//  Clés :
+//    vv_sejours        → [{id, nom, emoji}]   liste des séjours
+//    vv_actif          → index du séjour actif
+//    vv_items_{id}     → [{id, type, sous_type?, nom, detail, prix, source}]
+// ══════════════════════════════════════════════════════════════
+
+let sejourActif = 0;
+let modalType   = '';
+let nextItemId  = Date.now();
+
+// ── UTILS LOCALSTORAGE ──
+
+function getSejours() {
+  try {
+    const s = JSON.parse(localStorage.getItem('vv_sejours') || 'null');
+    if (s && s.length) return s;
+  } catch(e) {}
+  // Séjour par défaut
+  const def = [{ id: 'sejour_1', nom: 'Mon premier séjour', emoji: '✈' }];
+  localStorage.setItem('vv_sejours', JSON.stringify(def));
+  return def;
+}
+
+function saveSejours(s) {
+  localStorage.setItem('vv_sejours', JSON.stringify(s));
+}
+
+function getActif() {
+  return parseInt(localStorage.getItem('vv_actif') || '0');
+}
+
+function setActif(i) {
+  sejourActif = i;
+  localStorage.setItem('vv_actif', i);
+}
+
+function cleItems(sejourId) {
+  return 'vv_items_' + sejourId;
+}
+
+function getItems(sejourId) {
+  try { return JSON.parse(localStorage.getItem(cleItems(sejourId)) || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveItems(sejourId, items) {
+  localStorage.setItem(cleItems(sejourId), JSON.stringify(items));
+}
+
+// ── AJOUT DEPUIS LES AUTRES PAGES (API publique) ──
+// Les autres pages appellent : VoyageVista.ajouterElement({type, nom, detail, prix, sous_type?})
+
+window.VoyageVista = {
+  ajouterElement(el) {
+    const sejours = getSejours();
+    const idx = getActif();
+    const sejour = sejours[idx];
+    if (!sejour) return;
+    const items = getItems(sejour.id);
+    el.id = Date.now() + Math.random();
+    el.source = el.source || 'manuel';
+    items.push(el);
+    saveItems(sejour.id, items);
+    afficherToast(`"${el.nom}" ajouté à l'itinéraire !`);
+    render();
+  },
+  getSejourActif() {
+    const sejours = getSejours();
+    return sejours[getActif()];
+  }
+};
+
+// ── POSITIONS CARTE SIMULÉES ──
+const MAP_POS = [
+  {x:22,y:35},{x:48,y:48},{x:68,y:30},{x:35,y:62},
+  {x:60,y:58},{x:78,y:42},{x:28,y:52},{x:55,y:25},
+  {x:42,y:70},{x:72,y:65},{x:15,y:45},{x:85,y:52},
+];
+
+// ── RENDU ONGLETS ──
+function renderTabs() {
+  const sejours = getSejours();
+  const bar = document.getElementById('tabs-bar');
+  const addBtn = bar.querySelector('.tab-add');
+
+  // Supprimer les anciens tabs
+  bar.querySelectorAll('.tab-btn').forEach(b => b.remove());
+
+  sejours.forEach((s, i) => {
+    const items = getItems(s.id);
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === sejourActif ? ' active' : '');
+    btn.id = 'tab-' + i;
+    btn.innerHTML = `${s.emoji} ${s.nom} <span class="tab-badge">${items.length}</span>`;
+    btn.onclick = () => switchTab(i);
+    bar.insertBefore(btn, addBtn);
+  });
+}
+
+// ── RENDU PRINCIPAL ──
+function render() {
+  const sejours = getSejours();
+  const sejour  = sejours[sejourActif];
+  if (!sejour) return;
+  const items = getItems(sejour.id);
+
+  // Mise à jour nom recap
+  document.getElementById('recap-sejour-name').textContent = sejour.emoji + ' ' + sejour.nom;
+
+  // Compteur
+  const n = items.length;
+  document.getElementById('comp-count').textContent = n + ' élément' + (n > 1 ? 's' : '');
+
+  // ── TIMELINE ──
+  const tl = document.getElementById('timeline');
+  if (!n) {
+    tl.innerHTML = `
+      <div class="empty-comp">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>
+        <p>Votre itinéraire est vide.<br>
+        Ajoutez des éléments depuis le <strong>Catalogue</strong>,<br>
+        <strong>Transport</strong>, <strong>Hébergement</strong> ou <strong>Activités</strong>,<br>
+        ou utilisez les boutons ci-dessous.</p>
+      </div>`;
+  } else {
+    tl.innerHTML = items.map((el, i) => {
+      const tc = typeClass(el);
+      const tl2 = typeLabel(el);
+      const src = el.source && el.source !== 'manuel'
+        ? `<span style="font-size:.65rem;color:var(--muted);"> · via ${el.source}</span>` : '';
+      return `
+        <div class="tl-item">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot ${tc}"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-type ${tc}">${tl2}${src}</div>
+            <div class="tl-name">${el.nom}</div>
+            <div class="tl-detail">${el.detail || ''}</div>
+            ${el.prix ? `<div class="tl-prix">${Number(el.prix).toLocaleString('fr-FR')} €</div>` : ''}
+          </div>
+          <button class="tl-remove" onclick="supprimerItem('${sejour.id}', '${el.id}')" title="Supprimer">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>`;
+    }).join('');
+  }
+
+  // ── ALERTE RETOUR ──
+  const hasAller  = items.some(e => e.type === 'transport' && e.sous_type !== 'retour');
+  const hasRetour = items.some(e => e.type === 'transport' && e.sous_type === 'retour');
+  document.getElementById('alert-retour').classList.toggle('hidden', !hasAller || hasRetour);
+
+  // ── CARTE SIMULÉE ──
+  const map = document.getElementById('map-container');
+  map.querySelectorAll('.map-point').forEach(p => p.remove());
+  const label = document.getElementById('map-label');
+  const legend = document.getElementById('map-legend');
+  label.style.display = n ? 'none' : '';
+  legend.style.display = n ? '' : 'none';
+  items.forEach((el, i) => {
+    const pos = MAP_POS[i % MAP_POS.length];
+    const pt = document.createElement('div');
+    pt.className = `map-point ${mapClass(el)}`;
+    pt.style.left = pos.x + '%';
+    pt.style.top  = pos.y + '%';
+    pt.textContent = i + 1;
+    const tip = document.createElement('div');
+    tip.className = 'map-tooltip';
+    tip.textContent = el.nom;
+    pt.appendChild(tip);
+    map.appendChild(pt);
+  });
+
+  // ── RÉCAPITULATIF ──
+  const transports   = items.filter(e => e.type === 'transport');
+  const hebergements = items.filter(e => e.type === 'hebergement');
+  const activites    = items.filter(e => e.type === 'activite');
+  const destinations = items.filter(e => e.type === 'destination');
+  const total = items.reduce((s, e) => s + (Number(e.prix) || 0), 0);
+
+  const recap = document.getElementById('recap-rows');
+  let html = '';
+  if (destinations.length) html += recapRow('🗺', `Destination (${destinations.length})`, destinations.reduce((s,e)=>s+(Number(e.prix)||0),0));
+  if (transports.length)   html += recapRow('✈', `Transport (${transports.length})`,   transports.reduce((s,e)=>s+(Number(e.prix)||0),0));
+  if (hebergements.length) html += recapRow('🏨', `Hébergement (${hebergements.length})`, hebergements.reduce((s,e)=>s+(Number(e.prix)||0),0));
+  if (activites.length)    html += recapRow('🎯', `Activités (${activites.length})`,     activites.reduce((s,e)=>s+(Number(e.prix)||0),0));
+  if (!n) html = `<p style="font-size:.82rem;color:var(--muted);">Aucun élément ajouté.</p>`;
+  recap.innerHTML = html;
+
+  document.getElementById('recap-total').textContent = total.toLocaleString('fr-FR') + ' €';
+  document.getElementById('btn-reserver').disabled = n === 0;
+
+  // Mise à jour des tabs (badges)
+  renderTabs();
+}
+
+function recapRow(icon, label, prix) {
+  return `<div class="recap-row">
+    <div class="recap-row-left">${icon} ${label}</div>
+    <div class="recap-row-price">${Number(prix).toLocaleString('fr-FR')} €</div>
+  </div>`;
+}
+
+// ── HELPERS TYPE ──
+function typeClass(el) {
+  if (el.type === 'transport')   return 'transport';
+  if (el.type === 'hebergement') return 'heberg';
+  if (el.type === 'activite')    return 'activite';
+  return 'dest';
+}
+function mapClass(el) {
+  if (el.type === 'transport')   return 't-pt';
+  if (el.type === 'hebergement') return 'h-pt';
+  if (el.type === 'activite')    return 'a-pt';
+  return 'd-pt';
+}
+function typeLabel(el) {
+  if (el.type === 'transport')   return el.sous_type === 'retour' ? 'Transport retour' : 'Transport aller';
+  if (el.type === 'hebergement') return 'Hébergement';
+  if (el.type === 'activite')    return 'Activité';
+  return 'Destination';
+}
+
+// ── SUPPRESSION ──
+function supprimerItem(sejourId, itemId) {
+  const items = getItems(sejourId).filter(e => String(e.id) !== String(itemId));
+  saveItems(sejourId, items);
+  render();
+}
+
+// ── CHANGEMENT D'ONGLET ──
+function switchTab(i) {
+  setActif(i);
+  render();
+}
+
+// ── NOUVEAU SÉJOUR ──
+function ouvrirNouveauSejour() {
+  modalType = 'nouveau_sejour';
+  document.getElementById('modal-title').textContent = '✈ Nouveau séjour';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="sejour-modal-content">
+      <div class="form-group">
+        <label class="form-label">Nom du séjour</label>
+        <input class="form-input" id="f-sejour-nom" placeholder="Ex : Tokyo Printemps 2026" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Emoji</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+          ${['✈','🌴','🏔','🏙','🌊','🗺','🎒','🌅','🏖','🧭'].map(e =>
+            `<button type="button" onclick="selectEmoji('${e}',this)" style="font-size:1.3rem;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);cursor:pointer;">${e}</button>`
+          ).join('')}
+        </div>
+        <input type="hidden" id="f-sejour-emoji" value="✈" />
+      </div>
+    </div>`;
+  document.getElementById('modal-confirm').textContent = 'Créer le séjour';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function selectEmoji(e, btn) {
+  document.querySelectorAll('#modal-body button[type=button]').forEach(b => b.style.borderColor = 'var(--border)');
+  btn.style.borderColor = 'var(--accent)';
+  document.getElementById('f-sejour-emoji').value = e;
+}
+
+// ── MODAL ÉLÉMENT ──
+const modalsConfig = {
+  transport: {
+    title: '✈ Ajouter un transport',
+    body: `
+      <div class="form-group"><label class="form-label">Numéro de vol / Train / Bus</label><input class="form-input" id="f-nom" placeholder="AF254, TGV 6201…" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Départ</label><input class="form-input" id="f-dep" placeholder="Paris CDG" /></div>
+        <div class="form-group"><label class="form-label">Arrivée</label><input class="form-input" id="f-arr" placeholder="Bali DPS" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="f-date" type="date" /></div>
+        <div class="form-group"><label class="form-label">Heure</label><input class="form-input" id="f-heure" type="time" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Type</label>
+          <select class="form-select" id="f-sous-type"><option value="aller">Aller</option><option value="retour">Retour</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Prix total (€)</label><input class="form-input" id="f-prix" type="number" placeholder="789" min="0" /></div>
+      </div>`,
+    build: () => {
+      const dep  = document.getElementById('f-dep').value;
+      const arr  = document.getElementById('f-arr').value;
+      const nom  = document.getElementById('f-nom').value || [dep, arr].filter(Boolean).join(' → ') || 'Transport';
+      const date = document.getElementById('f-date').value;
+      const h    = document.getElementById('f-heure').value;
+      const sous = document.getElementById('f-sous-type').value;
+      const prix = parseFloat(document.getElementById('f-prix').value) || 0;
+      const dateFmt = date ? new Date(date).toLocaleDateString('fr-FR',{day:'numeric',month:'short'}) : '';
+      return { type:'transport', sous_type:sous, nom, detail:[dateFmt,h].filter(Boolean).join(' · '), prix, source:'manuel' };
+    }
+  },
+  hebergement: {
+    title: '🏨 Ajouter un hébergement',
+    body: `
+      <div class="form-group"><label class="form-label">Nom</label><input class="form-input" id="f-nom" placeholder="The Kayon Resort…" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Ville</label><input class="form-input" id="f-ville" placeholder="Ubud" /></div>
+        <div class="form-group"><label class="form-label">Nuits</label><input class="form-input" id="f-nuits" type="number" placeholder="7" min="1" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Prix / nuit (€)</label><input class="form-input" id="f-prix-nuit" type="number" placeholder="125" min="0" /></div>
+        <div class="form-group"><label class="form-label">Type</label>
+          <select class="form-select" id="f-type-hb">
+            <option>Hôtel</option><option>Auberge</option><option>Guesthouse</option>
+            <option>Bungalow</option><option>Riad</option><option>Yourte</option><option>Appartement</option>
+          </select>
+        </div>
+      </div>`,
+    build: () => {
+      const nom   = document.getElementById('f-nom').value || 'Hébergement';
+      const ville = document.getElementById('f-ville').value;
+      const nuits = parseInt(document.getElementById('f-nuits').value) || 1;
+      const pNuit = parseFloat(document.getElementById('f-prix-nuit').value) || 0;
+      return { type:'hebergement', nom, detail:[ville,`${nuits} nuits · ${pNuit}€/nuit`].filter(Boolean).join(' · '), prix:nuits*pNuit, source:'manuel' };
+    }
+  },
+  activite: {
+    title: '🎯 Ajouter une activité',
+    body: `
+      <div class="form-group"><label class="form-label">Nom de l'activité</label><input class="form-input" id="f-nom" placeholder="Randonnée Tegallalang…" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="f-date" type="date" /></div>
+        <div class="form-group"><label class="form-label">Heure</label><input class="form-input" id="f-heure" type="time" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Prix / pers. (€)</label><input class="form-input" id="f-prix" type="number" placeholder="45" min="0" /></div>
+        <div class="form-group"><label class="form-label">Durée</label><input class="form-input" id="f-duree" placeholder="3h" /></div>
+      </div>`,
+    build: () => {
+      const nom  = document.getElementById('f-nom').value || 'Activité';
+      const date = document.getElementById('f-date').value;
+      const h    = document.getElementById('f-heure').value;
+      const prix = parseFloat(document.getElementById('f-prix').value) || 0;
+      const dur  = document.getElementById('f-duree').value;
+      const dateFmt = date ? new Date(date).toLocaleDateString('fr-FR',{day:'numeric',month:'short'}) : '';
+      return { type:'activite', nom, detail:[dateFmt,h,dur].filter(Boolean).join(' · '), prix, source:'manuel' };
+    }
+  }
+};
+
+function ouvrirModal(type) {
+  modalType = type;
+  const cfg = modalsConfig[type];
+  document.getElementById('modal-title').textContent = cfg.title;
+  document.getElementById('modal-body').innerHTML = cfg.body;
+  document.getElementById('modal-confirm').textContent = 'Ajouter à l\'itinéraire';
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => { const f = document.querySelector('#modal-body .form-input'); if(f) f.focus(); }, 80);
+}
+
+function fermerModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function fermerModalSiDehors(e) { if (e.target === document.getElementById('modal-overlay')) fermerModal(); }
+
+function confirmerAjout() {
+  if (modalType === 'nouveau_sejour') {
+    const nom   = (document.getElementById('f-sejour-nom').value || '').trim();
+    const emoji = document.getElementById('f-sejour-emoji').value || '✈';
+    if (!nom) { document.getElementById('f-sejour-nom').focus(); return; }
+    const sejours = getSejours();
+    const newId   = 'sejour_' + Date.now();
+    sejours.push({ id: newId, nom, emoji });
+    saveSejours(sejours);
+    setActif(sejours.length - 1);
+    fermerModal();
+    render();
+    afficherToast(`Séjour "${nom}" créé !`);
+    return;
+  }
+  const cfg = modalsConfig[modalType];
+  if (!cfg) return;
+  const el = cfg.build();
+  el.id = Date.now() + Math.random();
+  const sejours = getSejours();
+  const sejour  = sejours[sejourActif];
+  const items   = getItems(sejour.id);
+  items.push(el);
+  saveItems(sejour.id, items);
+  fermerModal();
+  render();
+  afficherToast(`"${el.nom}" ajouté !`);
+}
+
+// ── TOAST ──
+let toastTimer;
+function afficherToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── ACTIONS HEADER ──
+function reserver() {
+  afficherToast('Redirection vers le paiement… (à connecter au backend)');
+}
+
+function exportPDF() {
+  window.print();
+}
+
+function partagerItineraire() {
+  const url = window.location.href;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => afficherToast('Lien copié dans le presse-papiers !'));
+  } else {
+    afficherToast('Lien : ' + url);
+  }
+}
+
+// ── ÉCOUTEUR LOCALSTORAGE (synchro entre onglets navigateur) ──
+window.addEventListener('storage', e => {
+  if (e.key && e.key.startsWith('vv_')) render();
+});
+
+// ── INITIALISATION ──
+sejourActif = getActif();
+// S'assurer que l'index est valide
+const _s = getSejours();
+if (sejourActif >= _s.length) { sejourActif = 0; setActif(0); }
+render();
+</script>
+</body>
+</html>
