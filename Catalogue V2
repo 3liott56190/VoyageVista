@@ -18,6 +18,7 @@
       --accent-soft: #f5ece4;
       --accent-dark: #b05520;
       --header-h:    64px;
+      --sidebar-w:   200px;
       --radius:      14px;
       --shadow:      0 2px 16px rgba(0,0,0,.07);
     }
@@ -41,13 +42,75 @@
       clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
     }
     .logo-badge span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: .02em; white-space: nowrap; }
-    nav { display: flex; gap: 24px; align-items: center; }
-    nav a { font-size: .85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color .15s; }
-    nav a:hover, nav a.active { color: var(--accent); }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text);
+      transition: background .18s, border-color .18s;
+      text-decoration: none;
+      position: relative;
+    }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .icon-btn .dot {
+      position: absolute; top: 6px; right: 6px;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--surface);
+    }
+    .btn-connexion {
+      height: 36px; padding: 0 20px;
+      border: 1.5px solid var(--text);
+      border-radius: 8px;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 500;
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+    .btn-connexion:hover { background: var(--text); color: #fff; }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w);
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      bottom: 0;
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+      z-index: 80;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: .9rem; font-weight: 400;
+      color: var(--muted);
+      transition: background .15s, color .15s;
+    }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item.active svg { stroke: #fff; }
 
     /* ── HERO BANNER ── */
     .hero {
       margin-top: var(--header-h);
+      margin-left: var(--sidebar-w);
       background: var(--text);
       padding: 64px 48px 56px;
       position: relative;
@@ -74,6 +137,7 @@
       border-bottom: 1px solid var(--border);
       position: sticky; top: var(--header-h); z-index: 90;
       box-shadow: 0 2px 12px rgba(0,0,0,.04);
+      margin-left: var(--sidebar-w);
     }
     .filters-inner {
       max-width: 1200px; margin: 0 auto;
@@ -87,8 +151,7 @@
       border-radius: 99px;
       background: none;
       font-family: 'DM Sans', sans-serif;
-      font-size: .82rem;
-      font-weight: 500;
+      font-size: .82rem; font-weight: 500;
       color: var(--muted);
       cursor: pointer;
       transition: all .18s;
@@ -96,11 +159,8 @@
     }
     .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
     .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-    /* Séparateur vertical */
     .filter-sep { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
 
-    /* Recherche */
     .search-wrap { position: relative; margin-left: auto; }
     .search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; stroke: var(--muted); fill: none; stroke-width: 2; pointer-events: none; }
     .search-input {
@@ -114,17 +174,12 @@
     .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(201,103,43,.1); background: #fff; }
 
     /* ── GRILLE ── */
-    .catalogue-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; flex: 1; }
+    .catalogue-wrap { max-width: 1200px; margin: 0 auto 0 var(--sidebar-w); padding: 40px 24px 80px; flex: 1; }
     .results-info { font-size: .82rem; color: var(--muted); margin-bottom: 24px; }
     .results-info strong { color: var(--text); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    /* ── CARTE DESTINATION ── */
+    /* ── CARTE ── */
     .card {
       background: var(--surface);
       border: 1.5px solid var(--border);
@@ -139,25 +194,11 @@
       animation: cardIn .35s ease both;
     }
     .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(201,103,43,.14); border-color: var(--accent); }
-
     @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
-    /* Image */
-    .card-img {
-      position: relative;
-      width: 100%; height: 200px;
-      overflow: hidden;
-      background: #e8e2da;
-      flex-shrink: 0;
-    }
-    .card-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .4s ease;
-      display: block;
-    }
+    .card-img { position: relative; width: 100%; height: 200px; overflow: hidden; background: #e8e2da; flex-shrink: 0; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; display: block; }
     .card:hover .card-img img { transform: scale(1.06); }
-
-    /* Placeholder quand pas d'image */
     .card-img .img-placeholder {
       width: 100%; height: 100%;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -167,18 +208,13 @@
     .img-placeholder svg { width: 36px; height: 36px; stroke: var(--muted); fill: none; stroke-width: 1.4; opacity: .5; }
     .img-placeholder span { font-size: .72rem; color: var(--muted); letter-spacing: .05em; }
 
-    /* Badges sur l'image */
     .card-badges { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
-    .badge {
-      font-size: .65rem; font-weight: 700; letter-spacing: .04em;
-      text-transform: uppercase; padding: 4px 10px; border-radius: 99px;
-    }
+    .badge { font-size: .65rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; }
     .badge-reduction  { background: #fef2e0; color: #c07a10; border: 1px solid #f5d89a; }
     .badge-coeur      { background: #fde8e8; color: #c0363a; border: 1px solid #f5b8ba; }
     .badge-populaire  { background: #1a1714; color: #fff; }
     .badge-recommande { background: var(--accent); color: #fff; }
 
-    /* Note */
     .card-note {
       position: absolute; bottom: 12px; right: 12px;
       background: rgba(26,23,20,.75); backdrop-filter: blur(6px);
@@ -188,50 +224,30 @@
     }
     .card-note svg { width: 12px; height: 12px; fill: #f5c842; stroke: none; }
 
-    /* Contenu texte */
     .card-body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .card-meta { display: flex; align-items: center; gap: 6px; }
-    .tag-cat {
-      font-size: .67rem; font-weight: 600; letter-spacing: .06em;
-      text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
-      background: var(--accent-soft); color: var(--accent);
-      border: 1px solid #f0d0b8;
-    }
+    .tag-cat { font-size: .67rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); border: 1px solid #f0d0b8; }
     .tag-pays { font-size: .75rem; color: var(--muted); }
     .card-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.25; }
     .card-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-    .card-footer {
-      margin-top: auto; padding-top: 14px;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .card-footer { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .card-price { display: flex; flex-direction: column; }
     .price-from { font-size: .68rem; color: var(--muted); letter-spacing: .03em; }
     .price-val { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--accent); }
     .price-pp { font-size: .7rem; color: var(--muted); }
     .card-duree { font-size: .75rem; color: var(--muted); display: flex; align-items: center; gap: 5px; }
     .card-duree svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 2; }
-
-    .btn-voir {
-      padding: 7px 16px; background: var(--accent-soft);
-      border: 1px solid #f0d0b8; border-radius: 8px;
-      font-size: .78rem; font-weight: 600; color: var(--accent);
-      transition: background .15s, border-color .15s;
-    }
+    .btn-voir { padding: 7px 16px; background: var(--accent-soft); border: 1px solid #f0d0b8; border-radius: 8px; font-size: .78rem; font-weight: 600; color: var(--accent); transition: background .15s, border-color .15s; }
     .card:hover .btn-voir { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* Aucun résultat */
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center; padding: 80px 24px;
-    }
+    .empty-state { grid-column: 1 / -1; text-align: center; padding: 80px 24px; }
     .empty-state svg { width: 48px; height: 48px; stroke: var(--muted); fill: none; stroke-width: 1.3; opacity: .4; margin-bottom: 16px; }
     .empty-state p { font-size: .9rem; color: var(--muted); }
 
     /* ── FOOTER ── */
     footer { background: var(--text); color: rgba(255,255,255,.7); }
-    .footer-inner { padding: 40px 48px 28px; }
+    .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
     .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
     .footer-tagline { font-size: .875rem; line-height: 1.6; margin-bottom: 16px; }
@@ -251,14 +267,48 @@
   <a href="accueil.html" class="logo">
     <div class="logo-badge"><span>VoyageVista</span></div>
   </a>
-  <nav>
-    <a href="catalogue.html" class="active">Catalogue</a>
-    <a href="transport.html">Transports</a>
-    <a href="hebergement.html">Hébergements</a>
-    <a href="activites.html">Activités</a>
-    <a href="connexion.html">Mon compte</a>
-  </nav>
+  <div class="header-right">
+    <a href="mon-espace.html" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="notifications.html" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+  </div>
 </header>
+
+<!-- SIDEBAR -->
+<aside>
+  <a href="accueil.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
+  </a>
+  <a href="catalogue.html" class="nav-item active">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue
+  </a>
+  <a href="transport.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport
+  </a>
+  <a href="hebergement.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement
+  </a>
+  <a href="activites.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités
+  </a>
+  <a href="itineraire.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire
+  </a>
+  <a href="panier.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier
+  </a>
+  <a href="notifications.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications
+  </a>
+  <a href="mon-espace.html" class="nav-item">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace
+  </a>
+</aside>
 
 <!-- HERO -->
 <div class="hero">
@@ -344,41 +394,39 @@
 </footer>
 
 <script>
-  // ── DONNÉES (issues de la BDD) ──
   const destinations = [
-    { id: 1,  nom: 'Bali',                        pays: 'Indonésie',         continent: 'Asie',    categorie: 'Plage',     description: 'Île des dieux aux rizières en terrasses, temples mystiques et plages paradisiaques. Un incontournable pour les voyageurs en quête d\'authenticité.', prix: 890,  duree_min: 7,  duree_max: 21, note: 4.8, image:'imageBali.jpeg',                  populaire: true,  recommande: false, badge: 'Coup de cœur' },
-    { id: 2,  nom: 'Tenerife',                     pays: 'Espagne',           continent: 'Europe',  categorie: 'Plage',     description: 'La plus grande des Canaries offre volcans, plages noires et soleil toute l\'année à prix accessible depuis l\'Europe.',                           prix: 480,  duree_min: 5,  duree_max: 14, note: 4.4, image: 'imageTenerife.jpeg',              populaire: true,  recommande: false, badge: null },
-    { id: 3,  nom: 'Albanie Sud',                  pays: 'Albanie',           continent: 'Europe',  categorie: 'Plage',     description: 'La riviera albanaise cache des criques turquoise quasi-vierges à des prix défiant toute concurrence. Le secret le mieux gardé de la Méditerranée.', prix: 350,  duree_min: 5,  duree_max: 14, note: 4.5, image: 'imageAlbanieSud.jpeg',           populaire: false, recommande: true,  badge: 'Coup de cœur' },
-    { id: 4,  nom: 'Monténégro',                   pays: 'Monténégro',        continent: 'Europe',  categorie: 'Plage',     description: 'Fjords adriatiques, vieilles villes médiévales et plages immaculées dans un pays encore préservé du tourisme de masse.',                          prix: 420,  duree_min: 5,  duree_max: 12, note: 4.3, image: 'imageMontenegro.webp',            populaire: false, recommande: true,  badge: null },
-    { id: 5,  nom: 'Koh Lanta',                    pays: 'Thaïlande',         continent: 'Asie',    categorie: 'Plage',     description: 'Île paisible du sud de la Thaïlande avec ses longues plages de sable fin, ses bungalows sur pilotis et son ambiance décontractée.',               prix: 750,  duree_min: 7,  duree_max: 21, note: 4.6, image: 'imageKohLantaThailande.jpeg',             populaire: true,  recommande: false, badge: 'Réduction' },
-    { id: 6,  nom: 'Essaouira',                    pays: 'Maroc',             continent: 'Afrique', categorie: 'Plage',     description: 'Cité portugaise des alizés sur l\'Atlantique, médina bleue et blanche, plages venteuses idéales pour le surf et cuisine généreuse.',               prix: 390,  duree_min: 4,  duree_max: 10, note: 4.4, image: 'imageEssaouira.jpg',             populaire: false, recommande: false, badge: null },
-    { id: 7,  nom: 'El Nido',                      pays: 'Philippines',       continent: 'Asie',    categorie: 'Plage',     description: 'Lagons émeraude, falaises karstiques et snorkeling exceptionnel dans l\'archipel de Palawan, régulièrement élu plus belle île du monde.',          prix: 820,  duree_min: 7,  duree_max: 18, note: 4.9, image: 'imageElNidoPhilippines.jpeg',               populaire: true,  recommande: false, badge: 'Coup de cœur' },
-    { id: 8,  nom: 'Zanzibar',                     pays: 'Tanzanie',          continent: 'Afrique', categorie: 'Plage',     description: 'Eaux cristallines, épices envoûtantes et Stone Town classée à l\'UNESCO. Un cocktail unique entre Afrique, Arabie et Portugal.',                  prix: 950,  duree_min: 7,  duree_max: 14, note: 4.7, image: 'imageZanzibar.jpeg',              populaire: false, recommande: true,  badge: null },
-    { id: 9,  nom: 'Géorgie',                      pays: 'Géorgie',           continent: 'Asie',    categorie: 'Montagne',  description: 'Villages caucasiens perchés, randonnées épiques en Svanétie et hospitalité légendaire. L\'un des pays les plus abordables au monde.',         prix: 520,  duree_min: 7,  duree_max: 21, note: 4.8, image: 'imageGeorgie.jpg',               populaire: true,  recommande: true,  badge: 'Coup de cœur' },
-    { id: 10, nom: 'Albanie Nord',                 pays: 'Albanie',           continent: 'Europe',  categorie: 'Montagne',  description: 'Les Alpes albanaises et le trek Peaks of the Balkans offrent des paysages sauvages comparables aux Alpes suisses pour dix fois moins cher.',  prix: 380,  duree_min: 5,  duree_max: 14, note: 4.6, image: 'imageAlbanieNord.jpg',          populaire: false, recommande: true,  badge: 'Réduction' },
-    { id: 11, nom: 'Macédoine du Nord',            pays: 'Macédoine du Nord', continent: 'Europe',  categorie: 'Montagne',  description: 'Lac d\'Ohrid turquoise, monastères byzantins et massifs montagneux quasi-déserts. Une destination confidentielle à prix ridiculement bas.',   prix: 340,  duree_min: 5,  duree_max: 12, note: 4.4, image: 'imageMacedoineNord.jpg',             populaire: false, recommande: false, badge: null },
-    { id: 12, nom: 'Kirghizistan',                 pays: 'Kirghizistan',      continent: 'Asie',    categorie: 'Montagne',  description: 'Steppes infinies, yourtes au bord de lacs d\'altitude et cols à couper le souffle sur la route de la soie. L\'aventure ultime en Asie Centrale.', prix: 680, duree_min: 10, duree_max: 21, note: 4.7, image: 'imageKirghizistan.jpeg',          populaire: false, recommande: false, badge: null },
-    { id: 13, nom: 'Monténégro Intérieur',         pays: 'Monténégro',        continent: 'Europe',  categorie: 'Montagne',  description: 'Le parc national de Durmitor et ses lacs glaciaires, ses canyons vertigineux et ses pistes de ski accessibles au cœur des Balkans.',          prix: 410,  duree_min: 5,  duree_max: 12, note: 4.3, image: 'imageMontenegroMontagne.jpg',   populaire: false, recommande: false, badge: null },
-    { id: 14, nom: 'Lisbonne',                     pays: 'Portugal',          continent: 'Europe',  categorie: 'Ville',     description: 'Sept collines, tramways vintage, fado mélancolique et pasteis de nata. La capitale européenne la plus chaleureuse et l\'une des plus abordables.',  prix: 450,  duree_min: 3,  duree_max: 10, note: 4.7, image: 'imageLisbonne.jpg',              populaire: true,  recommande: false, badge: null },
-    { id: 15, nom: 'Budapest',                     pays: 'Hongrie',           continent: 'Europe',  categorie: 'Ville',     description: 'La perle du Danube avec ses bains thermaux Art Nouveau, sa ruin-bar scène unique et sa gastronomie généreuse à petit prix.',                        prix: 380,  duree_min: 3,  duree_max: 8,  note: 4.6, image: 'imageBudapest.jpeg',              populaire: true,  recommande: false, badge: 'Réduction' },
-    { id: 16, nom: 'Tbilissi',                     pays: 'Géorgie',           continent: 'Asie',    categorie: 'Ville',     description: 'Vieille ville aux balcons sculptés, scène artistique bouillonnante et vie nocturne underground. Tbilissi est la nouvelle Berlin de l\'Est.',        prix: 490,  duree_min: 4,  duree_max: 10, note: 4.8, image: 'imageTbilissi.jpg',              populaire: false, recommande: true,  badge: 'Coup de cœur' },
-    { id: 17, nom: 'Hanoï',                        pays: 'Vietnam',           continent: 'Asie',    categorie: 'Ville',     description: 'Vieux quartier des 36 corporations, lacs sacrés et street food légendaire. Point de départ idéal pour explorer le nord du Vietnam.',               prix: 720,  duree_min: 5,  duree_max: 21, note: 4.5, image: 'imageHanoi.jpeg',                 populaire: true,  recommande: false, badge: null },
-    { id: 18, nom: 'Cracovie',                     pays: 'Pologne',           continent: 'Europe',  categorie: 'Ville',     description: 'Centre médiéval épargné par la guerre, château du Wawel royal et vie étudiante animée. L\'une des destinations les moins chères d\'Europe.',        prix: 310,  duree_min: 3,  duree_max: 7,  note: 4.5, image: 'imageCracovie.jpg',              populaire: false, recommande: false, badge: 'Réduction' },
-    { id: 19, nom: 'Mexico City',                  pays: 'Mexique',           continent: 'Amérique',categorie: 'Ville',     description: 'Méga-ville aux mille visages : musées de classe mondiale, street food addictive et ruines aztèques en plein centre-ville.',                         prix: 780,  duree_min: 5,  duree_max: 14, note: 4.6, image: 'imageMexicoCity.jpeg',                populaire: false, recommande: true,  badge: null },
-    { id: 20, nom: 'Belgrade',                     pays: 'Serbie',            continent: 'Europe',  categorie: 'Ville',     description: 'La ville la plus festive des Balkans avec ses clubs sur l\'eau, sa forteresse millénaire et ses prix imbattables.',                                  prix: 290,  duree_min: 3,  duree_max: 7,  note: 4.3, image: 'imageBelgrade.jpg',              populaire: false, recommande: false, badge: null },
-    { id: 21, nom: 'Médina de Marrakech',          pays: 'Maroc',             continent: 'Afrique', categorie: 'Culture',   description: 'Souks labyrinthiques, riads cachés, place Jemaa el-Fna envoûtante et cuisine berbère somptueuse. Un voyage dans le temps à quelques heures de l\'Europe.', prix: 420, duree_min: 4, duree_max: 10, note: 4.6, image: 'imageMedinaMarrakech.jpeg',           populaire: true,  recommande: false, badge: null },
-    { id: 22, nom: 'Prague',                       pays: 'République Tchèque',continent: 'Europe',  categorie: 'Culture',   description: 'Cent tours et clochers, pont Charles médiéval et bière la moins chère d\'Europe. Le joyau gothique et baroque de l\'Europe centrale.',                    prix: 370,  duree_min: 3,  duree_max: 7,  note: 4.5, image: 'imagePrague.jpeg',                populaire: true,  recommande: false, badge: null },
-    { id: 23, nom: 'Séville',                      pays: 'Espagne',           continent: 'Europe',  categorie: 'Romantique',description: 'Flamenco, orangers en fleurs, tapas jusqu\'à l\'aube et Alcazar de conte de fées. La ville la plus romantique et festive d\'Espagne.',   prix: 490,  duree_min: 4,  duree_max: 10, note: 4.7, image: 'imageSeville.jpeg',               populaire: false, recommande: true,  badge: 'Coup de cœur' },
-    { id: 24, nom: 'Kotor',                        pays: 'Monténégro',        continent: 'Europe',  categorie: 'Romantique',description: 'Cité médiévale fortifiée au fond d\'un fjord adriatique, chats sacrés et couchers de soleil incendiaires. Un bijou hors du temps.',      prix: 430,  duree_min: 4,  duree_max: 10, note: 4.8, image: 'imageKotor.jpeg',                 populaire: false, recommande: true,  badge: 'Coup de cœur' },
-    { id: 25, nom: 'Trek Atlas Marocain',          pays: 'Maroc',             continent: 'Afrique', categorie: 'Aventure',  description: 'Ascension du Toubkal, plus haut sommet d\'Afrique du Nord, villages berbères accrochés aux falaises et nuits sous les étoiles du désert.',    prix: 560,  duree_min: 7,  duree_max: 14, note: 4.7, image: 'imageTrekMaroc.jpeg',                 populaire: false, recommande: false, badge: null },
-    { id: 26, nom: 'Costa Rica',                   pays: 'Costa Rica',        continent: 'Amérique',categorie: 'Aventure',  description: 'Volcans actifs, forêts tropicales et surf world-class. Le Costa Rica concentre 6% de la biodiversité mondiale dans un pays grand comme la Bretagne.', prix: 1100, duree_min: 10, duree_max: 21, note: 4.8, image: 'imageCostaRica.jpeg',           populaire: false, recommande: false, badge: null },
-    { id: 27, nom: 'Vietnam en Moto',              pays: 'Vietnam',           continent: 'Asie',    categorie: 'Aventure',  description: 'Relier Hanoï à Hô Chi Minh-Ville sur une Honda Win le long de la côte : rizières, cols montagneux et rencontres inoubliables.',                prix: 850,  duree_min: 14, duree_max: 30, note: 4.9, image: 'imageVietnamMoto.jpeg',          populaire: true,  recommande: true,  badge: 'Coup de cœur' },
-    { id: 28, nom: 'Jordanie',                     pays: 'Jordanie',          continent: 'Asie',    categorie: 'Aventure',  description: 'Pétra la rose, Wadi Rum martien, mer Morte et snorkeling à Aqaba. Un condensé d\'histoire et de paysages extraordinaires.',                    prix: 870,  duree_min: 7,  duree_max: 14, note: 4.7, image: 'imageJordanie.jpeg',              populaire: false, recommande: false, badge: null },
-    { id: 29, nom: 'Îles Canaries Hors Sentiers', pays: 'Espagne',            continent: 'Europe',  categorie: 'Nature',    description: 'La Gomera, El Hierro et La Palma : forêts de laurisilva millénaires, observatoires astronomiques et randonnées sauvages sans touristes.', prix: 510,  duree_min: 5,  duree_max: 14, note: 4.5, image: 'imageIlesCanaries.jpeg',       populaire: false, recommande: false, badge: 'Réduction' },
-    { id: 30, nom: 'Açores',                       pays: 'Portugal',          continent: 'Europe',  categorie: 'Nature',    description: 'Caldeiras fumantes, lacs de cratère émeraude, baleines en liberté et sources chaudes naturelles. L\'archipel volcanique le plus spectaculaire d\'Europe.', prix: 590, duree_min: 5, duree_max: 14, note: 4.8, image: 'imageAcores.jpeg',              populaire: true,  recommande: true,  badge: 'Coup de cœur' },
+    { id: 1,  nom: 'Bali',                        pays: 'Indonésie',          continent: 'Asie',     categorie: 'Plage',      description: 'Île des dieux aux rizières en terrasses, temples mystiques et plages paradisiaques. Un incontournable pour les voyageurs en quête d\'authenticité.', prix: 890,  duree_min: 7,  duree_max: 21, note: 4.8, image: 'imageBali.jpeg',               populaire: true,  recommande: false, badge: 'Coup de cœur' },
+    { id: 2,  nom: 'Tenerife',                     pays: 'Espagne',            continent: 'Europe',   categorie: 'Plage',      description: 'La plus grande des Canaries offre volcans, plages noires et soleil toute l\'année à prix accessible depuis l\'Europe.',                           prix: 480,  duree_min: 5,  duree_max: 14, note: 4.4, image: 'imageTenerife.jpeg',           populaire: true,  recommande: false, badge: null },
+    { id: 3,  nom: 'Albanie Sud',                  pays: 'Albanie',            continent: 'Europe',   categorie: 'Plage',      description: 'La riviera albanaise cache des criques turquoise quasi-vierges à des prix défiant toute concurrence. Le secret le mieux gardé de la Méditerranée.', prix: 350,  duree_min: 5,  duree_max: 14, note: 4.5, image: 'imageAlbanieSud.jpeg',        populaire: false, recommande: true,  badge: 'Coup de cœur' },
+    { id: 4,  nom: 'Monténégro',                   pays: 'Monténégro',         continent: 'Europe',   categorie: 'Plage',      description: 'Fjords adriatiques, vieilles villes médiévales et plages immaculées dans un pays encore préservé du tourisme de masse.',                          prix: 420,  duree_min: 5,  duree_max: 12, note: 4.3, image: 'imageMontenegro.webp',         populaire: false, recommande: true,  badge: null },
+    { id: 5,  nom: 'Koh Lanta',                    pays: 'Thaïlande',          continent: 'Asie',     categorie: 'Plage',      description: 'Île paisible du sud de la Thaïlande avec ses longues plages de sable fin, ses bungalows sur pilotis et son ambiance décontractée.',               prix: 750,  duree_min: 7,  duree_max: 21, note: 4.6, image: 'imageKohLantaThailande.jpeg', populaire: true,  recommande: false, badge: 'Réduction' },
+    { id: 6,  nom: 'Essaouira',                    pays: 'Maroc',              continent: 'Afrique',  categorie: 'Plage',      description: 'Cité portugaise des alizés sur l\'Atlantique, médina bleue et blanche, plages venteuses idéales pour le surf et cuisine généreuse.',               prix: 390,  duree_min: 4,  duree_max: 10, note: 4.4, image: 'imageEssaouira.jpg',          populaire: false, recommande: false, badge: null },
+    { id: 7,  nom: 'El Nido',                      pays: 'Philippines',        continent: 'Asie',     categorie: 'Plage',      description: 'Lagons émeraude, falaises karstiques et snorkeling exceptionnel dans l\'archipel de Palawan, régulièrement élu plus belle île du monde.',          prix: 820,  duree_min: 7,  duree_max: 18, note: 4.9, image: 'imageElNidoPhilippines.jpeg', populaire: true,  recommande: false, badge: 'Coup de cœur' },
+    { id: 8,  nom: 'Zanzibar',                     pays: 'Tanzanie',           continent: 'Afrique',  categorie: 'Plage',      description: 'Eaux cristallines, épices envoûtantes et Stone Town classée à l\'UNESCO. Un cocktail unique entre Afrique, Arabie et Portugal.',                  prix: 950,  duree_min: 7,  duree_max: 14, note: 4.7, image: 'imageZanzibar.jpeg',          populaire: false, recommande: true,  badge: null },
+    { id: 9,  nom: 'Géorgie',                      pays: 'Géorgie',            continent: 'Asie',     categorie: 'Montagne',   description: 'Villages caucasiens perchés, randonnées épiques en Svanétie et hospitalité légendaire. L\'un des pays les plus abordables au monde.',              prix: 520,  duree_min: 7,  duree_max: 21, note: 4.8, image: 'imageGeorgie.jpg',            populaire: true,  recommande: true,  badge: 'Coup de cœur' },
+    { id: 10, nom: 'Albanie Nord',                 pays: 'Albanie',            continent: 'Europe',   categorie: 'Montagne',   description: 'Les Alpes albanaises et le trek Peaks of the Balkans offrent des paysages sauvages comparables aux Alpes suisses pour dix fois moins cher.',     prix: 380,  duree_min: 5,  duree_max: 14, note: 4.6, image: 'imageAlbanieNord.jpg',        populaire: false, recommande: true,  badge: 'Réduction' },
+    { id: 11, nom: 'Macédoine du Nord',            pays: 'Macédoine du Nord',  continent: 'Europe',   categorie: 'Montagne',   description: 'Lac d\'Ohrid turquoise, monastères byzantins et massifs montagneux quasi-déserts. Une destination confidentielle à prix ridiculement bas.',        prix: 340,  duree_min: 5,  duree_max: 12, note: 4.4, image: 'imageMacedoineNord.jpg',      populaire: false, recommande: false, badge: null },
+    { id: 12, nom: 'Kirghizistan',                 pays: 'Kirghizistan',       continent: 'Asie',     categorie: 'Montagne',   description: 'Steppes infinies, yourtes au bord de lacs d\'altitude et cols à couper le souffle sur la route de la soie. L\'aventure ultime en Asie Centrale.',  prix: 680,  duree_min: 10, duree_max: 21, note: 4.7, image: 'imageKirghizistan.jpeg',      populaire: false, recommande: false, badge: null },
+    { id: 13, nom: 'Monténégro Intérieur',         pays: 'Monténégro',         continent: 'Europe',   categorie: 'Montagne',   description: 'Le parc national de Durmitor et ses lacs glaciaires, ses canyons vertigineux et ses pistes de ski accessibles au cœur des Balkans.',             prix: 410,  duree_min: 5,  duree_max: 12, note: 4.3, image: 'imageMontenegroMontagne.jpg', populaire: false, recommande: false, badge: null },
+    { id: 14, nom: 'Lisbonne',                     pays: 'Portugal',           continent: 'Europe',   categorie: 'Ville',      description: 'Sept collines, tramways vintage, fado mélancolique et pasteis de nata. La capitale européenne la plus chaleureuse et l\'une des plus abordables.',   prix: 450,  duree_min: 3,  duree_max: 10, note: 4.7, image: 'imageLisbonne.jpg',           populaire: true,  recommande: false, badge: null },
+    { id: 15, nom: 'Budapest',                     pays: 'Hongrie',            continent: 'Europe',   categorie: 'Ville',      description: 'La perle du Danube avec ses bains thermaux Art Nouveau, sa ruin-bar scène unique et sa gastronomie généreuse à petit prix.',                        prix: 380,  duree_min: 3,  duree_max: 8,  note: 4.6, image: 'imageBudapest.jpeg',          populaire: true,  recommande: false, badge: 'Réduction' },
+    { id: 16, nom: 'Tbilissi',                     pays: 'Géorgie',            continent: 'Asie',     categorie: 'Ville',      description: 'Vieille ville aux balcons sculptés, scène artistique bouillonnante et vie nocturne underground. Tbilissi est la nouvelle Berlin de l\'Est.',         prix: 490,  duree_min: 4,  duree_max: 10, note: 4.8, image: 'imageTbilissi.jpg',           populaire: false, recommande: true,  badge: 'Coup de cœur' },
+    { id: 17, nom: 'Hanoï',                        pays: 'Vietnam',            continent: 'Asie',     categorie: 'Ville',      description: 'Vieux quartier des 36 corporations, lacs sacrés et street food légendaire. Point de départ idéal pour explorer le nord du Vietnam.',               prix: 720,  duree_min: 5,  duree_max: 21, note: 4.5, image: 'imageHanoi.jpeg',             populaire: true,  recommande: false, badge: null },
+    { id: 18, nom: 'Cracovie',                     pays: 'Pologne',            continent: 'Europe',   categorie: 'Ville',      description: 'Centre médiéval épargné par la guerre, château du Wawel royal et vie étudiante animée. L\'une des destinations les moins chères d\'Europe.',         prix: 310,  duree_min: 3,  duree_max: 7,  note: 4.5, image: 'imageCracovie.jpg',           populaire: false, recommande: false, badge: 'Réduction' },
+    { id: 19, nom: 'Mexico City',                  pays: 'Mexique',            continent: 'Amérique', categorie: 'Ville',      description: 'Méga-ville aux mille visages : musées de classe mondiale, street food addictive et ruines aztèques en plein centre-ville.',                          prix: 780,  duree_min: 5,  duree_max: 14, note: 4.6, image: 'imageMexicoCity.jpeg',        populaire: false, recommande: true,  badge: null },
+    { id: 20, nom: 'Belgrade',                     pays: 'Serbie',             continent: 'Europe',   categorie: 'Ville',      description: 'La ville la plus festive des Balkans avec ses clubs sur l\'eau, sa forteresse millénaire et ses prix imbattables.',                                   prix: 290,  duree_min: 3,  duree_max: 7,  note: 4.3, image: 'imageBelgrade.jpg',           populaire: false, recommande: false, badge: null },
+    { id: 21, nom: 'Médina de Marrakech',          pays: 'Maroc',              continent: 'Afrique',  categorie: 'Culture',    description: 'Souks labyrinthiques, riads cachés, place Jemaa el-Fna envoûtante et cuisine berbère somptueuse. Un voyage dans le temps à quelques heures de l\'Europe.', prix: 420, duree_min: 4, duree_max: 10, note: 4.6, image: 'imageMedinaMarrakech.jpeg',  populaire: true,  recommande: false, badge: null },
+    { id: 22, nom: 'Prague',                       pays: 'République Tchèque', continent: 'Europe',   categorie: 'Culture',    description: 'Cent tours et clochers, pont Charles médiéval et bière la moins chère d\'Europe. Le joyau gothique et baroque de l\'Europe centrale.',               prix: 370,  duree_min: 3,  duree_max: 7,  note: 4.5, image: 'imagePrague.jpeg',            populaire: true,  recommande: false, badge: null },
+    { id: 23, nom: 'Séville',                      pays: 'Espagne',            continent: 'Europe',   categorie: 'Romantique', description: 'Flamenco, orangers en fleurs, tapas jusqu\'à l\'aube et Alcazar de conte de fées. La ville la plus romantique et festive d\'Espagne.',              prix: 490,  duree_min: 4,  duree_max: 10, note: 4.7, image: 'imageSeville.jpeg',           populaire: false, recommande: true,  badge: 'Coup de cœur' },
+    { id: 24, nom: 'Kotor',                        pays: 'Monténégro',         continent: 'Europe',   categorie: 'Romantique', description: 'Cité médiévale fortifiée au fond d\'un fjord adriatique, chats sacrés et couchers de soleil incendiaires. Un bijou hors du temps.',               prix: 430,  duree_min: 4,  duree_max: 10, note: 4.8, image: 'imageKotor.jpeg',             populaire: false, recommande: true,  badge: 'Coup de cœur' },
+    { id: 25, nom: 'Trek Atlas Marocain',          pays: 'Maroc',              continent: 'Afrique',  categorie: 'Aventure',   description: 'Ascension du Toubkal, plus haut sommet d\'Afrique du Nord, villages berbères accrochés aux falaises et nuits sous les étoiles du désert.',         prix: 560,  duree_min: 7,  duree_max: 14, note: 4.7, image: 'imageTrekMaroc.jpeg',         populaire: false, recommande: false, badge: null },
+    { id: 26, nom: 'Costa Rica',                   pays: 'Costa Rica',         continent: 'Amérique', categorie: 'Aventure',   description: 'Volcans actifs, forêts tropicales et surf world-class. Le Costa Rica concentre 6% de la biodiversité mondiale dans un pays grand comme la Bretagne.',  prix: 1100, duree_min: 10, duree_max: 21, note: 4.8, image: 'imageCostaRica.jpeg',        populaire: false, recommande: false, badge: null },
+    { id: 27, nom: 'Vietnam en Moto',              pays: 'Vietnam',            continent: 'Asie',     categorie: 'Aventure',   description: 'Relier Hanoï à Hô Chi Minh-Ville sur une Honda Win le long de la côte : rizières, cols montagneux et rencontres inoubliables.',                   prix: 850,  duree_min: 14, duree_max: 30, note: 4.9, image: 'imageVietnamMoto.jpeg',       populaire: true,  recommande: true,  badge: 'Coup de cœur' },
+    { id: 28, nom: 'Jordanie',                     pays: 'Jordanie',           continent: 'Asie',     categorie: 'Aventure',   description: 'Pétra la rose, Wadi Rum martien, mer Morte et snorkeling à Aqaba. Un condensé d\'histoire et de paysages extraordinaires.',                         prix: 870,  duree_min: 7,  duree_max: 14, note: 4.7, image: 'imageJordanie.jpeg',          populaire: false, recommande: false, badge: null },
+    { id: 29, nom: 'Îles Canaries Hors Sentiers', pays: 'Espagne',             continent: 'Europe',   categorie: 'Nature',     description: 'La Gomera, El Hierro et La Palma : forêts de laurisilva millénaires, observatoires astronomiques et randonnées sauvages sans touristes.',          prix: 510,  duree_min: 5,  duree_max: 14, note: 4.5, image: 'imageIlesCanaries.jpeg',     populaire: false, recommande: false, badge: 'Réduction' },
+    { id: 30, nom: 'Açores',                       pays: 'Portugal',           continent: 'Europe',   categorie: 'Nature',     description: 'Caldeiras fumantes, lacs de cratère émeraude, baleines en liberté et sources chaudes naturelles. L\'archipel volcanique le plus spectaculaire d\'Europe.', prix: 590, duree_min: 5, duree_max: 14, note: 4.8, image: 'imageAcores.jpeg',           populaire: true,  recommande: true,  badge: 'Coup de cœur' },
   ];
 
-  // ── ÉTAT DES FILTRES ──
   let activeCategory = 'all';
   let activeSpecial  = null;
 
@@ -416,7 +464,6 @@
     renderGrid(filtered);
   }
 
-  // ── RENDU ──
   function renderGrid(list) {
     const grid = document.getElementById('grid');
     const info = document.getElementById('results-info');
@@ -432,17 +479,15 @@
     }
 
     grid.innerHTML = list.map((d, i) => {
-      // Badges
       let badges = '';
-      if (d.badge === 'Réduction')   badges += `<span class="badge badge-reduction">Réduction</span>`;
+      if (d.badge === 'Réduction')    badges += `<span class="badge badge-reduction">Réduction</span>`;
       if (d.badge === 'Coup de cœur') badges += `<span class="badge badge-coeur">Coup de cœur</span>`;
       if (d.populaire)                badges += `<span class="badge badge-populaire">Populaire</span>`;
       if (d.recommande)               badges += `<span class="badge badge-recommande">Recommandé</span>`;
 
-      // Image — si le fichier existe il s'affiche, sinon placeholder
       const imgTag = `
         <img
-          src="images/${d.image}"
+          src="${d.image}"
           alt="${d.nom}"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
@@ -487,7 +532,6 @@
     }).join('');
   }
 
-  // Chargement initial
   renderGrid(destinations);
 </script>
 </body>
