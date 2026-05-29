@@ -3,473 +3,214 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VoyageVista – Accueil</title>
+  <title>VoyageVista - Accueil</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
   <style>
     :root {
-      --bg:          #f5f3ef;
-      --surface:     #ffffff;
-      --border:      #e2ddd6;
-      --text:        #1a1714;
-      --muted:       #8a8078;
-      --accent:      #c9672b;
-      --accent-soft: #f5ece4;
-      --header-h:    64px;
-      --sidebar-w:   200px;
-      --radius:      12px;
-      --shadow:      0 2px 16px rgba(0,0,0,.07);
+      --bg: #f5f3ef; --surface: #ffffff; --border: #e2ddd6;
+      --text: #1a1714; --muted: #788a7b; --accent: #013819;
+      --accent-soft: #e4f5ea; --header-h: 64px; --sidebar-w: 200px;
+      --radius: 12px; --shadow: 0 2px 16px rgba(0,0,0,.07);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+
+    /* On bloque le scroll horizontal sur toute la page */
+    html, body {
+      overflow-x: hidden;
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
     }
 
-    /* ── HEADER ── */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--header-h);
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px 0 0;
-      z-index: 100;
-      box-shadow: var(--shadow);
-    }
+    header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow); }
     .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
-    .logo-badge {
-      position: relative;
-      height: var(--header-h);
-      background: var(--text);
-      display: flex;
-      align-items: center;
-      padding: 0 28px 0 24px;
-      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
-    }
-    .logo-badge span {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: #fff;
-      letter-spacing: .02em;
-      white-space: nowrap;
-    }
+    .logo-badge { height: var(--header-h); background: var(--accent); display: flex; align-items: center; padding: 0 28px 0 24px; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%); }
+    .logo-badge span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: .02em; white-space: nowrap; }
     .header-right { display: flex; align-items: center; gap: 8px; }
-    .icon-btn {
-      width: 40px; height: 40px;
-      border: 1.5px solid var(--border);
-      border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text);
-      transition: background .18s, border-color .18s;
-      text-decoration: none;
-      position: relative;
-    }
+    .icon-btn { width: 40px; height: 40px; border: 1.5px solid var(--border); border-radius: 50%; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text); transition: background .18s, border-color .18s; text-decoration: none; position: relative; }
     .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
     .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
-    .icon-btn .dot {
-      position: absolute; top: 6px; right: 6px;
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      border: 2px solid var(--surface);
-    }
-    .btn-connexion {
-      height: 36px; padding: 0 20px;
-      border: 1.5px solid var(--text);
-      border-radius: 8px;
-      background: transparent;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .875rem; font-weight: 500;
-      cursor: pointer;
-      transition: background .18s, color .18s;
-    }
-    .btn-connexion:hover { background: var(--text); color: #fff; }
+    .icon-btn .dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; border: 2px solid var(--surface); }
+    .btn-connexion { height: 36px; padding: 0 20px; border: 1.5px solid var(--accent); border-radius: 8px; background: transparent; font-family: 'DM Sans', sans-serif; font-size: .875rem; font-weight: 500; cursor: pointer; transition: background .18s, color .18s; }
+    .btn-connexion:hover { background: var(--accent); color: #fff; }
 
-    /* ── LAYOUT ── */
     .layout { display: flex; padding-top: var(--header-h); min-height: 100vh; }
-
-    /* ── SIDEBAR ── */
-    aside {
-      width: var(--sidebar-w);
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      position: fixed;
-      top: var(--header-h);
-      left: 0;
-      /* Stops exactly at the footer top — handled by JS */
-      bottom: 0;
-      padding: 20px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      overflow-y: auto;
-    }
-    .nav-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: .9rem; font-weight: 400;
-      color: var(--muted);
-      transition: background .15s, color .15s;
-      cursor: pointer;
-    }
+    aside { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); position: fixed; top: var(--header-h); left: 0; bottom: 0; padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto; overflow-x: hidden; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-size: .9rem; font-weight: 400; color: var(--muted); transition: background .15s, color .15s; cursor: pointer; }
     .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
     .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
     .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
     .nav-item.active svg { stroke: #fff; }
 
-    /* ── MAIN ── */
-    main {
-      margin-left: var(--sidebar-w);
-      flex: 1;
-      padding: 56px 48px 80px;
-    }
+    main { margin-left: var(--sidebar-w); flex: 1; padding: 56px 48px 80px; min-width: 0; overflow: hidden; }
 
-    /* ── HERO ── */
-    .hero-tagline {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 2.6rem; font-weight: 400;
-      letter-spacing: -.01em;
-      text-align: center;
-      margin-bottom: 40px;
-      color: var(--text);
-    }
+    .hero-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.6rem; font-weight: 400; letter-spacing: -.01em; text-align: center; margin-bottom: 40px; color: var(--text); }
     .hero-tagline strong { font-style: normal; font-weight: 700; color: var(--accent); }
 
-    /* ── SEARCH BAR ── */
-    .search-wrap {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      display: flex; align-items: stretch;
-      overflow: hidden;
-      max-width: 860px;
-      margin: 0 auto 64px;
-    }
-    .search-field {
-      flex: 1;
-      border: none;
-      border-right: 1px solid var(--border);
-      padding: 0; position: relative; min-width: 0;
-    }
-    .search-field label {
-      display: block;
-      font-size: .68rem; font-weight: 600;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--muted);
-      padding: 14px 18px 2px;
-    }
-    .search-field input, .search-field select {
-      width: 100%; border: none; outline: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem; font-weight: 400;
-      color: var(--text);
-      background: transparent;
-      padding: 0 18px 14px;
-      appearance: none; cursor: pointer;
-    }
+    .search-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); display: flex; align-items: stretch; overflow: hidden; max-width: 860px; margin: 0 auto 64px; }
+    .search-field { flex: 1; border: none; border-right: 1px solid var(--border); padding: 0; position: relative; min-width: 0; }
+    .search-field label { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 2px; }
+    .search-field input { width: 100%; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: .95rem; color: var(--text); background: transparent; padding: 0 18px 14px; cursor: pointer; }
     .search-field input::placeholder { color: var(--border); }
     .search-field.dest { flex: 1.6; }
-    .voyageurs-panel {
-      position: absolute; top: calc(100% + 8px); left: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 32px rgba(0,0,0,.12);
-      padding: 20px; min-width: 240px;
-      z-index: 200; display: none;
-    }
+    .voyageurs-panel { position: absolute; top: calc(100% + 8px); left: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 8px 32px rgba(0,0,0,.12); padding: 20px; min-width: 240px; z-index: 200; display: none; }
     .voyageurs-panel.open { display: block; }
-    .voy-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 0; border-bottom: 1px solid var(--border);
-    }
+    .voy-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
     .voy-row:last-child { border-bottom: none; }
     .voy-label { font-size: .9rem; }
     .voy-label small { display: block; font-size: .75rem; color: var(--muted); }
     .voy-counter { display: flex; align-items: center; gap: 10px; }
-    .voy-btn {
-      width: 28px; height: 28px; border-radius: 50%;
-      border: 1.5px solid var(--border);
-      background: transparent; font-size: 1rem;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: background .15s, border-color .15s;
-    }
+    .voy-btn { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s, border-color .15s; }
     .voy-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
     .voy-count { font-weight: 600; min-width: 18px; text-align: center; }
     .search-field.voyageurs-wrap { position: relative; cursor: pointer; user-select: none; }
     .search-field.voyageurs-wrap .voy-display { padding: 0 18px 14px; font-size: .95rem; color: var(--text); min-height: 26px; }
     .voy-placeholder { color: var(--border); }
-    .btn-search {
-      background: var(--accent); color: #fff;
-      border: none; padding: 0 32px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem; font-weight: 600;
-      cursor: pointer; letter-spacing: .02em;
-      transition: background .18s, transform .12s; white-space: nowrap;
-    }
-    .btn-search:hover { background: #b05520; }
+    .btn-search { background: var(--accent); color: #fff; border: none; padding: 0 32px; font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 600; cursor: pointer; transition: background .18s, transform .12s; white-space: nowrap; }
+    .btn-search:hover { background: #086720; }
     .btn-search:active { transform: scale(.97); }
 
-    /* ── SECTION TITLES ── */
-    .section-title {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.3rem; font-weight: 600;
-      margin-bottom: 18px; color: var(--text);
-    }
-
-    /* ── CATÉGORIES ── */
+    .section-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 18px; color: var(--text); }
     .categories-section { margin-bottom: 56px; }
     .categories-list { display: flex; flex-wrap: wrap; gap: 10px; }
-    .cat-chip {
-      padding: 8px 20px;
-      border-radius: 99px;
-      border: 1.5px solid var(--border);
-      background: var(--surface);
-      font-size: .875rem; font-weight: 500;
-      cursor: pointer; color: var(--muted);
-      transition: all .18s;
-      display: flex; align-items: center; gap: 6px;
+    .cat-chip { padding: 8px 20px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--surface); font-size: .875rem; font-weight: 500; cursor: pointer; color: var(--muted); transition: all .18s; display: flex; align-items: center; gap: 6px; }
+    .cat-chip:hover, .cat-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .destinations-section { margin-bottom: 56px; }
+
+    /* Wrapper pour le scroll horizontal — isolé ici */
+    .cards-scroll-wrapper {
+      overflow-x: auto;
+      overflow-y: visible;
+      /* On masque la scrollbar sur tout sauf la zone des cards */
+      padding-bottom: 12px;
+      /* Empêche le scroll de remonter au body */
+      overscroll-behavior-x: contain;
     }
-    .cat-chip:hover, .cat-chip.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
+    .cards-scroll-wrapper::-webkit-scrollbar { height: 4px; }
+    .cards-scroll-wrapper::-webkit-scrollbar-track { background: var(--border); border-radius: 4px; }
+    .cards-scroll-wrapper::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+    .cards-row {
+      display: flex;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+      /* Largeur minimale = contenu, pas la largeur du parent */
+      width: max-content;
+      padding-right: 4px; /* petit espace à droite */
     }
 
-    /* ── DESTINATIONS CARDS ── */
-    .destinations-section { margin-bottom: 56px; }
-    .cards-row {
-      display: flex; gap: 20px; overflow-x: auto;
-      padding-bottom: 12px; scroll-snap-type: x mandatory;
-    }
-    .cards-row::-webkit-scrollbar { height: 4px; }
-    .cards-row::-webkit-scrollbar-track { background: var(--border); border-radius: 4px; }
-    .cards-row::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
-    .dest-card {
-      min-width: 240px; max-width: 240px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      scroll-snap-align: start;
-      transition: transform .2s, box-shadow .2s;
-      flex-shrink: 0;
-    }
+    .dest-card { width: 240px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); scroll-snap-align: start; transition: transform .2s, box-shadow .2s; flex-shrink: 0; }
     .dest-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
-    .card-img {
-      width: 100%; height: 150px;
-      background: linear-gradient(135deg, #d4c5b0, #b8a898);
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .card-img-placeholder {
-      font-size: .8rem; color: rgba(255,255,255,.7);
-      font-style: italic;
-    }
-    .card-badge {
-      position: absolute; top: 10px; right: 10px;
-      padding: 4px 10px;
-      border-radius: 99px;
-      font-size: .72rem; font-weight: 600;
-      letter-spacing: .04em;
-    }
-    .badge-coeur { background: #fff0f0; color: #e05555; border: 1px solid #f5c0c0; }
-    .badge-reduction { background: #fff7e6; color: #c9672b; border: 1px solid #f5d9b8; }
+    .card-img { width: 100%; height: 150px; background: linear-gradient(135deg, #d4c5b0, #b8a898); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .card-img-placeholder { font-size: .8rem; color: rgba(255,255,255,.9); font-style: italic; font-family: 'Playfair Display', serif; text-align: center; padding: 8px; z-index: 1; position: relative; }
+    .card-badge { position: absolute; top: 10px; right: 10px; padding: 4px 10px; border-radius: 99px; font-size: .72rem; font-weight: 600; letter-spacing: .04em; z-index: 2; }
+    .badge-coeur { background: #fff0f0; color: #8f1414; border: 1px solid #c1f5c0; }
+    .badge-reduction { background: #fff7e6; color: #c6802b; border: 1px solid #bcf5b8; }
     .card-body { padding: 14px 16px 16px; }
     .card-meta { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
     .card-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
-    .card-stars { color: #f5a623; font-size: .8rem; margin-bottom: 10px; }
+    .card-stars { color: #e4ee19; font-size: .8rem; margin-bottom: 10px; }
     .card-footer { display: flex; align-items: center; justify-content: space-between; }
     .card-price { font-size: 1rem; font-weight: 600; }
     .card-price span { font-size: .75rem; font-weight: 400; color: var(--muted); }
-    .btn-voir {
-      padding: 6px 16px;
-      border-radius: 8px;
-      border: 1.5px solid var(--accent);
-      background: transparent;
-      color: var(--accent); font-size: .82rem; font-weight: 600;
-      cursor: pointer;
-      transition: all .15s;
-    }
+    .btn-voir { padding: 6px 16px; border-radius: 8px; border: 1.5px solid var(--accent); background: transparent; color: var(--accent); font-size: .82rem; font-weight: 600; cursor: pointer; transition: all .15s; }
     .btn-voir:hover { background: var(--accent); color: #fff; }
-    .voir-tout-link {
-      display: flex; align-items: center; gap: 6px;
-      margin-top: 14px;
-      color: var(--accent); font-size: .875rem; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      width: fit-content;
-    }
+    .voir-tout-link { display: flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--accent); font-size: .875rem; font-weight: 600; text-decoration: none; cursor: pointer; width: fit-content; }
     .voir-tout-link:hover { text-decoration: underline; }
 
-    /* ── RECOMMANDÉS (2 cards large) ── */
+    /* Grille recommandes — pas de scroll horizontal, juste une grille */
     .reco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .reco-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: flex;
-      transition: transform .2s, box-shadow .2s;
-    }
+    .reco-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; transition: transform .2s, box-shadow .2s; }
     .reco-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
-    .reco-img {
-      width: 160px; min-height: 130px; flex-shrink: 0;
-      background: linear-gradient(135deg, #c4b5a0, #a89888);
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .reco-body { padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .reco-img { width: 160px; min-height: 130px; flex-shrink: 0; background: linear-gradient(135deg, #c4b5a0, #a89888); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .reco-body { padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
     .reco-meta { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
     .reco-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
-    .reco-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: 10px; flex: 1; }
+    .reco-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: 10px; flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
     .reco-footer { display: flex; align-items: center; justify-content: space-between; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--text);
-      color: rgba(255,255,255,.7);
-      width: 100%;
-    }
-    .footer-inner {
-      padding: 40px 48px 28px;
-      margin-left: var(--sidebar-w);
-    }
-    .footer-grid {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px; margin-bottom: 32px;
-    }
-    .footer-brand-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem; font-weight: 700;
-      color: #fff; margin-bottom: 10px;
-    }
+    footer { background: var(--text); color: rgba(255,255,255,.7); width: 100%; }
+    .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
     .footer-tagline { font-size: .875rem; line-height: 1.6; margin-bottom: 16px; }
-    .footer-col h4 {
-      font-size: .8rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .08em;
-      color: #fff; margin-bottom: 14px;
-    }
-    .footer-col a {
-      display: block; color: rgba(255,255,255,.6);
-      text-decoration: none; font-size: .875rem;
-      margin-bottom: 8px;
-      transition: color .15s;
-    }
+    .footer-col h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin-bottom: 14px; }
+    .footer-col a { display: block; color: rgba(255,255,255,.6); text-decoration: none; font-size: .875rem; margin-bottom: 8px; transition: color .15s; }
     .footer-col a:hover { color: var(--accent); }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.12);
-      padding-top: 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: .8rem;
-    }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; font-size: .8rem; }
     .footer-bottom-links { display: flex; gap: 20px; }
     .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
     .footer-bottom-links a:hover { color: #fff; }
 
-    /* ── BACK TO TOP ── */
-    #backToTop {
-      position: fixed;
-      bottom: 32px; right: 32px;
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #fff; border: none;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(201,103,43,.4);
-      opacity: 0; pointer-events: none;
-      transform: translateY(12px);
-      transition: opacity .25s, transform .25s;
-      z-index: 200;
-    }
+    #backToTop { position: fixed; bottom: 32px; right: 32px; width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(201,103,43,.4); opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity .25s, transform .25s; z-index: 200; }
     #backToTop.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    #backToTop:hover { background: #b05520; }
+    #backToTop:hover { background: #20b031; }
     #backToTop svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5; }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <a href="accueil.html" class="logo">
+  <a href="Accueil.php" class="logo">
     <div class="logo-badge"><span>VoyageVista</span></div>
   </a>
   <div class="header-right">
-    <a href="mon-espace.html" class="icon-btn" title="Mon espace">
+    <a href="mon-espace.php" class="icon-btn" title="Mon espace">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     </a>
-    <a href="notifications.html" class="icon-btn" title="Notifications">
+    <a href="notifications.php" class="icon-btn" title="Notifications">
       <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="dot"></span>
     </a>
-    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+    <button class="btn-connexion" onclick="window.location='connexion.php'">Connexion</button>
   </div>
 </header>
 
-<!-- LAYOUT -->
 <div class="layout">
-
-  <!-- SIDEBAR -->
   <aside id="sidebar">
-    <a href="accueil.html" class="nav-item active">
+    <a href="Accueil.php" class="nav-item active">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
     </a>
-    <a href="catalogue.html" class="nav-item">
+    <a href="catalogue.php" class="nav-item">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue
     </a>
-    <a href="transport.html" class="nav-item">
+    <a href="transport.php" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport
     </a>
-    <a href="hebergement.html" class="nav-item">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement
+    <a href="hebergement.php" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hebergement
     </a>
-    <a href="activites.html" class="nav-item">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités
+    <a href="activites.php" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activites
     </a>
-    <a href="itineraire.html" class="nav-item">
-      <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire
+    <a href="itineraire.php" class="nav-item">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itineraire
     </a>
-    <a href="panier.html" class="nav-item">
+    <a href="panier.php" class="nav-item">
       <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier
     </a>
-    <a href="notifications.html" class="nav-item">
+    <a href="notifications.php" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications
     </a>
-    <a href="mon-espace.html" class="nav-item">
+    <a href="mon-espace.php" class="nav-item">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace
     </a>
   </aside>
 
-  <!-- MAIN -->
   <main>
     <p class="hero-tagline">Planifiez. <strong>Vivez.</strong> Explorez.</p>
 
-    <!-- Barre de recherche -->
     <div class="search-wrap">
       <div class="search-field dest">
         <label for="dest">Destinations</label>
-        <input id="dest" type="text" placeholder="Où voulez-vous aller ?" />
+        <input id="dest" type="text" placeholder="Ou voulez-vous aller ?" />
       </div>
       <div class="search-field">
-        <label for="depart">Départ</label>
+        <label for="depart">Depart</label>
         <input id="depart" type="date" />
       </div>
       <div class="search-field">
@@ -483,15 +224,15 @@
           <div class="voy-row">
             <div class="voy-label">Adultes <small>18 ans et +</small></div>
             <div class="voy-counter">
-              <button class="voy-btn" onclick="changeCount('adults',-1,event)">−</button>
+              <button class="voy-btn" onclick="changeCount('adults',-1,event)">-</button>
               <span class="voy-count" id="adultsCount">0</span>
               <button class="voy-btn" onclick="changeCount('adults',1,event)">+</button>
             </div>
           </div>
           <div class="voy-row">
-            <div class="voy-label">Enfants <small>2 – 17 ans</small></div>
+            <div class="voy-label">Enfants <small>2 - 17 ans</small></div>
             <div class="voy-counter">
-              <button class="voy-btn" onclick="changeCount('children',-1,event)">−</button>
+              <button class="voy-btn" onclick="changeCount('children',-1,event)">-</button>
               <span class="voy-count" id="childrenCount">0</span>
               <button class="voy-btn" onclick="changeCount('children',1,event)">+</button>
             </div>
@@ -501,84 +242,84 @@
       <button class="btn-search" onclick="lancerRecherche()">Chercher</button>
     </div>
 
-    <!-- Catégories -->
     <div class="categories-section">
-      <h2 class="section-title">Explorez par catégories</h2>
+      <h2 class="section-title">Explorez par categories</h2>
       <div class="categories-list">
-        <button class="cat-chip active" onclick="filterCat(this,'')">🌍 Tout</button>
-        <button class="cat-chip" onclick="filterCat(this,'Plage')">🏖️ Plage</button>
-        <button class="cat-chip" onclick="filterCat(this,'Montagne')">⛰️ Montagne</button>
-        <button class="cat-chip" onclick="filterCat(this,'Ville')">🏙️ Ville</button>
-        <button class="cat-chip" onclick="filterCat(this,'Aventure')">🧗 Aventure</button>
-        <button class="cat-chip" onclick="filterCat(this,'Culture')">🏛️ Culture</button>
-        <button class="cat-chip" onclick="filterCat(this,'Nature')">🌿 Nature</button>
-        <button class="cat-chip" onclick="filterCat(this,'Romantique')">💛 Romantique</button>
+        <button class="cat-chip active" onclick="filterCat(this,'')">Tout</button>
+        <button class="cat-chip" onclick="filterCat(this,'Plage')">Plage</button>
+        <button class="cat-chip" onclick="filterCat(this,'Montagne')">Montagne</button>
+        <button class="cat-chip" onclick="filterCat(this,'Ville')">Ville</button>
+        <button class="cat-chip" onclick="filterCat(this,'Aventure')">Aventure</button>
+        <button class="cat-chip" onclick="filterCat(this,'Culture')">Culture</button>
+        <button class="cat-chip" onclick="filterCat(this,'Nature')">Nature</button>
+        <button class="cat-chip" onclick="filterCat(this,'Romantique')">Romantique</button>
       </div>
     </div>
 
-    <!-- Destinations populaires -->
     <div class="destinations-section">
       <h2 class="section-title">Destinations populaires</h2>
-      <div class="cards-row" id="popularRow"></div>
-      <a class="voir-tout-link" href="catalogue.html">Voir tout →</a>
+      <!-- Wrapper qui reçoit le scroll horizontal -->
+      <div class="cards-scroll-wrapper">
+        <div class="cards-row" id="popularRow"></div>
+      </div>
+      <a class="voir-tout-link" href="catalogue.php">Voir tout &rarr;</a>
     </div>
 
-    <!-- Séjours recommandés -->
     <div class="destinations-section">
-      <h2 class="section-title">Séjours recommandés</h2>
+      <h2 class="section-title">Sejours recommandes</h2>
       <div class="reco-grid" id="recoGrid"></div>
     </div>
   </main>
 </div>
 
-<!-- FOOTER -->
 <footer id="footer">
-<div class="footer-inner">
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand-name">VoyageVista</div>
-      <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, depensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.php">Toutes les destinations</a>
+        <a href="transport.php">Transports</a>
+        <a href="hebergement.php">Hebergements</a>
+        <a href="activites.php">Activites</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.php">Connexion</a>
+        <a href="mon-espace.php">Mon espace</a>
+        <a href="panier.php">Mon panier</a>
+        <a href="itineraire.php">Mes itineraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="a-propos.php">A propos</a>
+        <a href="cgu.php">CGU</a>
+        <a href="contact.php">Contact</a>
+        <a href="#">Reseaux sociaux</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Explorer</h4>
-      <a href="catalogue.html">Toutes les destinations</a>
-      <a href="transport.html">Transports</a>
-      <a href="hebergement.html">Hébergements</a>
-      <a href="activites.html">Activités</a>
-    </div>
-    <div class="footer-col">
-      <h4>Mon compte</h4>
-      <a href="connexion.html">Connexion</a>
-      <a href="mon-espace.html">Mon espace</a>
-      <a href="panier.html">Mon panier</a>
-      <a href="itineraire.html">Mes itinéraires</a>
-    </div>
-    <div class="footer-col">
-      <h4>Informations</h4>
-      <a href="a-propos.html">À propos</a>
-      <a href="cgu.html">CGU</a>
-      <a href="contact.html">Contact</a>
-      <a href="#">Réseaux sociaux</a>
+    <div class="footer-bottom">
+      <span>2025 VoyageVista - Tous droits reserves</span>
+      <div class="footer-bottom-links">
+        <a href="cgu.php">CGU</a>
+        <a href="#">Confidentialite</a>
+        <a href="contact.php">Contact</a>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2025 VoyageVista — Tous droits réservés</span>
-    <div class="footer-bottom-links">
-      <a href="cgu.html">CGU</a>
-      <a href="#">Politique de confidentialité</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div><!-- /.footer-bottom -->
-</div><!-- /.footer-inner -->
 </footer>
 
-<!-- BACK TO TOP -->
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
 <script>
-  /* ── Voyageurs ── */
+  const allDestinations = json_encode($destinations, JSON_UNESCAPED_UNICODE) ;
+
+  /* Voyageurs */
   const counts = { adults: 0, children: 0 };
   document.getElementById('voyageursField').addEventListener('click', function(e) {
     if (e.target.classList.contains('voy-btn')) return;
@@ -606,110 +347,107 @@
   function lancerRecherche() {
     const dest = document.getElementById('dest').value;
     if (!dest) { alert('Veuillez indiquer une destination.'); return; }
-    alert('Recherche lancée pour : ' + dest);
+    alert('Recherche lancee pour : ' + dest);
   }
 
-  /* ── Back to top ── */
+  /* Back to top */
   const btn = document.getElementById('backToTop');
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 300);
-  });
+  window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 300); });
 
-  /* ── Sidebar stops at footer ── */
+  /* Sidebar stops at footer */
   const sidebar = document.getElementById('sidebar');
   const footer  = document.getElementById('footer');
   function updateSidebarBottom() {
     const footerTop = footer.getBoundingClientRect().top;
     const winH = window.innerHeight;
-    if (footerTop < winH) {
-      sidebar.style.bottom = (winH - footerTop) + 'px';
-    } else {
-      sidebar.style.bottom = '0px';
-    }
+    sidebar.style.bottom = footerTop < winH ? (winH - footerTop) + 'px' : '0px';
   }
   window.addEventListener('scroll', updateSidebarBottom);
   window.addEventListener('resize', updateSidebarBottom);
   updateSidebarBottom();
 
-  /* ── Load destinations from JSON ── */
-  let allDestinations = [];
-
-  fetch('destinations.json')
-    .then(r => r.json())
-    .then(data => {
-      allDestinations = data.destinations.filter(d => d.statut_validation === 'valide');
-      renderPopular(allDestinations);
-      renderReco(allDestinations);
-    })
-    .catch(() => {
-      // Fallback si le fichier JSON n'est pas encore accessible
-      document.getElementById('popularRow').innerHTML = '<p style="color:var(--muted);font-size:.875rem">Les destinations seront affichées ici une fois le fichier destinations.json chargé.</p>';
-      document.getElementById('recoGrid').innerHTML = '';
-    });
-
+  /* Helpers */
   function starRating(note) {
-    const full = Math.floor(note);
-    const half = note % 1 >= 0.5 ? 1 : 0;
-    return '★'.repeat(full) + (half ? '½' : '') + ' ' + note.toFixed(1);
+    const n = parseFloat(note);
+    const full = Math.floor(n);
+    const half = (n % 1) >= 0.5 ? 1 : 0;
+    let stars = '';
+    for (let i = 0; i < full; i++) stars += '\u2605';
+    if (half) stars += '\u00bd';
+    return stars + ' ' + n.toFixed(1);
   }
-
   function badgeHTML(badge) {
     if (!badge) return '';
-    const cls = badge === 'Coup de cœur' ? 'badge-coeur' : 'badge-reduction';
-    return `<span class="card-badge ${cls}">${badge}</span>`;
+    const cls = badge.indexOf('coeur') !== -1 || badge.indexOf('\u0153') !== -1 ? 'badge-coeur' : 'badge-reduction';
+    return '<span class="card-badge ' + cls + '">' + badge + '</span>';
   }
 
+  /* Render populaires */
   function renderPopular(destinations) {
-    const popular = destinations.filter(d => d.tag_populaire);
+    const popular = destinations.filter(d => parseInt(d.tag_populaire) === 1);
     const row = document.getElementById('popularRow');
-    row.innerHTML = popular.map(d => `
-      <div class="dest-card">
-        <div class="card-img">
-          <span class="card-img-placeholder">${d.nom}</span>
-          ${badgeHTML(d.badge)}
-        </div>
-        <div class="card-body">
-          <div class="card-meta">${d.categorie} · ${d.pays}</div>
-          <div class="card-name">${d.nom}</div>
-          <div class="card-stars">${starRating(d.note_moyenne)}</div>
-          <div class="card-footer">
-            <div class="card-price">${d.prix_par_personne}€ <span>/ pers.</span></div>
-            <button class="btn-voir">Voir</button>
-          </div>
-        </div>
-      </div>
-    `).join('');
+    if (popular.length === 0) {
+      row.innerHTML = '<p style="color:var(--muted);font-size:.9rem;padding:20px 0;">Aucune destination populaire.</p>';
+      return;
+    }
+    row.innerHTML = popular.map(d =>
+      '<div class="dest-card">' +
+        '<div class="card-img">' +
+          '<span class="card-img-placeholder">' + d.nom + '</span>' +
+          badgeHTML(d.badge) +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-meta">' + d.categorie + ' &middot; ' + d.pays + '</div>' +
+          '<div class="card-name">' + d.nom + '</div>' +
+          '<div class="card-stars">' + starRating(d.note_moyenne) + '</div>' +
+          '<div class="card-footer">' +
+            '<div class="card-price">' + parseFloat(d.prix_par_personne).toFixed(0) + '&euro; <span>/ pers.</span></div>' +
+            '<button class="btn-voir" onclick="window.location=\'destination.php?id=' + d.id_destination + '\'">Voir</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    ).join('');
   }
 
+  /* Render recommandes */
   function renderReco(destinations) {
-    const reco = destinations.filter(d => d.tag_recommande).slice(0, 4);
+    const reco = destinations.filter(d => parseInt(d.tag_recommande) === 1).slice(0, 4);
     const grid = document.getElementById('recoGrid');
-    grid.innerHTML = reco.map(d => `
-      <div class="reco-card">
-        <div class="reco-img">
-          <span class="card-img-placeholder" style="font-size:.75rem;color:rgba(255,255,255,.7);font-style:italic">${d.nom}</span>
-          ${badgeHTML(d.badge)}
-        </div>
-        <div class="reco-body">
-          <div class="reco-meta">${d.categorie} · ${d.pays}</div>
-          <div class="reco-name">${d.nom}</div>
-          <div class="reco-desc">${d.description}</div>
-          <div class="reco-footer">
-            <div class="card-price">${d.prix_par_personne}€ <span>/ pers.</span></div>
-            <button class="btn-voir">Voir</button>
-          </div>
-        </div>
-      </div>
-    `).join('');
+    if (reco.length === 0) {
+      grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem;padding:20px 0;">Aucun sejour recommande.</p>';
+      return;
+    }
+    grid.innerHTML = reco.map(d =>
+      '<div class="reco-card">' +
+        '<div class="reco-img">' +
+          '<span class="card-img-placeholder" style="font-size:.75rem;color:rgba(255,255,255,.9);font-style:italic;text-align:center;padding:8px;">' + d.nom + '</span>' +
+          badgeHTML(d.badge) +
+        '</div>' +
+        '<div class="reco-body">' +
+          '<div class="reco-meta">' + d.categorie + ' &middot; ' + d.pays + '</div>' +
+          '<div class="reco-name">' + d.nom + '</div>' +
+          '<div class="reco-desc">' + d.description + '</div>' +
+          '<div class="reco-footer">' +
+            '<div class="card-price">' + parseFloat(d.prix_par_personne).toFixed(0) + '&euro; <span>/ pers.</span></div>' +
+            '<button class="btn-voir" onclick="window.location=\'destination.php?id=' + d.id_destination + '\'">Voir</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    ).join('');
   }
 
-  /* ── Filtre catégories ── */
+  /* Filtre categories */
   function filterCat(btn, cat) {
     document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
     const filtered = cat === '' ? allDestinations : allDestinations.filter(d => d.categorie === cat);
-    renderPopular(filtered.length ? filtered : allDestinations.filter(d => d.tag_populaire || true).map(d => ({...d, tag_populaire: true})));
+    renderPopular(filtered);
+    renderReco(filtered);
   }
+
+  /* Init */
+  renderPopular(allDestinations);
+  renderReco(allDestinations);
 </script>
 </body>
 </html>
