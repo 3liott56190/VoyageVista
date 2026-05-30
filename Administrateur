@@ -161,9 +161,9 @@
   <a href="#" class="nav-item active" onclick="switchSection('dashboard', this)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Vue d'ensemble</a>
 
   <div class="nav-section-label">Modération</div>
-  <a href="#" class="nav-item" onclick="switchSection('offres', this)"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Demandes d'offres<span class="nav-badge">5</span></a>
+  <a href="#" class="nav-item" onclick="switchSection('offres', this)"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Demandes d'offres</a>
   <a href="#" class="nav-item" onclick="switchSection('comptes', this)"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Gestion des comptes</a>
-  <a href="#" class="nav-item" onclick="switchSection('signalements', this)"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Signalements<span class="nav-badge">3</span></a>
+  <a href="#" class="nav-item" onclick="switchSection('signalements', this)"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Signalements</a>
 
   <div class="nav-section-label">Contenu</div>
   <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Destinations</a>
@@ -387,7 +387,51 @@ renderKpis();
 renderOffres();
 renderComptes();
 renderSignalements();
+// ── NAVIGATION SECTIONS (sidebar) ──
+const titresSections = {
+  dashboard:    ['Tableau de bord',      'Vue d\'ensemble de la plateforme VoyageVista.'],
+  offres:       ['Demandes d\'offres',   'Valider ou refuser les offres soumises par les prestataires.'],
+  comptes:      ['Gestion des comptes',  'Superviser et gérer les comptes utilisateurs et prestataires.'],
+  signalements: ['Signalements',         'Traiter les problèmes signalés par les utilisateurs.'],
+};
 
+function switchSection(section, navEl) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+  if (section !== 'dashboard') switchTab(section);
+  const t = titresSections[section] || titresSections.dashboard;
+  document.getElementById('page-title').textContent = t[0];
+  document.getElementById('page-sub').textContent   = t[1];
+}
+
+// ── NAVIGATION TABS (contenu central) ──
+function switchTab(tab) {
+  document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+  const tabBtn = document.getElementById('tab-' + tab);
+  const section = document.getElementById('section-' + tab);
+  if (tabBtn) tabBtn.classList.add('active');
+  if (section) section.classList.add('active');
+  const t = titresSections[tab];
+  if (t) {
+    document.getElementById('page-title').textContent = t[0];
+    document.getElementById('page-sub').textContent   = t[1];
+  }
+}
+
+// ── RECHERCHE ──
+function filtrerTableau(tbodyId, q) {
+  document.querySelectorAll('#' + tbodyId + ' tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+
+// ── DÉCONNEXION ──
+function deconnecter() {
+  if (confirm('Voulez-vous vous déconnecter ?')) {
+    window.location.href = 'identifiant.html';
+  }
+}
 </script>
 </body>
 </html>
