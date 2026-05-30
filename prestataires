@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – Espace Prestataire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:#f5f3ef;--surface:#fff;--border:#e2ddd6;--text:#1a1714;--muted:#788a7b;
+     --accent:      #c9672b; --accent-soft: #f5ece4; --accent-dark: #b05520;
+      --green:#16a34a;--green-soft:#f0fdf4;--green-border:#bbf7d0;
+      --red:#dc2626;--red-soft:#fef2f2;--red-border:#fecaca;
+      --orange:#c9672b;--orange-soft:#f5ece4;
+      --header-h:64px;--sidebar-w:210px;--radius:14px;--shadow:0 2px 16px rgba(0,0,0,.07);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+
+    header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 0;z-index:100;box-shadow:var(--shadow)}
+    .logo{display:flex;align-items:center;height:100%;text-decoration:none}
+    .logo-badge{height:var(--header-h);background:var(--accent);display:flex;align-items:center;padding:0 28px 0 24px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
+    .logo-badge span{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;color:#fff;letter-spacing:.02em;white-space:nowrap}
+    .logo-sub{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:16px}
+    .header-right{display:flex;align-items:center;gap:8px}
+    .presta-chip{display:flex;align-items:center;gap:8px;padding:6px 14px;background:var(--accent-soft);border:1px solid #b8dfc0;border-radius:99px;font-size:.82rem;font-weight:600;color:var(--accent)}
+    .presta-chip svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2}
+    .btn-deco{height:36px;padding:0 16px;border:1.5px solid var(--border);border-radius:8px;background:none;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .18s}
+    .btn-deco svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+    .btn-deco:hover{border-color:var(--red);color:var(--red)}
+
+    aside{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--header-h);left:0;bottom:0;padding:20px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;z-index:80}
+    .nav-label{font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:12px 14px 4px}
+    .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;text-decoration:none;font-size:.88rem;font-weight:400;color:var(--muted);transition:background .15s,color .15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+    .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
+    .nav-item:hover{background:var(--accent-soft);color:var(--accent)}
+    .nav-item.active{background:var(--accent);color:#fff;font-weight:500}
+    .nav-item.active svg{stroke:#fff}
+    .nav-badge{position:absolute;right:10px;background:var(--orange);color:#fff;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:99px}
+    .nav-item{position:relative}
+
+    .content{margin-left:var(--sidebar-w);margin-top:var(--header-h);flex:1;display:flex;flex-direction:column}
+    .page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+    .page-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700}
+    .page-sub{font-size:.82rem;color:var(--muted);margin-top:2px}
+    .btn-primary{height:38px;padding:0 18px;border:none;border-radius:8px;background:var(--accent);font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .18s}
+    .btn-primary svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
+    .btn-primary:hover{background:var(--accent-dark)}
+
+    .tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex}
+    .tab-btn{padding:14px 20px;border:none;border-bottom:2px solid transparent;background:none;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:7px}
+    .tab-btn:hover{color:var(--accent)}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+    .tab-badge{background:var(--orange);color:#fff;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:99px}
+
+    .main-content{padding:24px 28px 60px;flex:1}
+    .section{display:none}
+    .section.active{display:block}
+
+    /* KPIs */
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+    .kpi{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+    .kpi-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .kpi-val{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--accent)}
+    .kpi-trend{font-size:.72rem;color:var(--green);margin-top:2px}
+    .kpi-trend.down{color:var(--red)}
+
+    /* TABLEAU */
+    .table-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:20px}
+    .table-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .table-title{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700}
+    .table-search{height:34px;padding:0 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--text);background:var(--bg);outline:none;width:200px;transition:border-color .18s}
+    .table-search:focus{border-color:var(--accent)}
+    table{width:100%;border-collapse:collapse}
+    thead th{padding:9px 14px;text-align:left;font-size:.67rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:var(--bg)}
+    tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+    tbody tr:last-child{border-bottom:none}
+    tbody tr:hover{background:var(--accent-soft)}
+    tbody td{padding:11px 14px;font-size:.83rem;vertical-align:middle}
+    .cell-name{font-weight:600}
+    .cell-sub{font-size:.71rem;color:var(--muted);margin-top:1px}
+
+    .badge{display:inline-flex;align-items:center;gap:4px;font-size:.64rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:99px}
+    .badge-attente{background:var(--orange-soft);color:var(--orange);border:1px solid #f0d0b8}
+    .badge-valide{background:var(--green-soft);color:var(--green);border:1px solid var(--green-border)}
+    .badge-refus{background:var(--red-soft);color:var(--red);border:1px solid var(--red-border)}
+    .badge-actif{background:var(--green-soft);color:var(--green);border:1px solid var(--green-border)}
+    .badge-complet{background:#f5f3ff;color:#6d28d9;border:1px solid #ddd6fe}
+
+    .actions{display:flex;gap:6px;flex-wrap:wrap}
+    .btn-action{height:28px;padding:0 10px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;cursor:pointer;border:1.5px solid;transition:all .15s}
+    .btn-edit{border-color:var(--border);color:var(--muted);background:none}
+    .btn-edit:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+    .btn-del{border-color:var(--red-border);color:var(--red);background:none}
+    .btn-del:hover{background:var(--red);color:#fff}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s}
+    .modal-overlay.open{opacity:1;pointer-events:auto}
+    .modal{background:var(--surface);border-radius:16px;width:520px;max-width:calc(100vw - 32px);max-height:85vh;overflow-y:auto;padding:26px;box-shadow:0 24px 64px rgba(0,0,0,.2);transform:translateY(18px);transition:transform .22s}
+    .modal-overlay.open .modal{transform:translateY(0)}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .modal-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+    .modal-close{width:30px;height:30px;border:1.5px solid var(--border);border-radius:50%;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .modal-close:hover{background:var(--accent-soft)}
+    .modal-close svg{width:13px;height:13px;stroke:var(--text);fill:none;stroke-width:2}
+    .form-group{margin-bottom:14px}
+    .form-label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+    .form-input,.form-select,.form-textarea{width:100%;padding:0 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.86rem;color:var(--text);background:var(--bg);outline:none;transition:border-color .18s;appearance:none}
+    .form-input,.form-select{height:40px}
+    .form-textarea{height:90px;padding:10px 12px;resize:vertical}
+    .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);background:#fff}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .modal-footer{display:flex;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);justify-content:flex-end}
+    .btn-cancel{height:38px;padding:0 18px;border:1.5px solid var(--border);border-radius:8px;background:none;font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:500;color:var(--text);cursor:pointer}
+    .btn-confirm{height:38px;padding:0 20px;border:none;border-radius:8px;background:var(--accent);font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:600;color:#fff;cursor:pointer;transition:background .18s}
+    .btn-confirm:hover{background:var(--accent-dark)}
+
+    /* ALERTES */
+    .alert-card{background:var(--orange-soft);border:1.5px solid #f0d0b8;border-radius:var(--radius);padding:14px 18px;margin-bottom:12px;display:flex;align-items:flex-start;gap:12px}
+    .alert-card svg{width:16px;height:16px;stroke:var(--orange);fill:none;stroke-width:2;flex-shrink:0;margin-top:1px}
+    .alert-text{font-size:.82rem;color:var(--orange);line-height:1.5}
+    .alert-text strong{font-weight:600}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--accent);color:#fff;padding:12px 20px;border-radius:10px;font-size:.84rem;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:999;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.22,.68,0,1.2)}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5}
+
+    footer{background:var(--text);color:rgba(255,255,255,.7)}
+    .footer-inner{padding:20px 48px;margin-left:var(--sidebar-w)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:.78rem}
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;height:100%">
+    <a href="#" class="logo"><div class="logo-badge"><span>VoyageVista</span></div></a>
+    <span class="logo-sub">· Espace Prestataire</span>
+  </div>
+  <div class="header-right">
+    <div class="presta-chip">
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      <span id="presta-nom">Prestataire</span>
+    </div>
+    <button class="btn-deco" onclick="deconnecter()">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnexion
+    </button>
+  </div>
+</header>
+
+<aside>
+  <div class="nav-label">Tableau de bord</div>
+  <button class="nav-item active" onclick="switchSection('dashboard',this)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Vue d'ensemble
+  </button>
+  <div class="nav-label">Mes offres</div>
+  <button class="nav-item" onclick="switchSection('hebergements',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergements
+    <span class="nav-badge" id="nav-b-heb">0</span>
+  </button>
+  <button class="nav-item" onclick="switchSection('transports',this)">
+    <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transports
+    <span class="nav-badge" id="nav-b-trans">0</span>
+  </button>
+  <button class="nav-item" onclick="switchSection('activites',this)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités
+    <span class="nav-badge" id="nav-b-act">0</span>
+  </button>
+  <div class="nav-label">Gestion</div>
+  <button class="nav-item" onclick="switchSection('reservations',this)">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Réservations
+  </button>
+  <button class="nav-item" onclick="switchSection('avis',this)">
+    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Avis clients
+  </button>
+</aside>
+
+<div class="content">
+  <div class="page-header">
+    <div>
+      <div class="page-eyebrow">Espace Prestataire</div>
+      <h1 class="page-title" id="page-title">Vue d'ensemble</h1>
+      <p class="page-sub" id="page-sub">Gérez vos offres et suivez vos réservations.</p>
+    </div>
+    <button class="btn-primary" id="btn-ajouter" onclick="ouvrirModalAjout(sectionActive)" style="display:none">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span id="btn-ajouter-label">Ajouter</span>
+    </button>
+  </div>
+
+  <div class="tabs-bar">
+    <button class="tab-btn active" id="tab-dashboard-btn" onclick="switchSection('dashboard',this)">Tableau de bord</button>
+    <button class="tab-btn" id="tab-hebergements-btn" onclick="switchSection('hebergements',this)">Hébergements <span class="tab-badge" id="tab-b-heb">0</span></button>
+    <button class="tab-btn" id="tab-transports-btn" onclick="switchSection('transports',this)">Transports <span class="tab-badge" id="tab-b-trans">0</span></button>
+    <button class="tab-btn" id="tab-activites-btn" onclick="switchSection('activites',this)">Activités <span class="tab-badge" id="tab-b-act">0</span></button>
+    <button class="tab-btn" id="tab-reservations-btn" onclick="switchSection('reservations',this)">Réservations</button>
+    <button class="tab-btn" id="tab-avis-btn" onclick="switchSection('avis',this)">Avis</button>
+  </div>
+
+  <div class="main-content">
+
+    <!-- DASHBOARD -->
+    <div class="section active" id="section-dashboard">
+      <div class="kpis" id="kpis"></div>
+      <div id="alertes-section"></div>
+    </div>
+
+    <!-- HÉBERGEMENTS -->
+    <div class="section" id="section-hebergements">
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Mes hébergements</div>
+          <input class="table-search" type="text" placeholder="Rechercher…" oninput="filtrer('heb-body',this.value)"/>
+        </div>
+        <table>
+          <thead><tr><th>Nom</th><th>Type</th><th>Lieu</th><th>Prix/nuit</th><th>Note</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody id="heb-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TRANSPORTS -->
+    <div class="section" id="section-transports">
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Mes transports</div>
+          <input class="table-search" type="text" placeholder="Rechercher…" oninput="filtrer('trans-body',this.value)"/>
+        </div>
+        <table>
+          <thead><tr><th>Trajet</th><th>Type</th><th>Départ</th><th>Prix/pers.</th><th>Places</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody id="trans-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ACTIVITÉS -->
+    <div class="section" id="section-activites">
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Mes activités</div>
+          <input class="table-search" type="text" placeholder="Rechercher…" oninput="filtrer('act-body',this.value)"/>
+        </div>
+        <table>
+          <thead><tr><th>Activité</th><th>Lieu</th><th>Durée</th><th>Prix/pers.</th><th>Capacité</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody id="act-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RÉSERVATIONS -->
+    <div class="section" id="section-reservations">
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Réservations reçues</div>
+          <input class="table-search" type="text" placeholder="Rechercher…" oninput="filtrer('res-body',this.value)"/>
+        </div>
+        <table>
+          <thead><tr><th>Client</th><th>Offre</th><th>Dates</th><th>Voyageurs</th><th>Total</th><th>Statut</th></tr></thead>
+          <tbody id="res-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- AVIS -->
+    <div class="section" id="section-avis">
+      <div id="avis-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL AJOUT/ÉDITION -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Ajouter une offre</div>
+      <button class="modal-close" onclick="fermerModal()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
+      <button class="btn-confirm" onclick="confirmerAjout()">
+        <svg viewBox="0 0 24 24" width="13" height="13" stroke="#fff" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg"></span>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom"><span>© 2025 VoyageVista — Espace Prestataire</span></div>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+//  DONNÉES DYNAMIQUES PRESTATAIRE
+//  Stockées dans localStorage par catégorie
+// ══════════════════════════════════════════
+
+document.getElementById('presta-nom').textContent = 'Kayon Resort';
+
+// Utilitaires localStorage
+function getData(key) { try { return JSON.parse(localStorage.getItem('vv_presta_' + key) || 'null'); } catch(e) { return null; } }
+function saveData(key, val) { localStorage.setItem('vv_presta_' + key, JSON.stringify(val)); }
+
+// Données initiales si vides
+function initData() {
+  // Initialiser avec des tableaux vides si aucune donnée n'existe
+  if (!getData('hebergements'))  saveData('hebergements', []);
+  if (!getData('transports'))    saveData('transports', []);
+  if (!getData('activites'))     saveData('activites', []);
+  if (!getData('reservations'))  saveData('reservations', []);
+  if (!getData('avis'))          saveData('avis', []);
+  // Les données réelles seront ajoutées via le formulaire ou le backend
+}
+initData();
+
+// ── RENDU TABLEAU ──
+function badge(s) {
+  if (s==='valide'||s==='confirmé')    return `<span class="badge badge-valide">${s}</span>`;
+  if (s==='attente'||s==='en attente') return `<span class="badge badge-attente">${s}</span>`;
+  if (s==='complet')                   return `<span class="badge badge-complet">Complet</span>`;
+  return `<span class="badge badge-refus">${s}</span>`;
+}
+function actionsBtn(cat, id) {
+  return `<div class="actions">
+    <button class="btn-action btn-edit" onclick="editerOffre('${cat}',${id})">✏ Modifier</button>
+    <button class="btn-action btn-del"  onclick="supprimerOffre('${cat}',${id})">✕ Suppr.</button>
+  </div>`;
+}
+
+function renderHebergements() {
+  const items = getData('hebergements') || [];
+  document.getElementById('heb-body').innerHTML = items.map(h => `
+    <tr>
+      <td><div class="cell-name">${h.nom}</div></td>
+      <td>${h.type}</td><td>${h.lieu}</td>
+      <td>${h.prix} €</td><td>★ ${h.note}</td>
+      <td>${badge(h.statut)}</td><td>${actionsBtn('hebergements',h.id)}</td>
+    </tr>`).join('');
+  updateBadges();
+}
+
+function renderTransports() {
+  const items = getData('transports') || [];
+  document.getElementById('trans-body').innerHTML = items.map(t => `
+    <tr>
+      <td><div class="cell-name">${t.trajet}</div></td>
+      <td>${t.type}</td><td>${t.depart}</td>
+      <td>${t.prix} €</td><td>${t.places} places</td>
+      <td>${badge(t.statut)}</td><td>${actionsBtn('transports',t.id)}</td>
+    </tr>`).join('');
+  updateBadges();
+}
+
+function renderActivites() {
+  const items = getData('activites') || [];
+  document.getElementById('act-body').innerHTML = items.map(a => `
+    <tr>
+      <td><div class="cell-name">${a.nom}</div></td>
+      <td>${a.lieu}</td><td>${a.duree}</td>
+      <td>${a.prix} €</td><td>${a.capacite} pers.</td>
+      <td>${badge(a.statut)}</td><td>${actionsBtn('activites',a.id)}</td>
+    </tr>`).join('');
+  updateBadges();
+}
+
+function renderReservations() {
+  const items = getData('reservations') || [];
+  document.getElementById('res-body').innerHTML = items.map(r => `
+    <tr>
+      <td><div class="cell-name">${r.client}</div></td>
+      <td>${r.offre}</td><td>${r.dates}</td>
+      <td>${r.voyageurs} pers.</td>
+      <td style="font-weight:600;color:var(--accent)">${r.total} €</td>
+      <td>${badge(r.statut)}</td>
+    </tr>`).join('');
+}
+
+function renderAvis() {
+  const items = getData('avis') || [];
+  const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
+  document.getElementById('avis-list').innerHTML = items.map(a => `
+    <div class="alert-card" style="background:var(--surface);border-color:var(--border)">
+      <svg viewBox="0 0 24 24" style="stroke:var(--accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <strong>${a.client}</strong>
+          <span style="font-size:.78rem;color:#f5c842;font-weight:700">${stars(a.note)}</span>
+        </div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:4px">${a.offre} · ${a.date}</div>
+        <div style="font-size:.83rem;color:var(--text);font-style:italic">"${a.texte}"</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderKpis() {
+  const heb  = (getData('hebergements') || []).length;
+  const trans= (getData('transports') || []).length;
+  const act  = (getData('activites') || []).length;
+  const res  = getData('reservations') || [];
+  const ca   = res.reduce((s,r) => s + r.total, 0);
+  document.getElementById('kpis').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Offres actives</div><div class="kpi-val">${heb+trans+act}</div><div class="kpi-trend">Hébergements, transports, activités</div></div>
+    <div class="kpi"><div class="kpi-label">Réservations</div><div class="kpi-val">${res.length}</div><div class="kpi-trend">↑ Ce mois</div></div>
+    <div class="kpi"><div class="kpi-label">Chiffre d'affaires</div><div class="kpi-val">${ca.toLocaleString('fr-FR')} €</div><div class="kpi-trend">↑ +14% vs mois dernier</div></div>
+    <div class="kpi"><div class="kpi-label">Note moyenne</div><div class="kpi-val">${(getData('avis')||[]).length > 0 ? (getData('avis').reduce((s,a)=>s+a.note,0)/(getData('avis').length)).toFixed(1)+' ★' : '—'}</div><div class="kpi-trend">Sur ${(getData('avis')||[]).length} avis</div></div>`;
+
+  const enAttente = (getData('hebergements')||[]).filter(h=>h.statut==='attente').length
+    + (getData('transports')||[]).filter(t=>t.statut==='attente').length
+    + (getData('activites')||[]).filter(a=>a.statut==='attente').length;
+  document.getElementById('alertes-section').innerHTML = enAttente > 0
+    ? `<div class="alert-card">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="alert-text"><strong>${enAttente} offre(s) en attente de validation</strong> par l'équipe VoyageVista. Vous serez notifié par e-mail.</div>
+      </div>` : '';
+}
+
+function updateBadges() {
+  const heb  = (getData('hebergements')||[]).length;
+  const trans= (getData('transports')||[]).length;
+  const act  = (getData('activites')||[]).length;
+  ['heb','trans','act'].forEach((k,i) => {
+    const v = [heb,trans,act][i];
+    document.getElementById('nav-b-'+k).textContent  = v;
+    document.getElementById('tab-b-'+k).textContent  = v;
+  });
+}
+
+// ── MODALS AJOUT ──
+const forms = {
+  hebergements: {
+    title: '🏨 Ajouter un hébergement',
+    body: `
+      <div class="form-group"><label class="form-label">Nom</label><input class="form-input" id="f-nom" placeholder="Bungalow Vue Rizière"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Type</label>
+          <select class="form-select" id="f-type"><option>Bungalow</option><option>Hôtel</option><option>Guesthouse</option><option>Riad</option><option>Yourte</option><option>Appartement</option><option>Auberge</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Prix / nuit (€)</label><input class="form-input" id="f-prix" type="number" placeholder="35" min="0"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Lieu</label><input class="form-input" id="f-lieu" placeholder="Ubud, Bali"/></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" placeholder="Décrivez votre hébergement…"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Capacité (pers.)</label><input class="form-input" id="f-cap" type="number" placeholder="4" min="1"/></div>
+        <div class="form-group"><label class="form-label">Équipements (CSV)</label><input class="form-input" id="f-equip" placeholder="WiFi,Piscine,Clim"/></div>
+      </div>`,
+    build: () => ({
+      id: Date.now(),
+      nom:   document.getElementById('f-nom').value || 'Hébergement',
+      type:  document.getElementById('f-type').value,
+      lieu:  document.getElementById('f-lieu').value,
+      prix:  parseFloat(document.getElementById('f-prix').value) || 0,
+      note:  0,
+      statut:'attente'
+    })
+  },
+  transports: {
+    title: '✈ Ajouter un transport',
+    body: `
+      <div class="form-group"><label class="form-label">Trajet</label><input class="form-input" id="f-trajet" placeholder="Aéroport → Ubud"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Type</label>
+          <select class="form-select" id="f-type"><option>Navette</option><option>Minibus</option><option>Taxi privé</option><option>Bateau</option><option>Scooter</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Prix / pers. (€)</label><input class="form-input" id="f-prix" type="number" placeholder="25" min="0"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Horaire(s)</label><input class="form-input" id="f-dep" placeholder="09h00 / 15h00"/></div>
+        <div class="form-group"><label class="form-label">Places disponibles</label><input class="form-input" id="f-places" type="number" placeholder="8" min="1"/></div>
+      </div>`,
+    build: () => ({
+      id:     Date.now(),
+      trajet: document.getElementById('f-trajet').value || 'Trajet',
+      type:   document.getElementById('f-type').value,
+      depart: document.getElementById('f-dep').value,
+      prix:   parseFloat(document.getElementById('f-prix').value) || 0,
+      places: parseInt(document.getElementById('f-places').value) || 1,
+      statut: 'attente'
+    })
+  },
+  activites: {
+    title: '🎯 Ajouter une activité',
+    body: `
+      <div class="form-group"><label class="form-label">Nom</label><input class="form-input" id="f-nom" placeholder="Cours de Yoga"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Lieu</label><input class="form-input" id="f-lieu" placeholder="Ubud"/></div>
+        <div class="form-group"><label class="form-label">Durée</label><input class="form-input" id="f-duree" placeholder="2h"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Prix / pers. (€)</label><input class="form-input" id="f-prix" type="number" placeholder="30" min="0"/></div>
+        <div class="form-group"><label class="form-label">Capacité max</label><input class="form-input" id="f-cap" type="number" placeholder="15" min="1"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" placeholder="Décrivez l'activité…"></textarea></div>`,
+    build: () => ({
+      id:       Date.now(),
+      nom:      document.getElementById('f-nom').value || 'Activité',
+      lieu:     document.getElementById('f-lieu').value,
+      duree:    document.getElementById('f-duree').value || '1h',
+      prix:     parseFloat(document.getElementById('f-prix').value) || 0,
+      capacite: parseInt(document.getElementById('f-cap').value) || 10,
+      statut:   'attente'
+    })
+  }
+};
+
+let modalCat = '';
+let editId   = null;
+
+function ouvrirModalAjout(cat) {
+  if (!forms[cat]) return;
+  modalCat = cat;
+  editId   = null;
+  document.getElementById('modal-title').textContent = forms[cat].title;
+  document.getElementById('modal-body').innerHTML    = forms[cat].body;
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => { const f = document.querySelector('#modal-body .form-input'); if(f) f.focus(); }, 80);
+}
+
+function editerOffre(cat, id) {
+  toast('Modification disponible — rechargez et remplissez le formulaire d\'ajout pour l\'instant.');
+}
+
+function supprimerOffre(cat, id) {
+  if (!confirm('Supprimer cette offre ?')) return;
+  const items = (getData(cat) || []).filter(i => i.id !== id);
+  saveData(cat, items);
+  renderAll();
+  toast('Offre supprimée');
+}
+
+function confirmerAjout() {
+  if (!forms[modalCat]) return;
+  const item = forms[modalCat].build();
+  const items = getData(modalCat) || [];
+  items.push(item);
+  saveData(modalCat, items);
+  fermerModal();
+  renderAll();
+  toast('Offre ajoutée · En attente de validation par VoyageVista');
+}
+
+function fermerModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) fermerModal();
+});
+
+// ── NAVIGATION ──
+let sectionActive = 'dashboard';
+const sectionConfig = {
+  dashboard:    ['Vue d\'ensemble', 'Gérez vos offres et suivez vos réservations.', false],
+  hebergements: ['Hébergements',    'Gérez vos hébergements publiés sur VoyageVista.', true,  'Ajouter un hébergement'],
+  transports:   ['Transports',      'Gérez vos services de transport.',               true,  'Ajouter un transport'],
+  activites:    ['Activités',       'Gérez vos activités et excursions.',              true,  'Ajouter une activité'],
+  reservations: ['Réservations',    'Toutes les réservations reçues.',                 false],
+  avis:         ['Avis clients',    'Avis laissés par vos voyageurs.',                 false],
+};
+
+function switchSection(s, el) {
+  sectionActive = s;
+  document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab-btn, .nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + s).classList.add('active');
+  if (el) el.classList.add('active');
+
+  const cfg = sectionConfig[s] || ['','',false];
+  document.getElementById('page-title').textContent = cfg[0];
+  document.getElementById('page-sub').textContent   = cfg[1];
+  const btnA = document.getElementById('btn-ajouter');
+  btnA.style.display = cfg[2] ? '' : 'none';
+  if (cfg[3]) document.getElementById('btn-ajouter-label').textContent = cfg[3];
+}
+
+function filtrer(id, q) {
+  document.querySelectorAll('#' + id + ' tr').forEach(r => {
+    r.style.display = r.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function deconnecter() {
+  if (confirm('Se déconnecter ?')) window.location.href = 'identifiant.html';
+}
+
+function renderAll() {
+  renderKpis();
+  renderHebergements();
+  renderTransports();
+  renderActivites();
+  renderReservations();
+  renderAvis();
+}
+
+renderAll();
+</script>
+</body>
+</html>
