@@ -1,1 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – À propos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Variables — même thème vert que la capture d'écran ── */
+    :root {
+      --bg:          #f5f3ef;
+      --surface:     #ffffff;
+      --border:      #e2ddd6;
+      --text:        #1a1714;
+      --muted:       #788a7b;
+      --accent:      #013819;
+      --accent-soft: #e4f5ea;
+      --header-h:    64px;
+      --sidebar-w:   200px;
+      --radius:      12px;
+      --shadow:      0 2px 16px rgba(0,0,0,.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow);
+    }
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge {
+      height: var(--header-h); background: var(--accent);
+      display: flex; align-items: center; padding: 0 28px 0 24px;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    }
+    .logo-badge span {
+      font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem;
+      color: #fff; letter-spacing: .02em; white-space: nowrap;
+    }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 40px; height: 40px; border: 1.5px solid var(--border); border-radius: 50%;
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); transition: background .18s, border-color .18s;
+      text-decoration: none; position: relative;
+    }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .icon-btn .dot {
+      position: absolute; top: 6px; right: 6px; width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%; border: 2px solid var(--surface);
+    }
+    .btn-connexion {
+      height: 36px; padding: 0 20px; border: 1.5px solid var(--accent); border-radius: 8px;
+      background: transparent; font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 500; cursor: pointer; color: var(--text);
+      transition: background .18s, color .18s;
+    }
+    .btn-connexion:hover { background: var(--accent); color: #fff; }
+
+    /* ── LAYOUT ── */
+    .layout { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w); background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: fixed; top: var(--header-h); left: 0; bottom: 0;
+      padding: 20px 12px; display: flex; flex-direction: column; gap: 4px;
+      overflow-y: auto; z-index: 40;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      border-radius: 8px; text-decoration: none; font-size: .9rem; font-weight: 400;
+      color: var(--muted); transition: background .15s, color .15s; cursor: pointer;
+    }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item.active svg { stroke: #fff; }
+
+    /* ── MAIN ── */
+    main { margin-left: var(--sidebar-w); flex: 1; padding: 48px 56px 80px; max-width: 980px; }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: var(--accent); border-radius: var(--radius);
+      padding: 52px 60px; margin-bottom: 36px; position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -40px; right: -40px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+    .hero-eyebrow {
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-size: 2.4rem;
+      font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 18px;
+    }
+    .hero-title em { font-style: italic; font-weight: 400; opacity: .85; }
+    .hero-desc { font-size: .975rem; line-height: 1.8; color: rgba(255,255,255,.75); max-width: 600px; }
+
+    /* ── STATS ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 26px 20px; text-align: center;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); border-color: #c8d8cb; }
+    .stat-card .num {
+      font-family: 'Playfair Display', serif; font-size: 2.1rem;
+      font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 6px;
+    }
+    .stat-card .lbl { font-size: .8rem; color: var(--muted); font-weight: 500; }
+
+    /* ── SECTION HEADER ── */
+    .sec-head { margin-bottom: 22px; }
+    .sec-title {
+      font-family: 'Playfair Display', serif; font-size: 1.45rem;
+      font-weight: 700; color: var(--text); margin-bottom: 4px;
+    }
+    .sec-sub { font-size: .875rem; color: var(--muted); line-height: 1.6; }
+    .sec-divider { margin-bottom: 36px; }
+
+    /* ── VALUES ── */
+    .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px; }
+    .value-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 24px 26px; display: flex; gap: 16px; align-items: flex-start;
+      transition: border-color .18s, box-shadow .18s;
+    }
+    .value-card:hover { border-color: #c8d8cb; box-shadow: 0 4px 20px rgba(1,56,25,.08); }
+    .val-icon {
+      width: 42px; height: 42px; border-radius: 10px; background: var(--accent-soft);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .val-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+    .val-title { font-size: .95rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .val-desc { font-size: .845rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── TEAM ── */
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+    .team-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 24px 16px; text-align: center;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .team-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+    .team-avatar {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--accent-soft); border: 3px solid #c8d8cb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; font-weight: 600; color: var(--accent);
+      margin: 0 auto 12px;
+    }
+    .team-name { font-size: .9rem; font-weight: 600; margin-bottom: 4px; }
+    .team-role { font-size: .76rem; color: var(--muted); }
+
+    /* ── TECH CHIPS ── */
+    .tech-list { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .tech-chip {
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 16px; background: var(--surface);
+      border: 1.5px solid var(--border); border-radius: 99px;
+      font-size: .845rem; font-weight: 500; color: var(--text);
+      box-shadow: var(--shadow); transition: border-color .18s, background .18s;
+    }
+    .tech-chip:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+    .tech-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* ── CONTACT CTA ── */
+    .cta-banner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 36px 44px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .cta-banner h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.25rem;
+      font-weight: 700; color: var(--text); margin-bottom: 4px;
+    }
+    .cta-banner p { font-size: .875rem; color: var(--muted); }
+    .btn-cta {
+      height: 40px; padding: 0 26px; background: var(--accent); color: #fff;
+      border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 600; cursor: pointer;
+      transition: background .18s; white-space: nowrap; flex-shrink: 0;
+      text-decoration: none; display: inline-flex; align-items: center;
+    }
+    .btn-cta:hover { background: #025a28; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--text); color: rgba(255,255,255,.7); width: 100%; }
+    .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem;
+      font-weight: 700; color: #fff; margin-bottom: 10px;
+    }
+    .footer-tagline { font-size: .875rem; line-height: 1.6; }
+    .footer-col h4 {
+      font-size: .8rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .08em; color: #fff; margin-bottom: 14px;
+    }
+    .footer-col a {
+      display: block; color: rgba(255,255,255,.6); text-decoration: none;
+      font-size: .875rem; margin-bottom: 8px; transition: color .15s;
+    }
+    .footer-col a:hover { color: #6dbf8a; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px;
+      display: flex; align-items: center; justify-content: space-between; font-size: .8rem;
+    }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom-links a:hover { color: #fff; }
+
+    /* ── BACK TO TOP ── */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; width: 46px; height: 46px;
+      border-radius: 50%; background: var(--accent); color: #fff; border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(1,56,25,.35);
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: opacity .25s, transform .25s; z-index: 200;
+    }
+    #backToTop.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #backToTop:hover { background: #025a28; }
+    #backToTop svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="Accueil.html" class="logo">
+    <div class="logo-badge"><span>VoyageVista</span></div>
+  </a>
+  <div class="header-right">
+    <a href="monespace.html" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="notifications.html" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <a href="Accueil.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
+    </a>
+    <a href="catalogue.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue
+    </a>
+    <a href="transport.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport
+    </a>
+    <a href="hebergement.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement
+    </a>
+    <a href="activite.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités
+    </a>
+    <a href="itineraire.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire
+    </a>
+    <a href="panier.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier
+    </a>
+    <a href="notifications.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications
+    </a>
+    <a href="monespace.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace
+    </a>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">Notre histoire</div>
+      <h1 class="hero-title">Planifiez. <em>Vivez.</em> Explorez.</h1>
+      <p class="hero-desc">
+        VoyageVista est une plateforme de planification de voyages conçue pour les explorateurs.
+        Notre mission : rendre chaque voyage accessible, mémorable et parfaitement organisé
+        du premier clic jusqu'au retour à la maison.
+      </p>
+    </div>
+
+    <!-- CHIFFRES CLÉS -->
+    <div class="sec-head">
+      <div class="sec-title">En quelques chiffres</div>
+      <div class="sec-sub">Ce que VoyageVista propose aujourd'hui.</div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num">30+</div>
+        <div class="lbl">Destinations</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">60+</div>
+        <div class="lbl">Activités disponibles</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">5</div>
+        <div class="lbl">Types de transport</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">4</div>
+        <div class="lbl">Membres fondateurs</div>
+      </div>
+    </div>
+
+    <!-- NOS VALEURS -->
+    <div class="sec-head sec-divider">
+      <div class="sec-title">Ce qui nous guide</div>
+      <div class="sec-sub">Quatre principes au cœur de chaque décision que nous prenons.</div>
+    </div>
+    <div class="values-grid">
+
+      <div class="value-card">
+        <div class="val-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="val-title">Sécurité &amp; confiance</div>
+          <div class="val-desc">Vos données et réservations sont protégées. Chaque action passe par des mécanismes de validation et d'authentification soigneusement vérifiés.</div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div class="val-title">Accessibilité mondiale</div>
+          <div class="val-desc">Des destinations sur cinq continents, des budgets économiques aux séjours idylliques, pour que chaque voyageur trouve sa place.</div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="val-title">Simplicité d'utilisation</div>
+          <div class="val-desc">Une interface ergonomique pour composer son séjour en quelques clics : transport, hébergement, activités et paiement en un seul endroit.</div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="val-title">Communauté de voyageurs</div>
+          <div class="val-desc">Avis, notes et recommandations partagés par de vrais voyageurs pour guider chaque choix avec authenticité.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- L'ÉQUIPE -->
+    <div class="sec-head sec-divider">
+      <div class="sec-title">L'équipe</div>
+      <div class="sec-sub">Quatre étudiants en ING2 à l'ECE Paris, passionnés de voyage et de code.</div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">E</div>
+        <div class="team-name">Esteban</div>
+        <div class="team-role">Frontend &amp; Architecture</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">E</div>
+        <div class="team-name">Eliott</div>
+        <div class="team-role">Backend &amp; Base de données</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">H</div>
+        <div class="team-name">Hadrien</div>
+        <div class="team-role">UX &amp; Catalogue</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">A</div>
+        <div class="team-name">Aylan</div>
+        <div class="team-role">Transport &amp; Itinéraires</div>
+      </div>
+    </div>
+
+    <!-- TECHNOLOGIES -->
+    <div class="sec-head sec-divider">
+      <div class="sec-title">Technologies utilisées</div>
+      <div class="sec-sub">Un projet web dynamique complet, du frontend au backend.</div>
+    </div>
+    <div class="tech-list">
+      <span class="tech-chip"><span class="tech-dot"></span>HTML</span>
+      <span class="tech-chip"><span class="tech-dot"></span>CSS</span>
+      <span class="tech-chip"><span class="tech-dot"></span>JavaScript</span>
+      <span class="tech-chip"><span class="tech-dot"></span>PHP</span>
+      <span class="tech-chip"><span class="tech-dot"></span>MySQL</span>
+      
+      
+      <span class="tech-chip"><span class="tech-dot"></span>PHP</span>
+      
+    </div>
+
+    <!-- CONTACT CTA -->
+    <div class="cta-banner">
+      <div>
+        <h3>Une question ? Un retour ?</h3>
+        <p>Notre équipe est disponible pour vous répondre rapidement.</p>
+      </div>
+      <a href="contact.html" class="btn-cta">Nous contacter</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.html">Toutes les destinations</a>
+        <a href="transport.html">Transports</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="activite.html">Activités</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.html">Connexion</a>
+        <a href="monespace.html">Mon espace</a>
+        <a href="panier.html">Mon panier</a>
+        <a href="itineraire.html">Mes itinéraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="Apropos.html">À propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Réseaux sociaux</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Projet ING2 ECE Paris</span>
+      <div class="footer-bottom-links">
+        <a href="cgu.html">CGU</a>
+        <a href="#">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const footer  = document.getElementById('footer');
+  function updateSidebar() {
+    const ft = footer.getBoundingClientRect().top;
+    sidebar.style.bottom = ft < window.innerHeight ? (window.innerHeight - ft) + 'px' : '0px';
+  }
+  window.addEventListener('scroll', updateSidebar);
+  window.addEventListener('resize', updateSidebar);
+  updateSidebar();
+
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 300));
+</script>
+</body>
+</html>
 
