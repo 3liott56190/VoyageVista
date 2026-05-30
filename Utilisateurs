@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – Mon Espace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:#f5f3ef; --surface:#fff; --border:#e2ddd6; --text:#1a1714;
+      --muted:#788a7b; --accent:#013819; --accent-soft:#e4f5ea;
+      --accent-dark:#012503; --header-h:64px; --sidebar-w:200px;
+      --radius:14px; --shadow:0 2px 16px rgba(0,0,0,.07);
+      --red:#dc2626; --red-soft:#fef2f2; --red-border:#fecaca;
+      --green:#16a34a; --green-soft:#f0fdf4; --green-border:#bbf7d0;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+
+    /* HEADER */
+    header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 0;z-index:100;box-shadow:var(--shadow)}
+    .logo{display:flex;align-items:center;height:100%;text-decoration:none}
+    .logo-badge{height:var(--header-h);background:var(--accent);display:flex;align-items:center;padding:0 28px 0 24px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
+    .logo-badge span{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;color:#fff;letter-spacing:.02em;white-space:nowrap}
+    .header-right{display:flex;align-items:center;gap:8px}
+    .user-chip{display:flex;align-items:center;gap:8px;padding:6px 14px;background:var(--accent-soft);border:1px solid #b8dfc0;border-radius:99px;font-size:.82rem;font-weight:600;color:var(--accent)}
+    .user-chip svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2}
+    .btn-deconnexion{height:36px;padding:0 16px;border:1.5px solid var(--border);border-radius:8px;background:none;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .18s}
+    .btn-deconnexion svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+    .btn-deconnexion:hover{border-color:var(--red);color:var(--red)}
+
+    /* SIDEBAR */
+    aside{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--header-h);left:0;bottom:0;padding:20px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;z-index:80}
+    .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:400;color:var(--muted);transition:background .15s,color .15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+    .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
+    .nav-item:hover{background:var(--accent-soft);color:var(--accent)}
+    .nav-item.active{background:var(--accent);color:#fff;font-weight:500}
+    .nav-item.active svg{stroke:#fff}
+
+    /* CONTENT */
+    .content{margin-left:var(--sidebar-w);margin-top:var(--header-h);flex:1;display:flex;flex-direction:column}
+    .page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:22px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+    .page-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700}
+    .page-sub{font-size:.82rem;color:var(--muted);margin-top:2px}
+
+    /* TABS */
+    .tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex}
+    .tab-btn{padding:14px 20px;border:none;border-bottom:2px solid transparent;background:none;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:7px}
+    .tab-btn:hover{color:var(--accent)}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+    .tab-badge{background:var(--accent);color:#fff;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:99px}
+
+    .main-content{padding:24px 28px 60px;flex:1}
+    .section{display:none}
+    .section.active{display:block}
+
+    /* CARDS GRILLE */
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+    .stat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:4px}
+    .stat-label{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .stat-value{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--accent)}
+    .stat-sub{font-size:.75rem;color:var(--muted)}
+
+    /* PANIER */
+    .panier-layout{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .panier-items{flex:1;min-width:280px}
+    .panier-sidebar{width:280px;flex-shrink:0;position:sticky;top:calc(var(--header-h) + 24px)}
+
+    .panier-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);transition:border-color .18s}
+    .panier-card:hover{border-color:var(--accent)}
+    .panier-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .panier-icon.transport{background:#eff6ff}
+    .panier-icon.hebergement{background:var(--green-soft)}
+    .panier-icon.activite{background:#faf5ff}
+    .panier-icon svg{width:20px;height:20px;fill:none;stroke-width:1.8}
+    .panier-icon.transport svg{stroke:#2563eb}
+    .panier-icon.hebergement svg{stroke:var(--green)}
+    .panier-icon.activite svg{stroke:#7c3aed}
+    .panier-body{flex:1;min-width:0}
+    .panier-type{font-size:.67rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+    .panier-nom{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:var(--text)}
+    .panier-detail{font-size:.75rem;color:var(--muted);margin-top:2px;line-height:1.5}
+    .panier-prix{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-top:4px}
+    .btn-suppr{width:28px;height:28px;border:1.5px solid var(--border);border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+    .btn-suppr:hover{border-color:var(--red);background:var(--red-soft)}
+    .btn-suppr svg{width:12px;height:12px;stroke:var(--muted);fill:none;stroke-width:2.5}
+    .btn-suppr:hover svg{stroke:var(--red)}
+
+    /* RÉCAPITULATIF PAIEMENT */
+    .recap-box{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .recap-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+    .recap-line{display:flex;justify-content:space-between;font-size:.84rem;margin-bottom:8px}
+    .recap-line.total{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--accent);margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+    .recap-mention{font-size:.7rem;color:var(--muted);margin-top:6px;margin-bottom:16px}
+
+    /* BOUTONS PAIEMENT */
+    .btn-pay{width:100%;height:46px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .18s;margin-bottom:8px}
+    .btn-pay:hover{background:var(--accent-dark)}
+    .btn-pay:disabled{opacity:.4;cursor:not-allowed}
+    .btn-pay svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2}
+    .btn-pay-secondary{width:100%;height:40px;background:none;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:var(--text);cursor:pointer;transition:border-color .18s}
+    .btn-pay-secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* MODAL PAIEMENT */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s}
+    .modal-overlay.open{opacity:1;pointer-events:auto}
+    .modal{background:var(--surface);border-radius:16px;width:460px;max-width:calc(100vw - 32px);max-height:85vh;overflow-y:auto;padding:28px;box-shadow:0 24px 64px rgba(0,0,0,.2);transform:translateY(18px);transition:transform .22s}
+    .modal-overlay.open .modal{transform:translateY(0)}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .modal-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700}
+    .modal-close{width:30px;height:30px;border:1.5px solid var(--border);border-radius:50%;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .modal-close:hover{background:var(--accent-soft)}
+    .modal-close svg{width:13px;height:13px;stroke:var(--text);fill:none;stroke-width:2}
+
+    /* FORM PAIEMENT */
+    .form-group{margin-bottom:14px}
+    .form-label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+    .form-input{width:100%;height:40px;padding:0 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.86rem;color:var(--text);background:var(--bg);outline:none;transition:border-color .18s}
+    .form-input:focus{border-color:var(--accent);background:#fff}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .card-icons{display:flex;gap:6px;margin-bottom:14px}
+    .card-icon-pill{padding:4px 10px;border:1px solid var(--border);border-radius:6px;font-size:.72rem;font-weight:700;color:var(--muted);background:var(--bg)}
+    .modal-footer{display:flex;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);justify-content:flex-end}
+    .btn-confirm{height:40px;padding:0 24px;border:none;border-radius:8px;background:var(--accent);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;color:#fff;cursor:pointer;transition:background .18s}
+    .btn-confirm:hover{background:var(--accent-dark)}
+    .btn-cancel{height:40px;padding:0 18px;border:1.5px solid var(--border);border-radius:8px;background:none;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;color:var(--text);cursor:pointer}
+
+    /* CONFIRMATION */
+    .confirm-box{text-align:center;padding:20px 0}
+    .confirm-box .check{width:56px;height:56px;background:var(--green-soft);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+    .confirm-box .check svg{width:26px;height:26px;stroke:var(--green);fill:none;stroke-width:2.5}
+    .confirm-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:8px}
+    .confirm-sub{font-size:.84rem;color:var(--muted);line-height:1.6}
+
+    /* ITINÉRAIRES */
+    .itin-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .itin-left{display:flex;align-items:center;gap:14px}
+    .itin-emoji{font-size:1.6rem}
+    .itin-nom{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700}
+    .itin-detail{font-size:.75rem;color:var(--muted);margin-top:2px}
+    .itin-prix{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--accent)}
+    .itin-actions{display:flex;gap:8px}
+    .btn-sm{height:32px;padding:0 14px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;border:1.5px solid;transition:all .15s}
+    .btn-sm.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .btn-sm.primary:hover{background:var(--accent-dark)}
+    .btn-sm.outline{background:none;color:var(--muted);border-color:var(--border)}
+    .btn-sm.outline:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* ÉTAT VIDE */
+    .empty{text-align:center;padding:48px 24px;color:var(--muted)}
+    .empty svg{width:36px;height:36px;stroke:var(--muted);fill:none;stroke-width:1.3;opacity:.4;margin-bottom:12px}
+    .empty p{font-size:.84rem;line-height:1.7}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--accent);color:#fff;padding:12px 20px;border-radius:10px;font-size:.84rem;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:999;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.22,.68,0,1.2)}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5}
+
+    footer{background:var(--text);color:rgba(255,255,255,.7)}
+    .footer-inner{padding:24px 48px;margin-left:var(--sidebar-w)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:.78rem}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="catalogue.html" class="logo"><div class="logo-badge"><span>VoyageVista</span></div></a>
+  <div class="header-right">
+    <div class="user-chip">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span id="header-nom">Voyageur</span>
+    </div>
+    <button class="btn-deconnexion" onclick="deconnecter()">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnexion
+    </button>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<aside>
+  <a href="catalogue.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+  <a href="hebergement.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergements</a>
+  <a href="itineraire.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+  <button class="nav-item active" onclick="switchTab('panier',this)"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mon panier</button>
+  <button class="nav-item" onclick="switchTab('itineraires',this)"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Mes séjours</button>
+  <button class="nav-item" onclick="switchTab('profil',this)"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon profil</button>
+</aside>
+
+<!-- PAGE -->
+<div class="content">
+  <div class="page-header">
+    <div>
+      <div class="page-eyebrow">Espace Voyageur</div>
+      <h1 class="page-title" id="page-title">Mon panier</h1>
+      <p class="page-sub" id="page-sub">Vérifiez vos articles et procédez au paiement.</p>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-bar">
+    <button class="tab-btn active" id="tab-panier-btn" onclick="switchTab('panier',this)">
+      Mon panier <span class="tab-badge" id="badge-panier">0</span>
+    </button>
+    <button class="tab-btn" id="tab-itineraires-btn" onclick="switchTab('itineraires',this)">Mes séjours</button>
+    <button class="tab-btn" id="tab-profil-btn" onclick="switchTab('profil',this)">Mon profil</button>
+  </div>
+
+  <div class="main-content">
+
+    <!-- SECTION PANIER -->
+    <div class="section active" id="section-panier">
+      <div class="panier-layout">
+        <div class="panier-items" id="panier-items"></div>
+        <div class="panier-sidebar">
+          <div class="recap-box">
+            <div class="recap-title">Récapitulatif</div>
+            <div id="recap-lines"></div>
+            <p class="recap-mention">TVA et frais inclus · Prix définitifs</p>
+            <button class="btn-pay" id="btn-pay" onclick="ouvrirPaiement()" disabled>
+              <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Payer maintenant
+            </button>
+            <button class="btn-pay-secondary" onclick="viderPanier()">Vider le panier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION SÉJOURS -->
+    <div class="section" id="section-itineraires">
+      <div class="cards-grid" id="stats-grid"></div>
+      <div id="itineraires-list"></div>
+    </div>
+
+    <!-- SECTION PROFIL -->
+    <div class="section" id="section-profil">
+      <div style="max-width:480px">
+        <div class="recap-box">
+          <div class="recap-title">Mes informations</div>
+          <div class="form-group" style="margin-top:8px">
+            <label class="form-label">Nom complet</label>
+            <input class="form-input" id="profil-nom" type="text"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input class="form-input" id="profil-email" type="email"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input class="form-input" id="profil-tel" type="tel" placeholder="+33 6 00 00 00 00"/>
+          </div>
+          <button class="btn-pay" onclick="sauvegarderProfil()" style="margin-top:8px">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Sauvegarder
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL PAIEMENT -->
+<div class="modal-overlay" id="modal-pay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-pay-title">💳 Paiement sécurisé</div>
+      <button class="modal-close" onclick="fermerModal()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="modal-pay-body">
+      <div class="card-icons">
+        <span class="card-icon-pill">VISA</span>
+        <span class="card-icon-pill">Mastercard</span>
+        <span class="card-icon-pill">PayPal</span>
+        <span class="card-icon-pill">Apple Pay</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Titulaire de la carte</label>
+        <input class="form-input" id="pay-nom" placeholder="Marie Dupont"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Numéro de carte</label>
+        <input class="form-input" id="pay-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCarte(this)"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Expiration</label>
+          <input class="form-input" id="pay-exp" placeholder="MM/AA" maxlength="5" oninput="formatExp(this)"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CVV</label>
+          <input class="form-input" id="pay-cvv" placeholder="123" maxlength="3" type="password"/>
+        </div>
+      </div>
+      <div style="background:var(--green-soft);border:1px solid var(--green-border);border-radius:8px;padding:10px 14px;font-size:.75rem;color:var(--green);display:flex;align-items:center;gap:8px;margin-top:4px">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Paiement chiffré SSL 256 bits · Vos données sont protégées
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
+      <button class="btn-confirm" onclick="confirmerPaiement()">
+        Payer <span id="pay-total-btn">0 €</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Action effectuée</span>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Tous droits réservés</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════
+//  DONNÉES DYNAMIQUES PANIER
+//  Source : localStorage (vv_panier)
+//  Format article : {id, type, nom, detail, prix, image?}
+// ══════════════════════════════════
+
+// Profil utilisateur (simulé — à remplacer par session backend)
+const userProfil = {
+  nom:   '',
+  email: '',
+  tel:   ''
+}; // Remplir depuis la session backend
+document.getElementById('header-nom').textContent = userProfil.nom;
+document.getElementById('profil-nom').value   = userProfil.nom;
+document.getElementById('profil-email').value  = userProfil.email;
+document.getElementById('profil-tel').value    = userProfil.tel;
+
+// ── PANIER (localStorage) ──
+function getPanier() {
+  try { return JSON.parse(localStorage.getItem('vv_panier') || '[]'); }
+  catch(e) { return []; }
+}
+function savePanier(items) {
+  localStorage.setItem('vv_panier', JSON.stringify(items));
+}
+
+// Articles par défaut si le panier est vide (démo)
+function getPanierAvecDefaut() {
+  const p = getPanier();
+  if (p.length > 0) return p;
+  // Panier vide — les articles seront ajoutés depuis les autres pages
+  return [];
+}
+
+const iconeType = {
+  transport:   `<svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>`,
+  hebergement: `<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>`,
+  activite:    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+};
+const labelType = { transport:'Transport', hebergement:'Hébergement', activite:'Activité' };
+
+function renderPanier() {
+  const items = getPanierAvecDefaut();
+  document.getElementById('badge-panier').textContent = items.length;
+
+  const container = document.getElementById('panier-items');
+  if (!items.length) {
+    container.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>Votre panier est vide.<br>Explorez le <a href="catalogue.html" style="color:var(--accent)">catalogue</a> pour ajouter des séjours.</p></div>`;
+    document.getElementById('btn-pay').disabled = true;
+    renderRecap([]);
+    return;
+  }
+
+  container.innerHTML = items.map(it => `
+    <div class="panier-card">
+      <div class="panier-icon ${it.type}">${iconeType[it.type] || iconeType.activite}</div>
+      <div class="panier-body">
+        <div class="panier-type">${labelType[it.type] || it.type}</div>
+        <div class="panier-nom">${it.nom}</div>
+        <div class="panier-detail">${it.detail}</div>
+        <div class="panier-prix">${Number(it.prix).toLocaleString('fr-FR')} €</div>
+      </div>
+      <button class="btn-suppr" onclick="supprimerArticle('${it.id}')" title="Supprimer">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>`).join('');
+
+  document.getElementById('btn-pay').disabled = false;
+  renderRecap(items);
+}
+
+function renderRecap(items) {
+  const total = items.reduce((s, i) => s + Number(i.prix), 0);
+  const byType = {};
+  items.forEach(i => { byType[i.type] = (byType[i.type] || 0) + Number(i.prix); });
+
+  let html = Object.entries(byType).map(([t, p]) =>
+    `<div class="recap-line"><span>${labelType[t] || t}</span><span>${p.toLocaleString('fr-FR')} €</span></div>`
+  ).join('');
+  html += `<div class="recap-line total"><span>Total</span><span>${total.toLocaleString('fr-FR')} €</span></div>`;
+
+  document.getElementById('recap-lines').innerHTML = html;
+  document.getElementById('pay-total-btn').textContent = total.toLocaleString('fr-FR') + ' €';
+}
+
+function supprimerArticle(id) {
+  const items = getPanierAvecDefaut().filter(i => i.id !== id);
+  savePanier(items);
+  renderPanier();
+  toast('Article supprimé du panier');
+}
+
+function viderPanier() {
+  if (!confirm('Vider tout le panier ?')) return;
+  savePanier([]);
+  renderPanier();
+  toast('Panier vidé');
+}
+
+// ── SÉJOURS PASSÉS (simulé) ──
+const sejoursData = []; // Remplir depuis le backend ou localStorage
+
+function renderItineraires() {
+  const aVenir = sejoursData.filter(s => s.statut === 'A venir').length;
+  const totalDepense = sejoursData.reduce((s,j) => s + j.prix, 0);
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Séjours réservés</div><div class="stat-value">${sejoursData.length}</div><div class="stat-sub">${aVenir} à venir</div></div>
+    <div class="stat-card"><div class="stat-label">Total dépensé</div><div class="stat-value">${totalDepense.toLocaleString('fr-FR')} €</div><div class="stat-sub">sur tous les séjours</div></div>
+    <div class="stat-card"><div class="stat-label">Destinations visitées</div><div class="stat-value">${sejoursData.length}</div><div class="stat-sub">pays explorés</div></div>`;
+
+  document.getElementById('itineraires-list').innerHTML = sejoursData.map((s, i) => `
+    <div class="itin-card">
+      <div class="itin-left">
+        <div class="itin-emoji">${s.emoji}</div>
+        <div>
+          <div class="itin-nom">${s.nom}</div>
+          <div class="itin-detail">${s.detail} · <span style="color:${s.statut==='Terminé'?'var(--muted)':'var(--green)'}">${s.statut}</span></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px">
+        <div class="itin-prix">${s.prix.toLocaleString('fr-FR')} €</div>
+        <div class="itin-actions">
+          <button class="btn-sm outline" onclick="toast('Téléchargement du récapitulatif…')">PDF</button>
+          <button class="btn-sm primary" onclick="toast('Voir les détails du séjour')">Voir</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── PAIEMENT ──
+function ouvrirPaiement() {
+  document.getElementById('modal-pay').classList.add('open');
+  document.getElementById('modal-pay-title').textContent = '💳 Paiement sécurisé';
+  document.getElementById('modal-pay-body').style.display = '';
+  document.querySelector('.modal-footer').style.display = '';
+}
+
+function fermerModal() {
+  document.getElementById('modal-pay').classList.remove('open');
+}
+
+document.getElementById('modal-pay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-pay')) fermerModal();
+});
+
+function confirmerPaiement() {
+  const nom = document.getElementById('pay-nom').value.trim();
+  const num = document.getElementById('pay-num').value.replace(/\s/g,'');
+  const exp = document.getElementById('pay-exp').value;
+  const cvv = document.getElementById('pay-cvv').value;
+  if (!nom || num.length < 16 || exp.length < 5 || cvv.length < 3) {
+    toast('Veuillez remplir tous les champs de paiement.');
+    return;
+  }
+  // Simuler le traitement
+  document.getElementById('modal-pay-title').textContent = '⏳ Traitement en cours…';
+  document.getElementById('modal-pay-body').style.display = 'none';
+  document.querySelector('.modal-footer').style.display = 'none';
+
+  setTimeout(() => {
+    document.getElementById('modal-pay-title').textContent = '';
+    document.getElementById('modal-pay-body').innerHTML = `
+      <div class="confirm-box">
+        <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="confirm-title">Paiement confirmé !</div>
+        <div class="confirm-sub">Votre réservation a bien été enregistrée.<br>Un email de confirmation a été envoyé à <strong>${userProfil.email}</strong>.<br><br>Numéro de réservation : <strong>VV-${Math.floor(Math.random()*900000+100000)}</strong></div>
+      </div>`;
+    document.getElementById('modal-pay-body').style.display = '';
+    document.querySelector('.modal-footer').innerHTML = `<button class="btn-confirm" onclick="fermerModal();savePanier([]);renderPanier();toast('Merci pour votre réservation !')">Fermer</button>`;
+    document.querySelector('.modal-footer').style.display = '';
+  }, 1800);
+}
+
+function formatCarte(inp) {
+  let v = inp.value.replace(/\D/g,'').substring(0,16);
+  inp.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExp(inp) {
+  let v = inp.value.replace(/\D/g,'').substring(0,4);
+  if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2);
+  inp.value = v;
+}
+
+// ── NAVIGATION ──
+const tabConfig = {
+  panier:      ['Mon panier',    'Vérifiez vos articles et procédez au paiement.'],
+  itineraires: ['Mes séjours',   'Retrouvez tous vos séjours passés et à venir.'],
+  profil:      ['Mon profil',    'Gérez vos informations personnelles.'],
+};
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn, .nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + tab).classList.add('active');
+  if (btn) btn.classList.add('active');
+  const t = tabConfig[tab] || ['',''];
+  document.getElementById('page-title').textContent = t[0];
+  document.getElementById('page-sub').textContent   = t[1];
+}
+
+function sauvegarderProfil() {
+  userProfil.nom   = document.getElementById('profil-nom').value;
+  userProfil.email = document.getElementById('profil-email').value;
+  document.getElementById('header-nom').textContent = userProfil.nom;
+  toast('Profil mis à jour !');
+}
+
+// ── TOAST ──
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function deconnecter() {
+  if (confirm('Se déconnecter ?')) window.location.href = 'identifiant.html';
+}
+
+// Init
+renderPanier();
+renderItineraires();
+</script>
+</body>
+</html>
