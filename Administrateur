@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoyageVista – Administration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>:root {
+  --bg:          #f5f3ef;
+  --surface:     #ffffff;
+  --border:      #e2ddd6;
+  --text:        #1a1714;
+  --muted:       #788a7b;
+    --accent:      #1e3a8a;
+    --accent-soft: #eff6ff;
+    --accent-dark: #1e2e6e;
+  --header-h:    64px;
+  --sidebar-w:   200px;
+  --radius:      14px;
+  --shadow:      0 2px 16px rgba(0,0,0,.07);
+}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: var(--text); border-bottom: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: space-between; padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow); }
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge { height: var(--header-h); background: var(--accent); display: flex; align-items: center; padding: 0 28px 0 24px; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%); }
+    .logo-badge span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: .02em; white-space: nowrap; }
+    .logo-admin { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-left: 16px; }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .admin-chip { display: flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 99px; font-size: .82rem; font-weight: 500; color: #fff; }
+    .admin-chip svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 1.8; }
+    .btn-deconnexion { height: 36px; padding: 0 16px; border: 1.5px solid rgba(255,255,255,.2); border-radius: 8px; background: transparent; font-family: 'DM Sans', sans-serif; font-size: .82rem; font-weight: 500; color: rgba(255,255,255,.7); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all .18s; }
+    .btn-deconnexion svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .btn-deconnexion:hover { border-color: #f5b8ba; color: #f5b8ba; background: rgba(192,54,58,.15); }
+
+    aside { width: var(--sidebar-w); background: var(--text); position: fixed; top: var(--header-h); left: 0; bottom: 0; padding: 20px 12px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; z-index: 80; }
+    .nav-section-label { font-size: .62rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.3); padding: 14px 14px 6px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-size: .88rem; font-weight: 400; color: rgba(255,255,255,.6); transition: background .15s, color .15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: 'DM Sans', sans-serif; position: relative; }
+    .nav-item svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: rgba(255,255,255,.08); color: #fff; }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item .nav-badge { position: absolute; right: 10px; background: var(--red); color: #fff; font-size: .62rem; font-weight: 700; padding: 1px 6px; border-radius: 99px; }
+    .nav-sep { height: 1px; background: rgba(255,255,255,.1); margin: 8px 4px; }
+
+    .content { margin-left: var(--sidebar-w); margin-top: var(--header-h); flex: 1; display: flex; flex-direction: column; }
+
+    /* PAGE HEADER */
+    .page-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 22px 32px; display: flex; align-items: center; justify-content: space-between; }
+    .page-eyebrow { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+    .page-sub { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+
+    /* KPIs */
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 24px 28px 0; }
+    .kpi-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; }
+    .kpi-card.alert-kpi { border-color: var(--red); background: var(--red-soft); }
+    .kpi-label { font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .kpi-card.alert-kpi .kpi-label { color: var(--red); }
+    .kpi-value { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--text); }
+    .kpi-card.alert-kpi .kpi-value { color: var(--red); }
+    .kpi-trend { font-size: .72rem; color: var(--green); }
+    .kpi-trend.down { color: var(--red); }
+
+    /* TABS SECTION */
+    .sections-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--surface); padding: 0 28px; }
+    .section-tab { padding: 14px 20px; border: none; border-bottom: 2px solid transparent; background: none; font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; transition: color .15s, border-color .15s; display: flex; align-items: center; gap: 7px; }
+    .section-tab:hover { color: var(--accent); }
+    .section-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+    .section-tab .tab-badge { background: var(--red); color: #fff; font-size: .62rem; font-weight: 700; padding: 1px 6px; border-radius: 99px; }
+
+    .main-content { padding: 24px 28px 60px; flex: 1; }
+
+    /* TABLEAU */
+    .table-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 20px; }
+    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .table-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
+    .table-search { height: 34px; padding: 0 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .82rem; color: var(--text); background: var(--bg); outline: none; width: 200px; transition: border-color .18s; }
+    .table-search:focus { border-color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; }
+    thead th { padding: 10px 16px; text-align: left; font-size: .68rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); background: var(--bg); }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--accent-soft); }
+    tbody td { padding: 12px 16px; font-size: .84rem; vertical-align: middle; }
+    .cell-name { font-weight: 600; }
+    .cell-sub { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+    /* BADGES STATUS */
+    .badge { display: inline-flex; align-items: center; gap: 4px; font-size: .65rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; }
+    .badge-attente  { background: #fff7e6; color: #c9672b; border: 1px solid #f5d9b8; }
+    .badge-valide   { background: var(--green-soft); color: var(--green); border: 1px solid var(--green-border); }
+    .badge-refus    { background: var(--red-soft); color: var(--red); border: 1px solid var(--red-border); }
+    .badge-actif    { background: var(--green-soft); color: var(--green); border: 1px solid var(--green-border); }
+    .badge-suspendu { background: var(--red-soft); color: var(--red); border: 1px solid var(--red-border); }
+    .badge-signale  { background: #fff7e6; color: #c9672b; border: 1px solid #f5d9b8; }
+
+    /* ACTIONS */
+    .actions { display: flex; gap: 6px; }
+    .btn-action { height: 30px; padding: 0 12px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .72rem; font-weight: 600; cursor: pointer; border: 1.5px solid; transition: all .15s; }
+    .btn-valider  { border-color: var(--green); color: var(--green); background: none; }
+    .btn-valider:hover  { background: var(--green); color: #fff; }
+    .btn-refuser  { border-color: var(--red); color: var(--red); background: none; }
+    .btn-refuser:hover  { background: var(--red); color: #fff; }
+    .btn-voir     { border-color: var(--border); color: var(--muted); background: none; }
+    .btn-voir:hover     { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+    .btn-suspendre { border-color: var(--red-border); color: var(--red); background: none; }
+    .btn-suspendre:hover { background: var(--red); color: #fff; }
+    .btn-reactiver { border-color: var(--green-border); color: var(--green); background: none; }
+    .btn-reactiver:hover { background: var(--green); color: #fff; }
+
+    /* SECTION SIGNALEMENTS */
+    .signal-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow); margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start; }
+    .signal-card.urgent { border-color: var(--red); }
+    .signal-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .signal-icon.rouge { background: var(--red-soft); }
+    .signal-icon.rouge svg { stroke: var(--red); }
+    .signal-icon.orange { background: var(--accent-soft); }
+    .signal-icon.orange svg { stroke: var(--accent); }
+    .signal-icon svg { width: 18px; height: 18px; fill: none; stroke-width: 1.8; }
+    .signal-body { flex: 1; }
+    .signal-title { font-weight: 600; font-size: .88rem; margin-bottom: 3px; }
+    .signal-detail { font-size: .75rem; color: var(--muted); line-height: 1.5; }
+    .signal-date { font-size: .7rem; color: var(--muted); margin-top: 4px; }
+    .signal-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+
+    /* SECTIONS CACHÉES */
+    .section-content { display: none; }
+    .section-content.active { display: block; }
+
+    footer { background: var(--text); color: rgba(255,255,255,.7); }
+    .footer-inner { padding: 24px 48px; margin-left: var(--sidebar-w); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: .78rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;height:100%;">
+    <a href="accueil.html" class="logo">
+      <div class="logo-badge"><span>VoyageVista</span></div>
+    </a>
+    <span class="logo-admin">· Administration</span>
+  </div>
+  <div class="header-right">
+    <div class="admin-chip">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Super Admin
+    </div>
+    <button class="btn-deconnexion" onclick="deconnecter()">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnexion
+    </button>
+  </div>
+</header>
+
+<aside>
+  <div class="nav-section-label">Tableau de bord</div>
+  <a href="#" class="nav-item active" onclick="switchSection('dashboard', this)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Vue d'ensemble</a>
+
+  <div class="nav-section-label">Modération</div>
+  <a href="#" class="nav-item" onclick="switchSection('offres', this)"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Demandes d'offres<span class="nav-badge">5</span></a>
+  <a href="#" class="nav-item" onclick="switchSection('comptes', this)"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Gestion des comptes</a>
+  <a href="#" class="nav-item" onclick="switchSection('signalements', this)"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Signalements<span class="nav-badge">3</span></a>
+
+  <div class="nav-section-label">Contenu</div>
+  <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Destinations</a>
+  <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Transactions</a>
+
+  <div class="nav-sep"></div>
+  <button class="nav-item" onclick="deconnecter()" style="color:#f5b8ba;">
+    <svg viewBox="0 0 24 24" style="stroke:#f5b8ba"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Déconnexion
+  </button>
+</aside>
+
+<div class="content">
+  <div class="page-header">
+    <div>
+      <div class="page-eyebrow">Accès restreint</div>
+      <h1 class="page-title" id="page-title">Tableau de bord</h1>
+      <p class="page-sub" id="page-sub">Vue d'ensemble de la plateforme VoyageVista.</p>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis" id="kpis-section">
+    <div class="kpi-card alert-kpi">
+      <div class="kpi-label">En attente de validation</div>
+      <div class="kpi-value">5</div>
+      <div class="kpi-trend down">↑ 2 nouvelles aujourd'hui</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Utilisateurs actifs</div>
+      <div class="kpi-value">1 842</div>
+      <div class="kpi-trend">↑ +12% ce mois</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Prestataires inscrits</div>
+      <div class="kpi-value">134</div>
+      <div class="kpi-trend">↑ +6 ce mois</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Réservations totales</div>
+      <div class="kpi-value">9 218</div>
+      <div class="kpi-trend">↑ +18% vs mois dernier</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="sections-tabs" style="margin-top:24px;">
+    <button class="section-tab active" id="tab-offres" onclick="switchTab('offres')">Demandes d'offres <span class="tab-badge"></span></button>
+    <button class="section-tab" id="tab-comptes" onclick="switchTab('comptes')">Comptes utilisateurs</button>
+    <button class="section-tab" id="tab-signalements" onclick="switchTab('signalements')">Signalements <span class="tab-badge"></span></button>
+  </div>
+
+  <div class="main-content">
+
+    <!-- SECTION OFFRES -->
+    <div id="section-offres" class="section-content active">
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Demandes d'ajout d'offres</div>
+          <input class="table-search" type="text" placeholder="Rechercher…" oninput="filtrerTableau('offres-body', this.value)" />
+        </div>
+        <table>
+          <thead><tr><th>Offre</th><th>Prestataire</th><th>Type</th><th>Prix</th><th>Soumis le</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody id="offres-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION COMPTES -->
+    <div id="section-comptes" class="section-content">
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Gestion des comptes</div>
+          <input class="table-search" type="text" placeholder="Rechercher un utilisateur…" oninput="filtrerTableau('comptes-body', this.value)" />
+        </div>
+        <table>
+          <thead><tr><th>Utilisateur</th><th>Rôle</th><th>Inscription</th><th>Dernière connexion</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody id="comptes-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION SIGNALEMENTS -->
+    <div id="section-signalements" class="section-content">
+    </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Panneau d'administration · Accès restreint</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════
+//  DONNÉES DYNAMIQUES ADMIN
+//  Toutes les données sont en JS dynamique
+//  prêtes à être branchées sur un vrai API
+// ══════════════════════════════════════
+
+// KPIs — mis à jour dynamiquement
+const kpiData = [
+  { label: 'En attente de validation', value: 0, trend: '—', alert: true,  down: false },
+  { label: 'Utilisateurs actifs',      value: 0, trend: '—', alert: false, down: false },
+  { label: 'Prestataires inscrits',    value: 0, trend: '—', alert: false, down: false },
+  { label: 'Réservations totales',     value: 0, trend: '—', alert: false, down: false },
+]; // Remplir depuis le backend
+
+// Offres — données dynamiques
+const offresData = []; // Remplir depuis le backend
+
+// Comptes — données dynamiques
+const comptesData = []; // Remplir depuis le backend
+
+// Signalements — données dynamiques
+const signalementsData = []; // Remplir depuis le backend
+
+// ── RENDU KPIs ──
+function renderKpis() {
+  document.getElementById('kpis-section').innerHTML = kpiData.map(k => `
+    <div class="kpi-card ${k.alert ? 'alert-kpi' : ''}">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value.toLocaleString('fr-FR')}</div>
+      <div class="kpi-trend ${k.down ? 'down' : ''}">${k.trend}</div>
+    </div>`).join('');
+}
+
+// ── RENDU OFFRES ──
+function badgeOffre(s) {
+  if (s==='attente') return '<span class="badge badge-attente">En attente</span>';
+  if (s==='valide')  return '<span class="badge badge-valide">Validé</span>';
+  return '<span class="badge badge-refus">Refusé</span>';
+}
+
+function renderOffres() {
+  const attente = offresData.filter(o => o.statut === 'attente').length;
+  document.getElementById('tab-offres').querySelector('.tab-badge') &&
+    (document.getElementById('tab-offres').querySelector('.tab-badge').textContent = attente);
+
+  document.getElementById('offres-body').innerHTML = offresData.map((o, i) => `
+    <tr>
+      <td><div class="cell-name">${o.nom}</div><div class="cell-sub">${o.lieu}</div></td>
+      <td>${o.presta}</td><td>${o.type}</td><td>${o.prix}</td><td>${o.date}</td>
+      <td><span id="ob-${i}">${badgeOffre(o.statut)}</span></td>
+      <td><div class="actions" id="oa-${i}">
+        ${o.statut==='attente' ? `
+          <button class="btn-action btn-valider" onclick="traiterOffre(${i},'valide')">✓ Valider</button>
+          <button class="btn-action btn-refuser" onclick="traiterOffre(${i},'refus')">✗ Refuser</button>` : ''}
+        <button class="btn-action btn-voir">Voir</button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function traiterOffre(i, action) {
+  offresData[i].statut = action;
+  document.getElementById('ob-' + i).innerHTML = badgeOffre(action);
+  document.getElementById('oa-' + i).innerHTML = '<button class="btn-action btn-voir">Voir</button>';
+  renderOffres();
+}
+
+// ── RENDU COMPTES ──
+function badgeCompte(s) {
+  if (s==='actif')    return '<span class="badge badge-actif">Actif</span>';
+  if (s==='suspendu') return '<span class="badge badge-suspendu">Suspendu</span>';
+  return '<span class="badge badge-signale">Signalé</span>';
+}
+
+function renderComptes() {
+  document.getElementById('comptes-body').innerHTML = comptesData.map((c, i) => `
+    <tr>
+      <td><div class="cell-name">${c.nom}</div><div class="cell-sub">${c.email}</div></td>
+      <td>${c.role}</td><td>${c.inscription}</td><td>${c.connexion}</td>
+      <td><span id="cb-${i}">${badgeCompte(c.statut)}</span></td>
+      <td><div class="actions">
+        <button class="btn-action btn-voir">Voir</button>
+        ${c.statut === 'suspendu'
+          ? `<button class="btn-action btn-reactiver" onclick="toggleCompte(${i})">Réactiver</button>`
+          : `<button class="btn-action btn-suspendre" onclick="toggleCompte(${i})">Suspendre</button>`}
+      </div></td>
+    </tr>`).join('');
+}
+
+function toggleCompte(i) {
+  comptesData[i].statut = comptesData[i].statut === 'suspendu' ? 'actif' : 'suspendu';
+  renderComptes();
+}
+
+// ── RENDU SIGNALEMENTS ──
+function renderSignalements() {
+  const nonTraites = signalementsData.filter(s => !s.traite).length;
+  document.getElementById('section-signalements').innerHTML = signalementsData.map((s, i) => `
+    <div class="signal-card ${s.urgent ? 'urgent' : ''}" style="${s.traite ? 'opacity:.45;pointer-events:none' : ''}">
+      <div class="signal-icon ${s.couleur}">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div class="signal-body">
+        <div class="signal-title">${s.emoji} ${s.titre}${s.traite ? ' <span style=\'color:var(--green);font-size:.78rem\'>✓ Traité</span>' : ''}</div>
+        <div class="signal-detail">${s.detail}</div>
+        <div class="signal-date">Signalé le ${s.date}</div>
+      </div>
+      <div class="signal-actions">
+        ${!s.traite ? `<button class="btn-action ${s.btnClass}" onclick="traiterSignalement(${i})">${s.btnLabel}</button>` : ''}
+        <button class="btn-action btn-voir">Voir</button>
+      </div>
+    </div>`).join('');
+}
+
+function traiterSignalement(i) {
+  signalementsData[i].traite = true;
+  renderSignalements();
+}
+
+// ── INIT ──
+renderKpis();
+renderOffres();
+renderComptes();
+renderSignalements();
+
+</script>
+</body>
+</html>
