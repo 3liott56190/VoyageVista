@@ -155,30 +155,18 @@
 </header>
 
 <aside>
-  <div class="nav-label">Tableau de bord</div>
-  <button class="nav-item active" onclick="switchSection('dashboard',this)">
-    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Vue d'ensemble
-  </button>
+  <a href="catalogue.html"    class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+  <a href="hebergement.html"  class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergements</a>
+  <a href="transport.html"    class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+  <a href="activites.html"    class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+  <a href="itineraire.html"   class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
   <div class="nav-label">Mes offres</div>
-  <button class="nav-item" onclick="switchSection('hebergements',this)">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergements
-    <span class="nav-badge" id="nav-b-heb">0</span>
-  </button>
-  <button class="nav-item" onclick="switchSection('transports',this)">
-    <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transports
-    <span class="nav-badge" id="nav-b-trans">0</span>
-  </button>
-  <button class="nav-item" onclick="switchSection('activites',this)">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités
-    <span class="nav-badge" id="nav-b-act">0</span>
-  </button>
-  <div class="nav-label">Gestion</div>
-  <button class="nav-item" onclick="switchSection('reservations',this)">
-    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Réservations
-  </button>
-  <button class="nav-item" onclick="switchSection('avis',this)">
-    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Avis clients
-  </button>
+  <button class="nav-item active" onclick="switchSection('dashboard',this)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Vue d'ensemble</button>
+  <button class="nav-item" onclick="switchSection('hebergements',this)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Mes hébergements<span class="nav-badge" id="nav-b-heb">0</span></button>
+  <button class="nav-item" onclick="switchSection('transports',this)"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Mes transports<span class="nav-badge" id="nav-b-trans">0</span></button>
+  <button class="nav-item" onclick="switchSection('activites',this)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mes activités<span class="nav-badge" id="nav-b-act">0</span></button>
+  <button class="nav-item" onclick="switchSection('reservations',this)"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Réservations</button>
+  <button class="nav-item" onclick="switchSection('avis',this)"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Avis clients</button>
 </aside>
 
 <div class="content">
@@ -307,36 +295,27 @@
 </footer>
 
 <script>
-// ══════════════════════════════════════════
-//  DONNÉES DYNAMIQUES PRESTATAIRE
-//  Stockées dans localStorage par catégorie
-// ══════════════════════════════════════════
-
 document.getElementById('presta-nom').textContent = 'Kayon Resort';
 
-// Utilitaires localStorage
 function getData(key) { try { return JSON.parse(localStorage.getItem('vv_presta_' + key) || 'null'); } catch(e) { return null; } }
 function saveData(key, val) { localStorage.setItem('vv_presta_' + key, JSON.stringify(val)); }
 
-// Données initiales si vides
 function initData() {
-  // Initialiser avec des tableaux vides si aucune donnée n'existe
   if (!getData('hebergements'))  saveData('hebergements', []);
   if (!getData('transports'))    saveData('transports', []);
   if (!getData('activites'))     saveData('activites', []);
   if (!getData('reservations'))  saveData('reservations', []);
   if (!getData('avis'))          saveData('avis', []);
-  // Les données réelles seront ajoutées via le formulaire ou le backend
 }
 initData();
 
-// ── RENDU TABLEAU ──
 function badge(s) {
   if (s==='valide'||s==='confirmé')    return `<span class="badge badge-valide">${s}</span>`;
   if (s==='attente'||s==='en attente') return `<span class="badge badge-attente">${s}</span>`;
   if (s==='complet')                   return `<span class="badge badge-complet">Complet</span>`;
   return `<span class="badge badge-refus">${s}</span>`;
 }
+
 function actionsBtn(cat, id) {
   return `<div class="actions">
     <button class="btn-action btn-edit" onclick="editerOffre('${cat}',${id})">✏ Modifier</button>
@@ -346,56 +325,56 @@ function actionsBtn(cat, id) {
 
 function renderHebergements() {
   const items = getData('hebergements') || [];
-  document.getElementById('heb-body').innerHTML = items.map(h => `
+  document.getElementById('heb-body').innerHTML = items.length ? items.map(h => `
     <tr>
       <td><div class="cell-name">${h.nom}</div></td>
       <td>${h.type}</td><td>${h.lieu}</td>
       <td>${h.prix} €</td><td>★ ${h.note}</td>
-      <td>${badge(h.statut)}</td><td>${actionsBtn('hebergements',h.id)}</td>
-    </tr>`).join('');
+      <td>${badge(h.statut)}</td><td>${actionsBtn('hebergements', h.id)}</td>
+    </tr>`).join('') : `<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Aucun hébergement ajouté.</td></tr>`;
   updateBadges();
 }
 
 function renderTransports() {
   const items = getData('transports') || [];
-  document.getElementById('trans-body').innerHTML = items.map(t => `
+  document.getElementById('trans-body').innerHTML = items.length ? items.map(t => `
     <tr>
       <td><div class="cell-name">${t.trajet}</div></td>
       <td>${t.type}</td><td>${t.depart}</td>
       <td>${t.prix} €</td><td>${t.places} places</td>
-      <td>${badge(t.statut)}</td><td>${actionsBtn('transports',t.id)}</td>
-    </tr>`).join('');
+      <td>${badge(t.statut)}</td><td>${actionsBtn('transports', t.id)}</td>
+    </tr>`).join('') : `<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Aucun transport ajouté.</td></tr>`;
   updateBadges();
 }
 
 function renderActivites() {
   const items = getData('activites') || [];
-  document.getElementById('act-body').innerHTML = items.map(a => `
+  document.getElementById('act-body').innerHTML = items.length ? items.map(a => `
     <tr>
       <td><div class="cell-name">${a.nom}</div></td>
       <td>${a.lieu}</td><td>${a.duree}</td>
       <td>${a.prix} €</td><td>${a.capacite} pers.</td>
-      <td>${badge(a.statut)}</td><td>${actionsBtn('activites',a.id)}</td>
-    </tr>`).join('');
+      <td>${badge(a.statut)}</td><td>${actionsBtn('activites', a.id)}</td>
+    </tr>`).join('') : `<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Aucune activité ajoutée.</td></tr>`;
   updateBadges();
 }
 
 function renderReservations() {
   const items = getData('reservations') || [];
-  document.getElementById('res-body').innerHTML = items.map(r => `
+  document.getElementById('res-body').innerHTML = items.length ? items.map(r => `
     <tr>
       <td><div class="cell-name">${r.client}</div></td>
       <td>${r.offre}</td><td>${r.dates}</td>
       <td>${r.voyageurs} pers.</td>
       <td style="font-weight:600;color:var(--accent)">${r.total} €</td>
       <td>${badge(r.statut)}</td>
-    </tr>`).join('');
+    </tr>`).join('') : `<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">Aucune réservation.</td></tr>`;
 }
 
 function renderAvis() {
   const items = getData('avis') || [];
-  const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
-  document.getElementById('avis-list').innerHTML = items.map(a => `
+  const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+  document.getElementById('avis-list').innerHTML = items.length ? items.map(a => `
     <div class="alert-card" style="background:var(--surface);border-color:var(--border)">
       <svg viewBox="0 0 24 24" style="stroke:var(--accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       <div style="flex:1">
@@ -406,48 +385,28 @@ function renderAvis() {
         <div style="font-size:.75rem;color:var(--muted);margin-bottom:4px">${a.offre} · ${a.date}</div>
         <div style="font-size:.83rem;color:var(--text);font-style:italic">"${a.texte}"</div>
       </div>
-    </div>`).join('');
-}
-
-function renderKpis() {
-  const heb  = (getData('hebergements') || []).length;
-  const trans= (getData('transports') || []).length;
-  const act  = (getData('activites') || []).length;
-  const res  = getData('reservations') || [];
-  const ca   = res.reduce((s,r) => s + r.total, 0);
-  document.getElementById('kpis').innerHTML = `
-    <div class="kpi"><div class="kpi-label">Offres actives</div><div class="kpi-val">${heb+trans+act}</div><div class="kpi-trend">Hébergements, transports, activités</div></div>
-    <div class="kpi"><div class="kpi-label">Réservations</div><div class="kpi-val">${res.length}</div><div class="kpi-trend">↑ Ce mois</div></div>
-    <div class="kpi"><div class="kpi-label">Chiffre d'affaires</div><div class="kpi-val">${ca.toLocaleString('fr-FR')} €</div><div class="kpi-trend">↑ +14% vs mois dernier</div></div>
-    <div class="kpi"><div class="kpi-label">Note moyenne</div><div class="kpi-val">${(getData('avis')||[]).length > 0 ? (getData('avis').reduce((s,a)=>s+a.note,0)/(getData('avis').length)).toFixed(1)+' ★' : '—'}</div><div class="kpi-trend">Sur ${(getData('avis')||[]).length} avis</div></div>`;
-
-  const enAttente = (getData('hebergements')||[]).filter(h=>h.statut==='attente').length
-    + (getData('transports')||[]).filter(t=>t.statut==='attente').length
-    + (getData('activites')||[]).filter(a=>a.statut==='attente').length;
-  document.getElementById('alertes-section').innerHTML = enAttente > 0
-    ? `<div class="alert-card">
-        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div class="alert-text"><strong>${enAttente} offre(s) en attente de validation</strong> par l'équipe VoyageVista. Vous serez notifié par e-mail.</div>
-      </div>` : '';
+    </div>`).join('') : `<p style="text-align:center;padding:40px;color:var(--muted)">Aucun avis reçu.</p>`;
 }
 
 function updateBadges() {
-  const heb  = (getData('hebergements')||[]).length;
-  const trans= (getData('transports')||[]).length;
-  const act  = (getData('activites')||[]).length;
-  ['heb','trans','act'].forEach((k,i) => {
-    const v = [heb,trans,act][i];
-    document.getElementById('nav-b-'+k).textContent  = v;
-    document.getElementById('tab-b-'+k).textContent  = v;
+  const counts = {
+    heb:   (getData('hebergements') || []).length,
+    trans: (getData('transports')   || []).length,
+    act:   (getData('activites')    || []).length,
+  };
+  Object.entries(counts).forEach(([k, v]) => {
+    document.getElementById('nav-b-' + k).textContent = v;
+    document.getElementById('tab-b-' + k).textContent = v;
   });
 }
 
-// ── MODALS AJOUT ──
+// ── FORMULAIRES ──
 const forms = {
   hebergements: {
     title: '🏨 Ajouter un hébergement',
+    cat:   'hebergements',
     body: `
-      <div class="form-group"><label class="form-label">Nom</label><input class="form-input" id="f-nom" placeholder="Bungalow Vue Rizière"/></div>
+      <div class="form-group"><label class="form-label">Nom *</label><input class="form-input" id="f-nom" placeholder="Bungalow Vue Rizière"/></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Type</label>
           <select class="form-select" id="f-type"><option>Bungalow</option><option>Hôtel</option><option>Guesthouse</option><option>Riad</option><option>Yourte</option><option>Appartement</option><option>Auberge</option></select>
@@ -458,22 +417,19 @@ const forms = {
       <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" placeholder="Décrivez votre hébergement…"></textarea></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Capacité (pers.)</label><input class="form-input" id="f-cap" type="number" placeholder="4" min="1"/></div>
-        <div class="form-group"><label class="form-label">Équipements (CSV)</label><input class="form-input" id="f-equip" placeholder="WiFi,Piscine,Clim"/></div>
+        <div class="form-group"><label class="form-label">Équipements</label><input class="form-input" id="f-equip" placeholder="WiFi, Piscine, Clim"/></div>
       </div>`,
-    build: () => ({
-      id: Date.now(),
-      nom:   document.getElementById('f-nom').value || 'Hébergement',
-      type:  document.getElementById('f-type').value,
-      lieu:  document.getElementById('f-lieu').value,
-      prix:  parseFloat(document.getElementById('f-prix').value) || 0,
-      note:  0,
-      statut:'attente'
-    })
+    build: () => {
+      const nom = document.getElementById('f-nom').value.trim();
+      if (!nom) { toast('⚠ Le nom est obligatoire.'); return null; }
+      return { id: Date.now(), nom, type: document.getElementById('f-type').value, lieu: document.getElementById('f-lieu').value.trim(), prix: parseFloat(document.getElementById('f-prix').value) || 0, note: 0, statut: 'attente' };
+    }
   },
   transports: {
     title: '✈ Ajouter un transport',
+    cat:   'transports',
     body: `
-      <div class="form-group"><label class="form-label">Trajet</label><input class="form-input" id="f-trajet" placeholder="Aéroport → Ubud"/></div>
+      <div class="form-group"><label class="form-label">Trajet *</label><input class="form-input" id="f-trajet" placeholder="Aéroport DPS → Ubud"/></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Type</label>
           <select class="form-select" id="f-type"><option>Navette</option><option>Minibus</option><option>Taxi privé</option><option>Bateau</option><option>Scooter</option></select>
@@ -484,20 +440,17 @@ const forms = {
         <div class="form-group"><label class="form-label">Horaire(s)</label><input class="form-input" id="f-dep" placeholder="09h00 / 15h00"/></div>
         <div class="form-group"><label class="form-label">Places disponibles</label><input class="form-input" id="f-places" type="number" placeholder="8" min="1"/></div>
       </div>`,
-    build: () => ({
-      id:     Date.now(),
-      trajet: document.getElementById('f-trajet').value || 'Trajet',
-      type:   document.getElementById('f-type').value,
-      depart: document.getElementById('f-dep').value,
-      prix:   parseFloat(document.getElementById('f-prix').value) || 0,
-      places: parseInt(document.getElementById('f-places').value) || 1,
-      statut: 'attente'
-    })
+    build: () => {
+      const trajet = document.getElementById('f-trajet').value.trim();
+      if (!trajet) { toast('⚠ Le trajet est obligatoire.'); return null; }
+      return { id: Date.now(), trajet, type: document.getElementById('f-type').value, depart: document.getElementById('f-dep').value.trim(), prix: parseFloat(document.getElementById('f-prix').value) || 0, places: parseInt(document.getElementById('f-places').value) || 1, statut: 'attente' };
+    }
   },
   activites: {
     title: '🎯 Ajouter une activité',
+    cat:   'activites',
     body: `
-      <div class="form-group"><label class="form-label">Nom</label><input class="form-input" id="f-nom" placeholder="Cours de Yoga"/></div>
+      <div class="form-group"><label class="form-label">Nom *</label><input class="form-input" id="f-nom" placeholder="Cours de Yoga au Lever"/></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Lieu</label><input class="form-input" id="f-lieu" placeholder="Ubud"/></div>
         <div class="form-group"><label class="form-label">Durée</label><input class="form-input" id="f-duree" placeholder="2h"/></div>
@@ -507,52 +460,87 @@ const forms = {
         <div class="form-group"><label class="form-label">Capacité max</label><input class="form-input" id="f-cap" type="number" placeholder="15" min="1"/></div>
       </div>
       <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" placeholder="Décrivez l'activité…"></textarea></div>`,
-    build: () => ({
-      id:       Date.now(),
-      nom:      document.getElementById('f-nom').value || 'Activité',
-      lieu:     document.getElementById('f-lieu').value,
-      duree:    document.getElementById('f-duree').value || '1h',
-      prix:     parseFloat(document.getElementById('f-prix').value) || 0,
-      capacite: parseInt(document.getElementById('f-cap').value) || 10,
-      statut:   'attente'
-    })
+    build: () => {
+      const nom = document.getElementById('f-nom').value.trim();
+      if (!nom) { toast('⚠ Le nom est obligatoire.'); return null; }
+      return { id: Date.now(), nom, lieu: document.getElementById('f-lieu').value.trim(), duree: document.getElementById('f-duree').value.trim() || '1h', prix: parseFloat(document.getElementById('f-prix').value) || 0, capacite: parseInt(document.getElementById('f-cap').value) || 10, statut: 'attente' };
+    }
+  },
+  reservations: {
+    title: '📋 Ajouter une réservation',
+    cat:   'reservations',
+    body: `
+      <div class="form-group"><label class="form-label">Nom du client *</label><input class="form-input" id="f-client" placeholder="Marie Dupont"/></div>
+      <div class="form-group"><label class="form-label">Offre concernée</label><input class="form-input" id="f-offre" placeholder="Bungalow Vue Rizière"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date(s)</label><input class="form-input" id="f-dates" placeholder="15-22 juin 2026"/></div>
+        <div class="form-group"><label class="form-label">Voyageurs</label><input class="form-input" id="f-voy" type="number" placeholder="2" min="1"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Total (€)</label><input class="form-input" id="f-total" type="number" placeholder="490" min="0"/></div>
+        <div class="form-group"><label class="form-label">Statut</label>
+          <select class="form-select" id="f-statut"><option value="confirmé">Confirmé</option><option value="en attente">En attente</option><option value="annulé">Annulé</option></select>
+        </div>
+      </div>`,
+    build: () => {
+      const client = document.getElementById('f-client').value.trim();
+      if (!client) { toast('⚠ Le nom du client est obligatoire.'); return null; }
+      return { id: Date.now(), client, offre: document.getElementById('f-offre').value.trim(), dates: document.getElementById('f-dates').value.trim(), voyageurs: parseInt(document.getElementById('f-voy').value) || 1, total: parseFloat(document.getElementById('f-total').value) || 0, statut: document.getElementById('f-statut').value };
+    }
+  },
+  avis: {
+    title: '⭐ Ajouter un avis',
+    cat:   'avis',
+    body: `
+      <div class="form-group"><label class="form-label">Nom du client *</label><input class="form-input" id="f-client" placeholder="Marie D."/></div>
+      <div class="form-group"><label class="form-label">Offre concernée</label><input class="form-input" id="f-offre" placeholder="Bungalow Vue Rizière"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Note (1-5)</label><input class="form-input" id="f-note" type="number" placeholder="5" min="1" max="5"/></div>
+        <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="f-date" type="date"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Commentaire</label><textarea class="form-textarea" id="f-texte" placeholder="Séjour exceptionnel…"></textarea></div>`,
+    build: () => {
+      const client = document.getElementById('f-client').value.trim();
+      if (!client) { toast('⚠ Le nom du client est obligatoire.'); return null; }
+      const dateRaw = document.getElementById('f-date').value;
+      const dateFmt = dateRaw ? new Date(dateRaw).toLocaleDateString('fr-FR', {day:'numeric', month:'short', year:'numeric'}) : '—';
+      return { id: Date.now(), client, offre: document.getElementById('f-offre').value.trim(), note: Math.min(5, Math.max(1, parseInt(document.getElementById('f-note').value) || 5)), date: dateFmt, texte: document.getElementById('f-texte').value.trim() };
+    }
   }
 };
 
 let modalCat = '';
-let editId   = null;
 
 function ouvrirModalAjout(cat) {
   if (!forms[cat]) return;
   modalCat = cat;
-  editId   = null;
   document.getElementById('modal-title').textContent = forms[cat].title;
   document.getElementById('modal-body').innerHTML    = forms[cat].body;
   document.getElementById('modal').classList.add('open');
-  setTimeout(() => { const f = document.querySelector('#modal-body .form-input'); if(f) f.focus(); }, 80);
-}
-
-function editerOffre(cat, id) {
-  toast('Modification disponible — rechargez et remplissez le formulaire d\'ajout pour l\'instant.');
-}
-
-function supprimerOffre(cat, id) {
-  if (!confirm('Supprimer cette offre ?')) return;
-  const items = (getData(cat) || []).filter(i => i.id !== id);
-  saveData(cat, items);
-  renderAll();
-  toast('Offre supprimée');
+  setTimeout(() => { const f = document.querySelector('#modal-body .form-input'); if (f) f.focus(); }, 80);
 }
 
 function confirmerAjout() {
   if (!forms[modalCat]) return;
   const item = forms[modalCat].build();
+  if (!item) return;
   const items = getData(modalCat) || [];
   items.push(item);
   saveData(modalCat, items);
   fermerModal();
   renderAll();
-  toast('Offre ajoutée · En attente de validation par VoyageVista');
+  toast('✓ Élément ajouté avec succès !');
+}
+
+function editerOffre(cat, id) {
+  toast('Modification disponible prochainement.');
+}
+
+function supprimerOffre(cat, id) {
+  if (!confirm('Supprimer cet élément ?')) return;
+  saveData(cat, (getData(cat) || []).filter(i => i.id !== id));
+  renderAll();
+  toast('✓ Élément supprimé.');
 }
 
 function fermerModal() {
@@ -561,31 +549,43 @@ function fermerModal() {
 document.getElementById('modal').addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) fermerModal();
 });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerModal(); });
 
 // ── NAVIGATION ──
+// Format : [titre, sous-titre, boutonAjouter(bool), clé formulaire, label bouton]
 let sectionActive = 'dashboard';
 const sectionConfig = {
-  dashboard:    ['Vue d\'ensemble', 'Gérez vos offres et suivez vos réservations.', false],
-  hebergements: ['Hébergements',    'Gérez vos hébergements publiés sur VoyageVista.', true,  'Ajouter un hébergement'],
-  transports:   ['Transports',      'Gérez vos services de transport.',               true,  'Ajouter un transport'],
-  activites:    ['Activités',       'Gérez vos activités et excursions.',              true,  'Ajouter une activité'],
-  reservations: ['Réservations',    'Toutes les réservations reçues.',                 false],
-  avis:         ['Avis clients',    'Avis laissés par vos voyageurs.',                 false],
+  dashboard:    ['Vue d\'ensemble', 'Gérez vos offres et suivez vos réservations.', false, null,            null],
+  hebergements: ['Hébergements',    'Gérez vos hébergements.',                       true,  'hebergements',  'Ajouter un hébergement'],
+  transports:   ['Transports',      'Gérez vos services de transport.',              true,  'transports',    'Ajouter un transport'],
+  activites:    ['Activités',       'Gérez vos activités et excursions.',            true,  'activites',     'Ajouter une activité'],
+  reservations: ['Réservations',    'Toutes les réservations reçues.',               true,  'reservations',  'Ajouter une réservation'],
+  avis:         ['Avis clients',    'Avis laissés par vos voyageurs.',               true,  'avis',          'Ajouter un avis'],
 };
 
 function switchSection(s, el) {
   sectionActive = s;
   document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
-  document.querySelectorAll('.tab-btn, .nav-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('aside button.nav-item').forEach(b => b.classList.remove('active'));
   document.getElementById('section-' + s).classList.add('active');
   if (el) el.classList.add('active');
+  // Sync tab du haut si existe
+  const tabBtn = document.getElementById('tab-' + s + '-btn');
+  if (tabBtn) tabBtn.classList.add('active');
 
-  const cfg = sectionConfig[s] || ['','',false];
+  const cfg = sectionConfig[s] || ['', '', false, null, null];
   document.getElementById('page-title').textContent = cfg[0];
   document.getElementById('page-sub').textContent   = cfg[1];
+
   const btnA = document.getElementById('btn-ajouter');
-  btnA.style.display = cfg[2] ? '' : 'none';
-  if (cfg[3]) document.getElementById('btn-ajouter-label').textContent = cfg[3];
+  if (cfg[2] && cfg[3]) {
+    btnA.style.display = '';
+    btnA.onclick = () => ouvrirModalAjout(cfg[3]);
+    document.getElementById('btn-ajouter-label').textContent = cfg[4];
+  } else {
+    btnA.style.display = 'none';
+  }
 }
 
 function filtrer(id, q) {
@@ -608,15 +608,16 @@ function deconnecter() {
 }
 
 function renderAll() {
-  renderKpis();
   renderHebergements();
   renderTransports();
   renderActivites();
   renderReservations();
   renderAvis();
+  updateBadges();
 }
 
 renderAll();
+</script>
 </script>
 </body>
 </html>
