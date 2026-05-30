@@ -1,1 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:          #f5f3ef;
+      --surface:     #ffffff;
+      --border:      #e2ddd6;
+      --text:        #1a1714;
+      --muted:       #788a7b;
+      --accent:      #013819;
+      --accent-soft: #e4f5ea;
+      --header-h:    64px;
+      --sidebar-w:   200px;
+      --radius:      12px;
+      --shadow:      0 2px 16px rgba(0,0,0,.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow);
+    }
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge {
+      height: var(--header-h); background: var(--accent);
+      display: flex; align-items: center; padding: 0 28px 0 24px;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    }
+    .logo-badge span {
+      font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem;
+      color: #fff; letter-spacing: .02em; white-space: nowrap;
+    }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 40px; height: 40px; border: 1.5px solid var(--border); border-radius: 50%;
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); transition: background .18s, border-color .18s;
+      text-decoration: none; position: relative;
+    }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .icon-btn .dot {
+      position: absolute; top: 6px; right: 6px; width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%; border: 2px solid var(--surface);
+    }
+    .btn-connexion {
+      height: 36px; padding: 0 20px; border: 1.5px solid var(--accent); border-radius: 8px;
+      background: transparent; font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 500; cursor: pointer; color: var(--text);
+      transition: background .18s, color .18s;
+    }
+    .btn-connexion:hover { background: var(--accent); color: #fff; }
+
+    /* ── LAYOUT ── */
+    .layout { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w); background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: fixed; top: var(--header-h); left: 0; bottom: 0;
+      padding: 20px 12px; display: flex; flex-direction: column; gap: 4px;
+      overflow-y: auto; z-index: 40;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      border-radius: 8px; text-decoration: none; font-size: .9rem; font-weight: 400;
+      color: var(--muted); transition: background .15s, color .15s; cursor: pointer;
+    }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item.active svg { stroke: #fff; }
+
+    /* ── MAIN ── */
+    main { margin-left: var(--sidebar-w); flex: 1; padding: 48px 56px 80px; max-width: 980px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--accent); border-radius: var(--radius);
+      padding: 44px 56px; margin-bottom: 36px; position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+    .hero-eyebrow {
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 10px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-size: 2rem;
+      font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 10px;
+    }
+    .hero-desc { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.7; }
+
+    /* ── INFO CARDS ROW ── */
+    .info-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px; }
+    .info-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 24px 20px; text-align: center;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .info-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); border-color: #c8d8cb; }
+    .info-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--accent-soft); margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .info-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+    .info-label { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 6px; }
+    .info-value { font-size: .9rem; font-weight: 500; color: var(--text); }
+
+    /* ── MAIN GRID ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow); padding: 36px 40px;
+    }
+    .form-card-title {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      font-weight: 700; color: var(--text); margin-bottom: 6px;
+    }
+    .form-card-sub { font-size: .875rem; color: var(--muted); margin-bottom: 28px; line-height: 1.5; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: .78rem; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1.5px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; font-family: 'DM Sans', sans-serif;
+      font-size: .9rem; color: var(--text); background: var(--bg);
+      outline: none; transition: border-color .18s, background .18s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent); background: #fff;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #c5bfb8; }
+    .form-group textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+    .form-group select { appearance: none; cursor: pointer; }
+
+    /* required star */
+    .req { color: var(--accent); margin-left: 2px; }
+
+    /* char counter */
+    .field-hint { font-size: .75rem; color: var(--muted); margin-top: 4px; text-align: right; }
+
+    /* submit */
+    .btn-submit {
+      width: 100%; height: 44px; background: var(--accent); color: #fff;
+      border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-size: .95rem; font-weight: 600; cursor: pointer;
+      transition: background .18s, transform .12s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 4px;
+    }
+    .btn-submit:hover { background: #025a28; }
+    .btn-submit:active { transform: scale(.98); }
+    .btn-submit svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; }
+
+    /* success state */
+    .form-success {
+      display: none; text-align: center; padding: 40px 20px;
+    }
+    .form-success.show { display: block; }
+    .success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--accent-soft); margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success-icon svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 2.5; }
+    .success-title {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem;
+      font-weight: 700; color: var(--text); margin-bottom: 8px;
+    }
+    .success-desc { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── SIDE PANEL ── */
+    .side-col { display: flex; flex-direction: column; gap: 16px; }
+
+    /* FAQ */
+    .faq-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 28px;
+    }
+    .faq-card-title {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      font-weight: 700; color: var(--text); margin-bottom: 18px;
+    }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 0; background: transparent; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: .875rem; font-weight: 500;
+      color: var(--text); text-align: left; gap: 12px;
+      transition: color .15s;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-q svg {
+      width: 16px; height: 16px; stroke: var(--muted); fill: none;
+      stroke-width: 2; flex-shrink: 0; transition: transform .25s, stroke .15s;
+    }
+    .faq-item.open .faq-q svg { transform: rotate(180deg); stroke: var(--accent); }
+    .faq-item.open .faq-q { color: var(--accent); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      font-size: .845rem; color: var(--muted); line-height: 1.65;
+      transition: max-height .3s ease, padding .3s;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding-bottom: 14px; }
+
+    /* Links card */
+    .links-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px 28px;
+    }
+    .links-card-title {
+      font-size: .78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--muted); margin-bottom: 14px;
+    }
+    .doc-link {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border-radius: 8px; text-decoration: none; color: var(--text);
+      font-size: .875rem; font-weight: 500;
+      transition: background .15s, color .15s;
+    }
+    .doc-link svg { width: 15px; height: 15px; stroke: var(--muted); fill: none; stroke-width: 2; flex-shrink: 0; transition: stroke .15s; }
+    .doc-link:hover { background: var(--accent-soft); color: var(--accent); }
+    .doc-link:hover svg { stroke: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--text); color: rgba(255,255,255,.7); width: 100%; }
+    .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .footer-tagline { font-size: .875rem; line-height: 1.6; }
+    .footer-col h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin-bottom: 14px; }
+    .footer-col a { display: block; color: rgba(255,255,255,.6); text-decoration: none; font-size: .875rem; margin-bottom: 8px; transition: color .15s; }
+    .footer-col a:hover { color: #6dbf8a; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; font-size: .8rem; }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom-links a:hover { color: #fff; }
+
+    /* ── BACK TO TOP ── */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; width: 46px; height: 46px;
+      border-radius: 50%; background: var(--accent); color: #fff; border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(1,56,25,.35);
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: opacity .25s, transform .25s; z-index: 200;
+    }
+    #backToTop.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #backToTop:hover { background: #025a28; }
+    #backToTop svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="Accueil.html" class="logo">
+    <div class="logo-badge"><span>VoyageVista</span></div>
+  </a>
+  <div class="header-right">
+    <a href="monespace.html" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="notifications.html" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <a href="Accueil.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+    <a href="catalogue.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+    <a href="transport.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+    <a href="hebergement.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+    <a href="activite.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+    <a href="itineraire.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+    <a href="panier.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+    <a href="notifications.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+    <a href="monespace.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">Support &amp; Équipe</div>
+      <h1 class="hero-title">Contactez-nous</h1>
+      <p class="hero-desc">Une question, un retour sur la plateforme, une demande liée à vos données ?<br>Notre équipe vous répond rapidement.</p>
+    </div>
+
+    <!-- INFO CARDS -->
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="info-label">E-mail</div>
+        <div class="info-value">contact@voyagevista.fr</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="info-label">Délai de réponse</div>
+        <div class="info-value">Sous 48 h ouvrées</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="info-label">École</div>
+        <div class="info-value">ECE Paris — ING2 2026</div>
+      </div>
+    </div>
+
+    <!-- CONTACT GRID -->
+    <div class="contact-grid">
+
+      <!-- FORMULAIRE -->
+      <div class="form-card">
+        <div class="form-card-title">Envoyer un message</div>
+        <div class="form-card-sub">Tous les champs marqués <span class="req">*</span> sont obligatoires.</div>
+
+        <!-- Le formulaire enverra les données vers un endpoint PHP -->
+        <!-- DB : INSERT INTO messages_contact (nom, prenom, email, sujet, message, date_envoi) -->
+        <form id="contactForm" onsubmit="submitForm(event)" novalidate>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Prénom <span class="req">*</span></label>
+              <!-- DB : messages_contact.prenom -->
+              <input type="text" id="prenom" placeholder="Jean" autocomplete="given-name" required />
+            </div>
+            <div class="form-group">
+              <label>Nom <span class="req">*</span></label>
+              <!-- DB : messages_contact.nom -->
+              <input type="text" id="nom" placeholder="Dupont" autocomplete="family-name" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Adresse e-mail <span class="req">*</span></label>
+            <!-- DB : messages_contact.email -->
+            <input type="email" id="email" placeholder="jean.dupont@email.com" autocomplete="email" required />
+          </div>
+
+          <div class="form-group">
+            <label>Sujet <span class="req">*</span></label>
+            <!-- DB : messages_contact.sujet -->
+            <select id="sujet" required>
+              <option value="" disabled selected>Choisir un sujet…</option>
+              <option value="question_generale">Question générale</option>
+              <option value="reservation">Problème de réservation</option>
+              <option value="compte">Problème de compte</option>
+              <option value="donnees_personnelles">Données personnelles (RGPD)</option>
+              <option value="bug">Signalement d'un bug</option>
+              <option value="suggestion">Suggestion d'amélioration</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Message <span class="req">*</span></label>
+            <!-- DB : messages_contact.message -->
+            <textarea id="message" placeholder="Décrivez votre demande en détail…" maxlength="1000" oninput="updateCount()" required></textarea>
+            <div class="field-hint"><span id="charCount">0</span> / 1000 caractères</div>
+          </div>
+
+          <!-- Erreur de validation -->
+          <div id="formError" style="display:none;padding:10px 14px;background:#fff0f0;border:1px solid #f5c0c0;border-radius:8px;font-size:.845rem;color:#c0392b;margin-bottom:16px;"></div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Envoyer le message
+          </button>
+        </form>
+
+        <!-- Message de succès (affiché après envoi) -->
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="success-title">Message envoyé !</div>
+          <div class="success-desc">
+            Merci pour votre message. Notre équipe vous répondra dans les 48 heures ouvrées.<br><br>
+            <a href="Accueil.html" style="color:var(--accent);text-decoration:none;font-weight:600">← Retour à l'accueil</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLONNE LATÉRALE -->
+      <div class="side-col">
+
+        <!-- FAQ -->
+        <div class="faq-card">
+          <div class="faq-card-title">Questions fréquentes</div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Comment supprimer mon compte ?
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">Rendez-vous dans Mon espace → Paramètres → Suppression du compte → Supprimer le compte. La suppression est immédiate et définitive.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Le paiement est-il réel ?
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">Non. VoyageVista est un projet pédagogique. Toutes les transactions sont simulées et aucune somme n'est débitée.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Mes données sont-elles partagées ?
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">Non. Vos données ne sont jamais vendues ni partagées avec des tiers. Consultez notre <a href="confidentialite.html" style="color:var(--accent)">politique de confidentialité</a> pour plus de détails.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              J'ai oublié mon mot de passe, que faire ?
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">Cliquez sur "Mot de passe oublié" sur la page de connexion. Un e-mail de réinitialisation vous sera envoyé automatiquement.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Comment annuler une réservation ?
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">Dans Mon espace → Voyages à venir, cliquez sur le bouton "Modifier" de la réservation concernée et choisissez "Annuler". Les conditions d'annulation sont détaillées dans les <a href="CGU.html" style="color:var(--accent)">CGU</a>.</div>
+          </div>
+        </div>
+
+        <!-- LIENS UTILES -->
+        <div class="links-card">
+          <div class="links-card-title">Documents utiles</div>
+          <a href="CGU.html" class="doc-link">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Conditions Générales d'Utilisation
+          </a>
+          <a href="confidentialite.html" class="doc-link">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Politique de confidentialité
+          </a>
+          <a href="Apropos.html" class="doc-link">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            À propos de VoyageVista
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.html">Toutes les destinations</a>
+        <a href="transport.html">Transports</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="activite.html">Activités</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.html">Connexion</a>
+        <a href="monespace.html">Mon espace</a>
+        <a href="panier.html">Mon panier</a>
+        <a href="itineraire.html">Mes itinéraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="Apropos.html">À propos</a>
+        <a href="CGU.html">CGU</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Projet ING2 ECE Paris</span>
+      <div class="footer-bottom-links">
+        <a href="CGU.html">CGU</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  /* ── Compteur de caractères ── */
+  function updateCount() {
+    const msg = document.getElementById('message');
+    document.getElementById('charCount').textContent = msg.value.length;
+  }
+
+  /* ── Validation + soumission du formulaire ──
+     À remplacer par un fetch() vers un endpoint PHP :
+     POST /api/contact.php
+     Body : { prenom, nom, email, sujet, message }
+     DB   : INSERT INTO messages_contact (prenom, nom, email, sujet, message, date_envoi, statut)
+            VALUES (:prenom, :nom, :email, :sujet, :message, NOW(), 'non_lu')
+  */
+  function submitForm(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('formError');
+    errEl.style.display = 'none';
+
+    const prenom  = document.getElementById('prenom').value.trim();
+    const nom     = document.getElementById('nom').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const sujet   = document.getElementById('sujet').value;
+    const message = document.getElementById('message').value.trim();
+
+    /* Validation basique côté client */
+    if (!prenom || !nom) { showError('Veuillez renseigner votre prénom et votre nom.'); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('Adresse e-mail invalide.'); return; }
+    if (!sujet) { showError('Veuillez sélectionner un sujet.'); return; }
+    if (message.length < 10) { showError('Votre message doit contenir au moins 10 caractères.'); return; }
+
+    /* Simulation d'envoi — remplacer par fetch() réel */
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+
+    setTimeout(() => {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+    }, 900);
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('formError');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  /* ── Sidebar stops at footer ── */
+  const sidebar = document.getElementById('sidebar');
+  const footer  = document.getElementById('footer');
+  function updateSidebar() {
+    const ft = footer.getBoundingClientRect().top;
+    sidebar.style.bottom = ft < window.innerHeight ? (window.innerHeight - ft) + 'px' : '0px';
+  }
+  window.addEventListener('scroll', updateSidebar);
+  window.addEventListener('resize', updateSidebar);
+  updateSidebar();
+
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 300));
+</script>
+</body>
+</html>
 
