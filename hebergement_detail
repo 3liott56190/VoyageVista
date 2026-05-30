@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – Hébergement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#f5f3ef;--surface:#fff;--border:#e2ddd6;--text:#1a1714;--muted:#788a7b;--accent:#013819;--accent-soft:#e4f5ea;--header-h:64px;--sidebar-w:200px;--radius:14px;--shadow:0 2px 16px rgba(0,0,0,.07)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{overflow-x:hidden;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+    header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 0;z-index:100;box-shadow:var(--shadow)}
+    .header-left{display:flex;align-items:center;height:100%}
+    .logo{display:flex;align-items:center;height:100%;text-decoration:none}
+    .logo-badge{height:var(--header-h);background:var(--accent);display:flex;align-items:center;padding:0 28px 0 24px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
+    .logo-badge span{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;color:#fff;letter-spacing:.02em;white-space:nowrap}
+    .btn-back{display:flex;align-items:center;gap:7px;margin-left:24px;color:var(--muted);font-size:.875rem;font-weight:500;text-decoration:none;transition:color .18s}
+    .btn-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+    .btn-back:hover{color:var(--accent)}
+    .header-right{display:flex;align-items:center;gap:8px}
+    .icon-btn{width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:background .18s,border-color .18s;text-decoration:none;position:relative}
+    .icon-btn:hover{background:var(--accent-soft);border-color:var(--accent)}
+    .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+    .icon-btn .dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--accent);border-radius:50%;border:2px solid var(--surface)}
+    .btn-connexion{height:36px;padding:0 20px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:background .18s,color .18s}
+    .btn-connexion:hover{background:var(--accent);color:#fff}
+
+    aside#sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--header-h);left:0;bottom:0;padding:20px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;z-index:80}
+    .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:400;color:var(--muted);transition:background .15s,color .15s}
+    .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
+    .nav-item:hover{background:var(--accent-soft);color:var(--accent)}
+    .nav-item.active{background:var(--accent);color:#fff;font-weight:500}
+    .nav-item.active svg{stroke:#fff}
+
+    main{margin-left:var(--sidebar-w);padding-top:var(--header-h);min-height:100vh}
+
+    /* HERO */
+    .hero{position:relative;width:100%;height:360px;background:linear-gradient(135deg,#c8d8c8,#a8c4a8);overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .hero img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-placeholder{display:flex;flex-direction:column;align-items:center;gap:12px;color:rgba(255,255,255,.7)}
+    .hero-placeholder svg{width:56px;height:56px;stroke:currentColor;fill:none;stroke-width:1.2;opacity:.5}
+    .hero-placeholder span{font-family:'Playfair Display',serif;font-style:italic}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 60%)}
+    .hero-bottom{position:absolute;bottom:0;left:0;right:0;padding:24px 40px;color:#fff;display:flex;align-items:flex-end;justify-content:space-between}
+    .hero-type{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px);padding:4px 12px;border-radius:99px;display:inline-block;margin-bottom:8px}
+    .hero-name{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;line-height:1.1}
+    .hero-location{font-size:.85rem;opacity:.85;margin-top:4px}
+    .hero-note-box{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px);border-radius:12px;padding:12px 18px;text-align:center;flex-shrink:0}
+    .hero-note-val{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700}
+    .hero-note-stars{font-size:.85rem;letter-spacing:2px;color:#f5c842;margin:2px 0}
+    .hero-note-sub{font-size:.7rem;opacity:.75}
+
+    /* CONTENT */
+    .content-wrap{display:flex;gap:32px;padding:32px 40px 80px;align-items:flex-start}
+    .content-main{flex:1;min-width:0}
+
+    /* INFO CARDS */
+    .info-cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .info-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:110px}
+    .info-card-label{font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .info-card-value{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--accent)}
+    .info-card-sub{font-size:.7rem;color:var(--muted)}
+
+    /* SECTION */
+    .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .section-title-lg{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin-bottom:14px}
+    .desc-text{font-size:.9rem;line-height:1.75;color:#444;margin-bottom:28px}
+
+    /* ÉQUIPEMENTS GRID */
+    .equip-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:28px}
+    .equip-item{display:flex;align-items:center;gap:10px;font-size:.875rem;color:var(--text)}
+    .equip-icon{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+
+    /* BADGES */
+    .badges-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:99px;font-size:.75rem;font-weight:600}
+    .badge svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.2}
+    .badge-green{background:#e4f5ea;color:#013819;border:1px solid #b8dfc0}
+    .badge-blue{background:#e8f4fd;color:#0d47a1;border:1px solid #b3d4f5}
+    .badge-neutral{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+
+    /* TABS */
+    .tabs{display:flex;border-bottom:2px solid var(--border);margin:24px 0 20px}
+    .tab-btn{padding:10px 24px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:var(--muted);cursor:pointer;transition:color .18s,border-color .18s}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    /* AVIS */
+    .avis-empty{padding:40px 0;text-align:center;color:var(--muted);font-size:.9rem}
+    .avis-empty svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1.3;opacity:.4;display:block;margin:0 auto 10px}
+
+    /* DETAIL TABLE */
+    .detail-table{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px}
+    .dt-row{display:flex;align-items:center;padding:11px 18px;border-bottom:1px solid var(--border)}
+    .dt-row:last-child{border-bottom:none}
+    .dt-label{font-size:.76rem;font-weight:600;color:var(--muted);width:170px;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em}
+    .dt-value{font-size:.875rem;color:var(--text)}
+
+    /* BOOKING */
+    .booking-sidebar{width:300px;flex-shrink:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;position:sticky;top:calc(var(--header-h) + 24px);box-shadow:0 4px 24px rgba(0,0,0,.08)}
+    .booking-price-label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .booking-price-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent)}
+    .booking-price-pp{font-size:.78rem;color:var(--muted)}
+    .booking-divider{height:1px;background:var(--border);margin:16px 0}
+    .booking-section-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+
+    /* Dates */
+    .date-row{display:flex;gap:8px;margin-bottom:12px}
+    .date-field{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;transition:border-color .18s}
+    .date-field:focus-within{border-color:var(--accent)}
+    .date-field label{display:block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+    .date-field input{width:100%;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--text);background:transparent}
+
+    /* Voyageurs */
+    .voy-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+    .voy-row:last-of-type{border-bottom:none}
+    .voy-label{font-size:.875rem;font-weight:500}
+    .voy-label small{display:block;font-size:.72rem;color:var(--muted);font-weight:400}
+    .voy-counter{display:flex;align-items:center;gap:10px}
+    .voy-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:transparent;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s;color:var(--text)}
+    .voy-btn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+    .voy-count{font-weight:700;min-width:22px;text-align:center;font-size:1rem}
+
+    /* Total */
+    .booking-total{margin-top:16px;padding:14px 16px;background:var(--accent-soft);border:1.5px solid #c0dcc4;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
+    .booking-total-label{font-size:.8rem;font-weight:600;color:var(--accent)}
+    .booking-total-val{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--accent)}
+    .booking-total-detail{font-size:.72rem;color:var(--muted);text-align:right;margin-top:4px}
+    .btn-reserver{display:block;width:100%;margin-top:16px;height:48px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:background .18s,transform .12s}
+    .btn-reserver:hover{background:#086720}
+    .btn-reserver:active{transform:scale(.98)}
+    .booking-note-info{margin-top:12px;font-size:.75rem;color:var(--muted);text-align:center;line-height:1.5}
+
+    /* STARS */
+    .stars-row{display:flex;align-items:center;gap:4px;margin-bottom:14px}
+    .star-full{fill:#f5c842;stroke:none}
+    .star-empty{fill:none;stroke:#ddd;stroke-width:1.5}
+
+    /* PLACES BAR */
+    .places-bar-wrap{margin-bottom:28px}
+    .places-bar-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:6px}
+    .places-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+    .places-bar-fill{height:100%;border-radius:3px;background:var(--accent)}
+
+    /* ERROR */
+    .error-state{margin-left:var(--sidebar-w);padding-top:var(--header-h);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px;text-align:center}
+    .error-state svg{width:56px;height:56px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:.4}
+    .error-state h2{font-family:'Playfair Display',serif;font-size:1.6rem}
+    .error-state p{color:var(--muted);font-size:.9rem}
+    .error-state a{margin-top:8px;padding:10px 24px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem}
+
+    footer{background:var(--text);color:rgba(255,255,255,.7)}
+    .footer-inner{padding:40px 48px 28px;margin-left:var(--sidebar-w)}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
+    .footer-brand-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:10px}
+    .footer-tagline{font-size:.875rem;line-height:1.6;margin-bottom:16px}
+    .footer-col h4{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin-bottom:14px}
+    .footer-col a{display:block;color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem;margin-bottom:8px;transition:color .15s}
+    .footer-col a:hover{color:var(--accent-soft)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem}
+    .footer-bottom-links{display:flex;gap:20px}
+    .footer-bottom-links a{color:rgba(255,255,255,.5);text-decoration:none}
+    .footer-bottom-links a:hover{color:#fff}
+
+    #toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:14px 24px;border-radius:10px;font-size:.875rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="Accueil.php" class="logo"><div class="logo-badge"><span>VoyageVista</span></div></a>
+    <a href="hebergement.php" class="btn-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour aux hébergements
+    </a>
+  </div>
+  <div class="header-right">
+    <a href="mon-espace.php" class="icon-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></a>
+    <a href="notifications.php" class="icon-btn"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></a>
+    <button class="btn-connexion" onclick="window.location='connexion.php'">Connexion</button>
+  </div>
+</header>
+
+<aside id="sidebar">
+  <a href="Accueil.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+  <a href="catalogue.php" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+  <a href="transport.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+  <a href="hebergement.php" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+  <a href="activites.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+  <a href="itineraire.php" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+  <a href="panier.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+  <a href="notifications.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+  <a href="mon-espace.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+</aside>
+
+<div id="app"></div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand-name">VoyageVista</div><p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p></div>
+      <div class="footer-col"><h4>Explorer</h4><a href="catalogue.php">Toutes les destinations</a><a href="transport.php">Transports</a><a href="hebergement.php">Hébergements</a><a href="activites.php">Activités</a></div>
+      <div class="footer-col"><h4>Mon compte</h4><a href="connexion.php">Connexion</a><a href="mon-espace.php">Mon espace</a><a href="panier.php">Mon panier</a><a href="itineraire.php">Mes itinéraires</a></div>
+      <div class="footer-col"><h4>Informations</h4><a href="a-propos.php">À propos</a><a href="cgu.php">CGU</a><a href="contact.php">Contact</a><a href="#">Réseaux sociaux</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Tous droits réservés</span>
+      <div class="footer-bottom-links"><a href="cgu.php">CGU</a><a href="#">Politique de confidentialité</a><a href="contact.php">Contact</a></div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+const typeLabels = {auberge_jeunesse:'Auberge de jeunesse',hotel_budget:'Hôtel budget',appartement:'Appartement',camping:'Camping',guesthouse:'Guesthouse',bungalow:'Bungalow',riad:'Riad',yourte:'Yourte'};
+
+const equipEmojis = {
+  'WiFi':'📶','Piscine':'🏊','Petit-dejeuner':'🍳','Cuisine':'🍽','Clim':'❄️','Parking':'🅿️',
+  'Terrasse':'🌿','Casiers':'🔒','Bar':'🍺','Laverie':'👕','Hamac':'🌴','Randonnée':'🥾',
+  'Vélos':'🚲','Repas-inclus':'🍽','Feu-camp':'🔥','Sources-chaudes':'♨️','Vin-local':'🍷','Hammac':'🌴'
+};
+const equipLabels = {
+  'WiFi':'Wi-Fi gratuit','Piscine':'Piscine','Petit-dejeuner':'Petit-déjeuner','Cuisine':'Cuisine commune',
+  'Clim':'Climatisation','Parking':'Parking','Terrasse':'Terrasse','Casiers':'Casiers sécurisés',
+  'Bar':'Bar sur place','Laverie':'Laverie','Hamac':'Hamacs','Randonnée':'Randonnées organisées',
+  'Vélos':'Vélos inclus','Repas-inclus':'Repas inclus','Feu-camp':'Feu de camp','Sources-chaudes':'Sources chaudes',
+  'Vin-local':'Dégustation vin local','Hammac':'Hamacs'
+};
+
+const hebergements = [
+  {id:1,  nom:"The Surfer's Inn Hostel",     type:'auberge_jeunesse', ville:'Kuta',              pays:'Indonésie',          prix:12,  note:4.4, avis:312, equip:'WiFi,Cuisine,Casiers,Laverie,Terrasse',           pdej:0, annul:1, desc:"Auberge emblématique de Kuta à deux pas de la plage. Ambiance surf garantie, soirées BBQ sur le rooftop et dortoirs propres. Le meilleur rapport qualité-prix de Bali.",       image:'imageBali.jpeg',    capacite:32},
+  {id:2,  nom:'Green Garden Hostel Ubud',    type:'auberge_jeunesse', ville:'Ubud',              pays:'Indonésie',          prix:10,  note:4.2, avis:198, equip:'WiFi,Cuisine,Terrasse,Laverie',                   pdej:0, annul:1, desc:"Petit hostel caché dans les jardins tropicaux d'Ubud. Idéal pour les voyageurs solos cherchant calme et authenticité. Cours de yoga le matin inclus.",                       image:'imageBali.jpeg',    capacite:20},
+  {id:3,  nom:'Rice Field Bungalow',         type:'bungalow',         ville:'Ubud',              pays:'Indonésie',          prix:35,  note:4.7, avis:145, equip:'WiFi,Clim,Terrasse,Petit-dejeuner',               pdej:1, annul:0, desc:"Bungalow posé au bord des rizières en terrasses. Vue imprenable, petit-déjeuner local inclus et vélos disponibles gratuitement.",                                            image:'imageBali.jpeg',    capacite:4},
+  {id:4,  nom:'Sunset Kuta Guesthouse',      type:'guesthouse',       ville:'Kuta',              pays:'Indonésie',          prix:25,  note:4.3, avis:221, equip:'WiFi,Clim,Piscine,Terrasse',                      pdej:0, annul:1, desc:"Guesthouse familiale avec petite piscine, à 5 min de la plage de Kuta. Chambres privées climatisées à prix doux.",                                                           image:'imageBali.jpeg',    capacite:8},
+  {id:5,  nom:'Hostal Sol Santa Cruz',       type:'hotel_budget',     ville:'Santa Cruz',        pays:'Espagne',            prix:22,  note:4.1, avis:187, equip:'WiFi,Clim,Terrasse',                               pdej:0, annul:1, desc:"Hôtel budget bien situé dans le centre historique de Santa Cruz. Chambres simples et propres.",                                                                             image:'imageTenerife.jpeg',capacite:24},
+  {id:6,  nom:'Apartamentos Vista Mar',      type:'appartement',      ville:'Los Cristianos',    pays:'Espagne',            prix:42,  note:4.4, avis:263, equip:'WiFi,Cuisine,Piscine,Parking,Terrasse',            pdej:0, annul:1, desc:"Appartement lumineux avec vue mer à Los Cristianos. Cuisine équipée et piscine commune. Idéal pour 2-4 personnes.",                                                       image:'imageTenerife.jpeg',capacite:4},
+  {id:7,  nom:'Riviera Hostel Saranda',      type:'auberge_jeunesse', ville:'Saranda',           pays:'Albanie',            prix:10,  note:4.5, avis:142, equip:'WiFi,Cuisine,Terrasse,Casiers',                   pdej:0, annul:1, desc:"L'auberge de référence de la riviera albanaise. Terrasse avec vue sur la mer Ionienne, ambiance internationale.",                                                            image:'imageAlbanieSud.jpeg',capacite:30},
+  {id:8,  nom:'Himara Beach Bungalow',       type:'bungalow',         ville:'Himara',            pays:'Albanie',            prix:22,  note:4.6, avis:98,  equip:'WiFi,Terrasse,Cuisine',                           pdej:0, annul:1, desc:"Bungalows en bois à 30 mètres d'une plage de sable blanc quasi-déserte.",                                                                                             image:'imageAlbanieSud.jpeg',capacite:3},
+  {id:9,  nom:'Budva Bay Hostel',            type:'auberge_jeunesse', ville:'Budva',             pays:'Monténégro',         prix:15,  note:4.3, avis:176, equip:'WiFi,Cuisine,Casiers,Terrasse',                   pdej:0, annul:1, desc:"Hostel central à Budva, à 5 min à pied de la vieille ville médiévale et de la plage Slovenska.",                                                                           image:'imageMontenegro.webp',capacite:28},
+  {id:10, nom:'Kotor Old City Hostel',       type:'auberge_jeunesse', ville:'Kotor',             pays:'Monténégro',         prix:18,  note:4.7, avis:231, equip:'WiFi,Casiers,Terrasse',                           pdej:0, annul:1, desc:"Hostel insolite installé dans une maison vénitienne du XVIIe siècle au cœur de la vieille ville fortifiée.",                                                              image:'imageMontenegro.webp',capacite:20},
+  {id:11, nom:'Lanta Backpackers Hostel',    type:'auberge_jeunesse', ville:'Koh Lanta',         pays:'Thaïlande',          prix:10,  note:4.2, avis:189, equip:'WiFi,Cuisine,Hammac,Terrasse',                    pdej:0, annul:1, desc:"Hostel décontracté à deux pas du débarcadère. Location de motos et de kayaks sur place.",                                                                               image:'imageKohLantaThailande.jpeg',capacite:22},
+  {id:12, nom:'Long Beach Bungalow',         type:'bungalow',         ville:'Koh Lanta',         pays:'Thaïlande',          prix:28,  note:4.5, avis:112, equip:'WiFi,Terrasse,Hamac',                             pdej:0, annul:1, desc:"Bungalows en bambou directement sur la plage de Klong Dao, l'une des plus belles de Thaïlande.",                                                                         image:'imageKohLantaThailande.jpeg',capacite:2},
+  {id:13, nom:"Hostel des Alizés Essaouira", type:'auberge_jeunesse', ville:'Essaouira',         pays:'Maroc',              prix:12,  note:4.3, avis:155, equip:'WiFi,Cuisine,Terrasse,Casiers',                   pdej:0, annul:1, desc:"Auberge bleue et blanche en pleine médina d'Essaouira. Parfaite pour les surfeurs et kitesurfeurs.",                                                                       image:'imageEssaouira.jpg',capacite:20},
+  {id:14, nom:"Maison d'hôtes des Remparts", type:'guesthouse',       ville:'Essaouira',         pays:'Maroc',              prix:32,  note:4.6, avis:88,  equip:'WiFi,Petit-dejeuner,Terrasse',                    pdej:1, annul:1, desc:"Maison d'hôtes authentique avec patio fleuri à l'intérieur des remparts. Petit-déjeuner marocain copieux inclus.",                                                      image:'imageEssaouira.jpg',capacite:6},
+  {id:15, nom:'El Nido Backpackers Hideout', type:'auberge_jeunesse', ville:'El Nido',           pays:'Philippines',        prix:12,  note:4.4, avis:203, equip:'WiFi,Cuisine,Casiers,Terrasse',                   pdej:0, annul:1, desc:"Le hostel de référence des routards à El Nido. Organisation des island-hoppings à prix d'ami.",                                                                           image:'imageElNidoPhilippines.jpeg',capacite:24},
+  {id:16, nom:'Palawan Secret Guesthouse',   type:'guesthouse',       ville:'El Nido',           pays:'Philippines',        prix:28,  note:4.6, avis:117, equip:'WiFi,Terrasse,Hamac,Cuisine',                     pdej:0, annul:1, desc:"Guesthouse familiale tenue par des locaux à 10 min du bourg. Jardins tropicaux et accès à une plage privée.",                                                             image:'imageElNidoPhilippines.jpeg',capacite:8},
+  {id:17, nom:'Stone Town Budget Hostel',    type:'auberge_jeunesse', ville:'Stone Town',        pays:'Tanzanie',           prix:14,  note:4.2, avis:168, equip:'WiFi,Cuisine,Terrasse,Casiers',                   pdej:0, annul:1, desc:"Hostel installé dans une ancienne maison arabe de Stone Town classé UNESCO. Dortoirs ventilés, terrasse sur les toits.",                                                  image:'imageZanzibar.jpeg',capacite:20},
+  {id:18, nom:'Nungwi Beach Bungalow',       type:'bungalow',         ville:'Nungwi',            pays:'Tanzanie',           prix:42,  note:4.7, avis:94,  equip:'WiFi,Terrasse,Petit-dejeuner',                    pdej:1, annul:0, desc:"Bungalows les pieds dans l'eau sur la plage de Nungwi. Eaux turquoise, couchers de soleil depuis la terrasse.",                                                          image:'imageZanzibar.jpeg',capacite:3},
+  {id:19, nom:'Kazbegi Mountain Guesthouse', type:'guesthouse',       ville:'Kazbegi',           pays:'Géorgie',            prix:18,  note:4.8, avis:276, equip:'WiFi,Petit-dejeuner,Cuisine,Terrasse',             pdej:1, annul:1, desc:"Guesthouse familiale avec vue directe sur la tour de Guérgéti et le Kazbek. La patronne cuisine les meilleurs khinkali de la région.",                                   image:'imageGeorgie.jpg',capacite:14},
+  {id:20, nom:'Stepantsminda Hostel',        type:'auberge_jeunesse', ville:'Kazbegi',           pays:'Géorgie',            prix:13,  note:4.5, avis:198, equip:'WiFi,Cuisine,Casiers,Terrasse',                   pdej:0, annul:1, desc:"Hostel de randonneurs à Stepantsminda. Point de départ idéal pour le trek vers la trinité de Guérgéti.",                                                                 image:'imageGeorgie.jpg',capacite:20},
+  {id:21, nom:'Shkoder Backpackers Hostel',  type:'auberge_jeunesse', ville:'Shkodër',           pays:'Albanie',            prix:9,   note:4.4, avis:134, equip:'WiFi,Cuisine,Casiers,Vélos',                      pdej:0, annul:1, desc:"Le hostel le mieux noté du nord de l'Albanie. Location de vélos incluse, carte des randonnées offerte.",                                                                    image:'imageAlbanieNord.jpg',capacite:22},
+  {id:22, nom:'Thethi Valley Guesthouse',    type:'guesthouse',       ville:'Thethi',            pays:'Albanie',            prix:20,  note:4.7, avis:88,  equip:'Petit-dejeuner,Cuisine,Terrasse',                 pdej:1, annul:0, desc:"Guesthouse au cœur de la vallée secrète de Thethi. Repas traditionnels copieux inclus dans le prix.",                                                                    image:'imageAlbanieNord.jpg',capacite:8},
+  {id:23, nom:'Ohrid Lake Hostel',           type:'auberge_jeunesse', ville:'Ohrid',             pays:'Macédoine du Nord',  prix:10,  note:4.5, avis:167, equip:'WiFi,Cuisine,Terrasse,Casiers',                   pdej:0, annul:1, desc:"Hostel avec terrasse surplombant le lac d'Ohrid, classé UNESCO. Location de kayaks, soirées conviviales.",                                                               image:'imageMacedoineNord.jpg',capacite:20},
+  {id:24, nom:'Old Bazaar Guesthouse Skopje',type:'guesthouse',       ville:'Skopje',            pays:'Macédoine du Nord',  prix:22,  note:4.3, avis:112, equip:'WiFi,Clim,Cuisine,Terrasse',                      pdej:0, annul:1, desc:"Guesthouse charmante dans le vieux bazar ottoman de Skopje. Chambres décorées à la façon traditionnelle macédonienne.",                                                    image:'imageMacedoineNord.jpg',capacite:8},
+  {id:25, nom:'Bishkek Budget Backpackers',  type:'auberge_jeunesse', ville:'Bichkek',           pays:'Kirghizistan',       prix:8,   note:4.2, avis:98,  equip:'WiFi,Cuisine,Casiers,Laverie',                    pdej:0, annul:1, desc:"Hostel central à Bichkek. L'équipe organise des excursions vers Song-Köl et les camps de yourtes.",                                                                        image:'imageKirghizistan.jpeg',capacite:20},
+  {id:26, nom:'Song-Köl Yurt Camp',          type:'yourte',           ville:'Son-Kol',           pays:'Kirghizistan',       prix:28,  note:4.8, avis:143, equip:'Repas-inclus,Randonnée',                          pdej:1, annul:0, desc:"Camp de yourtes authentique au bord du lac Song-Köl à 3000m d'altitude. Petit-déjeuner et dîner kirghiz inclus.",                                                       image:'imageKirghizistan.jpeg',capacite:16},
+  {id:27, nom:'Issyk-Koul Lakeside Hostel',  type:'auberge_jeunesse', ville:'Karakol',           pays:'Kirghizistan',       prix:10,  note:4.3, avis:87,  equip:'WiFi,Cuisine,Terrasse',                           pdej:0, annul:1, desc:"Hostel convivial à Karakol sur les rives de l'Issyk-Koul. Départ de randonnées vers les Tian Shan.",                                                                      image:'imageKirghizistan.jpeg',capacite:18},
+  {id:28, nom:'Durmitor Adventure Hostel',   type:'auberge_jeunesse', ville:'Žabljak',           pays:'Monténégro',         prix:14,  note:4.6, avis:132, equip:'WiFi,Cuisine,Casiers,Terrasse',                   pdej:0, annul:1, desc:"Hostel de montagne au pied du massif du Durmitor. Idéal pour le ski en hiver et les randonnées en été.",                                                                  image:'imageMontenegroMontagne.jpg',capacite:24},
+  {id:29, nom:'Canyon View Guesthouse',      type:'guesthouse',       ville:'Žabljak',           pays:'Monténégro',         prix:25,  note:4.5, avis:99,  equip:'WiFi,Petit-dejeuner,Terrasse,Parking',             pdej:1, annul:1, desc:"Guesthouse familiale avec vue sur le canyon de la Tara. Petit-déjeuner monténégrin généreux.",                                                                          image:'imageMontenegroMontagne.jpg',capacite:8},
+  {id:30, nom:'Lisbon City Hostel',          type:'auberge_jeunesse', ville:'Lisbonne',          pays:'Portugal',           prix:20,  note:4.5, avis:487, equip:'WiFi,Cuisine,Casiers,Terrasse,Petit-dejeuner',    pdej:0, annul:1, desc:"Le hostel le plus animé du Bairro Alto. Soirées fado organisées, bar sur la terrasse.",                                                                               image:'imageLisbonne.jpg',capacite:42},
+  {id:31, nom:'Alfama Backpackers',          type:'auberge_jeunesse', ville:'Lisbonne',          pays:'Portugal',           prix:17,  note:4.4, avis:321, equip:'WiFi,Casiers,Terrasse,Cuisine',                   pdej:0, annul:1, desc:"Hostel caché dans les ruelles d'Alfama. Terrasse avec vue sur le Tage et le château Saint-Georges.",                                                                       image:'imageLisbonne.jpg',capacite:28},
+  {id:32, nom:'Casa Lisboa Guesthouse',      type:'guesthouse',       ville:'Lisbonne',          pays:'Portugal',           prix:48,  note:4.7, avis:214, equip:'WiFi,Clim,Petit-dejeuner,Terrasse',               pdej:1, annul:1, desc:"Guesthouse élégante dans le quartier branché du Chiado. Chambres avec azulejos authentiques, petit-déjeuner inclus.",                                                    image:'imageLisbonne.jpg',capacite:8},
+  {id:33, nom:'Budapest Budget Hostel',      type:'auberge_jeunesse', ville:'Budapest',          pays:'Hongrie',            prix:14,  note:4.4, avis:512, equip:'WiFi,Cuisine,Casiers,Laverie,Bar',                pdej:0, annul:1, desc:"Hostel au cœur du quartier des ruin-bars. Ambiance électrique, bar sur place et location de vélos.",                                                                      image:'imageBudapest.jpeg',capacite:52},
+  {id:34, nom:'Danube View Guesthouse',      type:'guesthouse',       ville:'Budapest',          pays:'Hongrie',            prix:45,  note:4.6, avis:278, equip:'WiFi,Clim,Terrasse,Petit-dejeuner',               pdej:1, annul:1, desc:"Guesthouse avec vue sur le Danube et le Parlement depuis la terrasse. Chambres Art Nouveau soignées.",                                                                  image:'imageBudapest.jpeg',capacite:10},
+  {id:35, nom:'Party District Hostel',       type:'auberge_jeunesse', ville:'Budapest',          pays:'Hongrie',            prix:16,  note:4.3, avis:389, equip:'WiFi,Bar,Casiers,Terrasse',                       pdej:0, annul:1, desc:"L'hostel le plus festif de Budapest, en plein quartier des ruin-bars. Fêtes organisées chaque weekend.",                                                                  image:'imageBudapest.jpeg',capacite:40},
+  {id:36, nom:'Tbilisi Old Town Hostel',     type:'auberge_jeunesse', ville:'Tbilissi',          pays:'Géorgie',            prix:12,  note:4.7, avis:342, equip:'WiFi,Cuisine,Casiers,Terrasse,Vin-local',         pdej:0, annul:1, desc:"Hostel dans une maison géorgienne typique avec balcon en bois sculpté. Dégustation de vin naturel géorgien chaque soir.",                                           image:'imageTbilissi.jpg',capacite:30},
+  {id:37, nom:'Georgian Dream Guesthouse',   type:'guesthouse',       ville:'Tbilissi',          pays:'Géorgie',            prix:28,  note:4.8, avis:198, equip:'WiFi,Petit-dejeuner,Terrasse,Cuisine',             pdej:1, annul:1, desc:"Guesthouse familiale tenue par Nino et sa mère. Petit-déjeuner géorgien traditionnel inclus. Chaleur humaine légendaire.",                                             image:'imageTbilissi.jpg',capacite:8},
+  {id:38, nom:'Hanoi Old Quarter Hostel',    type:'auberge_jeunesse', ville:'Hanoï',             pays:'Vietnam',            prix:8,   note:4.3, avis:421, equip:'WiFi,Cuisine,Casiers,Laverie',                    pdej:0, annul:1, desc:"Hostel bien situé dans le vieux quartier des 36 corporations. Tours de street food organisés, cours de cuisine vietnamienne.",                                         image:'imageHanoi.jpeg',capacite:32},
+  {id:39, nom:'Lotus Backpackers Hanoï',     type:'auberge_jeunesse', ville:'Hanoï',             pays:'Vietnam',            prix:10,  note:4.5, avis:287, equip:'WiFi,Cuisine,Bar,Terrasse',                       pdej:0, annul:1, desc:"Hostel branché dans la rue la plus vivante du vieux Hanoï. Happy hour quotidien, organisation des excursions.",                                                           image:'imageHanoi.jpeg',capacite:24},
+  {id:40, nom:'Hanoï Backstreet Guesthouse', type:'guesthouse',       ville:'Hanoï',             pays:'Vietnam',            prix:18,  note:4.4, avis:176, equip:'WiFi,Clim,Cuisine,Terrasse',                      pdej:0, annul:1, desc:"Guesthouse boutique dans une ruelle calme à deux pas de l'agitation du vieux quartier.",                                                                             image:'imageHanoi.jpeg',capacite:10},
+  {id:41, nom:'Krakow Central Hostel',       type:'auberge_jeunesse', ville:'Cracovie',          pays:'Pologne',            prix:11,  note:4.5, avis:398, equip:'WiFi,Cuisine,Casiers,Bar,Laverie',                pdej:0, annul:1, desc:"Hostel au cœur de la vieille ville médiévale de Cracovie. Le rapport qualité-prix le plus fou d'Europe.",                                                              image:'imageCracovie.jpg',capacite:44},
+  {id:42, nom:'Kazimierz Budget Inn',        type:'guesthouse',       ville:'Cracovie',          pays:'Pologne',            prix:28,  note:4.4, avis:212, equip:'WiFi,Cuisine,Terrasse',                           pdej:0, annul:1, desc:"Guesthouse dans le quartier bohème de Kazimierz, ancien quartier juif. Galeries d'art et cafés indépendants.",                                                          image:'imageCracovie.jpg',capacite:10},
+  {id:43, nom:'Mexico City Social Hostel',   type:'auberge_jeunesse', ville:'Mexico City',       pays:'Mexique',            prix:15,  note:4.5, avis:334, equip:'WiFi,Cuisine,Bar,Terrasse,Casiers,Laverie',       pdej:0, annul:1, desc:"Hostel animé dans le quartier de la Condesa. Tours street food organisés chaque soir.",                                                                              image:'imageMexicoCity.jpeg',capacite:50},
+  {id:44, nom:'Coyoacan Guesthouse',         type:'guesthouse',       ville:'Mexico City',       pays:'Mexique',            prix:35,  note:4.6, avis:178, equip:'WiFi,Cuisine,Parking,Terrasse',                   pdej:0, annul:1, desc:"Guesthouse colorée dans le quartier de Frida Kahlo. Casa Azul à 5 min à pied.",                                                                                      image:'imageMexicoCity.jpeg',capacite:10},
+  {id:45, nom:'Belgrade Downtown Hostel',    type:'auberge_jeunesse', ville:'Belgrade',          pays:'Serbie',             prix:10,  note:4.3, avis:298, equip:'WiFi,Cuisine,Bar,Casiers,Terrasse',               pdej:0, annul:1, desc:"Hostel au cœur de la rue piétonne de Belgrade. Nuits les moins chères des Balkans.",                                                                                  image:'imageBelgrade.jpg',capacite:36},
+  {id:46, nom:'Savamala Guesthouse',         type:'guesthouse',       ville:'Belgrade',          pays:'Serbie',             prix:22,  note:4.5, avis:145, equip:'WiFi,Terrasse,Cuisine,Clim',                      pdej:0, annul:1, desc:"Guesthouse dans le quartier artistique de Savamala. Galeries, bars alternatifs et scène musicale underground.",                                                        image:'imageBelgrade.jpg',capacite:10},
+  {id:47, nom:'Riad Jeune Explorateur',      type:'riad',             ville:'Marrakech',         pays:'Maroc',              prix:30,  note:4.7, avis:267, equip:'WiFi,Piscine,Petit-dejeuner,Clim,Terrasse',        pdej:1, annul:0, desc:"Riad authentique au cœur de la médina avec patio, fontaine et terrasse sur les toits.",                                                                            image:'imageMedinaMarrakech.jpeg',capacite:12},
+  {id:48, nom:"Hostel de la Médina Marrakech",type:'auberge_jeunesse',ville:'Marrakech',         pays:'Maroc',              prix:12,  note:4.2, avis:198, equip:'WiFi,Cuisine,Terrasse,Casiers',                   pdej:0, annul:1, desc:"L'auberge la moins chère de la médina de Marrakech. Terrasse avec vue sur les minarets.",                                                                              image:'imageMedinaMarrakech.jpeg',capacite:30},
+  {id:49, nom:"Riad des Épices",             type:'riad',             ville:'Marrakech',         pays:'Maroc',              prix:48,  note:4.9, avis:189, equip:'WiFi,Piscine,Clim,Terrasse,Petit-dejeuner',        pdej:1, annul:1, desc:"Riad de charme avec plunge pool sur la terrasse. Chambres décorées à la zellij, argan et thuya. Brunch marocain fastueux inclus.",                                   image:'imageMedinaMarrakech.jpeg',capacite:8},
+  {id:50, nom:'Prague Backpackers Hostel',   type:'auberge_jeunesse', ville:'Prague',            pays:'République Tchèque', prix:13,  note:4.5, avis:534, equip:'WiFi,Cuisine,Bar,Casiers,Laverie',                pdej:0, annul:1, desc:"Le plus grand hostel de Prague dans le quartier bohème de Vinohrady. Bières tchèques à 1€ au bar.",                                                                  image:'imagePrague.jpeg',capacite:62},
+  {id:51, nom:'Old Town Budget Guesthouse',  type:'guesthouse',       ville:'Prague',            pays:'République Tchèque', prix:38,  note:4.4, avis:231, equip:'WiFi,Clim,Terrasse,Petit-dejeuner',               pdej:1, annul:1, desc:"Guesthouse boutique à deux pas de la place de la Vieille Ville et du pont Charles.",                                                                               image:'imagePrague.jpeg',capacite:10},
+  {id:52, nom:'Sevilla Flamenco Hostel',     type:'auberge_jeunesse', ville:'Séville',           pays:'Espagne',            prix:18,  note:4.6, avis:312, equip:'WiFi,Bar,Terrasse,Casiers,Cuisine',               pdej:0, annul:1, desc:"Hostel avec spectacle flamenco organisé chaque semaine. Terrasse sur les toits avec vue sur la Giralda.",                                                               image:'imageSeville.jpeg',capacite:40},
+  {id:53, nom:'Triana Guesthouse Sevilla',   type:'guesthouse',       ville:'Séville',           pays:'Espagne',            prix:42,  note:4.7, avis:187, equip:'WiFi,Clim,Terrasse,Petit-dejeuner',               pdej:1, annul:1, desc:"Guesthouse andalouse dans le quartier de Triana. Patio floral, petit-déjeuner inclus avec churros.",                                                                  image:'imageSeville.jpeg',capacite:8},
+  {id:54, nom:'Kotor Bay View Hostel',       type:'auberge_jeunesse', ville:'Kotor',             pays:'Monténégro',         prix:18,  note:4.8, avis:224, equip:'WiFi,Casiers,Terrasse',                           pdej:0, annul:1, desc:"Hostel dans la vieille ville fortifiée de Kotor. Les remparts illuminés depuis la terrasse, chats sacrés partout.",                                                  image:'imageMontenegro.webp',capacite:18},
+  {id:55, nom:'Dobrota Seaside Guesthouse',  type:'guesthouse',       ville:'Kotor',             pays:'Monténégro',         prix:35,  note:4.6, avis:112, equip:'WiFi,Terrasse,Petit-dejeuner',                    pdej:1, annul:1, desc:"Guesthouse paisible sur la rive du fjord adriatique à Dobrota. Vue sur les bouches de Kotor, kayak disponible.",                                                      image:'imageMontenegro.webp',capacite:6},
+  {id:56, nom:"Gîte de Montagne Imlil",      type:'guesthouse',       ville:'Imlil',             pays:'Maroc',              prix:15,  note:4.7, avis:198, equip:'Petit-dejeuner,Cuisine,Terrasse',                 pdej:1, annul:0, desc:"Gîte de montagne au village d'Imlil, point de départ du Toubkal. Mules disponibles, guides locaux agréés.",                                                           image:'imageTrekMaroc.jpeg',capacite:16},
+  {id:57, nom:"Camp des Étoiles Atlas",      type:'camping',          ville:'Agafay',            pays:'Maroc',              prix:20,  note:4.5, avis:134, equip:'Repas-inclus,Feu-camp,Randonnée',                 pdej:1, annul:0, desc:"Camp sous les étoiles dans le désert d'Agafay aux portes de l'Atlas. Tentes berbères, dîner au feu de camp.",                                                        image:'imageTrekMaroc.jpeg',capacite:20},
+  {id:58, nom:'San José Eco Hostel',         type:'auberge_jeunesse', ville:'San José',          pays:'Costa Rica',         prix:20,  note:4.3, avis:267, equip:'WiFi,Cuisine,Casiers,Terrasse,Laverie',           pdej:0, annul:1, desc:"Hostel écolo dans le quartier branché de Barrio Escalante. Organisation de tours vers les volcans.",                                                                 image:'imageCostaRica.jpeg',capacite:40},
+  {id:59, nom:'La Fortuna Volcano Hostel',   type:'auberge_jeunesse', ville:'La Fortuna',        pays:'Costa Rica',         prix:22,  note:4.6, avis:189, equip:'WiFi,Piscine,Cuisine,Terrasse',                   pdej:0, annul:1, desc:"Hostel avec piscine face au volcan Arenal. Accès aux sources chaudes naturelles.",                                                                                    image:'imageCostaRica.jpeg',capacite:24},
+  {id:60, nom:'Saigon Backpackers Hostel',   type:'auberge_jeunesse', ville:'Hô Chi Minh-Ville', pays:'Vietnam',            prix:8,   note:4.2, avis:398, equip:'WiFi,Bar,Cuisine,Casiers,Laverie',               pdej:0, annul:1, desc:"Hostel en plein cœur de la rue des backpackers de Saigon. Organisation de tours sur la moto Honda Win.",                                                           image:'imageVietnamMoto.jpeg',capacite:44},
+  {id:61, nom:'Hoi An Ancient Town Hostel',  type:'auberge_jeunesse', ville:'Hoi An',            pays:'Vietnam',            prix:10,  note:4.7, avis:312, equip:'WiFi,Cuisine,Vélos,Terrasse',                     pdej:0, annul:1, desc:"Hostel dans la ville ancienne de Hoi An classée UNESCO. Vélos inclus dans le tarif, cours de cuisine locale.",                                                       image:'imageVietnamMoto.jpeg',capacite:26},
+  {id:62, nom:'Petra Moon Hostel',           type:'auberge_jeunesse', ville:'Wadi Musa',         pays:'Jordanie',           prix:14,  note:4.5, avis:221, equip:'WiFi,Cuisine,Terrasse,Casiers',                   pdej:0, annul:1, desc:"Le hostel de référence à Petra. Entrée de la cité rose accessible à pied. Tours du trésor à l'aube organisés.",                                                       image:'imageJordanie.jpeg',capacite:30},
+  {id:63, nom:'Aqaba Red Sea Hostel',        type:'auberge_jeunesse', ville:'Aqaba',             pays:'Jordanie',           prix:12,  note:4.3, avis:167, equip:'WiFi,Cuisine,Casiers,Clim',                       pdej:0, annul:1, desc:"Hostel économique sur les rives de la mer Rouge à Aqaba. Accès aux spots de plongée parmi les meilleurs de la mer Rouge.",                                          image:'imageJordanie.jpeg',capacite:22},
+  {id:64, nom:'La Gomera Wild Hostel',       type:'auberge_jeunesse', ville:'Valle Gran Rey',    pays:'Espagne',            prix:15,  note:4.6, avis:142, equip:'WiFi,Cuisine,Terrasse,Hamac',                     pdej:0, annul:1, desc:"Hostel alternatif dans la vallée luxuriante de Valle Gran Rey. Forêt de laurisilva millénaire à portée de randonnée.",                                               image:'imageIlesCanaries.jpeg',capacite:20},
+  {id:65, nom:'El Hierro Eco-Lodge',         type:'guesthouse',       ville:'Valverde',          pays:'Espagne',            prix:30,  note:4.7, avis:89,  equip:'WiFi,Petit-dejeuner,Terrasse',                    pdej:1, annul:1, desc:"Guesthouse écologique sur l'île la plus préservée des Canaries. Observatoire astronomique à 30 min.",                                                              image:'imageIlesCanaries.jpeg',capacite:10},
+  {id:66, nom:'Ponta Delgada City Hostel',   type:'auberge_jeunesse', ville:'Ponta Delgada',     pays:'Portugal',           prix:18,  note:4.5, avis:198, equip:'WiFi,Cuisine,Casiers,Terrasse,Laverie',           pdej:0, annul:1, desc:"Hostel moderne dans la capitale des Açores. Organisation des randonnées vers les caldeiras et lacs de cratère.",                                                      image:'imageAcores.jpeg',capacite:32},
+  {id:67, nom:'Furnas Valley Guesthouse',    type:'guesthouse',       ville:'Furnas',            pays:'Portugal',           prix:38,  note:4.8, avis:134, equip:'WiFi,Petit-dejeuner,Terrasse,Sources-chaudes',    pdej:1, annul:1, desc:"Guesthouse au cœur de la vallée volcanique de Furnas. Accès direct aux caldeiras fumantes et aux sources chaudes naturelles.",                                    image:'imageAcores.jpeg',capacite:8},
+];
+
+// ── HELPERS ──────────────────────────────────
+function starsHTML(note, size=14) {
+  let h = '';
+  for (let i=1;i<=5;i++) {
+    if (note>=i) h+=`<svg width="${size}" height="${size}" viewBox="0 0 24 24" class="star-full"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    else h+=`<svg width="${size}" height="${size}" viewBox="0 0 24 24" class="star-empty"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  }
+  return h;
+}
+
+// ── LECTURE URL ───────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const id = parseInt(params.get('id'));
+const h  = hebergements.find(x => x.id === id);
+
+if (!h) {
+  document.getElementById('app').innerHTML = `
+    <div class="error-state">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <h2>Hébergement introuvable</h2>
+      <p>Cet hébergement n'existe pas ou a été supprimé.</p>
+      <a href="hebergement.php">← Retour aux hébergements</a>
+    </div>`;
+} else {
+  document.title = `VoyageVista – ${h.nom}`;
+
+  const equipList = h.equip.split(',');
+  const equipHTML = equipList.map(e => `
+    <div class="equip-item">
+      <div class="equip-icon">${equipEmojis[e] || '✓'}</div>
+      ${equipLabels[e] || e}
+    </div>`).join('');
+
+  const pdejBadge  = h.pdej  ? `<span class="badge badge-green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Petit-déjeuner inclus</span>` : '';
+  const annulBadge = h.annul ? `<span class="badge badge-green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Annulation gratuite</span>` : '';
+
+  document.getElementById('app').innerHTML = `
+  <main>
+    <!-- HERO -->
+    <div class="hero">
+      <img src="${h.image}" alt="${h.nom}"
+        onerror="this.style.display='none';document.getElementById('heroPh').style.display='flex'"/>
+      <div class="hero-placeholder" id="heroPh" style="display:none">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        <span>${h.nom}</span>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-bottom">
+        <div>
+          <div class="hero-type">${typeLabels[h.type]}</div>
+          <div class="hero-name">${h.nom}</div>
+          <div class="hero-location">📍 ${h.ville}, ${h.pays}</div>
+        </div>
+        <div class="hero-note-box">
+          <div class="hero-note-val">${h.note}</div>
+          <div class="hero-note-stars">${'★'.repeat(Math.floor(h.note))}</div>
+          <div class="hero-note-sub">${h.avis} avis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-wrap">
+      <div class="content-main">
+
+        <!-- INFO CARDS -->
+        <div class="info-cards">
+          <div class="info-card">
+            <span class="info-card-label">Prix</span>
+            <span class="info-card-value">${h.prix} €</span>
+            <span class="info-card-sub">par nuit</span>
+          </div>
+          <div class="info-card">
+            <span class="info-card-label">Note</span>
+            <span class="info-card-value">${h.note} / 5</span>
+            <span class="info-card-sub">${h.avis} avis</span>
+          </div>
+          <div class="info-card">
+            <span class="info-card-label">Type</span>
+            <span class="info-card-value" style="font-size:.88rem">${typeLabels[h.type]}</span>
+            <span class="info-card-sub">${h.ville}</span>
+          </div>
+          <div class="info-card">
+            <span class="info-card-label">Capacité</span>
+            <span class="info-card-value">${h.capacite}</span>
+            <span class="info-card-sub">personnes max</span>
+          </div>
+        </div>
+
+        <!-- BADGES -->
+        <div class="badges-row">
+          ${pdejBadge}${annulBadge}
+          <span class="badge badge-neutral">${typeLabels[h.type]}</span>
+          <span class="badge badge-neutral">📍 ${h.pays}</span>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab('apercu',this)">Aperçu</button>
+          <button class="tab-btn" onclick="switchTab('equip',this)">Équipements</button>
+          <button class="tab-btn" onclick="switchTab('avis',this)">Avis</button>
+        </div>
+
+        <!-- TAB APERCU -->
+        <div class="tab-panel active" id="tab-apercu">
+          <div class="section-label">À propos</div>
+          <div class="section-title-lg">${h.nom}</div>
+          <p class="desc-text">${h.desc}</p>
+
+          <div class="section-label">Informations</div>
+          <div class="detail-table">
+            <div class="dt-row"><span class="dt-label">Nom</span><span class="dt-value">${h.nom}</span></div>
+            <div class="dt-row"><span class="dt-label">Type</span><span class="dt-value">${typeLabels[h.type]}</span></div>
+            <div class="dt-row"><span class="dt-label">Ville</span><span class="dt-value">${h.ville}, ${h.pays}</span></div>
+            <div class="dt-row"><span class="dt-label">Prix / nuit</span><span class="dt-value">${h.prix} €</span></div>
+            <div class="dt-row"><span class="dt-label">Capacité</span><span class="dt-value">${h.capacite} personnes max</span></div>
+            <div class="dt-row"><span class="dt-label">Note</span><span class="dt-value">${h.note}/5 · ${h.avis} avis</span></div>
+            <div class="dt-row"><span class="dt-label">Petit-déjeuner</span><span class="dt-value">${h.pdej ? '✓ Inclus' : '✗ Non inclus'}</span></div>
+            <div class="dt-row"><span class="dt-label">Annulation</span><span class="dt-value">${h.annul ? '✓ Gratuite' : '✗ Non remboursable'}</span></div>
+          </div>
+
+          <!-- PLACES BAR -->
+          <div class="places-bar-wrap">
+            <div class="places-bar-label"><span>Disponibilité</span><span>${h.capacite} places</span></div>
+            <div class="places-bar-track">
+              <div class="places-bar-fill" style="width:${Math.min(100,Math.round(h.capacite/70*100))}%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB ÉQUIPEMENTS -->
+        <div class="tab-panel" id="tab-equip">
+          <div class="section-label" style="margin-top:4px">Ce qui est inclus</div>
+          <div class="section-title-lg">Équipements & services</div>
+          <div class="equip-grid">${equipHTML}</div>
+        </div>
+
+        <!-- TAB AVIS -->
+        <div class="tab-panel" id="tab-avis">
+          <div class="avis-empty">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <p>Les avis voyageurs arrivent bientôt.<br><small>Soyez le premier à partager votre expérience !</small></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOOKING SIDEBAR -->
+      <aside class="booking-sidebar">
+        <div class="booking-price-label">Prix par nuit</div>
+        <div style="margin-bottom:4px">
+          <span class="booking-price-val">${h.prix} €</span>
+          <span class="booking-price-pp"> / nuit</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:.8rem;color:var(--muted)">
+          ${starsHTML(h.note,13)} ${h.note} · ${h.avis} avis
+        </div>
+
+        <div class="booking-divider"></div>
+
+        <!-- DATES -->
+        <div class="booking-section-label">Dates de séjour</div>
+        <div class="date-row">
+          <div class="date-field">
+            <label>Arrivée</label>
+            <input type="date" id="dateArrivee" onchange="updateTotal()"/>
+          </div>
+          <div class="date-field">
+            <label>Départ</label>
+            <input type="date" id="dateDepart" onchange="updateTotal()"/>
+          </div>
+        </div>
+
+        <div class="booking-divider"></div>
+
+        <!-- VOYAGEURS -->
+        <div class="booking-section-label">Voyageurs</div>
+        <div class="voy-row">
+          <div class="voy-label">Adultes <small>18 ans et +</small></div>
+          <div class="voy-counter">
+            <button class="voy-btn" onclick="changeCount('adults',-1)">−</button>
+            <span class="voy-count" id="adultsCount">1</span>
+            <button class="voy-btn" onclick="changeCount('adults',1)">+</button>
+          </div>
+        </div>
+        <div class="voy-row">
+          <div class="voy-label">Enfants <small>2 – 17 ans</small></div>
+          <div class="voy-counter">
+            <button class="voy-btn" onclick="changeCount('children',-1)">−</button>
+            <span class="voy-count" id="childrenCount">0</span>
+            <button class="voy-btn" onclick="changeCount('children',1)">+</button>
+          </div>
+        </div>
+
+        <div class="booking-total">
+          <div class="booking-total-label">Total estimé</div>
+          <div class="booking-total-val" id="totalPrice">${h.prix} €</div>
+        </div>
+        <div class="booking-total-detail" id="totalDetail">1 nuit × ${h.prix} €</div>
+
+        <button class="btn-reserver" id="btnReserver" onclick="ajouterAuPanier()">Réserver cet hébergement</button>
+        <p class="booking-note-info">${h.annul ? '✓ Annulation gratuite · Sans frais cachés.' : 'Réservation non remboursable.'}</p>
+      </aside>
+    </div>
+  </main>`;
+
+  // Sidebar footer
+  const sidebar = document.getElementById('sidebar');
+  const footer  = document.getElementById('footer');
+  function updateSidebarBottom() {
+    const ft = footer.getBoundingClientRect().top;
+    sidebar.style.bottom = ft < window.innerHeight ? (window.innerHeight - ft)+'px' : '0px';
+  }
+  window.addEventListener('scroll', updateSidebarBottom);
+  window.addEventListener('resize', updateSidebarBottom);
+  updateSidebarBottom();
+}
+
+// ── COMPTEUR & TOTAL ──────────────────────────
+const counts = {adults:1, children:0};
+
+function changeCount(type, delta) {
+  counts[type] = Math.max(type==='adults'?1:0, counts[type]+delta);
+  document.getElementById(type+'Count').textContent = counts[type];
+  updateTotal();
+}
+
+function getNuits() {
+  const a = document.getElementById('dateArrivee')?.value;
+  const d = document.getElementById('dateDepart')?.value;
+  if (!a || !d) return 1;
+  const diff = (new Date(d) - new Date(a)) / 86400000;
+  return diff > 0 ? diff : 1;
+}
+
+function updateTotal() {
+  if (!h) return;
+  const nuits   = getNuits();
+  const montant = nuits * h.prix;
+  document.getElementById('totalPrice').textContent = montant.toLocaleString('fr-FR') + ' €';
+  document.getElementById('totalDetail').textContent = `${nuits} nuit${nuits>1?'s':''} × ${h.prix} €`;
+}
+
+// ── PANIER (même format que destinations et transports) ──
+function ajouterAuPanier() {
+  if (!h) return;
+  const nuits   = getNuits();
+  const adultes = counts.adults;
+  const enfants = counts.children;
+  const montant = nuits * h.prix;
+
+  const dateA = document.getElementById('dateArrivee')?.value || '';
+  const dateD = document.getElementById('dateDepart')?.value  || '';
+
+  const item = {
+    // Champs communs
+    type_article:    'hebergement',
+    id_article:      h.id,
+    nom:             h.nom,
+    prix_unitaire:   h.prix,
+    adultes:         adultes,
+    enfants:         enfants,
+    total_personnes: adultes + enfants,
+    montant_total:   montant,
+    // Champs spécifiques hébergement
+    type_hebergement: h.type,
+    ville:           h.ville,
+    pays:            h.pays,
+    nb_nuits:        nuits,
+    date_arrivee:    dateA,
+    date_depart:     dateD,
+  };
+
+  let panier = [];
+  try { panier = JSON.parse(sessionStorage.getItem('voyagevista_panier') || '[]'); } catch(e) {}
+  const idx = panier.findIndex(p => p.type_article==='hebergement' && p.id_article===h.id);
+  if (idx>=0) panier[idx]=item; else panier.push(item);
+  sessionStorage.setItem('voyagevista_panier', JSON.stringify(panier));
+
+  showToast(`✓ ${h.nom} ajouté au panier !`);
+}
+
+// ── TABS ──────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+// ── TOAST ─────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3200);
+}
+</script>
+</body>
+</html>
