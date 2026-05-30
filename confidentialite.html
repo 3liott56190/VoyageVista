@@ -1,1 +1,726 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – Politique de confidentialité</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:          #f5f3ef;
+      --surface:     #ffffff;
+      --border:      #e2ddd6;
+      --text:        #1a1714;
+      --muted:       #788a7b;
+      --accent:      #013819;
+      --accent-soft: #e4f5ea;
+      --header-h:    64px;
+      --sidebar-w:   200px;
+      --radius:      12px;
+      --shadow:      0 2px 16px rgba(0,0,0,.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow);
+    }
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge {
+      height: var(--header-h); background: var(--accent);
+      display: flex; align-items: center; padding: 0 28px 0 24px;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    }
+    .logo-badge span {
+      font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem;
+      color: #fff; letter-spacing: .02em; white-space: nowrap;
+    }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 40px; height: 40px; border: 1.5px solid var(--border); border-radius: 50%;
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); transition: background .18s, border-color .18s;
+      text-decoration: none; position: relative;
+    }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .icon-btn .dot {
+      position: absolute; top: 6px; right: 6px; width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%; border: 2px solid var(--surface);
+    }
+    .btn-connexion {
+      height: 36px; padding: 0 20px; border: 1.5px solid var(--accent); border-radius: 8px;
+      background: transparent; font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 500; cursor: pointer; color: var(--text);
+      transition: background .18s, color .18s;
+    }
+    .btn-connexion:hover { background: var(--accent); color: #fff; }
+
+    /* ── LAYOUT ── */
+    .layout { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w); background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: fixed; top: var(--header-h); left: 0; bottom: 0;
+      padding: 20px 12px; display: flex; flex-direction: column; gap: 4px;
+      overflow-y: auto; z-index: 40;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      border-radius: 8px; text-decoration: none; font-size: .9rem; font-weight: 400;
+      color: var(--muted); transition: background .15s, color .15s; cursor: pointer;
+    }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item.active svg { stroke: #fff; }
+
+    /* ── MAIN ── */
+    main { margin-left: var(--sidebar-w); flex: 1; padding: 48px 56px 80px; max-width: 980px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--accent); border-radius: var(--radius);
+      padding: 44px 56px; margin-bottom: 36px; position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+    .hero-eyebrow {
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 10px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-size: 2rem;
+      font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 12px;
+    }
+    .hero-meta { font-size: .875rem; color: rgba(255,255,255,.6); }
+    .hero-meta strong { color: rgba(255,255,255,.85); }
+
+    /* ── RGPD BADGE ROW ── */
+    .rgpd-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      margin-bottom: 36px;
+    }
+    .rgpd-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 22px 18px; text-align: center;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .rgpd-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); border-color: #c8d8cb; }
+    .rgpd-icon {
+      width: 40px; height: 40px; border-radius: 10px; background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
+    }
+    .rgpd-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+    .rgpd-label { font-size: .82rem; font-weight: 600; color: var(--text); }
+
+    /* ── TABLE OF CONTENTS ── */
+    .toc-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 24px 28px; margin-bottom: 32px;
+    }
+    .toc-title {
+      font-size: .78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .09em; color: var(--muted); margin-bottom: 14px;
+    }
+    .toc-list { display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      display: flex; align-items: center; gap: 10px; padding: 7px 10px;
+      border-radius: 8px; text-decoration: none; font-size: .875rem; color: var(--text);
+      transition: background .15s, color .15s;
+    }
+    .toc-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .toc-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* ── SECTION CARD ── */
+    .conf-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 32px 36px; margin-bottom: 16px;
+      scroll-margin-top: calc(var(--header-h) + 24px);
+    }
+    .conf-section-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .conf-num {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--accent); color: #fff;
+      font-size: .85rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .conf-section-title {
+      font-family: 'Playfair Display', serif; font-size: 1.2rem;
+      font-weight: 700; color: var(--text);
+    }
+    .conf-body { font-size: .9rem; line-height: 1.8; color: #3a3632; }
+    .conf-body p { margin-bottom: 12px; }
+    .conf-body p:last-child { margin-bottom: 0; }
+    .conf-body ul { padding-left: 18px; margin-bottom: 12px; }
+    .conf-body ul li { margin-bottom: 6px; }
+    .conf-body strong { color: var(--text); font-weight: 600; }
+    .conf-body a { color: var(--accent); text-decoration: none; }
+    .conf-body a:hover { text-decoration: underline; }
+
+    /* ── TABLE DE DONNÉES ── */
+    .data-table {
+      width: 100%; border-collapse: collapse; margin: 16px 0; font-size: .875rem;
+    }
+    .data-table th {
+      background: var(--accent-soft); color: var(--accent);
+      font-weight: 600; font-size: .78rem; text-transform: uppercase;
+      letter-spacing: .06em; padding: 10px 14px; text-align: left;
+      border-bottom: 2px solid #c8d8cb;
+    }
+    .data-table td {
+      padding: 10px 14px; border-bottom: 1px solid var(--border);
+      vertical-align: top; color: #3a3632;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #fafaf8; }
+
+    /* ── DROITS GRID ── */
+    .rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .right-card {
+      background: var(--accent-soft); border-radius: 10px;
+      padding: 16px 18px; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .right-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: #fff; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .right-icon svg { width: 15px; height: 15px; stroke: var(--accent); fill: none; stroke-width: 2; }
+    .right-title { font-size: .875rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .right-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── HIGHLIGHT ── */
+    .conf-highlight {
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0;
+      font-size: .875rem; line-height: 1.7; color: var(--text);
+    }
+
+    /* ── CONTACT CTA ── */
+    .cta-banner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 32px 40px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px; margin-top: 16px;
+    }
+    .cta-banner h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem;
+      font-weight: 700; color: var(--text); margin-bottom: 4px;
+    }
+    .cta-banner p { font-size: .875rem; color: var(--muted); }
+    .btn-cta {
+      height: 40px; padding: 0 26px; background: var(--accent); color: #fff;
+      border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 600; cursor: pointer;
+      transition: background .18s; white-space: nowrap; flex-shrink: 0;
+      text-decoration: none; display: inline-flex; align-items: center;
+    }
+    .btn-cta:hover { background: #025a28; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--text); color: rgba(255,255,255,.7); width: 100%; }
+    .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .footer-tagline { font-size: .875rem; line-height: 1.6; }
+    .footer-col h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin-bottom: 14px; }
+    .footer-col a { display: block; color: rgba(255,255,255,.6); text-decoration: none; font-size: .875rem; margin-bottom: 8px; transition: color .15s; }
+    .footer-col a:hover { color: #6dbf8a; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; font-size: .8rem; }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom-links a:hover { color: #fff; }
+
+    /* ── BACK TO TOP ── */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; width: 46px; height: 46px;
+      border-radius: 50%; background: var(--accent); color: #fff; border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(1,56,25,.35);
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: opacity .25s, transform .25s; z-index: 200;
+    }
+    #backToTop.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #backToTop:hover { background: #025a28; }
+    #backToTop svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="Accueil.html" class="logo">
+    <div class="logo-badge"><span>VoyageVista</span></div>
+  </a>
+  <div class="header-right">
+    <a href="monespace.html" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="notifications.html" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <a href="Accueil.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+    <a href="catalogue.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+    <a href="transport.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+    <a href="hebergement.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+    <a href="activite.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+    <a href="itineraire.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+    <a href="panier.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+    <a href="notifications.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+    <a href="monespace.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">Documents légaux</div>
+      <h1 class="hero-title">Politique de confidentialité</h1>
+      <div class="hero-meta">
+        <strong>Version 1.0</strong> — Conforme au RGPD &nbsp;·&nbsp;
+        Dernière mise à jour : <strong>30 mai 2026</strong>
+      </div>
+    </div>
+
+    <!-- ENGAGEMENTS RGPD -->
+    <div class="rgpd-row">
+      <div class="rgpd-card">
+        <div class="rgpd-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="rgpd-label">Données protégées</div>
+      </div>
+      <div class="rgpd-card">
+        <div class="rgpd-icon">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="rgpd-label">Transparence totale</div>
+      </div>
+      <div class="rgpd-card">
+        <div class="rgpd-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="rgpd-label">Conforme RGPD</div>
+      </div>
+      <div class="rgpd-card">
+        <div class="rgpd-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="rgpd-label">Aucune revente</div>
+      </div>
+    </div>
+
+    <!-- SOMMAIRE -->
+    <div class="toc-card">
+      <div class="toc-title">Sommaire</div>
+      <div class="toc-list">
+        <a class="toc-item" href="#s1"><span class="toc-num">1</span>Responsable du traitement</a>
+        <a class="toc-item" href="#s2"><span class="toc-num">2</span>Données collectées</a>
+        <a class="toc-item" href="#s3"><span class="toc-num">3</span>Finalités du traitement</a>
+        <a class="toc-item" href="#s4"><span class="toc-num">4</span>Base légale du traitement</a>
+        <a class="toc-item" href="#s5"><span class="toc-num">5</span>Durée de conservation</a>
+        <a class="toc-item" href="#s6"><span class="toc-num">6</span>Destinataires des données</a>
+        <a class="toc-item" href="#s7"><span class="toc-num">7</span>Vos droits (RGPD)</a>
+        <a class="toc-item" href="#s8"><span class="toc-num">8</span>Sécurité des données</a>
+        <a class="toc-item" href="#s9"><span class="toc-num">9</span>Cookies et traceurs</a>
+        <a class="toc-item" href="#s10"><span class="toc-num">10</span>Modifications de cette politique</a>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="conf-section" id="s1">
+      <div class="conf-section-header">
+        <div class="conf-num">1</div>
+        <div class="conf-section-title">Responsable du traitement</div>
+      </div>
+      <div class="conf-body">
+        <p>Le responsable du traitement des données collectées via la plateforme <strong>VoyageVista</strong> est l'équipe de développement du projet ING2, dans le cadre du module de Web dynamique à l'ECE Paris (promotion 2026).</p>
+        <p>Pour toute question relative à la protection de vos données personnelles, vous pouvez nous contacter via la page <a href="contact.html">Contact</a> de la plateforme.</p>
+        <div class="conf-highlight">
+          VoyageVista est un projet universitaire à finalité pédagogique. Le traitement des données s'effectue dans ce cadre restreint et ne fait l'objet d'aucune exploitation commerciale.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="conf-section" id="s2">
+      <div class="conf-section-header">
+        <div class="conf-num">2</div>
+        <div class="conf-section-title">Données collectées</div>
+      </div>
+      <div class="conf-body">
+        <p>VoyageVista collecte uniquement les données strictement nécessaires au fonctionnement de la plateforme :</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Catégorie</th>
+              <th>Données collectées</th>
+              <th>Obligatoire</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Identité</strong></td>
+              <td>Prénom, nom</td>
+              <td>Oui</td>
+            </tr>
+            <tr>
+              <td><strong>Contact</strong></td>
+              <td>Adresse e-mail</td>
+              <td>Oui</td>
+            </tr>
+            <tr>
+              <td><strong>Contact</strong></td>
+              <td>Numéro de téléphone</td>
+              <td>Non (facultatif)</td>
+            </tr>
+            <tr>
+              <td><strong>Authentification</strong></td>
+              <td>Mot de passe (haché, non lisible)</td>
+              <td>Oui</td>
+            </tr>
+            <tr>
+              <td><strong>Navigation</strong></td>
+              <td>Historique de réservations simulées, favoris, avis</td>
+              <td>Non</td>
+            </tr>
+            <tr>
+              <td><strong>Préférences</strong></td>
+              <td>Paramètres de notification, visibilité du profil</td>
+              <td>Non</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Aucune donnée bancaire réelle n'est collectée ni stockée. Les informations saisies lors de la simulation de paiement ne sont pas enregistrées.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="conf-section" id="s3">
+      <div class="conf-section-header">
+        <div class="conf-num">3</div>
+        <div class="conf-section-title">Finalités du traitement</div>
+      </div>
+      <div class="conf-body">
+        <p>Les données collectées sont traitées pour les finalités suivantes :</p>
+        <ul>
+          <li><strong>Gestion du compte utilisateur :</strong> création, authentification, modification et suppression du compte ;</li>
+          <li><strong>Fonctionnement de la plateforme :</strong> affichage des réservations simulées, historique, wishlist et itinéraires ;</li>
+          <li><strong>Personnalisation :</strong> adaptation de l'interface aux préférences de l'utilisateur ;</li>
+          <li><strong>Notifications :</strong> envoi d'alertes liées aux réservations, selon les préférences configurées ;</li>
+          <li><strong>Amélioration de la plateforme :</strong> analyse anonyme des usages dans un cadre strictement pédagogique.</li>
+        </ul>
+        <p>Aucune des données collectées n'est utilisée à des fins publicitaires ou commerciales.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="conf-section" id="s4">
+      <div class="conf-section-header">
+        <div class="conf-num">4</div>
+        <div class="conf-section-title">Base légale du traitement</div>
+      </div>
+      <div class="conf-body">
+        <p>Conformément au RGPD (Règlement UE 2016/679), chaque traitement de données repose sur l'une des bases légales suivantes :</p>
+        <ul>
+          <li><strong>Exécution d'un contrat :</strong> traitement nécessaire au fonctionnement du compte utilisateur et des réservations simulées ;</li>
+          <li><strong>Consentement :</strong> pour les données facultatives (téléphone, préférences de notification, partage analytique) ;</li>
+          <li><strong>Intérêt légitime :</strong> pour l'amélioration des fonctionnalités de la plateforme, dans le respect des droits des utilisateurs.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="conf-section" id="s5">
+      <div class="conf-section-header">
+        <div class="conf-num">5</div>
+        <div class="conf-section-title">Durée de conservation</div>
+      </div>
+      <div class="conf-body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Données</th>
+              <th>Durée de conservation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Compte utilisateur actif</td>
+              <td>Durée du projet pédagogique (2026)</td>
+            </tr>
+            <tr>
+              <td>Compte supprimé par l'utilisateur</td>
+              <td>Suppression immédiate et définitive</td>
+            </tr>
+            <tr>
+              <td>Historique de réservations simulées</td>
+              <td>Jusqu'à suppression du compte</td>
+            </tr>
+            <tr>
+              <td>Cookies de session</td>
+              <td>Durée de la session (supprimés à la fermeture du navigateur)</td>
+            </tr>
+            <tr>
+              <td>Données analytiques anonymisées</td>
+              <td>12 mois maximum</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="conf-highlight">
+          À la fin du projet pédagogique, l'ensemble des données sera supprimé définitivement de la base de données.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="conf-section" id="s6">
+      <div class="conf-section-header">
+        <div class="conf-num">6</div>
+        <div class="conf-section-title">Destinataires des données</div>
+      </div>
+      <div class="conf-body">
+        <p>Les données collectées sont accessibles exclusivement aux membres de l'équipe de développement VoyageVista dans le cadre du projet pédagogique.</p>
+        <p><strong>Aucune donnée personnelle n'est :</strong></p>
+        <ul>
+          <li>Vendue à des tiers ;</li>
+          <li>Transmise à des partenaires commerciaux ;</li>
+          <li>Partagée avec des services publicitaires ;</li>
+          <li>Transférée hors de l'Union Européenne.</li>
+        </ul>
+        <p>Les seules technologies externes utilisées sont Google Fonts pour le chargement des polices de caractères, soumis à la politique de confidentialité de Google.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 7 — DROITS RGPD -->
+    <div class="conf-section" id="s7">
+      <div class="conf-section-header">
+        <div class="conf-num">7</div>
+        <div class="conf-section-title">Vos droits (RGPD)</div>
+      </div>
+      <div class="conf-body">
+        <p>Conformément au RGPD, vous disposez des droits suivants sur vos données personnelles :</p>
+
+        <div class="rights-grid">
+          <div class="right-card">
+            <div class="right-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div>
+              <div class="right-title">Droit d'accès</div>
+              <div class="right-desc">Consulter l'ensemble des données vous concernant stockées sur la plateforme.</div>
+            </div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <div>
+              <div class="right-title">Droit de rectification</div>
+              <div class="right-desc">Modifier vos informations personnelles depuis les Paramètres de votre espace.</div>
+            </div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div>
+            <div>
+              <div class="right-title">Droit à l'effacement</div>
+              <div class="right-desc">Supprimer votre compte et toutes vos données via la zone dangereuse des Paramètres.</div>
+            </div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+            <div>
+              <div class="right-title">Droit à la portabilité</div>
+              <div class="right-desc">Recevoir vos données dans un format structuré et lisible par machine.</div>
+            </div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+            <div>
+              <div class="right-title">Droit d'opposition</div>
+              <div class="right-desc">Vous opposer à certains traitements, notamment pour les données analytiques.</div>
+            </div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div>
+              <div class="right-title">Droit de limitation</div>
+              <div class="right-desc">Demander la suspension temporaire du traitement de vos données.</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:16px">Pour exercer ces droits, rendez-vous dans l'onglet <strong>Paramètres</strong> de votre espace personnel ou contactez-nous via <a href="contact.html">la page Contact</a>. Toute demande sera traitée dans un délai maximum de <strong>30 jours</strong>.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="conf-section" id="s8">
+      <div class="conf-section-header">
+        <div class="conf-num">8</div>
+        <div class="conf-section-title">Sécurité des données</div>
+      </div>
+      <div class="conf-body">
+        <p>VoyageVista met en œuvre les mesures de sécurité suivantes pour protéger vos données :</p>
+        <ul>
+          <li><strong>Hachage des mots de passe :</strong> les mots de passe sont stockés sous forme hachée (non réversible) et ne sont jamais lisibles en clair ;</li>
+          <li><strong>Sessions sécurisées :</strong> gestion des sessions utilisateur via des mécanismes PHP sécurisés ;</li>
+          <li><strong>Validation des entrées :</strong> toutes les données soumises par les utilisateurs sont validées côté client et côté serveur ;</li>
+          <li><strong>Protection contre les injections SQL :</strong> utilisation de requêtes préparées pour toutes les interactions avec la base de données ;</li>
+          <li><strong>Protection XSS :</strong> échappement systématique des données affichées dans l'interface.</li>
+        </ul>
+        <div class="conf-highlight">
+          Dans le cadre pédagogique de ce projet, certaines mesures de sécurité avancées (HTTPS en production, chiffrement au repos) peuvent ne pas être implémentées. Ces limites sont documentées dans le rapport technique du projet.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="conf-section" id="s9">
+      <div class="conf-section-header">
+        <div class="conf-num">9</div>
+        <div class="conf-section-title">Cookies et traceurs</div>
+      </div>
+      <div class="conf-body">
+        <p>VoyageVista utilise uniquement des cookies techniques, strictement nécessaires au fonctionnement de la plateforme :</p>
+        <table class="data-table">
+          <thead>
+            <tr><th>Cookie</th><th>Finalité</th><th>Durée</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>PHPSESSID</code></td>
+              <td>Maintien de la session utilisateur connecté</td>
+              <td>Fin de session</td>
+            </tr>
+            <tr>
+              <td>Préférences d'affichage</td>
+              <td>Mémorisation du thème et des paramètres locaux</td>
+              <td>30 jours</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:12px">Aucun cookie publicitaire, de profilage ou de traçage tiers n'est utilisé. Le chargement de Google Fonts peut générer un appel externe vers les serveurs Google, soumis à leur <a href="#">politique de confidentialité</a>.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="conf-section" id="s10">
+      <div class="conf-section-header">
+        <div class="conf-num">10</div>
+        <div class="conf-section-title">Modifications de cette politique</div>
+      </div>
+      <div class="conf-body">
+        <p>Nous nous réservons le droit de modifier la présente politique de confidentialité à tout moment. Toute modification substantielle sera notifiée aux utilisateurs connectés via le système de notifications de la plateforme.</p>
+        <p>La date de dernière mise à jour est indiquée en haut de ce document. Nous vous encourageons à la consulter régulièrement.</p>
+        <p>La poursuite de l'utilisation de la plateforme après notification vaut acceptation des modifications apportées à cette politique.</p>
+      </div>
+    </div>
+
+    <!-- CONTACT CTA -->
+    <div class="cta-banner">
+      <div>
+        <h3>Des questions sur vos données ?</h3>
+        <p>Contactez-nous, nous répondons sous 30 jours.</p>
+      </div>
+      <a href="contact.html" class="btn-cta">Nous contacter</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.html">Toutes les destinations</a>
+        <a href="transport.html">Transports</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="activite.html">Activités</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.html">Connexion</a>
+        <a href="monespace.html">Mon espace</a>
+        <a href="panier.html">Mon panier</a>
+        <a href="itineraire.html">Mes itinéraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="Apropos.html">À propos</a>
+        <a href="CGU.html">CGU</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Projet ING2 ECE Paris</span>
+      <div class="footer-bottom-links">
+        <a href="CGU.html">CGU</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const footer  = document.getElementById('footer');
+  function updateSidebar() {
+    const ft = footer.getBoundingClientRect().top;
+    sidebar.style.bottom = ft < window.innerHeight ? (window.innerHeight - ft) + 'px' : '0px';
+  }
+  window.addEventListener('scroll', updateSidebar);
+  window.addEventListener('resize', updateSidebar);
+  updateSidebar();
+
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 300));
+</script>
+</body>
+</html>
 
