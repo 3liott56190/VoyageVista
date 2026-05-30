@@ -231,6 +231,8 @@
       border-radius: var(--radius); padding: 20px 16px;
       position: sticky; top: calc(var(--header-h) + 78px);
       box-shadow: var(--shadow);
+      max-height: calc(100vh - var(--header-h) - 78px - 48px);
+      overflow-y: auto;
     }
     .filters-title {
       font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--text);
@@ -605,7 +607,7 @@ function applyFilters() {
     ['auberge_jeunesse','hotel_budget','appartement','camping','guesthouse','bungalow','riad','yourte'].includes(v));
   const equips   = getChecked('.filter-section input[type=checkbox][value]').filter(v =>
     ['WiFi','Piscine','Petit-dejeuner','Cuisine','Clim','Parking'].includes(v));
-  const pMin     = parseFloat(document.getElementById('prix-min').value) || 0;
+  const pMin     = 0;
   const pMax     = parseFloat(document.getElementById('prix-max').value) || Infinity;
   const pdej     = document.getElementById('chk-pdej').checked;
   const annul    = document.getElementById('chk-annul').checked;
@@ -678,7 +680,7 @@ function renderList(list) {
     const isFav = favs.has(h.id);
 
     return `
-    <a class="hcard" href="hebergement-detail.html?id=${h.id}" style="animation-delay:${i*0.03}s">
+    <a class="hcard" href="hebergement_detail.php?id=${h.id}" style="animation-delay:${i*0.03}s">
       <div class="hcard-img">
         <img src="${h.image}" alt="${h.nom}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
         <div class="img-ph" style="display:none;">
