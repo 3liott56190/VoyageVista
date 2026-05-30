@@ -1,1 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – Conditions Générales d'Utilisation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:          #f5f3ef;
+      --surface:     #ffffff;
+      --border:      #e2ddd6;
+      --text:        #1a1714;
+      --muted:       #788a7b;
+      --accent:      #013819;
+      --accent-soft: #e4f5ea;
+      --header-h:    64px;
+      --sidebar-w:   200px;
+      --radius:      12px;
+      --shadow:      0 2px 16px rgba(0,0,0,.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px 0 0; z-index: 100; box-shadow: var(--shadow);
+    }
+    .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+    .logo-badge {
+      height: var(--header-h); background: var(--accent);
+      display: flex; align-items: center; padding: 0 28px 0 24px;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    }
+    .logo-badge span {
+      font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem;
+      color: #fff; letter-spacing: .02em; white-space: nowrap;
+    }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 40px; height: 40px; border: 1.5px solid var(--border); border-radius: 50%;
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); transition: background .18s, border-color .18s;
+      text-decoration: none; position: relative;
+    }
+    .icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .icon-btn .dot {
+      position: absolute; top: 6px; right: 6px; width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%; border: 2px solid var(--surface);
+    }
+    .btn-connexion {
+      height: 36px; padding: 0 20px; border: 1.5px solid var(--accent); border-radius: 8px;
+      background: transparent; font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 500; cursor: pointer; color: var(--text);
+      transition: background .18s, color .18s;
+    }
+    .btn-connexion:hover { background: var(--accent); color: #fff; }
+
+    /* ── LAYOUT ── */
+    .layout { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w); background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: fixed; top: var(--header-h); left: 0; bottom: 0;
+      padding: 20px 12px; display: flex; flex-direction: column; gap: 4px;
+      overflow-y: auto; z-index: 40;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      border-radius: 8px; text-decoration: none; font-size: .9rem; font-weight: 400;
+      color: var(--muted); transition: background .15s, color .15s; cursor: pointer;
+    }
+    .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+    .nav-item.active svg { stroke: #fff; }
+
+    /* ── MAIN ── */
+    main { margin-left: var(--sidebar-w); flex: 1; padding: 48px 56px 80px; max-width: 980px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--accent); border-radius: var(--radius);
+      padding: 44px 56px; margin-bottom: 36px; position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+    .hero-eyebrow {
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 10px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-size: 2rem;
+      font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 12px;
+    }
+    .hero-meta { font-size: .875rem; color: rgba(255,255,255,.6); }
+    .hero-meta strong { color: rgba(255,255,255,.85); }
+
+    /* ── TABLE OF CONTENTS ── */
+    .toc-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 24px 28px; margin-bottom: 32px;
+    }
+    .toc-title {
+      font-size: .78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .09em; color: var(--muted); margin-bottom: 14px;
+    }
+    .toc-list { display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 10px; border-radius: 8px;
+      text-decoration: none; font-size: .875rem; color: var(--text);
+      transition: background .15s, color .15s;
+    }
+    .toc-item:hover { background: var(--accent-soft); color: var(--accent); }
+    .toc-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* ── ARTICLE SECTION ── */
+    .cgu-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 32px 36px; margin-bottom: 16px;
+      scroll-margin-top: calc(var(--header-h) + 24px);
+    }
+    .cgu-section-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .cgu-num {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--accent); color: #fff;
+      font-size: .85rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .cgu-section-title {
+      font-family: 'Playfair Display', serif; font-size: 1.2rem;
+      font-weight: 700; color: var(--text);
+    }
+    .cgu-body { font-size: .9rem; line-height: 1.8; color: #3a3632; }
+    .cgu-body p { margin-bottom: 12px; }
+    .cgu-body p:last-child { margin-bottom: 0; }
+    .cgu-body ul { padding-left: 18px; margin-bottom: 12px; }
+    .cgu-body ul li { margin-bottom: 6px; }
+    .cgu-body strong { color: var(--text); font-weight: 600; }
+    .cgu-body a { color: var(--accent); text-decoration: none; }
+    .cgu-body a:hover { text-decoration: underline; }
+
+    /* highlight box */
+    .cgu-highlight {
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0;
+      font-size: .875rem; line-height: 1.7; color: var(--text);
+    }
+
+    /* ── CONTACT BANNER ── */
+    .cta-banner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 32px 40px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px; margin-top: 16px;
+    }
+    .cta-banner h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem;
+      font-weight: 700; color: var(--text); margin-bottom: 4px;
+    }
+    .cta-banner p { font-size: .875rem; color: var(--muted); }
+    .btn-cta {
+      height: 40px; padding: 0 26px; background: var(--accent); color: #fff;
+      border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 600; cursor: pointer;
+      transition: background .18s; white-space: nowrap; flex-shrink: 0;
+      text-decoration: none; display: inline-flex; align-items: center;
+    }
+    .btn-cta:hover { background: #025a28; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--text); color: rgba(255,255,255,.7); width: 100%; }
+    .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .footer-tagline { font-size: .875rem; line-height: 1.6; }
+    .footer-col h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin-bottom: 14px; }
+    .footer-col a { display: block; color: rgba(255,255,255,.6); text-decoration: none; font-size: .875rem; margin-bottom: 8px; transition: color .15s; }
+    .footer-col a:hover { color: #6dbf8a; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; font-size: .8rem; }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom-links a:hover { color: #fff; }
+
+    /* ── BACK TO TOP ── */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; width: 46px; height: 46px;
+      border-radius: 50%; background: var(--accent); color: #fff; border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(1,56,25,.35);
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: opacity .25s, transform .25s; z-index: 200;
+    }
+    #backToTop.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #backToTop:hover { background: #025a28; }
+    #backToTop svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="Accueil.html" class="logo">
+    <div class="logo-badge"><span>VoyageVista</span></div>
+  </a>
+  <div class="header-right">
+    <a href="monespace.html" class="icon-btn" title="Mon espace">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="notifications.html" class="icon-btn" title="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="dot"></span>
+    </a>
+    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <a href="Accueil.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+    <a href="catalogue.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+    <a href="transport.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+    <a href="hebergement.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+    <a href="activite.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+    <a href="itineraire.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+    <a href="panier.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+    <a href="notifications.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+    <a href="monespace.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">Documents légaux</div>
+      <h1 class="hero-title">Conditions Générales d'Utilisation</h1>
+      <div class="hero-meta">
+        <strong>Version 1.0</strong> — Entrée en vigueur le 1er janvier 2025 &nbsp;·&nbsp;
+        Dernière mise à jour : <strong>30 mai 2026</strong>
+      </div>
+    </div>
+
+    <!-- SOMMAIRE -->
+    <div class="toc-card">
+      <div class="toc-title">Sommaire</div>
+      <div class="toc-list">
+        <a class="toc-item" href="#art1"><span class="toc-num">1</span>Objet et champ d'application</a>
+        <a class="toc-item" href="#art2"><span class="toc-num">2</span>Accès à la plateforme</a>
+        <a class="toc-item" href="#art3"><span class="toc-num">3</span>Création de compte et obligations de l'utilisateur</a>
+        <a class="toc-item" href="#art4"><span class="toc-num">4</span>Réservations et paiement</a>
+        <a class="toc-item" href="#art5"><span class="toc-num">5</span>Annulations et remboursements</a>
+        <a class="toc-item" href="#art6"><span class="toc-num">6</span>Responsabilités</a>
+        <a class="toc-item" href="#art7"><span class="toc-num">7</span>Propriété intellectuelle</a>
+        <a class="toc-item" href="#art8"><span class="toc-num">8</span>Protection des données personnelles</a>
+        <a class="toc-item" href="#art9"><span class="toc-num">9</span>Cookies</a>
+        <a class="toc-item" href="#art10"><span class="toc-num">10</span>Modifications des CGU</a>
+        <a class="toc-item" href="#art11"><span class="toc-num">11</span>Droit applicable et litiges</a>
+      </div>
+    </div>
+
+    <!-- ARTICLE 1 -->
+    <div class="cgu-section" id="art1">
+      <div class="cgu-section-header">
+        <div class="cgu-num">1</div>
+        <div class="cgu-section-title">Objet et champ d'application</div>
+      </div>
+      <div class="cgu-body">
+        <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation de la plateforme <strong>VoyageVista</strong>, accessible à l'adresse <a href="Accueil.html">voyagevista.fr</a>, éditée dans le cadre d'un projet pédagogique ING2 à l'ECE Paris.</p>
+        <p>En accédant à la plateforme, l'utilisateur reconnaît avoir pris connaissance des présentes CGU et s'engage à les respecter intégralement. Si l'utilisateur n'accepte pas ces conditions, il doit s'abstenir d'utiliser la plateforme.</p>
+        <div class="cgu-highlight">
+          VoyageVista est une application web dynamique développée dans un cadre universitaire. Le processus de paiement est entièrement simulé et aucune transaction financière réelle n'est effectuée.
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 2 -->
+    <div class="cgu-section" id="art2">
+      <div class="cgu-section-header">
+        <div class="cgu-num">2</div>
+        <div class="cgu-section-title">Accès à la plateforme</div>
+      </div>
+      <div class="cgu-body">
+        <p>L'accès à la plateforme est ouvert à toute personne physique disposant d'une connexion internet et d'un navigateur web compatible. Certaines fonctionnalités sont réservées aux utilisateurs disposant d'un compte enregistré.</p>
+        <p>VoyageVista se réserve le droit de :</p>
+        <ul>
+          <li>Restreindre l'accès à tout ou partie de la plateforme sans préavis ;</li>
+          <li>Suspendre temporairement la plateforme pour des raisons de maintenance ;</li>
+          <li>Modifier les fonctionnalités disponibles à tout moment.</li>
+        </ul>
+        <p>La disponibilité de la plateforme n'est pas garantie en continu. Aucune responsabilité ne pourra être engagée en cas d'indisponibilité temporaire.</p>
+      </div>
+    </div>
+
+    <!-- ARTICLE 3 -->
+    <div class="cgu-section" id="art3">
+      <div class="cgu-section-header">
+        <div class="cgu-num">3</div>
+        <div class="cgu-section-title">Création de compte et obligations de l'utilisateur</div>
+      </div>
+      <div class="cgu-body">
+        <p>La création d'un compte nécessite de fournir des informations exactes, complètes et à jour, notamment :</p>
+        <ul>
+          <li>Un nom et prénom valides ;</li>
+          <li>Une adresse e-mail active ;</li>
+          <li>Un mot de passe personnel et confidentiel.</li>
+        </ul>
+        <p>L'utilisateur est seul responsable de la confidentialité de ses identifiants. Toute utilisation du compte sous son identifiant est présumée faite par lui.</p>
+        <p>L'utilisateur s'engage à ne pas :</p>
+        <ul>
+          <li>Usurper l'identité d'un tiers ;</li>
+          <li>Publier des contenus illicites, diffamatoires ou contraires aux bonnes mœurs ;</li>
+          <li>Tenter de contourner les mécanismes de sécurité de la plateforme ;</li>
+          <li>Utiliser la plateforme à des fins commerciales sans autorisation préalable.</li>
+        </ul>
+        <div class="cgu-highlight">
+          En cas de violation de ces obligations, VoyageVista se réserve le droit de suspendre ou supprimer le compte concerné sans préavis.
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 4 -->
+    <div class="cgu-section" id="art4">
+      <div class="cgu-section-header">
+        <div class="cgu-num">4</div>
+        <div class="cgu-section-title">Réservations et paiement</div>
+      </div>
+      <div class="cgu-body">
+        <p>La plateforme VoyageVista permet de composer et simuler des réservations comprenant des transports, des hébergements et des activités. Ces réservations sont effectuées à titre <strong>purement simulé</strong> dans le cadre pédagogique du projet.</p>
+        <p>Le processus de réservation se déroule en plusieurs étapes :</p>
+        <ul>
+          <li>Sélection de la destination, des dates et du nombre de voyageurs ;</li>
+          <li>Choix des options de transport, d'hébergement et d'activités ;</li>
+          <li>Ajout au panier de voyage ;</li>
+          <li>Validation et confirmation simulée de la réservation.</li>
+        </ul>
+        <p>Aucune somme d'argent réelle n'est débitée. Les informations de carte bancaire saisies lors de la simulation ne sont ni stockées ni transmises à un organisme financier.</p>
+      </div>
+    </div>
+
+    <!-- ARTICLE 5 -->
+    <div class="cgu-section" id="art5">
+      <div class="cgu-section-header">
+        <div class="cgu-num">5</div>
+        <div class="cgu-section-title">Annulations et remboursements</div>
+      </div>
+      <div class="cgu-body">
+        <p>Dans le cadre de la simulation pédagogique, les réservations peuvent être annulées à tout moment depuis l'espace personnel de l'utilisateur.</p>
+        <p>Les conditions d'annulation simulées sont les suivantes :</p>
+        <ul>
+          <li><strong>Plus de 30 jours avant le départ :</strong> annulation gratuite, remboursement intégral simulé ;</li>
+          <li><strong>Entre 7 et 30 jours avant le départ :</strong> retenue de 30 % du montant total simulé ;</li>
+          <li><strong>Moins de 7 jours avant le départ :</strong> retenue de 70 % du montant total simulé ;</li>
+          <li><strong>Le jour du départ :</strong> aucun remboursement simulé.</li>
+        </ul>
+        <div class="cgu-highlight">
+          Ces règles sont simulées à des fins pédagogiques et ne constituent pas un engagement financier réel de la part de VoyageVista.
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 6 -->
+    <div class="cgu-section" id="art6">
+      <div class="cgu-section-header">
+        <div class="cgu-num">6</div>
+        <div class="cgu-section-title">Responsabilités</div>
+      </div>
+      <div class="cgu-body">
+        <p>VoyageVista est une application pédagogique. À ce titre, la responsabilité de ses développeurs est limitée aux conditions suivantes :</p>
+        <ul>
+          <li>Les informations présentées sur la plateforme (destinations, prix, disponibilités) sont <strong>fictives ou à titre indicatif</strong> et ne constituent pas une offre commerciale réelle ;</li>
+          <li>VoyageVista ne peut être tenue responsable des dommages directs ou indirects liés à l'utilisation de la plateforme ;</li>
+          <li>Les liens vers des sites tiers n'engagent pas la responsabilité de VoyageVista quant à leur contenu.</li>
+        </ul>
+        <p>L'utilisateur utilise la plateforme sous sa propre responsabilité et reconnaît son caractère pédagogique.</p>
+      </div>
+    </div>
+
+    <!-- ARTICLE 7 -->
+    <div class="cgu-section" id="art7">
+      <div class="cgu-section-header">
+        <div class="cgu-num">7</div>
+        <div class="cgu-section-title">Propriété intellectuelle</div>
+      </div>
+      <div class="cgu-body">
+        <p>L'ensemble des éléments constituant la plateforme VoyageVista — code source, design, textes, icônes, structure des pages — est la propriété exclusive de l'équipe de développement du projet ING2 ECE Paris 2026.</p>
+        <p>Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des éléments de la plateforme est interdite sans autorisation préalable.</p>
+        <p>Les polices de caractères utilisées proviennent de <strong>Google Fonts</strong> et sont soumises à leurs licences respectives (SIL Open Font License).</p>
+      </div>
+    </div>
+
+    <!-- ARTICLE 8 -->
+    <div class="cgu-section" id="art8">
+      <div class="cgu-section-header">
+        <div class="cgu-num">8</div>
+        <div class="cgu-section-title">Protection des données personnelles</div>
+      </div>
+      <div class="cgu-body">
+        <p>Dans le cadre de son fonctionnement, VoyageVista collecte et traite les données personnelles suivantes :</p>
+        <ul>
+          <li>Nom, prénom, adresse e-mail, numéro de téléphone (facultatif) ;</li>
+          <li>Historique de navigation et de réservation sur la plateforme ;</li>
+          <li>Préférences et paramètres de notification.</li>
+        </ul>
+        <p>Ces données sont stockées dans une base de données MySQL sécurisée et ne sont pas transmises à des tiers. Conformément au <strong>RGPD</strong> (Règlement Général sur la Protection des Données), l'utilisateur dispose des droits suivants :</p>
+        <ul>
+          <li><strong>Droit d'accès :</strong> consulter les données le concernant ;</li>
+          <li><strong>Droit de rectification :</strong> corriger des données inexactes ;</li>
+          <li><strong>Droit à l'effacement :</strong> demander la suppression de son compte et de ses données ;</li>
+          <li><strong>Droit à la portabilité :</strong> recevoir ses données dans un format structuré.</li>
+        </ul>
+        <div class="cgu-highlight">
+          Pour exercer ces droits, l'utilisateur peut supprimer son compte directement depuis l'onglet Paramètres de son espace personnel, ou contacter l'équipe via la page <a href="contact.html">Contact</a>.
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 9 -->
+    <div class="cgu-section" id="art9">
+      <div class="cgu-section-header">
+        <div class="cgu-num">9</div>
+        <div class="cgu-section-title">Cookies</div>
+      </div>
+      <div class="cgu-body">
+        <p>VoyageVista utilise des cookies techniques nécessaires au bon fonctionnement de la plateforme, notamment pour :</p>
+        <ul>
+          <li>Maintenir la session de l'utilisateur connecté ;</li>
+          <li>Mémoriser les préférences d'affichage ;</li>
+          <li>Assurer la sécurité des formulaires.</li>
+        </ul>
+        <p>Aucun cookie publicitaire ou de traçage tiers n'est utilisé. Les cookies de session sont supprimés à la fermeture du navigateur.</p>
+      </div>
+    </div>
+
+    <!-- ARTICLE 10 -->
+    <div class="cgu-section" id="art10">
+      <div class="cgu-section-header">
+        <div class="cgu-num">10</div>
+        <div class="cgu-section-title">Modifications des CGU</div>
+      </div>
+      <div class="cgu-body">
+        <p>VoyageVista se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés de toute modification substantielle par une notification sur la plateforme.</p>
+        <p>La poursuite de l'utilisation de la plateforme après notification des modifications vaut acceptation des nouvelles CGU. Il appartient à chaque utilisateur de consulter régulièrement cette page.</p>
+      </div>
+    </div>
+
+    <!-- ARTICLE 11 -->
+    <div class="cgu-section" id="art11">
+      <div class="cgu-section-header">
+        <div class="cgu-num">11</div>
+        <div class="cgu-section-title">Droit applicable et litiges</div>
+      </div>
+      <div class="cgu-body">
+        <p>Les présentes CGU sont soumises au droit français. En cas de litige relatif à leur interprétation ou à leur exécution, les parties s'engagent à rechercher une solution amiable avant tout recours judiciaire.</p>
+        <p>À défaut d'accord amiable, tout litige sera soumis à la compétence exclusive des tribunaux de <strong>Paris</strong></p>
+        
+      </div>
+    </div>
+
+    <!-- CONTACT CTA -->
+    <div class="cta-banner">
+      <div>
+        <h3>Une question sur ces conditions ?</h3>
+        <p>Notre équipe est disponible pour vous répondre.</p>
+      </div>
+      <a href="contact.html" class="btn-cta">Nous contacter</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">VoyageVista</div>
+        <p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <a href="catalogue.html">Toutes les destinations</a>
+        <a href="transport.html">Transports</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="activite.html">Activités</a>
+      </div>
+      <div class="footer-col">
+        <h4>Mon compte</h4>
+        <a href="connexion.html">Connexion</a>
+        <a href="monespace.html">Mon espace</a>
+        <a href="panier.html">Mon panier</a>
+        <a href="itineraire.html">Mes itinéraires</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="Apropos.html">À propos</a>
+        <a href="CGU.html">CGU</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Réseaux sociaux</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Projet ING2 ECE Paris</span>
+      <div class="footer-bottom-links">
+        <a href="CGU.html">CGU</a>
+        <a href="#">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const footer  = document.getElementById('footer');
+  function updateSidebar() {
+    const ft = footer.getBoundingClientRect().top;
+    sidebar.style.bottom = ft < window.innerHeight ? (window.innerHeight - ft) + 'px' : '0px';
+  }
+  window.addEventListener('scroll', updateSidebar);
+  window.addEventListener('resize', updateSidebar);
+  updateSidebar();
+
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 300));
+</script>
+</body>
+</html>
 
