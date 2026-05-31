@@ -17,7 +17,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-/* ── HEADER ── */
 header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 0;z-index:100;box-shadow:var(--shadow)}
 .logo{display:flex;align-items:center;height:100%;text-decoration:none}
 .logo-badge{height:var(--header-h);background:var(--accent);display:flex;align-items:center;padding:0 28px 0 24px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
@@ -30,10 +29,8 @@ header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var
 .btn-connexion{height:36px;padding:0 20px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:background .18s,color .18s}
 .btn-connexion:hover{background:var(--accent);color:#fff}
 
-/* ── LAYOUT ── */
 .layout{display:flex;padding-top:var(--header-h);min-height:100vh}
 
-/* ── SIDEBAR ── */
 aside{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--header-h);left:0;bottom:0;padding:20px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;overflow-x:hidden;z-index:40}
 .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:400;color:var(--muted);transition:background .15s,color .15s;cursor:pointer;border:none;background:transparent;width:100%;font-family:'DM Sans',sans-serif}
 .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
@@ -41,10 +38,8 @@ aside{width:var(--sidebar-w);background:var(--surface);border-right:1px solid va
 .nav-item.active{background:var(--accent);color:#fff;font-weight:500}
 .nav-item.active svg{stroke:#fff}
 
-/* ── MAIN ── */
 main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction:column}
 
-/* ── SEARCH ZONE (fixed) ── */
 .search-zone{position:fixed;top:var(--header-h);left:var(--sidebar-w);right:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px 16px;box-shadow:var(--shadow)}
 .search-bar{display:flex;align-items:stretch;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:visible;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .sf{flex:1;border:none;border-right:1px solid var(--border);padding:0;display:flex;flex-direction:column;justify-content:center;min-width:0}
@@ -59,7 +54,6 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .btn-search:hover{background:#025a28}
 .btn-search:active{transform:scale(.97)}
 
-/* Voyageurs dropdown */
 .voy-panel{position:absolute;top:calc(100% + 8px);left:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:16px;min-width:220px;z-index:300;display:none}
 .voy-panel.open{display:block}
 .voy-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
@@ -70,11 +64,8 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .voy-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:transparent;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:'DM Sans',sans-serif}
 .voy-btn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
 .voy-count{font-weight:600;min-width:18px;text-align:center;font-size:.9rem}
-
-/* ── CONTENT AREA ── */
 .content-area{display:flex;flex:1;padding:150px 32px 80px;gap:24px;align-items:flex-start}
 
-/* ── RESULTS ── */
 .results-col{flex:1;min-width:0}
 .results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px}
 .results-count{font-size:.9rem;color:var(--muted)}
@@ -82,14 +73,11 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .sort-select{padding:7px 32px 7px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;background:var(--surface);color:var(--text);cursor:pointer;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23788a7b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
 .sort-select:focus{border-color:var(--accent)}
 
-/* ── ACTIVITIES GRID ── */
 .activities-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 
-/* ── ACTIVITY CARD ── */
 .act-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .18s,border-color .2s;cursor:pointer}
 .act-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12);transform:translateY(-3px);border-color:#c8d8cb}
 
-/* Card photo zone */
 .ac-photo{height:155px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .ac-photo-icon{font-size:2.8rem;opacity:.75;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
 .cat-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.03em}
@@ -97,7 +85,6 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .heart-btn:hover{background:#fff;transform:scale(1.12)}
 .heart-btn.liked{color:#e74c3c}
 
-/* Category backgrounds */
 .bg-culture   {background:linear-gradient(135deg,#fde8c8,#fef3e2)}
 .bg-nature    {background:linear-gradient(135deg,#c8e6c9,#e8f5e9)}
 .bg-sport     {background:linear-gradient(135deg,#bbdefb,#e3f2fd)}
@@ -107,7 +94,6 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .bg-visite    {background:linear-gradient(135deg,#b2ebf2,#e0f7fa)}
 .bg-nightlife {background:linear-gradient(135deg,#c5cae9,#e8eaf6)}
 
-/* Category badge colors */
 .badge-culture    {background:#fff3e0;color:#e65100}
 .badge-nature     {background:#e8f5e9;color:#1b5e20}
 .badge-sport      {background:#e3f2fd;color:#0d47a1}
@@ -117,7 +103,6 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .badge-visite     {background:#e0f7fa;color:#004d40}
 .badge-nightlife  {background:#e8eaf6;color:#283593}
 
-/* Card body */
 .ac-body{padding:12px 14px 14px}
 .ac-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .ac-location{font-size:.78rem;color:var(--muted);margin-bottom:10px}
@@ -129,17 +114,14 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .btn-reserver{width:100%;padding:8px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-size:.83rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .btn-reserver:hover{background:var(--accent);color:#fff}
 
-/* Difficulty dots */
 .diff-easy{color:#2e7d32}
 .diff-med {color:#e65100}
 .diff-hard{color:#b71c1c}
 
-/* No results */
 .no-results{text-align:center;padding:60px 20px;color:var(--muted);grid-column:1/-1}
 .no-results .emoji{font-size:2.5rem;margin-bottom:12px}
 .no-results p{font-size:.95rem;margin-top:6px}
 
-/* ── FILTERS PANEL ── */
 .filters-panel{width:230px;flex-shrink:0}
 .filters-sticky{position:sticky;top:160px;max-height:calc(100vh - 170px);overflow-y:auto;padding-right:2px}
 .filters-sticky::-webkit-scrollbar{width:3px}
@@ -159,7 +141,6 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .price-val{font-size:.82rem;font-weight:600;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 10px;color:var(--text)}
 .price-min{font-size:.75rem;color:var(--muted)}
 
-/* ── FOOTER ── */
 footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
 .footer-inner{padding:40px 48px 28px;margin-left:var(--sidebar-w)}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
@@ -180,7 +161,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
 </head>
 <body>
 
-<!-- ══ HEADER ══ -->
 <header>
   <a href="Accueil.php" class="logo">
     <div class="logo-badge"><span>VoyageVista</span></div>
@@ -199,7 +179,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
 
 <div class="layout">
 
-<!-- ══ SIDEBAR ══ -->
 <aside id="sidebar">
   <a href="Accueil.php" class="nav-item">
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
@@ -230,10 +209,8 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
   </a>
 </aside>
 
-<!-- ══ MAIN ══ -->
 <main>
 
-  <!-- SEARCH ZONE (fixed) -->
   <div class="search-zone" id="searchZone">
     <div class="search-bar">
       <div class="sf wide">
@@ -285,10 +262,7 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
     </div>
   </div>
 
-  <!-- CONTENT AREA -->
   <div class="content-area">
-
-    <!-- Results -->
     <div class="results-col">
       <div class="results-header">
         <div class="results-count" id="resultsCount">Chargement…</div>
@@ -302,7 +276,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
       <div class="activities-grid" id="resultsList"></div>
     </div>
 
-    <!-- Filters panel -->
     <div class="filters-panel">
       <div class="filters-sticky">
         <div class="filter-card">
@@ -319,7 +292,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
 </main>
 </div>
 
-<!-- ══ FOOTER ══ -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-grid">
@@ -343,18 +315,18 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a-propos.php">À propos</a>
-        <a href="cgu.php">CGU</a>
-        <a href="contact.php">Contact</a>
+        <a href="a_propos.html">À propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
         <a href="#">Réseaux sociaux</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>2025 VoyageVista – Tous droits réservés</span>
       <div class="footer-bottom-links">
-        <a href="cgu.php">CGU</a>
-        <a href="#">Confidentialité</a>
-        <a href="contact.php">Contact</a>
+        <a href="cgu.html">CGU</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </div>
@@ -520,9 +492,6 @@ const ACTIVITIES = [
   {id:120,nom:'Randonnée lac des Sept Cités',      ville:'Sete Cidades',pays:'Portugal',        cat:'Nature',      prix:8,   duree:300,  date:'2026-06-08',heure:'08:00',diff:'modere',   note:4.9, cap:15},
 ];
 
-/* ═══════════════════════════════════════
-   CONFIG
-═══════════════════════════════════════ */
 const CAT_INFO = {
   Culture:     {bg:'bg-culture',    badge:'badge-culture'},
   Nature:      {bg:'bg-nature',     badge:'badge-nature'},
@@ -544,9 +513,6 @@ const state = {
 
 const liked = new Set();
 
-/* ═══════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════ */
 function fmtDuree(min) {
   if (min >= 1440) return Math.round(min/1440) + 'j';
   const h = Math.floor(min/60), m = min%60;
@@ -571,9 +537,6 @@ function starHTML(note) {
   return s;
 }
 
-/* ═══════════════════════════════════════
-   FILTER & RENDER
-═══════════════════════════════════════ */
 function applyAndRender() {
   state.sort = document.getElementById('sortSelect').value;
   let data = [...ACTIVITIES];
@@ -587,31 +550,24 @@ function applyAndRender() {
     if (state.cat)  data = data.filter(a => a.cat === state.cat);
   }
 
-  /* Filter: categories */
   const catChecked = [...document.querySelectorAll('.f-cat:checked')].map(e=>e.value);
   if (catChecked.length) data = data.filter(a => catChecked.includes(a.cat));
 
-  /* Filter: prix max */
   const pm = document.getElementById('prixSlider');
   if (pm) data = data.filter(a => a.prix <= parseInt(pm.value));
 
-  /* Filter: durée */
   const durChecked = [...document.querySelectorAll('.f-duree:checked')].map(e=>e.value);
   if (durChecked.length) data = data.filter(a => durChecked.includes(getDureeLabel(a.duree)));
 
-  /* Filter: moment */
   const momChecked = [...document.querySelectorAll('.f-moment:checked')].map(e=>e.value);
   if (momChecked.length) data = data.filter(a => momChecked.includes(getMoment(a.heure)));
 
-  /* Filter: difficulté */
   const diffChecked = [...document.querySelectorAll('.f-diff:checked')].map(e=>e.value);
   if (diffChecked.length) data = data.filter(a => diffChecked.includes(a.diff));
 
-  /* Filter: note min */
   const noteMin = document.querySelector('.f-note:checked');
   if (noteMin && noteMin.value !== 'all') data = data.filter(a => a.note >= parseFloat(noteMin.value));
 
-  /* Sort */
   data.sort((a,b) => {
     if (state.sort==='prix-asc')  return a.prix-b.prix;
     if (state.sort==='prix-desc') return b.prix-a.prix;
@@ -660,16 +616,12 @@ function renderCard(a) {
   </div>`;
 }
 
-/* ═══════════════════════════════════════
-   FILTERS PANEL
-═══════════════════════════════════════ */
 function renderFilters() {
   const allPrix = ACTIVITIES.map(a=>a.prix);
   const maxPrix = Math.ceil(Math.max(...allPrix)/10)*10;
 
   let html = '';
 
-  /* Prix */
   html += `<div class="f-section">
     <div class="f-section-title">Prix max / personne</div>
     <div class="price-wrap">
@@ -682,14 +634,12 @@ function renderFilters() {
     </div>
   </div>`;
 
-  /* Catégorie */
   const cats = [...new Set(ACTIVITIES.map(a=>a.cat))].sort();
   html += `<div class="f-section">
     <div class="f-section-title">Catégorie</div>
     ${cats.map(c=>`<label class="f-check"><input type="checkbox" class="f-cat" value="${c}" onchange="applyAndRender()"> ${CAT_INFO[c]?.icon||''} ${c}</label>`).join('')}
   </div>`;
 
-  /* Durée */
   html += `<div class="f-section">
     <div class="f-section-title">Durée</div>
     <label class="f-check"><input type="checkbox" class="f-duree" value="Demi-journée" onchange="applyAndRender()"> Demi-journée (&lt; 4h)</label>
@@ -697,7 +647,6 @@ function renderFilters() {
     <label class="f-check"><input type="checkbox" class="f-duree" value="Journée complète" onchange="applyAndRender()"> Journée complète (&gt; 8h)</label>
   </div>`;
 
-  /* Moment */
   html += `<div class="f-section">
     <div class="f-section-title">Moment de la journée</div>
     <label class="f-check"><input type="checkbox" class="f-moment" value="Matin" onchange="applyAndRender()"> Matin (avant 12h)</label>
@@ -705,7 +654,6 @@ function renderFilters() {
     <label class="f-check"><input type="checkbox" class="f-moment" value="Soir" onchange="applyAndRender()"> Soir (après 18h)</label>
   </div>`;
 
-  /* Difficulté */
   html += `<div class="f-section">
     <div class="f-section-title">Difficulté</div>
     <label class="f-check"><input type="checkbox" class="f-diff" value="facile" onchange="applyAndRender()"> <span class="diff-easy">● Facile</span></label>
@@ -713,7 +661,6 @@ function renderFilters() {
     <label class="f-check"><input type="checkbox" class="f-diff" value="difficile" onchange="applyAndRender()"> <span class="diff-hard">● Difficile</span></label>
   </div>`;
 
-  /* Note minimale */
   html += `<div class="f-section">
     <div class="f-section-title">Note minimale</div>
     <label class="f-radio"><input type="radio" class="f-note" name="note" value="all" checked onchange="applyAndRender()"> Toutes les notes</label>
@@ -733,9 +680,6 @@ function resetFilters() {
   applyAndRender();
 }
 
-/* ═══════════════════════════════════════
-   SEARCH
-═══════════════════════════════════════ */
 function doSearch() {
   state.dest  = document.getElementById('inDest').value.trim();
   state.date  = document.getElementById('inDate').value;
@@ -744,10 +688,8 @@ function doSearch() {
   applyAndRender();
 }
 
-/* Enter key triggers search */
 document.addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
 
-/* Autocomplete datalist */
 function buildDataLists() {
   const villes = [...new Set(ACTIVITIES.map(a=>a.ville))].sort();
   const pays   = [...new Set(ACTIVITIES.map(a=>a.pays))].sort();
@@ -755,9 +697,6 @@ function buildDataLists() {
   document.getElementById('destList').innerHTML = all.map(v=>`<option value="${v}">`).join('');
 }
 
-/* ═══════════════════════════════════════
-   VOYAGEURS
-═══════════════════════════════════════ */
 const voy = {adults:0, children:0};
 function toggleVoy(e) {
   if(e.target.classList.contains('voy-btn')) return;
@@ -781,9 +720,6 @@ function changeVoy(type, delta, e) {
   el.className='voy-val';
 }
 
-/* ═══════════════════════════════════════
-   LIKE & RESERVE
-═══════════════════════════════════════ */
 function toggleLike(id, btn) {
   if(liked.has(id)){liked.delete(id);btn.textContent='♡';btn.classList.remove('liked');}
   else{liked.add(id);btn.textContent='♥';btn.classList.add('liked');}
@@ -796,12 +732,9 @@ function openActivity(id) {
 function reserverActivity(id) {
   const a = ACTIVITIES.find(x=>x.id===id);
   if(!a) return;
-  alert(`✅ Activité réservée !\n\n${a.nom}\n${a.ville}, ${a.pays}\n${a.prix}€/pers.\n\nAjoutée à votre itinéraire.`);
+  window.location.href = 'activite_detail.php?id=' + id;
 }
 
-/* ═══════════════════════════════════════
-   SIDEBAR / SCROLL
-═══════════════════════════════════════ */
 function updateSidebarBottom() {
   const footer = document.getElementById('footer');
   const sidebar = document.getElementById('sidebar');
@@ -816,9 +749,6 @@ window.addEventListener('scroll', () => {
 });
 window.addEventListener('resize', updateSidebarBottom);
 
-/* ═══════════════════════════════════════
-   INIT
-═══════════════════════════════════════ */
 buildDataLists();
 renderFilters();
 applyAndRender();
