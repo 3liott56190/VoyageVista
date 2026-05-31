@@ -17,7 +17,6 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html,body{overflow-x:hidden;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-    /* HEADER */
     header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 0;z-index:100;box-shadow:var(--shadow)}
     .header-left{display:flex;align-items:center;height:100%}
     .logo{display:flex;align-items:center;height:100%;text-decoration:none}
@@ -34,7 +33,6 @@
     .btn-connexion{height:36px;padding:0 20px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:background .18s,color .18s}
     .btn-connexion:hover{background:var(--accent);color:#fff}
 
-    /* SIDEBAR */
     aside#sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--header-h);left:0;bottom:0;padding:20px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;z-index:80}
     .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:400;color:var(--muted);transition:background .15s,color .15s}
     .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
@@ -42,10 +40,8 @@
     .nav-item.active{background:var(--accent);color:#fff;font-weight:500}
     .nav-item.active svg{stroke:#fff}
 
-    /* MAIN */
     main{margin-left:var(--sidebar-w);padding-top:var(--header-h);min-height:100vh}
-
-    /* HERO BANNER */
+ 
     .transport-hero{
       position:relative;width:100%;height:300px;
       display:flex;align-items:center;justify-content:center;overflow:hidden;
@@ -63,22 +59,18 @@
     .hero-chip svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
     .type-badge{position:absolute;top:20px;left:20px;padding:6px 16px;border-radius:99px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.2);color:#fff}
 
-    /* CONTENT */
     .content-wrap{display:flex;gap:32px;padding:36px 40px 80px;align-items:flex-start}
     .content-main{flex:1;min-width:0}
 
-    /* INFO CARDS */
     .info-cards{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
     .info-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:110px}
     .info-card-label{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
     .info-card-value{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--accent)}
     .info-card-sub{font-size:.72rem;color:var(--muted)}
 
-    /* DETAIL SECTIONS */
     .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
     .section-title-lg{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:16px}
 
-    /* TIMELINE */
     .timeline{position:relative;padding-left:28px;margin-bottom:28px}
     .timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border)}
     .tl-item{position:relative;margin-bottom:20px}
@@ -91,7 +83,6 @@
     .tl-dur{display:flex;align-items:center;gap:6px;padding:8px 0 8px 0;font-size:.78rem;color:var(--muted);font-style:italic}
     .tl-dur::before{content:'';display:block;width:18px;height:1px;background:var(--border)}
 
-    /* TAGS */
     .tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
     .tag{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:99px;font-size:.75rem;font-weight:600}
     .tag svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2}
@@ -103,14 +94,12 @@
     .tag-places{background:#fce4ec;color:#880e4f;border:1px solid #f48fb1}
     .tag-info{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
 
-    /* DETAILS TABLE */
     .detail-table{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px}
     .dt-row{display:flex;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border)}
     .dt-row:last-child{border-bottom:none}
     .dt-label{font-size:.78rem;font-weight:600;color:var(--muted);width:160px;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em}
     .dt-value{font-size:.88rem;color:var(--text)}
 
-    /* BOOKING */
     .booking-sidebar{width:300px;flex-shrink:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;position:sticky;top:calc(var(--header-h) + 24px);box-shadow:0 4px 24px rgba(0,0,0,.08)}
     .booking-price-label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
     .booking-price-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent)}
@@ -135,20 +124,17 @@
     .btn-reserver:disabled{background:var(--border);color:var(--muted);cursor:not-allowed}
     .booking-note-info{margin-top:12px;font-size:.75rem;color:var(--muted);text-align:center;line-height:1.5}
 
-    /* PLACES BAR */
     .places-bar-wrap{margin-bottom:28px}
     .places-bar-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:6px}
     .places-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
     .places-bar-fill{height:100%;border-radius:3px;background:var(--accent);transition:width .4s ease}
 
-    /* ERROR */
     .error-state{margin-left:var(--sidebar-w);padding-top:var(--header-h);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px;text-align:center}
     .error-state svg{width:56px;height:56px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:.4}
     .error-state h2{font-family:'Playfair Display',serif;font-size:1.6rem}
     .error-state p{color:var(--muted);font-size:.9rem}
     .error-state a{margin-top:8px;padding:10px 24px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem}
 
-    /* FOOTER */
     footer{background:var(--text);color:rgba(255,255,255,.7)}
     .footer-inner{padding:40px 48px 28px;margin-left:var(--sidebar-w)}
     .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
@@ -162,14 +148,12 @@
     .footer-bottom-links a{color:rgba(255,255,255,.5);text-decoration:none}
     .footer-bottom-links a:hover{color:#fff}
 
-    /* TOAST */
     #toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:14px 24px;border-radius:10px;font-size:.875rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.25)}
     #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-left">
     <a href="Accueil.php" class="logo">
@@ -192,7 +176,6 @@
   </div>
 </header>
 
-<!-- SIDEBAR -->
 <aside id="sidebar">
   <a href="Accueil.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
   <a href="catalogue.php" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
@@ -207,7 +190,6 @@
 
 <div id="app"></div>
 
-<!-- FOOTER -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-grid">
@@ -231,18 +213,18 @@
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a-propos.php">À propos</a>
-        <a href="cgu.php">CGU</a>
-        <a href="contact.php">Contact</a>
+        <a href="a_propos.html">À propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
         <a href="#">Réseaux sociaux</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2025 VoyageVista — Tous droits réservés</span>
       <div class="footer-bottom-links">
-        <a href="cgu.php">CGU</a>
-        <a href="#">Politique de confidentialité</a>
-        <a href="contact.php">Contact</a>
+        <a href="cgu.html">CGU</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </div>
@@ -400,9 +382,6 @@ const TRANSPORTS = [
   {id:143,compagnie:'Sixt',            type:'voiture',numero:'LOC-BUD-02', depart:'Budapest',       arrivee:'Budapest',  dateDepart:'2026-07-05', heureDepart:'09:00', dateArrivee:'2026-07-12', heureArrivee:'09:00', duree:0,    classe:'economique', prix:16,  places:40},
 ];
 
-// ══════════════════════════════════════════════
-//  HELPERS
-// ══════════════════════════════════════════════
 function fmtDuree(min) {
   if (!min) return '–';
   const h = Math.floor(min/60), m = min%60;
@@ -429,9 +408,6 @@ function typeIcon(type) {
   return icons[type] || '';
 }
 
-// ══════════════════════════════════════════════
-//  LECTURE URL + RENDU
-// ══════════════════════════════════════════════
 const params = new URLSearchParams(window.location.search);
 const id = parseInt(params.get('id'));
 const t  = TRANSPORTS.find(x => x.id === id);
@@ -454,7 +430,6 @@ if (!t) {
   const prixSub   = isVoiture ? 'par jour' : 'par personne';
   const placesRatio = Math.min(100, Math.round((t.places / 500) * 100));
 
-  // Classe badge
   const classeBadge = t.classe === 'economique'
     ? `<span class="tag tag-eco"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>Économique</span>`
     : t.classe === 'business'
@@ -669,7 +644,6 @@ if (!t) {
     </div>
   </main>`;
 
-  // Sidebar stops at footer
   const sidebar = document.getElementById('sidebar');
   const footer  = document.getElementById('footer');
   function updateSidebarBottom() {
@@ -682,15 +656,12 @@ if (!t) {
   updateSidebarBottom();
 }
 
-// ══════════════════════════════════════════════
-//  COMPTEUR & CALCUL
-// ══════════════════════════════════════════════
 const isVoiture = t ? t.type === 'voiture' : false;
 const days = t && isVoiture ? Math.round((new Date(t.dateArrivee) - new Date(t.dateDepart)) / 86400000) : 0;
 const counts = { adults: 1, children: 0, vehicules: 1 };
 
 function changeCount(type, delta) {
-  const min = 1; // au moins 1 dans tous les cas
+  const min = 1; 
   counts[type] = Math.max(min, counts[type] + delta);
   const el = document.getElementById(type + 'Count');
   if (el) el.textContent = counts[type];
@@ -719,9 +690,6 @@ function updateTotal() {
   if (td) td.textContent = detail;
 }
 
-// ══════════════════════════════════════════════
-//  PANIER (même format que destinations)
-// ══════════════════════════════════════════════
 function ajouterAuPanier() {
   if (!t) return;
 
@@ -729,7 +697,7 @@ function ajouterAuPanier() {
 
   if (isVoiture) {
     montant       = counts.vehicules * days * t.prix;
-    adultes       = counts.vehicules; // on stocke le nb de véhicules dans "adultes" pour uniformité
+    adultes       = counts.vehicules;
     enfants       = 0;
     total_personnes = counts.vehicules;
   } else {
@@ -739,10 +707,8 @@ function ajouterAuPanier() {
     montant        = total_personnes * t.prix;
   }
 
-  // Format identique aux destinations + champs spécifiques transport
   const item = {
-    // Champs communs avec destinations (pour la page panier)
-    type_article:    'transport',           // 'destination' ou 'transport'
+    type_article:    'transport',          
     id_article:      t.id,
     nom:             `${t.compagnie} · ${t.depart} → ${t.arrivee}`,
     prix_unitaire:   t.prix,
@@ -750,7 +716,6 @@ function ajouterAuPanier() {
     enfants:         enfants,
     total_personnes: total_personnes,
     montant_total:   montant,
-    // Champs spécifiques transport
     type_transport:  t.type,
     numero:          t.numero,
     depart:          t.depart,
@@ -772,9 +737,6 @@ function ajouterAuPanier() {
   showToast(`✓ ${t.compagnie} · ${t.depart} → ${t.arrivee} ajouté au panier !`);
 }
 
-// ══════════════════════════════════════════════
-//  TOAST
-// ══════════════════════════════════════════════
 function showToast(msg) {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
