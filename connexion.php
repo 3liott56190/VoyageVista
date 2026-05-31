@@ -34,7 +34,6 @@
       flex-direction: column;
     }
 
-    /* ── HEADER ── */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -86,7 +85,6 @@
       letter-spacing: .02em;
     }
 
-    /* ── MAIN ── */
     main {
       flex: 1;
       display: flex;
@@ -96,7 +94,6 @@
       padding: calc(var(--header-h) + 48px) 24px 64px;
     }
 
-    /* ── HERO TEXT ── */
     .eyebrow {
       font-size: .72rem;
       font-weight: 600;
@@ -131,7 +128,6 @@
       line-height: 1.65;
     }
 
-    /* ── SÉPARATEUR ── */
     .divider {
       width: 36px;
       height: 2px;
@@ -141,7 +137,6 @@
       opacity: .45;
     }
 
-    /* ── CARDS ── */
     .role-cards {
       display: flex;
       gap: 20px;
@@ -184,7 +179,6 @@
       box-shadow: 0 12px 32px rgba(201,103,43,.18);
     }
 
-    /* Coche de sélection */
     .card-check {
       position: absolute;
       top: 14px;
@@ -212,7 +206,6 @@
       transform: scale(1);
     }
 
-    /* Icône */
     .card-icon {
       width: 64px;
       height: 64px;
@@ -237,7 +230,6 @@
       stroke-width: 1.6;
     }
 
-    /* Titre */
     .card-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
@@ -245,14 +237,12 @@
       color: var(--text);
     }
 
-    /* Description */
     .card-desc {
       font-size: .8rem;
       color: var(--muted);
       line-height: 1.55;
     }
 
-    /* Badge rôle */
     .card-badge {
       font-size: .67rem;
       font-weight: 600;
@@ -265,7 +255,6 @@
     .badge-presta { background: #eaf3e8; color: #3a7230; border: 1px solid #c2dabb; }
     .badge-admin { background: #ededf8; color: #443faa; border: 1px solid #c5c2ee; }
 
-    /* ── BOUTON CONTINUER ── */
     .action-wrap {
       margin-top: 44px;
       display: flex;
@@ -312,7 +301,6 @@
       color: var(--muted);
     }
 
-    /* ── FOOTER ── */
     footer {
       background: var(--text);
       color: rgba(255,255,255,.7);
@@ -369,9 +357,6 @@
   </style>
 </head>
 <body>
-<!-- ════════════════════════════════════════════════
-     OVERLAY DE CONNEXION — à coller juste avant 
-<!-- ════ OVERLAY INSCRIPTION ════ -->
 <div id="overlay-inscription" style="display:none;" aria-modal="true" role="dialog">
   <div class="overlay-backdrop" onclick="closeInscription()"></div>
   <div class="overlay-panel" style="max-width:460px;">
@@ -386,8 +371,6 @@
     <div class="panel-body">
       <div class="inscr-error" id="inscr-error"></div>
       <div class="inscr-success" id="inscr-success"></div>
-
-      <!-- ÉTAPE 1 : infos personnelles -->
       <div id="inscr-step1">
         <div class="field-group">
           <label class="field-label" for="inscr-prenom">Prénom *</label>
@@ -423,7 +406,6 @@
         </button>
       </div>
 
-      <!-- ÉTAPE 2 : identifiants + mdp -->
       <div id="inscr-step2" style="display:none;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;cursor:pointer;" onclick="goStep1()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -497,9 +479,6 @@
 </style>
 
 <script>
-  // ── GESTION INSCRIPTION ──
-
-  // Ouvrir l'overlay inscription depuis le lien "Créer un compte"
   document.addEventListener('DOMContentLoaded', () => {
     const lienInscr = document.querySelector('.panel-register a[href="inscription.html"]');
     if (lienInscr) {
@@ -514,11 +493,9 @@
     const eyebrowsRoles = { user: 'Voyageur', presta: 'Professionnel', admin: 'Accès restreint' };
     document.getElementById('inscr-eyebrow').textContent    = eyebrowsRoles[role];
     document.getElementById('inscr-role-label').textContent = labelsRoles[role];
-    // Masquer overlay connexion avec la classe hidden (contourne le display:flex !important du CSS)
     const ovConn = document.getElementById('overlay-connexion');
     ovConn.style.setProperty('display', 'none', 'important');
     ovConn.classList.add('hidden');
-    // Afficher overlay inscription
     const ovInscr = document.getElementById('overlay-inscription');
     ovInscr.classList.remove('hidden');
     ovInscr.style.removeProperty('display');
@@ -592,26 +569,22 @@
     if (mdp !== mdp2){ showInscriptionError(`Les mots de passe ne correspondent pas.`); return; }
     if (!cgu)        { showInscriptionError(`Veuillez accepter les CGU pour continuer.`); return; }
 
-    // Vérifier que l'identifiant n'est pas déjà pris (localStorage)
     const comptes = JSON.parse(localStorage.getItem('vv_comptes') || '[]');
     if (comptes.find(c => c.id === id || c.email === email)) {
       showInscriptionError(`Cet identifiant ou e-mail est déjà utilisé.`);
       return;
     }
 
-    // Sauvegarder le compte
     const role = selected || 'user';
     const nouveauCompte = { id, email, mdp, nom: prenom + ' ' + nom, prenom, nomFamille: nom, tel: document.getElementById('inscr-tel').value.trim(), role, dateInscription: new Date().toLocaleDateString('fr-FR') };
     comptes.push(nouveauCompte);
     localStorage.setItem('vv_comptes', JSON.stringify(comptes));
 
-    // Afficher confirmation
     showInscriptionError('');
     document.getElementById('inscr-step2').style.display = 'none';
     document.getElementById('inscr-footer-link').style.display = 'none';
     showInscriptionSuccess(`Compte créé avec succès !<br>Bienvenue <strong>${prenom} ${nom}</strong>.<br><br>Vous pouvez maintenant vous connecter.`);
 
-    // Redirection automatique après 2.5s
     setTimeout(() => {
       closeInscription();
       switchToLogin();
@@ -658,18 +631,15 @@
     document.getElementById('inscr-strength-label').textContent     = r.t;
   }
 
-  // Fermer avec Échap
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeInscription();
   });
 
-  // handleLogin vérifie les comptes locaux ET les comptes hardcodés
 function handleLogin() {
   const id  = document.getElementById('inp-id').value.trim();
   const mdp = document.getElementById('inp-mdp').value;
   if (!id || !mdp) { alert('Veuillez remplir tous les champs.'); return; }
 
-  // 1. Vérifier les comptes créés localement (localStorage)
   const comptesLocaux = JSON.parse(localStorage.getItem('vv_comptes') || '[]');
   const compteLocal   = comptesLocaux.find(c =>
     (c.id === id || c.email === id) && c.mdp === mdp && c.role === selected
@@ -679,7 +649,6 @@ function handleLogin() {
     return;
   }
 
-  // 2. Vérifier les comptes hardcodés
   const comptesHardcodes = [
     { id: 'utilisateur',            email: 'marie.dupont@email.com', mdp: 'Voyage2026!',  role: 'user'   },
     { id: 'marie.dupont@email.com', email: 'marie.dupont@email.com', mdp: 'Voyage2026!',  role: 'user'   },
@@ -695,11 +664,9 @@ function handleLogin() {
     return;
   }
 
-  // 3. Aucun compte trouvé
   alert('Identifiant ou mot de passe incorrect, ou rôle ne correspondant pas au compte.');
 }
 
-    // Vérifier d'abord les comptes créés localement
     const comptes = JSON.parse(localStorage.getItem('vv_comptes') || '[]');
     const compte  = comptes.find(c => (c.id === id || c.email === id) && c.mdp === mdp && c.role === selected);
     if (compte) {
@@ -707,21 +674,16 @@ function handleLogin() {
       return;
     }
 
-    // Sinon utiliser la logique originale (comptes hardcodés)
     window.location.href = destinations[selected];
 
 </script>
 
 </body>
-     ════════════════════════════════════════════════ -->
-
-<!-- OVERLAY -->
 <div id="overlay-connexion" style="display:none;" aria-modal="true" role="dialog" aria-label="Connexion">
   <div class="overlay-backdrop" onclick="closeOverlay()"></div>
 
   <div class="overlay-panel">
 
-    <!-- En-tête panel -->
     <div class="panel-header">
       <button class="panel-close" onclick="closeOverlay()" aria-label="Fermer">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -731,7 +693,6 @@ function handleLogin() {
       <p class="panel-subtitle">Accédez à votre espace <span id="panel-role-label">Utilisateur</span>.</p>
     </div>
 
-    <!-- Formulaire -->
     <div class="panel-body">
       <div class="field-group">
         <label class="field-label" for="inp-id">Identifiant</label>
@@ -751,7 +712,6 @@ function handleLogin() {
             <svg id="eye-closed" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
           </button>
         </div>
-        <!-- Barre de force -->
         <div class="strength-bar" id="strength-bar" aria-hidden="true">
           <div class="strength-fill" id="strength-fill"></div>
         </div>
@@ -772,19 +732,17 @@ function handleLogin() {
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
 
-      <p class="panel-register">Pas encore de compte ? <a href="inscription.php">Créer un compte</a></p>
+      <p class="panel-register">Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
     </div>
   </div>
 </div>
 
-<!-- ════ STYLES ════ -->
 <style>
-  /* Overlay fond */
   #overlay-connexion {
     position: fixed;
     inset: 0;
     z-index: 200;
-    display: flex !important; /* overridden by JS via display:none */
+    display: flex !important; 
     align-items: center;
     justify-content: center;
   }
@@ -799,7 +757,6 @@ function handleLogin() {
     animation: fadeIn .22s ease;
   }
 
-  /* Panel */
   .overlay-panel {
     position: relative;
     z-index: 1;
@@ -814,7 +771,6 @@ function handleLogin() {
     overflow: hidden;
   }
 
-  /* En-tête */
   .panel-header {
     padding: 32px 32px 24px;
     border-bottom: 1px solid var(--border);
@@ -856,10 +812,8 @@ function handleLogin() {
     color: var(--muted);
   }
 
-  /* Corps */
   .panel-body { padding: 28px 32px 32px; }
 
-  /* Champs */
   .field-group { margin-bottom: 20px; }
   .field-label {
     display: block;
@@ -901,7 +855,6 @@ function handleLogin() {
     background: #fff;
   }
 
-  /* Bouton œil */
   .field-eye {
     position: absolute;
     right: 12px;
@@ -918,7 +871,6 @@ function handleLogin() {
   }
   .field-eye:hover svg { stroke: var(--accent); }
 
-  /* Barre de force */
   .strength-bar {
     height: 3px;
     background: var(--border);
@@ -939,7 +891,6 @@ function handleLogin() {
     min-height: 16px;
   }
 
-  /* Options */
   .field-options {
     display: flex;
     align-items: center;
@@ -983,7 +934,6 @@ function handleLogin() {
   }
   .link-forgot:hover { text-decoration: underline; }
 
-  /* Bouton connexion */
   .btn-login {
     width: 100%;
     height: 48px;
@@ -1012,17 +962,15 @@ function handleLogin() {
   .panel-register a { color: var(--accent); font-weight: 500; text-decoration: none; }
   .panel-register a:hover { text-decoration: underline; }
 
-  /* Animations */
   @keyframes fadeIn  { from { opacity: 0 } to { opacity: 1 } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(24px) scale(.97) } to { opacity: 1; transform: none } }
 </style>
 
-<!-- ════ SCRIPT — remplace le <script> existant ════ -->
 <script>
   const destinations = {
-    user:   'Accueil.php',
-    presta: 'espace-prestataire.php',
-    admin:  'admin-dashboard.php'
+    user:   'utilisateur.html',
+    presta: 'prestataire.html',
+    admin:  'administrateur.html'
   };
   const labels = {
     user:   'Utilisateur',
@@ -1050,7 +998,6 @@ function handleLogin() {
     document.getElementById('action-hint').textContent = 'Profil sélectionné : ' + labels[role];
   }
 
-  /* Ouvre l'overlay au lieu de rediriger */
   function handleContinue() {
     if (!selected) return;
     document.getElementById('panel-eyebrow').textContent    = eyebrows[selected];
@@ -1067,13 +1014,10 @@ function handleLogin() {
   window.location.reload();
 }
 
-
-  /* Fermer avec Échap */
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeOverlay();
   });
 
-  /* Afficher / masquer le mot de passe */
   function togglePassword() {
     const inp = document.getElementById('inp-mdp');
     const isHidden = inp.type === 'password';
@@ -1082,7 +1026,6 @@ function handleLogin() {
     document.getElementById('eye-closed').style.display = isHidden ? ''      : 'none';
   }
 
-  /* Indicateur de force du mot de passe */
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('inp-mdp').addEventListener('input', function () {
       const v = this.value;
@@ -1108,7 +1051,6 @@ function handleLogin() {
     });
   });
 
-  /* Soumission du formulaire */
   function handleLogin() {
     const id  = document.getElementById('inp-id').value.trim();
     const mdp = document.getElementById('inp-mdp').value;
@@ -1116,18 +1058,15 @@ function handleLogin() {
       alert('Veuillez remplir tous les champs.');
       return;
     }
-    /* ← Remplacez cette ligne par votre vraie logique d'authentification */
     window.location.href = destinations[selected];
   }
 
-  /* Navigation clavier sur les cards */
   document.querySelectorAll('.role-card').forEach(card => {
     card.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
     });
   });
 </script>
-<!-- HEADER -->
 <header>
   <a href="Accueil.php" class="logo">
     <div class="logo-badge"><span>VoyageVista</span></div>
@@ -1138,7 +1077,6 @@ function handleLogin() {
   </div>
 </header>
 
-<!-- MAIN -->
 <main>
   <p class="eyebrow">Bienvenue sur VoyageVista</p>
   <h1 class="hero-tagline">Qui êtes-<strong>vous</strong> ?</h1>
@@ -1147,7 +1085,6 @@ function handleLogin() {
 
   <div class="role-cards" role="group" aria-label="Sélection du rôle">
 
-    <!-- Utilisateur -->
     <div class="role-card" id="card-user" onclick="selectRole('user')" tabindex="0" role="button" aria-pressed="false">
       <div class="card-check" aria-hidden="true">
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1160,7 +1097,6 @@ function handleLogin() {
       <span class="card-badge badge-user">Voyageur</span>
     </div>
 
-    <!-- Prestataire -->
     <div class="role-card" id="card-presta" onclick="selectRole('presta')" tabindex="0" role="button" aria-pressed="false">
       <div class="card-check" aria-hidden="true">
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1173,7 +1109,6 @@ function handleLogin() {
       <span class="card-badge badge-presta">Professionnel</span>
     </div>
 
-    <!-- Administrateur -->
     <div class="role-card" id="card-admin" onclick="selectRole('admin')" tabindex="0" role="button" aria-pressed="false">
       <div class="card-check" aria-hidden="true">
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1197,7 +1132,6 @@ function handleLogin() {
   </div>
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
@@ -1221,7 +1155,7 @@ function handleLogin() {
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a-propos.html">À propos</a>
+        <a href="a_propos.html">À propos</a>
         <a href="cgu.html">CGU</a>
         <a href="contact.html">Contact</a>
         <a href="#">Réseaux sociaux</a>
@@ -1238,9 +1172,6 @@ function handleLogin() {
   </div>
 </footer>
 
-
-
-<!-- ════ OVERLAY INSCRIPTION ════ -->
 <div id="overlay-inscription" style="display:none;" aria-modal="true" role="dialog">
   <div class="overlay-backdrop" onclick="closeInscription()"></div>
   <div class="overlay-panel" style="max-width:460px;">
@@ -1256,7 +1187,6 @@ function handleLogin() {
       <div class="inscr-error" id="inscr-error"></div>
       <div class="inscr-success" id="inscr-success"></div>
 
-      <!-- ÉTAPE 1 : infos personnelles -->
       <div id="inscr-step1">
         <div class="field-group">
           <label class="field-label" for="inscr-prenom">Prénom *</label>
@@ -1292,7 +1222,6 @@ function handleLogin() {
         </button>
       </div>
 
-      <!-- ÉTAPE 2 : identifiants + mdp -->
       <div id="inscr-step2" style="display:none;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;cursor:pointer;" onclick="goStep1()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -1366,9 +1295,6 @@ function handleLogin() {
 </style>
 
 <script>
-  // ── GESTION INSCRIPTION ──
-
-  // Ouvrir l'overlay inscription depuis le lien "Créer un compte"
   document.addEventListener('DOMContentLoaded', () => {
     const lienInscr = document.querySelector('.panel-register a[href="inscription.html"]');
     if (lienInscr) {
@@ -1383,11 +1309,9 @@ function handleLogin() {
     const eyebrowsRoles = { user: 'Voyageur', presta: 'Professionnel', admin: 'Accès restreint' };
     document.getElementById('inscr-eyebrow').textContent    = eyebrowsRoles[role];
     document.getElementById('inscr-role-label').textContent = labelsRoles[role];
-    // Masquer overlay connexion avec la classe hidden (contourne le display:flex !important du CSS)
     const ovConn = document.getElementById('overlay-connexion');
     ovConn.style.setProperty('display', 'none', 'important');
     ovConn.classList.add('hidden');
-    // Afficher overlay inscription
     const ovInscr = document.getElementById('overlay-inscription');
     ovInscr.classList.remove('hidden');
     ovInscr.style.removeProperty('display');
@@ -1461,26 +1385,22 @@ function handleLogin() {
     if (mdp !== mdp2){ showInscriptionError(`Les mots de passe ne correspondent pas.`); return; }
     if (!cgu)        { showInscriptionError(`Veuillez accepter les CGU pour continuer.`); return; }
 
-    // Vérifier que l'identifiant n'est pas déjà pris (localStorage)
     const comptes = JSON.parse(localStorage.getItem('vv_comptes') || '[]');
     if (comptes.find(c => c.id === id || c.email === email)) {
       showInscriptionError(`Cet identifiant ou e-mail est déjà utilisé.`);
       return;
     }
 
-    // Sauvegarder le compte
     const role = selected || 'user';
     const nouveauCompte = { id, email, mdp, nom: prenom + ' ' + nom, prenom, nomFamille: nom, tel: document.getElementById('inscr-tel').value.trim(), role, dateInscription: new Date().toLocaleDateString('fr-FR') };
     comptes.push(nouveauCompte);
     localStorage.setItem('vv_comptes', JSON.stringify(comptes));
 
-    // Afficher confirmation
     showInscriptionError('');
     document.getElementById('inscr-step2').style.display = 'none';
     document.getElementById('inscr-footer-link').style.display = 'none';
     showInscriptionSuccess(`Compte créé avec succès !<br>Bienvenue <strong>${prenom} ${nom}</strong>.<br><br>Vous pouvez maintenant vous connecter.`);
 
-    // Redirection automatique après 2.5s
     setTimeout(() => {
       closeInscription();
       switchToLogin();
@@ -1527,18 +1447,15 @@ function handleLogin() {
     document.getElementById('inscr-strength-label').textContent     = r.t;
   }
 
-  // Fermer avec Échap
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeInscription();
   });
 
-  // handleLogin vérifie les comptes locaux ET les comptes hardcodés
   function handleLogin() {
     const id  = document.getElementById('inp-id').value.trim();
     const mdp = document.getElementById('inp-mdp').value;
     if (!id || !mdp) { alert('Veuillez remplir tous les champs.'); return; }
 
-    // Vérifier d'abord les comptes créés localement
     const comptes = JSON.parse(localStorage.getItem('vv_comptes') || '[]');
     const compte  = comptes.find(c => (c.id === id || c.email === id) && c.mdp === mdp && c.role === selected);
     if (compte) {
@@ -1546,7 +1463,6 @@ function handleLogin() {
       return;
     }
 
-    // Sinon utiliser la logique originale (comptes hardcodés)
     window.location.href = destinations[selected];
   }
 </script>
