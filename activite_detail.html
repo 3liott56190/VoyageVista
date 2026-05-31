@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoyageVista – Activité</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#f5f3ef;--surface:#fff;--border:#e2ddd6;--text:#1a1714;--muted:#788a7b;--accent:#013819;--accent-soft:#e4f5ea;--header-h:64px;--sidebar-w:200px;--radius:14px;--shadow:0 2px 16px rgba(0,0,0,.07)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{overflow-x:hidden;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+    header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 0;z-index:100;box-shadow:var(--shadow)}
+    .header-left{display:flex;align-items:center;height:100%}
+    .logo{display:flex;align-items:center;height:100%;text-decoration:none}
+    .logo-badge{height:var(--header-h);background:var(--accent);display:flex;align-items:center;padding:0 28px 0 24px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
+    .logo-badge span{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;color:#fff;letter-spacing:.02em;white-space:nowrap}
+    .btn-back{display:flex;align-items:center;gap:7px;margin-left:24px;color:var(--muted);font-size:.875rem;font-weight:500;text-decoration:none;transition:color .18s}
+    .btn-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+    .btn-back:hover{color:var(--accent)}
+    .header-right{display:flex;align-items:center;gap:8px}
+    .icon-btn{width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:background .18s,border-color .18s;text-decoration:none;position:relative}
+    .icon-btn:hover{background:var(--accent-soft);border-color:var(--accent)}
+    .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+    .icon-btn .dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--accent);border-radius:50%;border:2px solid var(--surface)}
+    .btn-connexion{height:36px;padding:0 20px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:background .18s,color .18s}
+    .btn-connexion:hover{background:var(--accent);color:#fff}
+
+    aside#sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--header-h);left:0;bottom:0;padding:20px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;z-index:80}
+    .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:400;color:var(--muted);transition:background .15s,color .15s}
+    .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
+    .nav-item:hover{background:var(--accent-soft);color:var(--accent)}
+    .nav-item.active{background:var(--accent);color:#fff;font-weight:500}
+    .nav-item.active svg{stroke:#fff}
+
+    main{margin-left:var(--sidebar-w);padding-top:var(--header-h);min-height:100vh}
+
+    .hero{position:relative;width:100%;height:320px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .hero-icon{font-size:6rem;opacity:.18;position:absolute;right:60px;top:50%;transform:translateY(-50%)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.2) 100%)}
+    .hero-content{position:relative;z-index:2;padding:0 40px;color:#fff;max-width:700px}
+    .hero-cat{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);padding:4px 14px;border-radius:99px;display:inline-block;margin-bottom:12px}
+    .hero-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1.15;margin-bottom:12px}
+    .hero-chips{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px);padding:5px 13px;border-radius:99px;font-size:.78rem;font-weight:500}
+    .diff-badge{position:absolute;top:20px;right:20px;padding:5px 14px;border-radius:99px;font-size:.72rem;font-weight:700;letter-spacing:.04em}
+    .diff-facile   {background:#e8f5e9;color:#1b5e20}
+    .diff-modere   {background:#fff3e0;color:#e65100}
+    .diff-difficile{background:#fce4ec;color:#880e4f}
+
+    .content-wrap{display:flex;gap:32px;padding:32px 40px 80px;align-items:flex-start}
+    .content-main{flex:1;min-width:0}
+
+    .info-cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .info-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:110px}
+    .info-card-label{font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .info-card-value{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--accent)}
+    .info-card-sub{font-size:.7rem;color:var(--muted)}
+
+    .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .section-title-lg{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin-bottom:14px}
+
+    .programme-list{margin-bottom:28px}
+    .prog-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+    .prog-item:last-child{border-bottom:none}
+    .prog-time{font-size:.78rem;font-weight:700;color:var(--accent);min-width:60px;padding-top:2px}
+    .prog-text{font-size:.875rem;color:var(--text);line-height:1.6}
+
+    .inclus-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:28px}
+    .inclus-item{display:flex;align-items:center;gap:10px;font-size:.875rem}
+    .inclus-icon{width:28px;height:28px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem}
+
+    .detail-table{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px}
+    .dt-row{display:flex;align-items:center;padding:11px 18px;border-bottom:1px solid var(--border)}
+    .dt-row:last-child{border-bottom:none}
+    .dt-label{font-size:.76rem;font-weight:600;color:var(--muted);width:170px;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em}
+    .dt-value{font-size:.875rem;color:var(--text)}
+
+    .tabs{display:flex;border-bottom:2px solid var(--border);margin:24px 0 20px}
+    .tab-btn{padding:10px 24px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:var(--muted);cursor:pointer;transition:color .18s,border-color .18s}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    .avis-empty{padding:40px 0;text-align:center;color:var(--muted);font-size:.9rem}
+    .avis-empty svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1.3;opacity:.4;display:block;margin:0 auto 10px}
+
+    .booking-sidebar{width:300px;flex-shrink:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;position:sticky;top:calc(var(--header-h) + 24px);box-shadow:0 4px 24px rgba(0,0,0,.08)}
+    .booking-price-label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .booking-price-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent)}
+    .booking-price-pp{font-size:.78rem;color:var(--muted)}
+    .booking-divider{height:1px;background:var(--border);margin:16px 0}
+    .booking-section-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .voy-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+    .voy-row:last-of-type{border-bottom:none}
+    .voy-label{font-size:.875rem;font-weight:500}
+    .voy-label small{display:block;font-size:.72rem;color:var(--muted);font-weight:400}
+    .voy-counter{display:flex;align-items:center;gap:10px}
+    .voy-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:transparent;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s;color:var(--text)}
+    .voy-btn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+    .voy-count{font-weight:700;min-width:22px;text-align:center;font-size:1rem}
+    .booking-total{margin-top:16px;padding:14px 16px;background:var(--accent-soft);border:1.5px solid #c0dcc4;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
+    .booking-total-label{font-size:.8rem;font-weight:600;color:var(--accent)}
+    .booking-total-val{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--accent)}
+    .booking-total-detail{font-size:.72rem;color:var(--muted);text-align:right;margin-top:4px}
+    .btn-reserver{display:block;width:100%;margin-top:16px;height:48px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:background .18s,transform .12s}
+    .btn-reserver:hover{background:#086720}
+    .btn-reserver:active{transform:scale(.98)}
+    .btn-reserver:disabled{background:var(--border);color:var(--muted);cursor:not-allowed}
+    .booking-note-info{margin-top:12px;font-size:.75rem;color:var(--muted);text-align:center;line-height:1.5}
+
+    .places-bar-wrap{margin-bottom:28px}
+    .places-bar-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:6px}
+    .places-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+    .places-bar-fill{height:100%;border-radius:3px;background:var(--accent)}
+
+    .bg-culture    {background:linear-gradient(135deg,#fde8c8,#fef3e2)}
+    .bg-nature     {background:linear-gradient(135deg,#c8e6c9,#e8f5e9)}
+    .bg-sport      {background:linear-gradient(135deg,#bbdefb,#e3f2fd)}
+    .bg-gastronomie{background:linear-gradient(135deg,#ffecb3,#fff8e1)}
+    .bg-detente    {background:linear-gradient(135deg,#e1bee7,#f3e5f5)}
+    .bg-aventure   {background:linear-gradient(135deg,#ffcdd2,#fce4ec)}
+    .bg-visite     {background:linear-gradient(135deg,#b2ebf2,#e0f7fa)}
+    .bg-nightlife  {background:linear-gradient(135deg,#c5cae9,#e8eaf6)}
+
+    .error-state{margin-left:var(--sidebar-w);padding-top:var(--header-h);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px;text-align:center}
+    .error-state svg{width:56px;height:56px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:.4}
+    .error-state h2{font-family:'Playfair Display',serif;font-size:1.6rem}
+    .error-state p{color:var(--muted);font-size:.9rem}
+    .error-state a{margin-top:8px;padding:10px 24px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem}
+
+    footer{background:var(--text);color:rgba(255,255,255,.7)}
+    .footer-inner{padding:40px 48px 28px;margin-left:var(--sidebar-w)}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
+    .footer-brand-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:10px}
+    .footer-tagline{font-size:.875rem;line-height:1.6;margin-bottom:16px}
+    .footer-col h4{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin-bottom:14px}
+    .footer-col a{display:block;color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem;margin-bottom:8px;transition:color .15s}
+    .footer-col a:hover{color:var(--accent-soft)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem}
+    .footer-bottom-links{display:flex;gap:20px}
+    .footer-bottom-links a{color:rgba(255,255,255,.5);text-decoration:none}
+    .footer-bottom-links a:hover{color:#fff}
+
+    #toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:14px 24px;border-radius:10px;font-size:.875rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="Accueil.php" class="logo"><div class="logo-badge"><span>VoyageVista</span></div></a>
+    <a href="activites.php" class="btn-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour aux activités
+    </a>
+  </div>
+  <div class="header-right">
+    <a href="mon-espace.php" class="icon-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></a>
+    <a href="notifications.php" class="icon-btn"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></a>
+    <button class="btn-connexion" onclick="window.location='connexion.php'">Connexion</button>
+  </div>
+</header>
+
+<aside id="sidebar">
+  <a href="Accueil.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+  <a href="catalogue.php" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+  <a href="transport.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+  <a href="hebergement.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+  <a href="activites.php" class="nav-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+  <a href="itineraire.php" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+  <a href="panier.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+  <a href="notifications.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+  <a href="mon-espace.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+</aside>
+
+<div id="app"></div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand-name">VoyageVista</div><p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p></div>
+      <div class="footer-col"><h4>Explorer</h4><a href="catalogue.php">Toutes les destinations</a><a href="transport.php">Transports</a><a href="hebergement.php">Hébergements</a><a href="activites.php">Activités</a></div>
+      <div class="footer-col"><h4>Mon compte</h4><a href="connexion.php">Connexion</a><a href="mon-espace.php">Mon espace</a><a href="panier.php">Mon panier</a><a href="itineraire.php">Mes itinéraires</a></div>
+      <div class="footer-col"><h4>Informations</h4><a href="a_propos.html">À propos</a><a href="cgu.html">CGU</a><a href="contact.html">Contact</a><a href="#">Réseaux sociaux</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VoyageVista — Tous droits réservés</span>
+      <div class="footer-bottom-links"><a href="cgu.html">CGU</a><a href="confidentialite.html">Politique de confidentialité</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+// ── DONNÉES ───────────────────────────────────
+const ACTIVITIES = [
+  {id:1,  nom:'Cours de surf à Kuta',              ville:'Bali',        pays:'Indonésie',          cat:'Sport',       prix:18,  duree:180,  date:'2026-06-11',heure:'08:00',diff:'facile',   note:4.7, cap:10},
+  {id:2,  nom:'Visite des temples de Bedugul',     ville:'Bali',        pays:'Indonésie',          cat:'Culture',     prix:12,  duree:240,  date:'2026-06-12',heure:'15:00',diff:'facile',   note:4.8, cap:20},
+  {id:3,  nom:'Trekking volcan Batur au lever',    ville:'Bali',        pays:'Indonésie',          cat:'Aventure',    prix:22,  duree:360,  date:'2026-06-13',heure:'02:00',diff:'difficile',note:4.9, cap:12},
+  {id:4,  nom:'Cours de cuisine balinaise',        ville:'Bali',        pays:'Indonésie',          cat:'Gastronomie', prix:15,  duree:300,  date:'2026-06-14',heure:'09:00',diff:'facile',   note:4.8, cap:10},
+  {id:5,  nom:'Massage traditionnel balinais',     ville:'Bali',        pays:'Indonésie',          cat:'Detente',     prix:14,  duree:90,   date:'2026-06-15',heure:'10:00',diff:'facile',   note:4.9, cap:6},
+  {id:6,  nom:'Rizières en terrasses Tegallalang', ville:'Bali',        pays:'Indonésie',          cat:'Nature',      prix:8,   duree:180,  date:'2026-06-16',heure:'07:00',diff:'facile',   note:4.7, cap:20},
+  {id:7,  nom:'Snorkeling à Nusa Penida',          ville:'Bali',        pays:'Indonésie',          cat:'Nature',      prix:25,  duree:480,  date:'2026-06-17',heure:'07:30',diff:'modere',   note:4.8, cap:15},
+  {id:8,  nom:'Soirée Kecak au temple Uluwatu',    ville:'Bali',        pays:'Indonésie',          cat:'Culture',     prix:10,  duree:90,   date:'2026-06-18',heure:'17:30',diff:'facile',   note:4.9, cap:50},
+  {id:9,  nom:'Ascension du Teide',                ville:'Tenerife',    pays:'Espagne',            cat:'Aventure',    prix:20,  duree:480,  date:'2026-06-06',heure:'06:00',diff:'difficile',note:4.8, cap:15},
+  {id:10, nom:'Whale watching',                    ville:'Tenerife',    pays:'Espagne',            cat:'Nature',      prix:28,  duree:180,  date:'2026-06-07',heure:'10:00',diff:'facile',   note:4.7, cap:20},
+  {id:11, nom:'Surf et bodyboard à El Medano',     ville:'Tenerife',    pays:'Espagne',            cat:'Sport',       prix:22,  duree:180,  date:'2026-06-08',heure:'09:00',diff:'facile',   note:4.6, cap:10},
+  {id:12, nom:'Visite du Loro Parque',             ville:'Tenerife',    pays:'Espagne',            cat:'Visite',      prix:32,  duree:360,  date:'2026-06-09',heure:'10:00',diff:'facile',   note:4.5, cap:100},
+  {id:13, nom:'Dégustation vins canariens',        ville:'Tenerife',    pays:'Espagne',            cat:'Gastronomie', prix:18,  duree:240,  date:'2026-06-10',heure:'11:00',diff:'facile',   note:4.6, cap:12},
+  {id:14, nom:'Randonnée Parc Anaga',              ville:'Tenerife',    pays:'Espagne',            cat:'Nature',      prix:12,  duree:300,  date:'2026-06-11',heure:'08:00',diff:'modere',   note:4.7, cap:15},
+  {id:15, nom:'Snorkeling criques de Himara',      ville:'Himara',      pays:'Albanie',            cat:'Nature',      prix:10,  duree:300,  date:'2026-06-06',heure:'09:00',diff:'facile',   note:4.8, cap:12},
+  {id:16, nom:'Visite de Butrint UNESCO',          ville:'Saranda',     pays:'Albanie',            cat:'Culture',     prix:6,   duree:180,  date:'2026-06-07',heure:'10:00',diff:'facile',   note:4.7, cap:20},
+  {id:17, nom:'Kayak de mer côte ionienne',        ville:'Himara',      pays:'Albanie',            cat:'Sport',       prix:14,  duree:240,  date:'2026-06-08',heure:'08:30',diff:'modere',   note:4.6, cap:10},
+  {id:18, nom:'Soirée taverne albanaise',          ville:'Saranda',     pays:'Albanie',            cat:'Gastronomie', prix:12,  duree:180,  date:'2026-06-09',heure:'19:00',diff:'facile',   note:4.8, cap:20},
+  {id:19, nom:'Kayak dans la baie de Kotor',       ville:'Kotor',       pays:'Monténégro',         cat:'Sport',       prix:16,  duree:240,  date:'2026-06-06',heure:'07:00',diff:'facile',   note:4.8, cap:10},
+  {id:20, nom:'Visite de la vieille ville Kotor',  ville:'Kotor',       pays:'Monténégro',         cat:'Culture',     prix:8,   duree:180,  date:'2026-06-07',heure:'10:00',diff:'modere',   note:4.9, cap:20},
+  {id:21, nom:'Journée plage Sveti Stefan',        ville:'Budva',       pays:'Monténégro',         cat:'Detente',     prix:15,  duree:480,  date:'2026-06-08',heure:'09:00',diff:'facile',   note:4.7, cap:30},
+  {id:22, nom:'Croisière coucher de soleil',       ville:'Kotor',       pays:'Monténégro',         cat:'Detente',     prix:20,  duree:180,  date:'2026-06-09',heure:'17:30',diff:'facile',   note:4.8, cap:15},
+  {id:23, nom:'Cours de plongée certifié PADI',    ville:'Koh Lanta',   pays:'Thaïlande',          cat:'Sport',       prix:85,  duree:2880, date:'2026-06-11',heure:'08:00',diff:'modere',   note:4.9, cap:6},
+  {id:24, nom:'Tour des 4 îles en bateau',         ville:'Koh Lanta',   pays:'Thaïlande',          cat:'Nature',      prix:25,  duree:540,  date:'2026-06-12',heure:'08:00',diff:'facile',   note:4.8, cap:20},
+  {id:25, nom:'Cours de cuisine thaïlandaise',     ville:'Koh Lanta',   pays:'Thaïlande',          cat:'Gastronomie', prix:18,  duree:300,  date:'2026-06-13',heure:'09:00',diff:'facile',   note:4.7, cap:8},
+  {id:26, nom:'Yoga au bord de la mer',            ville:'Koh Lanta',   pays:'Thaïlande',          cat:'Detente',     prix:8,   duree:90,   date:'2026-06-14',heure:'06:30',diff:'facile',   note:4.8, cap:15},
+  {id:27, nom:'Kayak dans la mangrove',            ville:'Koh Lanta',   pays:'Thaïlande',          cat:'Nature',      prix:14,  duree:240,  date:'2026-06-15',heure:'08:00',diff:'facile',   note:4.6, cap:10},
+  {id:28, nom:'Cours de kitesurf',                 ville:'Essaouira',   pays:'Maroc',              cat:'Sport',       prix:35,  duree:240,  date:'2026-06-06',heure:'09:00',diff:'modere',   note:4.7, cap:6},
+  {id:29, nom:'Visite médina et remparts',         ville:'Essaouira',   pays:'Maroc',              cat:'Culture',     prix:8,   duree:180,  date:'2026-06-07',heure:'10:00',diff:'facile',   note:4.6, cap:15},
+  {id:30, nom:'Atelier de cuisine marocaine',      ville:'Essaouira',   pays:'Maroc',              cat:'Gastronomie', prix:20,  duree:300,  date:'2026-06-08',heure:'10:00',diff:'facile',   note:4.8, cap:8},
+  {id:31, nom:'Tour A : lagons secrets',           ville:'El Nido',     pays:'Philippines',        cat:'Nature',      prix:15,  duree:480,  date:'2026-06-11',heure:'08:00',diff:'facile',   note:4.9, cap:15},
+  {id:32, nom:'Tour C : plages isolées',           ville:'El Nido',     pays:'Philippines',        cat:'Nature',      prix:15,  duree:480,  date:'2026-06-12',heure:'08:00',diff:'facile',   note:4.8, cap:15},
+  {id:33, nom:'Plongée récifs de Palawan',         ville:'El Nido',     pays:'Philippines',        cat:'Sport',       prix:28,  duree:300,  date:'2026-06-13',heure:'07:00',diff:'modere',   note:4.9, cap:8},
+  {id:34, nom:'Kayak au coucher de soleil',        ville:'El Nido',     pays:'Philippines',        cat:'Detente',     prix:10,  duree:180,  date:'2026-06-14',heure:'16:00',diff:'facile',   note:4.8, cap:12},
+  {id:35, nom:'Cours de cuisine philippine',       ville:'El Nido',     pays:'Philippines',        cat:'Gastronomie', prix:14,  duree:240,  date:'2026-06-15',heure:'10:00',diff:'facile',   note:4.7, cap:8},
+  {id:36, nom:'Tour historique de Stone Town',     ville:'Stone Town',  pays:'Tanzanie',           cat:'Culture',     prix:10,  duree:240,  date:'2026-06-09',heure:'09:00',diff:'facile',   note:4.8, cap:15},
+  {id:37, nom:"Tour de la plantation d'épices",    ville:'Stone Town',  pays:'Tanzanie',           cat:'Nature',      prix:12,  duree:240,  date:'2026-06-10',heure:'09:30',diff:'facile',   note:4.7, cap:20},
+  {id:38, nom:'Plongée Mnemba Atoll',              ville:'Nungwi',      pays:'Tanzanie',           cat:'Sport',       prix:35,  duree:300,  date:'2026-06-11',heure:'08:00',diff:'modere',   note:4.9, cap:8},
+  {id:39, nom:'Croisière coucher de soleil dhow',  ville:'Stone Town',  pays:'Tanzanie',           cat:'Detente',     prix:20,  duree:180,  date:'2026-06-12',heure:'17:00',diff:'facile',   note:4.9, cap:15},
+  {id:40, nom:'Safari forêt de Jozani',            ville:'Jozani',      pays:'Tanzanie',           cat:'Nature',      prix:15,  duree:240,  date:'2026-06-13',heure:'08:00',diff:'facile',   note:4.7, cap:12},
+  {id:41, nom:'Trek Svanétie Mestia–Ushguli',      ville:'Mestia',      pays:'Géorgie',            cat:'Aventure',    prix:45,  duree:5760, date:'2026-06-09',heure:'07:00',diff:'difficile',note:4.9, cap:10},
+  {id:42, nom:'Dégustation vins de Kakhétie',      ville:'Sighnaghi',   pays:'Géorgie',            cat:'Gastronomie', prix:15,  duree:240,  date:'2026-06-10',heure:'11:00',diff:'facile',   note:4.8, cap:12},
+  {id:43, nom:'Randonnée vers Kazbegi',            ville:'Kazbegi',     pays:'Géorgie',            cat:'Aventure',    prix:12,  duree:300,  date:'2026-06-11',heure:'08:00',diff:'modere',   note:4.9, cap:15},
+  {id:44, nom:'Cours de cuisine géorgienne',       ville:'Tbilissi',    pays:'Géorgie',            cat:'Gastronomie', prix:18,  duree:240,  date:'2026-06-12',heure:'10:00',diff:'facile',   note:4.8, cap:8},
+  {id:45, nom:'Bains sulfureux Abanotubani',       ville:'Tbilissi',    pays:'Géorgie',            cat:'Detente',     prix:8,   duree:120,  date:'2026-06-13',heure:'10:00',diff:'facile',   note:4.7, cap:20},
+  {id:46, nom:'Trek Peaks of the Balkans',         ville:'Shkodër',     pays:'Albanie',            cat:'Aventure',    prix:20,  duree:480,  date:'2026-06-06',heure:'07:00',diff:'difficile',note:4.9, cap:10},
+  {id:47, nom:'Canoë sur le lac de Shkodra',       ville:'Shkodër',     pays:'Albanie',            cat:'Nature',      prix:12,  duree:240,  date:'2026-06-07',heure:'08:00',diff:'facile',   note:4.7, cap:10},
+  {id:48, nom:'Visite château de Rozafa',          ville:'Shkodër',     pays:'Albanie',            cat:'Culture',     prix:5,   duree:150,  date:'2026-06-08',heure:'10:00',diff:'facile',   note:4.6, cap:20},
+  {id:49, nom:"Tour du lac d'Ohrid en bateau",     ville:'Ohrid',       pays:'Macédoine du Nord',  cat:'Nature',      prix:10,  duree:240,  date:'2026-06-06',heure:'10:00',diff:'facile',   note:4.8, cap:20},
+  {id:50, nom:'Visite des monastères byzantins',   ville:'Ohrid',       pays:'Macédoine du Nord',  cat:'Culture',     prix:8,   duree:300,  date:'2026-06-07',heure:'09:00',diff:'facile',   note:4.7, cap:15},
+  {id:51, nom:'Randonnée mont Galicica',           ville:'Ohrid',       pays:'Macédoine du Nord',  cat:'Aventure',    prix:6,   duree:360,  date:'2026-06-08',heure:'07:30',diff:'modere',   note:4.6, cap:12},
+  {id:52, nom:'Nuit en yourte bord de Son Kol',    ville:'Son-Kol',     pays:'Kirghizistan',       cat:'Culture',     prix:25,  duree:1440, date:'2026-06-09',heure:'14:00',diff:'modere',   note:4.9, cap:8},
+  {id:53, nom:'Randonnée à cheval Jyrgalan',       ville:'Jyrgalan',    pays:'Kirghizistan',       cat:'Aventure',    prix:30,  duree:360,  date:'2026-06-10',heure:'09:00',diff:'modere',   note:4.8, cap:6},
+  {id:54, nom:'Visite bazar de Osh',               ville:'Osh',         pays:'Kirghizistan',       cat:'Gastronomie', prix:10,  duree:240,  date:'2026-06-11',heure:'09:00',diff:'facile',   note:4.7, cap:15},
+  {id:55, nom:'Rafting canyon de la Tara',         ville:'Žabljak',     pays:'Monténégro',         cat:'Aventure',    prix:30,  duree:480,  date:'2026-06-06',heure:'08:00',diff:'modere',   note:4.9, cap:10},
+  {id:56, nom:'Randonnée lac Noir Durmitor',       ville:'Žabljak',     pays:'Monténégro',         cat:'Nature',      prix:8,   duree:300,  date:'2026-06-07',heure:'08:00',diff:'facile',   note:4.8, cap:15},
+  {id:57, nom:'Via ferrata Durmitor',              ville:'Žabljak',     pays:'Monténégro',         cat:'Sport',       prix:22,  duree:360,  date:'2026-06-08',heure:'07:30',diff:'difficile',note:4.7, cap:8},
+  {id:58, nom:'Soirée Fado et gastronomie',        ville:'Lisbonne',    pays:'Portugal',           cat:'Culture',     prix:28,  duree:240,  date:'2026-06-04',heure:'19:30',diff:'facile',   note:4.9, cap:20},
+  {id:59, nom:'Cours de surf à Cascais',           ville:'Cascais',     pays:'Portugal',           cat:'Sport',       prix:35,  duree:240,  date:'2026-06-05',heure:'09:00',diff:'facile',   note:4.7, cap:8},
+  {id:60, nom:'Tour en tuk-tuk Alfama',            ville:'Lisbonne',    pays:'Portugal',           cat:'Visite',      prix:18,  duree:120,  date:'2026-06-06',heure:'10:00',diff:'facile',   note:4.8, cap:6},
+  {id:61, nom:'Atelier de céramique azulejo',      ville:'Lisbonne',    pays:'Portugal',           cat:'Culture',     prix:22,  duree:180,  date:'2026-06-07',heure:'14:00',diff:'facile',   note:4.7, cap:10},
+  {id:62, nom:'Excursion Sintra palais royaux',    ville:'Sintra',      pays:'Portugal',           cat:'Visite',      prix:25,  duree:480,  date:'2026-06-08',heure:'09:00',diff:'facile',   note:4.9, cap:15},
+  {id:63, nom:'Food tour Mercado da Ribeira',      ville:'Lisbonne',    pays:'Portugal',           cat:'Gastronomie', prix:15,  duree:180,  date:'2026-06-09',heure:'11:00',diff:'facile',   note:4.8, cap:12},
+  {id:64, nom:'Bain thermal Széchenyi',            ville:'Budapest',    pays:'Hongrie',            cat:'Detente',     prix:18,  duree:180,  date:'2026-06-05',heure:'10:00',diff:'facile',   note:4.8, cap:100},
+  {id:65, nom:'Croisière Danube by night',         ville:'Budapest',    pays:'Hongrie',            cat:'Visite',      prix:15,  duree:90,   date:'2026-06-06',heure:'20:30',diff:'facile',   note:4.9, cap:40},
+  {id:66, nom:'Tour des ruin-bars de Budapest',    ville:'Budapest',    pays:'Hongrie',            cat:'Nightlife',   prix:12,  duree:180,  date:'2026-06-07',heure:'20:00',diff:'facile',   note:4.8, cap:20},
+  {id:67, nom:'Vélo tour de Budapest',             ville:'Budapest',    pays:'Hongrie',            cat:'Visite',      prix:14,  duree:180,  date:'2026-06-08',heure:'09:30',diff:'facile',   note:4.7, cap:15},
+  {id:68, nom:'Atelier cuisine hongroise',         ville:'Budapest',    pays:'Hongrie',            cat:'Gastronomie', prix:20,  duree:240,  date:'2026-06-09',heure:'11:00',diff:'facile',   note:4.8, cap:8},
+  {id:69, nom:'Tour street art Fabrika',           ville:'Tbilissi',    pays:'Géorgie',            cat:'Culture',     prix:10,  duree:180,  date:'2026-06-05',heure:'11:00',diff:'facile',   note:4.7, cap:15},
+  {id:70, nom:'Bain sulfureux privatif Tbilissi',  ville:'Tbilissi',    pays:'Géorgie',            cat:'Detente',     prix:8,   duree:90,   date:'2026-06-06',heure:'12:00',diff:'facile',   note:4.8, cap:4},
+  {id:71, nom:'Dégustation vin naturel géorgien',  ville:'Tbilissi',    pays:'Géorgie',            cat:'Gastronomie', prix:15,  duree:120,  date:'2026-06-07',heure:'18:00',diff:'facile',   note:4.9, cap:10},
+  {id:72, nom:'Randonnée Mtatsminda',              ville:'Tbilissi',    pays:'Géorgie',            cat:'Nature',      prix:6,   duree:240,  date:'2026-06-08',heure:'09:00',diff:'modere',   note:4.7, cap:20},
+  {id:73, nom:'Visite vieille ville de Tbilissi',  ville:'Tbilissi',    pays:'Géorgie',            cat:'Visite',      prix:12,  duree:180,  date:'2026-06-09',heure:'10:00',diff:'facile',   note:4.8, cap:15},
+  {id:74, nom:'Street food tour Hanoï by night',   ville:'Hanoï',       pays:'Vietnam',            cat:'Gastronomie', prix:12,  duree:180,  date:'2026-06-09',heure:'18:30',diff:'facile',   note:4.9, cap:12},
+  {id:75, nom:'Cours de cuisine vietnamienne',     ville:'Hanoï',       pays:'Vietnam',            cat:'Gastronomie', prix:18,  duree:300,  date:'2026-06-10',heure:'09:00',diff:'facile',   note:4.8, cap:8},
+  {id:76, nom:'Vélo dans le vieux quartier',       ville:'Hanoï',       pays:'Vietnam',            cat:'Visite',      prix:10,  duree:180,  date:'2026-06-11',heure:'08:00',diff:'facile',   note:4.7, cap:10},
+  {id:77, nom:"Croisière baie d'Ha Long 2 jours",  ville:'Hanoï',       pays:'Vietnam',            cat:'Nature',      prix:75,  duree:2880, date:'2026-06-12',heure:'08:00',diff:'facile',   note:4.9, cap:16},
+  {id:78, nom:'Spectacle marionnettes sur eau',    ville:'Hanoï',       pays:'Vietnam',            cat:'Culture',     prix:5,   duree:60,   date:'2026-06-13',heure:'18:00',diff:'facile',   note:4.7, cap:100},
+  {id:79, nom:'Visite Auschwitz-Birkenau',         ville:'Cracovie',    pays:'Pologne',            cat:'Culture',     prix:15,  duree:480,  date:'2026-06-06',heure:'08:00',diff:'facile',   note:4.9, cap:15},
+  {id:80, nom:'Tour vieille ville de Cracovie',    ville:'Cracovie',    pays:'Pologne',            cat:'Visite',      prix:10,  duree:240,  date:'2026-06-07',heure:'10:00',diff:'facile',   note:4.8, cap:20},
+  {id:81, nom:'Food tour polonais',                ville:'Cracovie',    pays:'Pologne',            cat:'Gastronomie', prix:14,  duree:180,  date:'2026-06-08',heure:'12:00',diff:'facile',   note:4.7, cap:10},
+  {id:82, nom:'Visite de Teotihuacan',             ville:'Mexico City', pays:'Mexique',            cat:'Visite',      prix:18,  duree:480,  date:'2026-06-06',heure:'08:00',diff:'modere',   note:4.9, cap:15},
+  {id:83, nom:'Street food tour Coyoacan',         ville:'Mexico City', pays:'Mexique',            cat:'Gastronomie', prix:15,  duree:180,  date:'2026-06-07',heure:'12:00',diff:'facile',   note:4.8, cap:12},
+  {id:84, nom:'Visite musée Frida Kahlo',          ville:'Mexico City', pays:'Mexique',            cat:'Culture',     prix:12,  duree:150,  date:'2026-06-08',heure:'10:00',diff:'facile',   note:4.8, cap:10},
+  {id:85, nom:'Soirée Lucha Libre',                ville:'Mexico City', pays:'Mexique',            cat:'Culture',     prix:15,  duree:180,  date:'2026-06-09',heure:'19:30',diff:'facile',   note:4.9, cap:50},
+  {id:86, nom:'Soirée splavovi sur la Sava',       ville:'Belgrade',    pays:'Serbie',             cat:'Nightlife',   prix:15,  duree:300,  date:'2026-06-06',heure:'22:00',diff:'facile',   note:4.8, cap:20},
+  {id:87, nom:'Tour forteresse Kalemegdan',        ville:'Belgrade',    pays:'Serbie',             cat:'Visite',      prix:8,   duree:180,  date:'2026-06-07',heure:'10:00',diff:'facile',   note:4.7, cap:20},
+  {id:88, nom:'Food tour serbe traditionnel',      ville:'Belgrade',    pays:'Serbie',             cat:'Gastronomie', prix:14,  duree:180,  date:'2026-06-08',heure:'13:00',diff:'facile',   note:4.8, cap:12},
+  {id:89, nom:'Tour des souks de la médina',       ville:'Marrakech',   pays:'Maroc',              cat:'Culture',     prix:12,  duree:240,  date:'2026-06-06',heure:'09:00',diff:'facile',   note:4.8, cap:12},
+  {id:90, nom:"Excursion désert d'Agafay",         ville:'Marrakech',   pays:'Maroc',              cat:'Aventure',    prix:35,  duree:480,  date:'2026-06-07',heure:'09:00',diff:'facile',   note:4.9, cap:15},
+  {id:91, nom:'Hammam traditionnel marocain',      ville:'Marrakech',   pays:'Maroc',              cat:'Detente',     prix:18,  duree:120,  date:'2026-06-08',heure:'10:00',diff:'facile',   note:4.8, cap:8},
+  {id:92, nom:'Cours de cuisine marocaine',        ville:'Marrakech',   pays:'Maroc',              cat:'Gastronomie', prix:22,  duree:300,  date:'2026-06-09',heure:'10:00',diff:'facile',   note:4.9, cap:8},
+  {id:93, nom:'Soirée place Jemaa el-Fna',         ville:'Marrakech',   pays:'Maroc',              cat:'Culture',     prix:10,  duree:180,  date:'2026-06-10',heure:'19:00',diff:'facile',   note:4.7, cap:15},
+  {id:94, nom:'Tour à vélo de Prague',             ville:'Prague',      pays:'République Tchèque', cat:'Visite',      prix:14,  duree:180,  date:'2026-06-05',heure:'10:00',diff:'facile',   note:4.8, cap:15},
+  {id:95, nom:'Dégustation de bières tchèques',    ville:'Prague',      pays:'République Tchèque', cat:'Gastronomie', prix:18,  duree:240,  date:'2026-06-06',heure:'17:00',diff:'facile',   note:4.8, cap:12},
+  {id:96, nom:'Visite château de Prague',          ville:'Prague',      pays:'République Tchèque', cat:'Visite',      prix:12,  duree:240,  date:'2026-06-07',heure:'09:00',diff:'facile',   note:4.9, cap:20},
+  {id:97, nom:'Concert classique baroque',         ville:'Prague',      pays:'République Tchèque', cat:'Culture',     prix:20,  duree:90,   date:'2026-06-08',heure:'20:00',diff:'facile',   note:4.8, cap:80},
+  {id:98, nom:'Cours de flamenco',                 ville:'Séville',     pays:'Espagne',            cat:'Culture',     prix:20,  duree:90,   date:'2026-06-05',heure:'18:00',diff:'facile',   note:4.9, cap:12},
+  {id:99, nom:'Tour tapas dans Triana',            ville:'Séville',     pays:'Espagne',            cat:'Gastronomie', prix:22,  duree:180,  date:'2026-06-06',heure:'13:00',diff:'facile',   note:4.8, cap:12},
+  {id:100,nom:'Visite Alcazar et cathédrale',      ville:'Séville',     pays:'Espagne',            cat:'Visite',      prix:15,  duree:240,  date:'2026-06-07',heure:'09:00',diff:'facile',   note:4.9, cap:15},
+  {id:101,nom:'Balade en calèche andalouse',       ville:'Séville',     pays:'Espagne',            cat:'Visite',      prix:12,  duree:60,   date:'2026-06-08',heure:'17:30',diff:'facile',   note:4.7, cap:4},
+  {id:102,nom:'Ascension Toubkal J1',              ville:'Imlil',       pays:'Maroc',              cat:'Aventure',    prix:30,  duree:480,  date:'2026-06-08',heure:'07:00',diff:'difficile',note:4.9, cap:8},
+  {id:103,nom:'Ascension Toubkal J2 – Sommet',     ville:'Imlil',       pays:'Maroc',              cat:'Aventure',    prix:30,  duree:600,  date:'2026-06-09',heure:'04:00',diff:'difficile',note:4.9, cap:8},
+  {id:104,nom:"Nuit chez l'habitant berbère",      ville:'Imlil',       pays:'Maroc',              cat:'Culture',     prix:25,  duree:720,  date:'2026-06-08',heure:'18:00',diff:'facile',   note:4.8, cap:6},
+  {id:105,nom:'Cours de surf à Santa Teresa',      ville:'Santa Teresa',pays:'Costa Rica',         cat:'Sport',       prix:35,  duree:240,  date:'2026-06-13',heure:'08:00',diff:'facile',   note:4.8, cap:8},
+  {id:106,nom:'Randonnée volcan Arenal',           ville:'La Fortuna',  pays:'Costa Rica',         cat:'Aventure',    prix:40,  duree:480,  date:'2026-06-14',heure:'08:00',diff:'modere',   note:4.9, cap:12},
+  {id:107,nom:'Zip-line forêt de Monteverde',      ville:'Monteverde',  pays:'Costa Rica',         cat:'Aventure',    prix:45,  duree:240,  date:'2026-06-15',heure:'09:00',diff:'modere',   note:4.8, cap:10},
+  {id:108,nom:'Observation tortues Tortuguero',    ville:'Tortuguero',  pays:'Costa Rica',         cat:'Nature',      prix:30,  duree:180,  date:'2026-06-16',heure:'21:00',diff:'facile',   note:4.9, cap:10},
+  {id:109,nom:'Easy Rider col de Hai Van',         ville:'Da Nang',     pays:'Vietnam',            cat:'Aventure',    prix:25,  duree:300,  date:'2026-06-14',heure:'07:00',diff:'modere',   note:4.9, cap:6},
+  {id:110,nom:'Hoi An by night en vélo',           ville:'Hoi An',      pays:'Vietnam',            cat:'Visite',      prix:10,  duree:240,  date:'2026-06-15',heure:'17:00',diff:'facile',   note:4.8, cap:12},
+  {id:111,nom:'Location moto Honda Win',           ville:'Hanoï',       pays:'Vietnam',            cat:'Aventure',    prix:12,  duree:20160,date:'2026-06-09',heure:'08:00',diff:'difficile',note:4.8, cap:1},
+  {id:112,nom:'Journée complète à Pétra',          ville:'Petra',       pays:'Jordanie',           cat:'Visite',      prix:20,  duree:600,  date:'2026-06-09',heure:'07:00',diff:'modere',   note:4.9, cap:15},
+  {id:113,nom:'Nuit sous les étoiles Wadi Rum',    ville:'Wadi Rum',    pays:'Jordanie',           cat:'Aventure',    prix:45,  duree:1440, date:'2026-06-10',heure:'16:00',diff:'facile',   note:4.9, cap:10},
+  {id:114,nom:'Flottaison à la mer Morte',         ville:'Mer Morte',   pays:'Jordanie',           cat:'Detente',     prix:15,  duree:240,  date:'2026-06-11',heure:'09:00',diff:'facile',   note:4.8, cap:20},
+  {id:115,nom:'Snorkeling à Aqaba',                ville:'Aqaba',       pays:'Jordanie',           cat:'Nature',      prix:20,  duree:240,  date:'2026-06-12',heure:'08:00',diff:'facile',   note:4.7, cap:10},
+  {id:116,nom:'Randonnée forêt de Garajonay',      ville:'San Sebastian',pays:'Espagne',           cat:'Nature',      prix:10,  duree:360,  date:'2026-06-06',heure:'08:00',diff:'modere',   note:4.8, cap:12},
+  {id:117,nom:'Observation des étoiles La Palma',  ville:'Santa Cruz de La Palma',pays:'Espagne', cat:'Nature',      prix:25,  duree:180,  date:'2026-06-07',heure:'21:00',diff:'facile',   note:4.9, cap:10},
+  {id:118,nom:'Whale watching à São Miguel',       ville:'Ponta Delgada',pays:'Portugal',          cat:'Nature',      prix:45,  duree:300,  date:'2026-06-06',heure:'08:00',diff:'facile',   note:4.9, cap:12},
+  {id:119,nom:'Bain thermal caldeira Furnas',      ville:'Furnas',      pays:'Portugal',           cat:'Detente',     prix:5,   duree:180,  date:'2026-06-07',heure:'10:00',diff:'facile',   note:4.8, cap:50},
+  {id:120,nom:'Randonnée lac des Sept Cités',      ville:'Sete Cidades',pays:'Portugal',           cat:'Nature',      prix:8,   duree:300,  date:'2026-06-08',heure:'08:00',diff:'modere',   note:4.9, cap:15},
+];
+
+const CAT_CONFIG = {
+  Culture:     {bg:'bg-culture',    icon:'🏛️', couleurs:['#e65100','#fde8c8']},
+  Nature:      {bg:'bg-nature',     icon:'🌿', couleurs:['#1b5e20','#c8e6c9']},
+  Sport:       {bg:'bg-sport',      icon:'🏄', couleurs:['#0d47a1','#bbdefb']},
+  Gastronomie: {bg:'bg-gastronomie',icon:'🍽️', couleurs:['#f57f17','#ffecb3']},
+  Detente:     {bg:'bg-detente',    icon:'🧘', couleurs:['#4a148c','#e1bee7']},
+  Aventure:    {bg:'bg-aventure',   icon:'🧗', couleurs:['#880e4f','#ffcdd2']},
+  Visite:      {bg:'bg-visite',     icon:'🗺️', couleurs:['#004d40','#b2ebf2']},
+  Nightlife:   {bg:'bg-nightlife',  icon:'🎵', couleurs:['#283593','#c5cae9']},
+};
+const DIFF_LABELS = {facile:'Facile',modere:'Modéré',difficile:'Difficile'};
+const MOMENT_LABELS = {
+  '0–6':'Nuit (0h–6h)', '6–12':'Matin (6h–12h)',
+  '12–18':'Après-midi (12h–18h)', '18–24':'Soir (18h–24h)'
+};
+
+function fmtDuree(min) {
+  if (min >= 1440) return Math.round(min/1440) + ' jour' + (Math.round(min/1440)>1?'s':'');
+  const h=Math.floor(min/60), m=min%60;
+  return m ? `${h}h${String(m).padStart(2,'0')}` : `${h}h`;
+}
+function getMoment(heure) {
+  const h = parseInt(heure);
+  if (h<6)  return 'Nuit';
+  if (h<12) return 'Matin';
+  if (h<18) return 'Après-midi';
+  return 'Soir';
+}
+function fmtDate(d) {
+  if (!d) return '';
+  const [y,mo,da] = d.split('-');
+  const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  return `${parseInt(da)} ${months[parseInt(mo)-1]} ${y}`;
+}
+
+function getProgramme(a) {
+  const dur = a.duree;
+  if (a.cat === 'Gastronomie') return [
+    {time:'Accueil', text:'Accueil des participants et présentation du programme'},
+    {time:'Préparation', text:'Découverte des ingrédients locaux et techniques de base'},
+    {time:'Atelier', text:'Réalisation des plats sous la direction du chef'},
+    {time:'Dégustation', text:'Dégustation des créations et échange avec le groupe'},
+  ];
+  if (a.cat === 'Aventure' || a.cat === 'Nature') return [
+    {time:'Départ', text:`Départ à ${a.heure} — Briefing sécurité et équipement`},
+    {time:'Trajet', text:'Début de l\'activité avec guide certifié'},
+    {time:'Pause', text:'Pause panoramique et photos'},
+    {time:'Retour', text:'Retour au point de départ'},
+  ];
+  if (a.cat === 'Culture' || a.cat === 'Visite') return [
+    {time:'Début', text:`Rendez-vous à ${a.heure} — Présentation du guide`},
+    {time:'Visite 1', text:'Découverte des principaux sites et monuments'},
+    {time:'Visite 2', text:'Approfondissement historique et anecdotes'},
+    {time:'Fin', text:'Questions & Réponses — Fin de la visite'},
+  ];
+  return [
+    {time:'Accueil', text:'Accueil et briefing'},
+    {time:'Activité', text:'Déroulement de l\'activité'},
+    {time:'Fin', text:'Fin de l\'activité'},
+  ];
+}
+
+function getInclus(a) {
+  const base = ['Guide certifié', 'Assurance incluse', 'Matériel fourni'];
+  const extras = {
+    Gastronomie: ['Ingrédients fournis', 'Dégustation incluse', 'Recettes offertes'],
+    Nature:      ['Transport inclus', 'Jumelles disponibles', 'Pause pique-nique'],
+    Sport:       ['Équipement sportif', 'Cours adaptés', 'Photos souvenirs'],
+    Culture:     ['Entrées incluses', 'Livret pédagogique', 'Audioguide'],
+    Aventure:    ['Équipement sécurité', 'Guide expert', 'Collation énergétique'],
+    Detente:     ['Serviettes fournies', 'Produits bio', 'Espace vestiaires'],
+    Visite:      ['Billets inclus', 'Plan de la ville', 'Oreillette audio'],
+    Nightlife:   ['Accès VIP', 'Consommation incluse', 'Guide local'],
+  };
+  return [...base, ...(extras[a.cat]||[])].slice(0,6);
+}
+
+const params = new URLSearchParams(window.location.search);
+const id = parseInt(params.get('id'));
+const a  = ACTIVITIES.find(x => x.id === id);
+
+if (!a) {
+  document.getElementById('app').innerHTML = `
+    <div class="error-state">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <h2>Activité introuvable</h2>
+      <p>Cette activité n'existe pas ou a été supprimée.</p>
+      <a href="activites.php">← Retour aux activités</a>
+    </div>`;
+} else {
+  document.title = `VoyageVista – ${a.nom}`;
+  const cfg = CAT_CONFIG[a.cat] || CAT_CONFIG['Visite'];
+  const prog = getProgramme(a);
+  const inclus = getInclus(a);
+  const placesRatio = Math.min(100, Math.round(a.cap / 100 * 100));
+
+  const progHTML = prog.map(p=>`
+    <div class="prog-item">
+      <div class="prog-time">${p.time}</div>
+      <div class="prog-text">${p.text}</div>
+    </div>`).join('');
+
+  const inclusHTML = inclus.map(item=>`
+    <div class="inclus-item">
+      <div class="inclus-icon">✓</div>
+      ${item}
+    </div>`).join('');
+
+  document.getElementById('app').innerHTML = `
+  <main>
+    <!-- HERO -->
+    <div class="hero ${cfg.bg}">
+      <div class="hero-icon">${cfg.icon}</div>
+      <div class="hero-overlay"></div>
+      <span class="diff-badge diff-${a.diff}">${DIFF_LABELS[a.diff]}</span>
+      <div class="hero-content">
+        <div class="hero-cat">${a.cat}</div>
+        <h1 class="hero-title">${a.nom}</h1>
+        <div class="hero-chips">
+          <span class="hero-chip">📍 ${a.ville}, ${a.pays}</span>
+          <span class="hero-chip">⏱ ${fmtDuree(a.duree)}</span>
+          <span class="hero-chip">🕐 ${a.heure} · ${getMoment(a.heure)}</span>
+          <span class="hero-chip">⭐ ${a.note}/5</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-wrap">
+      <div class="content-main">
+
+        <!-- INFO CARDS -->
+        <div class="info-cards">
+          <div class="info-card">
+            <span class="info-card-label">Prix</span>
+            <span class="info-card-value">${a.prix} €</span>
+            <span class="info-card-sub">par personne</span>
+          </div>
+          <div class="info-card">
+            <span class="info-card-label">Durée</span>
+            <span class="info-card-value">${fmtDuree(a.duree)}</span>
+            <span class="info-card-sub">${getMoment(a.heure)}</span>
+          </div>
+          <div class="info-card">
+            <span class="info-card-label">Date</span>
+            <span class="info-card-value" style="font-size:.9rem">${fmtDate(a.date)}</span>
+            <span class="info-card-sub">à ${a.heure}</span>
+          </div>
+          <div class="info-card">
+            <span class="info-card-label">Difficulté</span>
+            <span class="info-card-value" style="font-size:.95rem">${DIFF_LABELS[a.diff]}</span>
+            <span class="info-card-sub">${a.cat}</span>
+          </div>
+          <div class="info-card">
+            <span class="info-card-label">Note</span>
+            <span class="info-card-value">${a.note}/5</span>
+            <span class="info-card-sub">voyageurs</span>
+          </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab('apercu',this)">Aperçu</button>
+          <button class="tab-btn" onclick="switchTab('programme',this)">Programme</button>
+          <button class="tab-btn" onclick="switchTab('avis',this)">Avis</button>
+        </div>
+
+        <!-- TAB APERÇU -->
+        <div class="tab-panel active" id="tab-apercu">
+          <div class="section-label">Ce qui est inclus</div>
+          <div class="section-title-lg">Inclus dans votre réservation</div>
+          <div class="inclus-grid">${inclusHTML}</div>
+
+          <div class="section-label">Informations pratiques</div>
+          <div class="detail-table">
+            <div class="dt-row"><span class="dt-label">Activité</span><span class="dt-value">${a.nom}</span></div>
+            <div class="dt-row"><span class="dt-label">Catégorie</span><span class="dt-value">${a.cat}</span></div>
+            <div class="dt-row"><span class="dt-label">Lieu</span><span class="dt-value">${a.ville}, ${a.pays}</span></div>
+            <div class="dt-row"><span class="dt-label">Date</span><span class="dt-value">${fmtDate(a.date)} à ${a.heure}</span></div>
+            <div class="dt-row"><span class="dt-label">Durée</span><span class="dt-value">${fmtDuree(a.duree)}</span></div>
+            <div class="dt-row"><span class="dt-label">Difficulté</span><span class="dt-value">${DIFF_LABELS[a.diff]}</span></div>
+            <div class="dt-row"><span class="dt-label">Groupe max</span><span class="dt-value">${a.cap} participant${a.cap>1?'s':''}</span></div>
+            <div class="dt-row"><span class="dt-label">Note</span><span class="dt-value">${a.note}/5</span></div>
+          </div>
+
+          <div class="places-bar-wrap">
+            <div class="places-bar-label"><span>Places disponibles</span><span>${a.cap} max</span></div>
+            <div class="places-bar-track">
+              <div class="places-bar-fill" style="width:${placesRatio}%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB PROGRAMME -->
+        <div class="tab-panel" id="tab-programme">
+          <div class="section-label" style="margin-top:4px">Déroulement</div>
+          <div class="section-title-lg">Programme de l'activité</div>
+          <div class="programme-list">${progHTML}</div>
+        </div>
+
+        <!-- TAB AVIS -->
+        <div class="tab-panel" id="tab-avis">
+          <div class="avis-empty">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <p>Les avis arrivent bientôt.<br><small>Soyez le premier à partager votre expérience !</small></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOOKING -->
+      <aside class="booking-sidebar">
+        <div class="booking-price-label">Prix par personne</div>
+        <div style="margin-bottom:8px">
+          <span class="booking-price-val">${a.prix} €</span>
+          <span class="booking-price-pp"> / pers.</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:4px">
+          ⭐ ${a.note}/5 · ${fmtDate(a.date)} à ${a.heure}
+        </div>
+        <div style="font-size:.78rem;color:var(--muted)">⏱ ${fmtDuree(a.duree)} · ${DIFF_LABELS[a.diff]}</div>
+
+        <div class="booking-divider"></div>
+
+        <div class="booking-section-label">Participants</div>
+        <div class="voy-row">
+          <div class="voy-label">Adultes <small>18 ans et +</small></div>
+          <div class="voy-counter">
+            <button class="voy-btn" onclick="changeCount('adults',-1)">−</button>
+            <span class="voy-count" id="adultsCount">1</span>
+            <button class="voy-btn" onclick="changeCount('adults',1)">+</button>
+          </div>
+        </div>
+        <div class="voy-row">
+          <div class="voy-label">Enfants <small>moins de 18 ans</small></div>
+          <div class="voy-counter">
+            <button class="voy-btn" onclick="changeCount('children',-1)">−</button>
+            <span class="voy-count" id="childrenCount">0</span>
+            <button class="voy-btn" onclick="changeCount('children',1)">+</button>
+          </div>
+        </div>
+
+        <div class="booking-total">
+          <div class="booking-total-label">Total estimé</div>
+          <div class="booking-total-val" id="totalPrice">${a.prix} €</div>
+        </div>
+        <div class="booking-total-detail" id="totalDetail">1 adulte × ${a.prix} €</div>
+
+        <button class="btn-reserver" id="btnReserver" onclick="ajouterAuPanier()">Réserver cette activité</button>
+        <p class="booking-note-info">Annulation gratuite 48h avant. Sans frais cachés.</p>
+      </aside>
+    </div>
+  </main>`;
+
+  const sidebar = document.getElementById('sidebar');
+  const footer  = document.getElementById('footer');
+  function updateSidebarBottom() {
+    const ft = footer.getBoundingClientRect().top;
+    sidebar.style.bottom = ft < window.innerHeight ? (window.innerHeight-ft)+'px' : '0px';
+  }
+  window.addEventListener('scroll', updateSidebarBottom);
+  window.addEventListener('resize', updateSidebarBottom);
+  updateSidebarBottom();
+}
+
+const counts = {adults:1, children:0};
+
+function changeCount(type, delta) {
+  counts[type] = Math.max(type==='adults'?1:0, counts[type]+delta);
+  if (a && counts.adults + counts.children > a.cap) {
+    counts[type] -= delta;
+    showToast(`⚠️ Capacité max : ${a.cap} participant${a.cap>1?'s':''}`);
+    return;
+  }
+  document.getElementById(type+'Count').textContent = counts[type];
+  updateTotal();
+}
+
+function updateTotal() {
+  if (!a) return;
+  const total   = counts.adults + counts.children;
+  const montant = total * a.prix;
+  document.getElementById('totalPrice').textContent = montant.toLocaleString('fr-FR') + ' €';
+  const parts = [];
+  if (counts.adults)   parts.push(`${counts.adults} adulte${counts.adults>1?'s':''} × ${a.prix} €`);
+  if (counts.children) parts.push(`${counts.children} enfant${counts.children>1?'s':''} × ${a.prix} €`);
+  document.getElementById('totalDetail').textContent = parts.join(' + ');
+  document.getElementById('btnReserver').disabled = (total === 0);
+}
+
+function ajouterAuPanier() {
+  if (!a) return;
+  const adultes = counts.adults;
+  const enfants = counts.children;
+  const total   = adultes + enfants;
+  const montant = total * a.prix;
+
+  const item = {
+    type_article:    'activite',
+    id_article:      a.id,
+    nom:             a.nom,
+    prix_unitaire:   a.prix,
+    adultes:         adultes,
+    enfants:         enfants,
+    total_personnes: total,
+    montant_total:   montant,
+    categorie:       a.cat,
+    ville:           a.ville,
+    pays:            a.pays,
+    date_activite:   a.date,
+    heure:           a.heure,
+    duree:           a.duree,
+    difficulte:      a.diff,
+  };
+
+  let panier = [];
+  try { panier = JSON.parse(sessionStorage.getItem('voyagevista_panier') || '[]'); } catch(e) {}
+  const idx = panier.findIndex(p => p.type_article==='activite' && p.id_article===a.id);
+  if (idx>=0) panier[idx]=item; else panier.push(item);
+  sessionStorage.setItem('voyagevista_panier', JSON.stringify(panier));
+
+  showToast(`✓ ${a.nom} ajouté au panier !`);
+}
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3200);
+}
+</script>
+</body>
+</html>
