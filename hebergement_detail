@@ -37,7 +37,6 @@
 
     main{margin-left:var(--sidebar-w);padding-top:var(--header-h);min-height:100vh}
 
-    /* HERO */
     .hero{position:relative;width:100%;height:360px;background:linear-gradient(135deg,#c8d8c8,#a8c4a8);overflow:hidden;display:flex;align-items:center;justify-content:center}
     .hero img{width:100%;height:100%;object-fit:cover;display:block}
     .hero-placeholder{display:flex;flex-direction:column;align-items:center;gap:12px;color:rgba(255,255,255,.7)}
@@ -53,28 +52,23 @@
     .hero-note-stars{font-size:.85rem;letter-spacing:2px;color:#f5c842;margin:2px 0}
     .hero-note-sub{font-size:.7rem;opacity:.75}
 
-    /* CONTENT */
     .content-wrap{display:flex;gap:32px;padding:32px 40px 80px;align-items:flex-start}
     .content-main{flex:1;min-width:0}
 
-    /* INFO CARDS */
     .info-cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
     .info-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:110px}
     .info-card-label{font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
     .info-card-value{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--accent)}
     .info-card-sub{font-size:.7rem;color:var(--muted)}
 
-    /* SECTION */
     .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
     .section-title-lg{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin-bottom:14px}
     .desc-text{font-size:.9rem;line-height:1.75;color:#444;margin-bottom:28px}
 
-    /* ÉQUIPEMENTS GRID */
     .equip-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:28px}
     .equip-item{display:flex;align-items:center;gap:10px;font-size:.875rem;color:var(--text)}
     .equip-icon{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
 
-    /* BADGES */
     .badges-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
     .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:99px;font-size:.75rem;font-weight:600}
     .badge svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.2}
@@ -82,25 +76,21 @@
     .badge-blue{background:#e8f4fd;color:#0d47a1;border:1px solid #b3d4f5}
     .badge-neutral{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
 
-    /* TABS */
     .tabs{display:flex;border-bottom:2px solid var(--border);margin:24px 0 20px}
     .tab-btn{padding:10px 24px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:var(--muted);cursor:pointer;transition:color .18s,border-color .18s}
     .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
     .tab-panel{display:none}
     .tab-panel.active{display:block}
 
-    /* AVIS */
     .avis-empty{padding:40px 0;text-align:center;color:var(--muted);font-size:.9rem}
     .avis-empty svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1.3;opacity:.4;display:block;margin:0 auto 10px}
 
-    /* DETAIL TABLE */
     .detail-table{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px}
     .dt-row{display:flex;align-items:center;padding:11px 18px;border-bottom:1px solid var(--border)}
     .dt-row:last-child{border-bottom:none}
     .dt-label{font-size:.76rem;font-weight:600;color:var(--muted);width:170px;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em}
     .dt-value{font-size:.875rem;color:var(--text)}
 
-    /* BOOKING */
     .booking-sidebar{width:300px;flex-shrink:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;position:sticky;top:calc(var(--header-h) + 24px);box-shadow:0 4px 24px rgba(0,0,0,.08)}
     .booking-price-label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
     .booking-price-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent)}
@@ -108,14 +98,12 @@
     .booking-divider{height:1px;background:var(--border);margin:16px 0}
     .booking-section-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 
-    /* Dates */
     .date-row{display:flex;gap:8px;margin-bottom:12px}
     .date-field{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;transition:border-color .18s}
     .date-field:focus-within{border-color:var(--accent)}
     .date-field label{display:block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
     .date-field input{width:100%;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--text);background:transparent}
 
-    /* Voyageurs */
     .voy-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
     .voy-row:last-of-type{border-bottom:none}
     .voy-label{font-size:.875rem;font-weight:500}
@@ -125,7 +113,6 @@
     .voy-btn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
     .voy-count{font-weight:700;min-width:22px;text-align:center;font-size:1rem}
 
-    /* Total */
     .booking-total{margin-top:16px;padding:14px 16px;background:var(--accent-soft);border:1.5px solid #c0dcc4;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
     .booking-total-label{font-size:.8rem;font-weight:600;color:var(--accent)}
     .booking-total-val{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--accent)}
@@ -134,19 +121,17 @@
     .btn-reserver:hover{background:#086720}
     .btn-reserver:active{transform:scale(.98)}
     .booking-note-info{margin-top:12px;font-size:.75rem;color:var(--muted);text-align:center;line-height:1.5}
+    .btn-reserver:disabled {background: var(--border);color: var(--muted);cursor: not-allowed;}
 
-    /* STARS */
     .stars-row{display:flex;align-items:center;gap:4px;margin-bottom:14px}
     .star-full{fill:#f5c842;stroke:none}
     .star-empty{fill:none;stroke:#ddd;stroke-width:1.5}
 
-    /* PLACES BAR */
     .places-bar-wrap{margin-bottom:28px}
     .places-bar-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:6px}
     .places-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
     .places-bar-fill{height:100%;border-radius:3px;background:var(--accent)}
 
-    /* ERROR */
     .error-state{margin-left:var(--sidebar-w);padding-top:var(--header-h);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px;text-align:center}
     .error-state svg{width:56px;height:56px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:.4}
     .error-state h2{font-family:'Playfair Display',serif;font-size:1.6rem}
@@ -207,11 +192,11 @@
       <div><div class="footer-brand-name">VoyageVista</div><p class="footer-tagline">Des voyages inoubliables pour les jeunes explorateurs. Partez loin, dépensez peu, vivez fort.</p></div>
       <div class="footer-col"><h4>Explorer</h4><a href="catalogue.php">Toutes les destinations</a><a href="transport.php">Transports</a><a href="hebergement.php">Hébergements</a><a href="activites.php">Activités</a></div>
       <div class="footer-col"><h4>Mon compte</h4><a href="connexion.php">Connexion</a><a href="mon-espace.php">Mon espace</a><a href="panier.php">Mon panier</a><a href="itineraire.php">Mes itinéraires</a></div>
-      <div class="footer-col"><h4>Informations</h4><a href="a-propos.php">À propos</a><a href="cgu.php">CGU</a><a href="contact.php">Contact</a><a href="#">Réseaux sociaux</a></div>
+      <div class="footer-col"><h4>Informations</h4><a href="a_propos.html">À propos</a><a href="cgu.html">CGU</a><a href="contact.html">Contact</a><a href="#">Réseaux sociaux</a></div>
     </div>
     <div class="footer-bottom">
       <span>© 2025 VoyageVista — Tous droits réservés</span>
-      <div class="footer-bottom-links"><a href="cgu.php">CGU</a><a href="#">Politique de confidentialité</a><a href="contact.php">Contact</a></div>
+      <div class="footer-bottom-links"><a href="cgu.html">CGU</a><a href="confidentialite.html">Politique de confidentialité</a><a href="contact.html">Contact</a></div>
     </div>
   </div>
 </footer>
@@ -304,7 +289,6 @@ const hebergements = [
   {id:67, nom:'Furnas Valley Guesthouse',    type:'guesthouse',       ville:'Furnas',            pays:'Portugal',           prix:38,  note:4.8, avis:134, equip:'WiFi,Petit-dejeuner,Terrasse,Sources-chaudes',    pdej:1, annul:1, desc:"Guesthouse au cœur de la vallée volcanique de Furnas. Accès direct aux caldeiras fumantes et aux sources chaudes naturelles.",                                    image:'imageAcores.jpeg',capacite:8},
 ];
 
-// ── HELPERS ──────────────────────────────────
 function starsHTML(note, size=14) {
   let h = '';
   for (let i=1;i<=5;i++) {
@@ -314,7 +298,6 @@ function starsHTML(note, size=14) {
   return h;
 }
 
-// ── LECTURE URL ───────────────────────────────
 const params = new URLSearchParams(window.location.search);
 const id = parseInt(params.get('id'));
 const h  = hebergements.find(x => x.id === id);
@@ -509,7 +492,6 @@ if (!h) {
     </div>
   </main>`;
 
-  // Sidebar footer
   const sidebar = document.getElementById('sidebar');
   const footer  = document.getElementById('footer');
   function updateSidebarBottom() {
@@ -521,12 +503,13 @@ if (!h) {
   updateSidebarBottom();
 }
 
-// ── COMPTEUR & TOTAL ──────────────────────────
 const counts = {adults:1, children:0};
 
 function changeCount(type, delta) {
-  counts[type] = Math.max(type==='adults'?1:0, counts[type]+delta);
-  document.getElementById(type+'Count').textContent = counts[type];
+  const total = counts.adults + counts.children;
+  if (delta > 0 && total >= h.capacite) return; 
+  counts[type] = Math.max(type==='adults' ? 1 : 0, counts[type] + delta);
+  document.getElementById(type + 'Count').textContent = counts[type];
   updateTotal();
 }
 
@@ -540,25 +523,35 @@ function getNuits() {
 
 function updateTotal() {
   if (!h) return;
-  const nuits   = getNuits();
-  const montant = nuits * h.prix;
-  document.getElementById('totalPrice').textContent = montant.toLocaleString('fr-FR') + ' €';
-  document.getElementById('totalDetail').textContent = `${nuits} nuit${nuits>1?'s':''} × ${h.prix} €`;
+  const nuits = getNuits();
+  const personnes = counts.adults + counts.children;
+  const montant = nuits * personnes * h.prix;
+
+  const tp = document.getElementById('totalPrice');
+  const td = document.getElementById('totalDetail');
+  const btn = document.getElementById('btnReserver');
+
+  if (tp) tp.textContent = montant.toLocaleString('fr-FR') + ' €';
+  if (td) {
+    let parts = [];
+    if (counts.adults)   parts.push(`${counts.adults} adulte${counts.adults > 1 ? 's' : ''}`);
+    if (counts.children) parts.push(`${counts.children} enfant${counts.children > 1 ? 's' : ''}`);
+    td.textContent = `${parts.join(' + ')} × ${nuits} nuit${nuits > 1 ? 's' : ''} × ${h.prix} €`;
+  }
+  if (btn) btn.disabled = (personnes === 0);
 }
 
-// ── PANIER (même format que destinations et transports) ──
 function ajouterAuPanier() {
   if (!h) return;
   const nuits   = getNuits();
   const adultes = counts.adults;
   const enfants = counts.children;
-  const montant = nuits * h.prix;
+  const montant = nuits * (adultes + enfants) * h.prix;
 
   const dateA = document.getElementById('dateArrivee')?.value || '';
   const dateD = document.getElementById('dateDepart')?.value  || '';
 
   const item = {
-    // Champs communs
     type_article:    'hebergement',
     id_article:      h.id,
     nom:             h.nom,
@@ -567,7 +560,6 @@ function ajouterAuPanier() {
     enfants:         enfants,
     total_personnes: adultes + enfants,
     montant_total:   montant,
-    // Champs spécifiques hébergement
     type_hebergement: h.type,
     ville:           h.ville,
     pays:            h.pays,
@@ -585,7 +577,6 @@ function ajouterAuPanier() {
   showToast(`✓ ${h.nom} ajouté au panier !`);
 }
 
-// ── TABS ──────────────────────────────────────
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -593,7 +584,6 @@ function switchTab(id, btn) {
   document.getElementById('tab-'+id).classList.add('active');
 }
 
-// ── TOAST ─────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
