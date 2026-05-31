@@ -24,7 +24,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-    /* ── HEADER ── */
     header {
       position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
       background: var(--surface); border-bottom: 1px solid var(--border);
@@ -63,10 +62,8 @@
     }
     .btn-connexion:hover { background: var(--accent); color: #fff; }
 
-    /* ── LAYOUT ── */
     .layout { display: flex; padding-top: var(--header-h); min-height: 100vh; }
 
-    /* ── SIDEBAR ── */
     aside {
       width: var(--sidebar-w); background: var(--surface);
       border-right: 1px solid var(--border);
@@ -84,10 +81,8 @@
     .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
     .nav-item.active svg { stroke: #fff; }
 
-    /* ── MAIN ── */
     main { margin-left: var(--sidebar-w); flex: 1; padding: 48px 56px 80px; max-width: 980px; }
 
-    /* ── HERO ── */
     .hero {
       background: var(--accent); border-radius: var(--radius);
       padding: 44px 56px; margin-bottom: 36px; position: relative; overflow: hidden;
@@ -108,7 +103,6 @@
     .hero-meta { font-size: .875rem; color: rgba(255,255,255,.6); }
     .hero-meta strong { color: rgba(255,255,255,.85); }
 
-    /* ── RGPD BADGE ROW ── */
     .rgpd-row {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
       margin-bottom: 36px;
@@ -127,7 +121,6 @@
     .rgpd-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
     .rgpd-label { font-size: .82rem; font-weight: 600; color: var(--text); }
 
-    /* ── TABLE OF CONTENTS ── */
     .toc-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); box-shadow: var(--shadow);
@@ -151,7 +144,6 @@
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
 
-    /* ── SECTION CARD ── */
     .conf-section {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); box-shadow: var(--shadow);
@@ -181,7 +173,6 @@
     .conf-body a { color: var(--accent); text-decoration: none; }
     .conf-body a:hover { text-decoration: underline; }
 
-    /* ── TABLE DE DONNÉES ── */
     .data-table {
       width: 100%; border-collapse: collapse; margin: 16px 0; font-size: .875rem;
     }
@@ -198,7 +189,6 @@
     .data-table tr:last-child td { border-bottom: none; }
     .data-table tr:hover td { background: #fafaf8; }
 
-    /* ── DROITS GRID ── */
     .rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
     .right-card {
       background: var(--accent-soft); border-radius: 10px;
@@ -213,14 +203,12 @@
     .right-title { font-size: .875rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
     .right-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
 
-    /* ── HIGHLIGHT ── */
     .conf-highlight {
       background: var(--accent-soft); border-left: 3px solid var(--accent);
       border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0;
       font-size: .875rem; line-height: 1.7; color: var(--text);
     }
 
-    /* ── CONTACT CTA ── */
     .cta-banner {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); box-shadow: var(--shadow);
@@ -241,7 +229,6 @@
     }
     .btn-cta:hover { background: #025a28; }
 
-    /* ── FOOTER ── */
     footer { background: var(--text); color: rgba(255,255,255,.7); width: 100%; }
     .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
@@ -255,7 +242,6 @@
     .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
     .footer-bottom-links a:hover { color: #fff; }
 
-    /* ── BACK TO TOP ── */
     #backToTop {
       position: fixed; bottom: 32px; right: 32px; width: 46px; height: 46px;
       border-radius: 50%; background: var(--accent); color: #fff; border: none;
@@ -271,43 +257,38 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <a href="Accueil.html" class="logo">
+  <a href="Accueil.php" class="logo">
     <div class="logo-badge"><span>VoyageVista</span></div>
   </a>
   <div class="header-right">
-    <a href="monespace.html" class="icon-btn" title="Mon espace">
+    <a href="monespace.php" class="icon-btn" title="Mon espace">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     </a>
-    <a href="notifications.html" class="icon-btn" title="Notifications">
+    <a href="notifications.php" class="icon-btn" title="Notifications">
       <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="dot"></span>
     </a>
-    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+    <button class="btn-connexion" onclick="window.location='connexion.php'">Connexion</button>
   </div>
 </header>
 
-<!-- LAYOUT -->
 <div class="layout">
 
-  <!-- SIDEBAR -->
   <aside id="sidebar">
-    <a href="Accueil.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
-    <a href="catalogue.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
-    <a href="transport.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
-    <a href="hebergement.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
-    <a href="activite.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
-    <a href="itineraire.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
-    <a href="panier.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
-    <a href="notifications.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
-    <a href="monespace.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+    <a href="Accueil.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+    <a href="catalogue.php" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+    <a href="transport.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+    <a href="hebergement.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+    <a href="activites.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+    <a href="itineraire.php" class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+    <a href="panier.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+    <a href="notifications.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+    <a href="mon-espace.php" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
   </aside>
 
-  <!-- MAIN -->
   <main>
 
-    <!-- HERO -->
     <div class="hero">
       <div class="hero-eyebrow">Documents légaux</div>
       <h1 class="hero-title">Politique de confidentialité</h1>
@@ -317,7 +298,6 @@
       </div>
     </div>
 
-    <!-- ENGAGEMENTS RGPD -->
     <div class="rgpd-row">
       <div class="rgpd-card">
         <div class="rgpd-icon">
@@ -345,7 +325,6 @@
       </div>
     </div>
 
-    <!-- SOMMAIRE -->
     <div class="toc-card">
       <div class="toc-title">Sommaire</div>
       <div class="toc-list">
@@ -362,7 +341,6 @@
       </div>
     </div>
 
-    <!-- SECTION 1 -->
     <div class="conf-section" id="s1">
       <div class="conf-section-header">
         <div class="conf-num">1</div>
@@ -377,7 +355,6 @@
       </div>
     </div>
 
-    <!-- SECTION 2 -->
     <div class="conf-section" id="s2">
       <div class="conf-section-header">
         <div class="conf-num">2</div>
@@ -432,7 +409,6 @@
       </div>
     </div>
 
-    <!-- SECTION 3 -->
     <div class="conf-section" id="s3">
       <div class="conf-section-header">
         <div class="conf-num">3</div>
@@ -451,7 +427,6 @@
       </div>
     </div>
 
-    <!-- SECTION 4 -->
     <div class="conf-section" id="s4">
       <div class="conf-section-header">
         <div class="conf-num">4</div>
@@ -467,7 +442,6 @@
       </div>
     </div>
 
-    <!-- SECTION 5 -->
     <div class="conf-section" id="s5">
       <div class="conf-section-header">
         <div class="conf-num">5</div>
@@ -510,7 +484,6 @@
       </div>
     </div>
 
-    <!-- SECTION 6 -->
     <div class="conf-section" id="s6">
       <div class="conf-section-header">
         <div class="conf-num">6</div>
@@ -529,7 +502,6 @@
       </div>
     </div>
 
-    <!-- SECTION 7 — DROITS RGPD -->
     <div class="conf-section" id="s7">
       <div class="conf-section-header">
         <div class="conf-num">7</div>
@@ -587,7 +559,6 @@
       </div>
     </div>
 
-    <!-- SECTION 8 -->
     <div class="conf-section" id="s8">
       <div class="conf-section-header">
         <div class="conf-num">8</div>
@@ -608,7 +579,6 @@
       </div>
     </div>
 
-    <!-- SECTION 9 -->
     <div class="conf-section" id="s9">
       <div class="conf-section-header">
         <div class="conf-num">9</div>
@@ -637,7 +607,6 @@
       </div>
     </div>
 
-    <!-- SECTION 10 -->
     <div class="conf-section" id="s10">
       <div class="conf-section-header">
         <div class="conf-num">10</div>
@@ -650,7 +619,6 @@
       </div>
     </div>
 
-    <!-- CONTACT CTA -->
     <div class="cta-banner">
       <div>
         <h3>Des questions sur vos données ?</h3>
@@ -662,7 +630,6 @@
   </main>
 </div>
 
-<!-- FOOTER -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-grid">
@@ -675,12 +642,12 @@
         <a href="catalogue.php">Toutes les destinations</a>
         <a href="transport.php">Transports</a>
         <a href="hebergement.php">Hébergements</a>
-        <a href="activite.php">Activités</a>
+        <a href="activites.php">Activités</a>
       </div>
       <div class="footer-col">
         <h4>Mon compte</h4>
         <a href="connexion.php">Connexion</a>
-        <a href="monespace.php">Mon espace</a>
+        <a href="mon-espace.php">Mon espace</a>
         <a href="panier.php">Mon panier</a>
         <a href="itineraire.php">Mes itinéraires</a>
       </div>
@@ -695,7 +662,7 @@
     <div class="footer-bottom">
       <span>© 2025 VoyageVista — Projet ING2 ECE Paris</span>
       <div class="footer-bottom-links">
-        <a href="CGU.html">CGU</a>
+        <a href="cgu.html">CGU</a>
         <a href="confidentialite.html">Confidentialité</a>
         <a href="contact.html">Contact</a>
       </div>
@@ -723,4 +690,3 @@
 </script>
 </body>
 </html>
-
