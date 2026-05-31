@@ -9,14 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f5f3ef; --surface: #ffffff; --border: #e2ddd6;
-      --text: #1a1714; --muted: #788a7b; --accent: #013819;
-      --accent-soft: #e4f5ea; --header-h: 64px; --sidebar-w: 200px;
+      --bg: #f5f3ef; 
+      --surface: #ffffff; 
+      --border: #e2ddd6;
+      --text: #1a1714; 
+      --muted: #788a7b; 
+      --accent: #013819;
+      --accent-soft: #e4f5ea; 
+      --header-h: 64px; 
+      --sidebar-w: 200px;
       --radius: 12px; --shadow: 0 2px 16px rgba(0,0,0,.07);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* On bloque le scroll horizontal sur toute la page */
     html, body {
       overflow-x: hidden;
       font-family: 'DM Sans', sans-serif;
@@ -81,13 +86,10 @@
 
     .destinations-section { margin-bottom: 56px; }
 
-    /* Wrapper pour le scroll horizontal — isolé ici */
     .cards-scroll-wrapper {
       overflow-x: auto;
       overflow-y: visible;
-      /* On masque la scrollbar sur tout sauf la zone des cards */
       padding-bottom: 12px;
-      /* Empêche le scroll de remonter au body */
       overscroll-behavior-x: contain;
     }
     .cards-scroll-wrapper::-webkit-scrollbar { height: 4px; }
@@ -98,9 +100,8 @@
       display: flex;
       gap: 20px;
       scroll-snap-type: x mandatory;
-      /* Largeur minimale = contenu, pas la largeur du parent */
       width: max-content;
-      padding-right: 4px; /* petit espace à droite */
+      padding-right: 4px; 
     }
 
     .dest-card { width: 240px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); scroll-snap-align: start; transition: transform .2s, box-shadow .2s; flex-shrink: 0; }
@@ -122,7 +123,6 @@
     .voir-tout-link { display: flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--accent); font-size: .875rem; font-weight: 600; text-decoration: none; cursor: pointer; width: fit-content; }
     .voir-tout-link:hover { text-decoration: underline; }
 
-    /* Grille recommandes — pas de scroll horizontal, juste une grille */
     .reco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .reco-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; transition: transform .2s, box-shadow .2s; }
     .reco-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
@@ -258,7 +258,6 @@
 
     <div class="destinations-section">
       <h2 class="section-title">Destinations populaires</h2>
-      <!-- Wrapper qui reçoit le scroll horizontal -->
       <div class="cards-scroll-wrapper">
         <div class="cards-row" id="popularRow"></div>
       </div>
@@ -295,18 +294,18 @@
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a-propos.php">A propos</a>
-        <a href="cgu.php">CGU</a>
-        <a href="contact.php">Contact</a>
+        <a href="a_propos.html">A propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
         <a href="#">Reseaux sociaux</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>2025 VoyageVista - Tous droits reserves</span>
       <div class="footer-bottom-links">
-        <a href="cgu.php">CGU</a>
-        <a href="#">Confidentialite</a>
-        <a href="contact.php">Contact</a>
+        <a href="cgu.html">CGU</a>
+        <a href="confidentialite.html">Confidentialite</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </div>
@@ -319,7 +318,6 @@
 <script>
   const allDestinations = json_encode($destinations, JSON_UNESCAPED_UNICODE) ;
 
-  /* Voyageurs */
   const counts = { adults: 0, children: 0 };
   document.getElementById('voyageursField').addEventListener('click', function(e) {
     if (e.target.classList.contains('voy-btn')) return;
@@ -350,11 +348,9 @@
     alert('Recherche lancee pour : ' + dest);
   }
 
-  /* Back to top */
   const btn = document.getElementById('backToTop');
   window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 300); });
 
-  /* Sidebar stops at footer */
   const sidebar = document.getElementById('sidebar');
   const footer  = document.getElementById('footer');
   function updateSidebarBottom() {
@@ -366,7 +362,6 @@
   window.addEventListener('resize', updateSidebarBottom);
   updateSidebarBottom();
 
-  /* Helpers */
   function starRating(note) {
     const n = parseFloat(note);
     const full = Math.floor(n);
@@ -382,7 +377,6 @@
     return '<span class="card-badge ' + cls + '">' + badge + '</span>';
   }
 
-  /* Render populaires */
   function renderPopular(destinations) {
     const popular = destinations.filter(d => parseInt(d.tag_populaire) === 1);
     const row = document.getElementById('popularRow');
@@ -409,7 +403,6 @@
     ).join('');
   }
 
-  /* Render recommandes */
   function renderReco(destinations) {
     const reco = destinations.filter(d => parseInt(d.tag_recommande) === 1).slice(0, 4);
     const grid = document.getElementById('recoGrid');
@@ -436,7 +429,6 @@
     ).join('');
   }
 
-  /* Filtre categories */
   function filterCat(btn, cat) {
     document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
@@ -445,7 +437,6 @@
     renderReco(filtered);
   }
 
-  /* Init */
   renderPopular(allDestinations);
   renderReco(allDestinations);
 </script>
