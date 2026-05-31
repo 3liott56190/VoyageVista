@@ -772,7 +772,7 @@ function handleLogin() {
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
 
-      <p class="panel-register">Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
+      <p class="panel-register">Pas encore de compte ? <a href="inscription.php">Créer un compte</a></p>
     </div>
   </div>
 </div>
@@ -1021,8 +1021,8 @@ function handleLogin() {
 <script>
   const destinations = {
     user:   'Accueil.php',
-    presta: 'espace-prestataire.html',
-    admin:  'admin-dashboard.html'
+    presta: 'espace-prestataire.php',
+    admin:  'admin-dashboard.php'
   };
   const labels = {
     user:   'Utilisateur',
@@ -1221,7 +1221,7 @@ function handleLogin() {
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a_propos.html">À propos</a>
+        <a href="a-propos.html">À propos</a>
         <a href="cgu.html">CGU</a>
         <a href="contact.html">Contact</a>
         <a href="#">Réseaux sociaux</a>
@@ -1370,7 +1370,7 @@ function handleLogin() {
 
   // Ouvrir l'overlay inscription depuis le lien "Créer un compte"
   document.addEventListener('DOMContentLoaded', () => {
-    const lienInscr = document.querySelector('.panel-register a[href="inscription.php"]');
+    const lienInscr = document.querySelector('.panel-register a[href="inscription.html"]');
     if (lienInscr) {
       lienInscr.href = '#';
       lienInscr.onclick = (e) => { e.preventDefault(); openInscription(); };
