@@ -232,7 +232,7 @@
       <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="dot"></span>
     </a>
-    <button class="btn-connexion" onclick="window.location='connexion.html'">Connexion</button>
+    <button class="btn-connexion" onclick="window.location='connexion.php'">Connexion</button>
   </div>
 </header>
 
@@ -380,18 +380,18 @@
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a-propos.php">À propos</a>
-        <a href="cgu.php">CGU</a>
-        <a href="contact.php">Contact</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
         <a href="#">Réseaux sociaux</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2025 VoyageVista — Tous droits réservés</span>
       <div class="footer-bottom-links">
-        <a href="cgu.php">CGU</a>
-        <a href="#">Politique de confidentialité</a>
-        <a href="contact.php">Contact</a>
+        <a href="cgu.html">CGU</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </div>
