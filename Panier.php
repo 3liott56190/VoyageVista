@@ -191,25 +191,25 @@
 
 <!-- HEADER -->
 <header>
-  <a href="catalogue.html" class="logo"><div class="logo-badge"><span>VoyageVista</span></div></a>
+  <a href="catalogue.php" class="logo"><div class="logo-badge"><span>VoyageVista</span></div></a>
   <div class="header-right">
-    <a href="mon-espace.html" class="icon-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></a>
-    <a href="notifications.html" class="icon-btn"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></a>
-    <button class="btn-connexion" id="btn-header-connexion" onclick="window.location='identifiant.html'">Connexion</button>
+    <a href="mon-espace.php" class="icon-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></a>
+    <a href="notifications.php" class="icon-btn"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></a>
+    <button class="btn-connexion" id="btn-header-connexion" onclick="window.location='connexion.php'">Connexion</button>
   </div>
 </header>
 
 <!-- SIDEBAR -->
 <aside>
-  <a href="accueil.html"      class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
-  <a href="catalogue.html"   class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
-  <a href="transport.html"   class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
-  <a href="hebergement.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
-  <a href="activites.html"   class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
-  <a href="itineraire.html"  class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
-  <a href="panier.html"      class="nav-item active"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
-  <a href="notifications.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
-  <a href="mon-espace.html"  class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
+  <a href="accueil.php"      class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</a>
+  <a href="catalogue.php"   class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Catalogue</a>
+  <a href="transport.php"   class="nav-item"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Transport</a>
+  <a href="hebergement.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Hébergement</a>
+  <a href="activites.php"   class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Activités</a>
+  <a href="itineraire.php"  class="nav-item"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/></svg>Itinéraire</a>
+  <a href="panier.php"      class="nav-item active"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</a>
+  <a href="notifications.php" class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</a>
+  <a href="mon-espace.php"  class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mon espace</a>
 </aside>
 
 <!-- PAGE HEADER -->
@@ -231,7 +231,7 @@
     <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
     Vous devez être connecté pour finaliser votre achat.
   </div>
-  <button class="btn-login-now" onclick="window.location.href='identifiant.html'">Se connecter</button>
+  <button class="btn-login-now" onclick="window.location.href='connexion.php'">Se connecter</button>
 </div>
 
 <!-- LAYOUT -->
@@ -255,7 +255,7 @@
         <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         Payer maintenant
       </button>
-      <button class="btn-itin" onclick="window.location.href='itineraire.html'">
+      <button class="btn-itin" onclick="window.location.href='itineraire.php'">
         Ajouter à mon itinéraire
       </button>
     </div>
@@ -356,17 +356,17 @@
       </div>
       <div class="footer-col">
         <h4>Explorer</h4>
-        <a href="catalogue.html">Toutes les destinations</a>
-        <a href="transport.html">Transports</a>
-        <a href="hebergement.html">Hébergements</a>
-        <a href="activites.html">Activités</a>
+        <a href="catalogue.php">Toutes les destinations</a>
+        <a href="transport.php">Transports</a>
+        <a href="hebergement.php">Hébergements</a>
+        <a href="activites.php">Activités</a>
       </div>
       <div class="footer-col">
         <h4>Mon compte</h4>
-        <a href="identifiant.html">Connexion</a>
-        <a href="mon-espace.html">Mon espace</a>
-        <a href="panier.html">Mon panier</a>
-        <a href="itineraire.html">Mes itinéraires</a>
+        <a href="identifiant.php">Connexion</a>
+        <a href="mon-espace.php">Mon espace</a>
+        <a href="panier.php">Mon panier</a>
+        <a href="itineraire.php">Mes itinéraires</a>
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
@@ -476,7 +476,7 @@ function renderPanier() {
         <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         <h3>Votre panier est vide</h3>
         <p>Explorez nos destinations, hébergements, transports et activités<br>pour composer votre voyage idéal.</p>
-        <a class="btn-explorer" href="catalogue.html">
+        <a class="btn-explorer" href="catalogue.php">
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="#fff" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           Explorer le catalogue
         </a>
@@ -711,7 +711,7 @@ function verifierConnexion() {
       overlay.innerHTML = `
         <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <p>Connectez-vous pour<br>procéder au paiement</p>
-        <button class="btn-login-lock" onclick="window.location.href='identifiant.html'">Se connecter</button>`;
+        <button class="btn-login-lock" onclick="window.location.href='connexion.php'">Se connecter</button>`;
       recapSidebar.appendChild(overlay);
     }
     // Désactiver le bouton payer
@@ -725,7 +725,7 @@ function ouvrirPaiement() {
   const user = getUser();
   if (!user) {
     toast('⚠ Vous devez être connecté pour payer.');
-    setTimeout(() => window.location.href = 'identifiant.html', 1500);
+    setTimeout(() => window.location.href = 'identifiant.php', 1500);
     return;
   }
   // Pré-remplir le nom si disponible
