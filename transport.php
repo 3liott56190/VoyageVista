@@ -17,7 +17,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:hidden;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-/* HEADER */
 header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 0;z-index:100;box-shadow:var(--shadow)}
 .logo{display:flex;align-items:center;height:100%;text-decoration:none}
 .logo-badge{height:var(--header-h);background:var(--accent);display:flex;align-items:center;padding:0 28px 0 24px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
@@ -30,10 +29,8 @@ header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var
 .btn-connexion{height:36px;padding:0 20px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:background .18s,color .18s}
 .btn-connexion:hover{background:var(--accent);color:#fff}
 
-/* LAYOUT */
 .layout{display:flex;padding-top:var(--header-h);min-height:100vh}
 
-/* SIDEBAR */
 aside{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--header-h);left:0;bottom:0;padding:20px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;overflow-x:hidden;z-index:40}
 .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:400;color:var(--muted);transition:background .15s,color .15s;cursor:pointer;border:none;background:transparent;width:100%;font-family:'DM Sans',sans-serif}
 .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
@@ -41,20 +38,16 @@ aside{width:var(--sidebar-w);background:var(--surface);border-right:1px solid va
 .nav-item.active{background:var(--accent);color:#fff;font-weight:500}
 .nav-item.active svg{stroke:#fff}
 
-/* MAIN */
 main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction:column}
 
-/* STICKY SEARCH ZONE */
 .search-zone{position:fixed;top:var(--header-h);left: var(--sidebar-w);right:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;box-shadow:var(--shadow)}
 
-/* TYPE TABS */
 .type-tabs{display:flex;gap:0;border-bottom:2px solid var(--border)}
 .type-tab{display:flex;align-items:center;gap:7px;padding:14px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:color .18s,border-color .18s;white-space:nowrap}
 .type-tab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
 .type-tab:hover{color:var(--accent)}
 .type-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
 
-/* SEARCH FORM */
 .search-form-wrap{padding:14px 0 16px}
 .trip-type-row{display:flex;gap:20px;margin-bottom:12px}
 .radio-label{display:flex;align-items:center;gap:6px;font-size:.875rem;cursor:pointer;color:var(--muted)}
@@ -77,7 +70,6 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 #retourField{transition:opacity .2s}
 #retourField.hidden{opacity:0;pointer-events:none;flex:0;border:none;padding:0;overflow:hidden;min-width:0;max-width:0}
 
-/* Voyageurs dropdown */
 .voy-panel{position:absolute;top:calc(100% + 8px);left:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:16px;min-width:220px;z-index:300;display:none}
 .voy-panel.open{display:block}
 .voy-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
@@ -89,10 +81,8 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .voy-btn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
 .voy-count{font-weight:600;min-width:18px;text-align:center;font-size:.9rem}
 
-/* CONTENT AREA */
 .content-area{display:flex;flex:1;padding: 180px 32px 80px;gap:24px;align-items:flex-start}
 
-/* RESULTS */
 .results-col{flex:1;min-width:0}
 .results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
 .results-count{font-size:.9rem;color:var(--muted)}
@@ -100,19 +90,16 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .sort-select{padding:7px 32px 7px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;background:var(--surface);color:var(--text);cursor:pointer;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23788a7b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
 .sort-select:focus{border-color:var(--accent)}
 
-/* TRANSPORT CARD */
 .t-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;transition:box-shadow .2s,transform .15s,border-color .2s;cursor:pointer}
 .t-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px);border-color:#c8d8cb}
 .t-card:last-child{margin-bottom:0}
 
-/* Company logo box */
 .tc-logo{width:54px;height:54px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--accent);flex-shrink:0;text-align:center;line-height:1.2;padding:4px;letter-spacing:.02em}
 .tc-logo.train-logo{background:#e8f4fd;color:#0d47a1;border-color:#b3d4f5}
 .tc-logo.bus-logo{background:#fff8e1;color:#e65100;border-color:#ffe082}
 .tc-logo.ferry-logo{background:#e0f7fa;color:#00695c;border-color:#b2dfdb}
 .tc-logo.car-logo{background:#f3e5f5;color:#6a1b9a;border-color:#ce93d8}
 
-/* Card body */
 .tc-body{flex:1;min-width:0}
 .tc-route{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
 .tc-city{font-size:1rem;font-weight:600}
@@ -129,19 +116,16 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .tag-num{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
 .tag-places{background:#fce4ec;color:#880e4f}
 
-/* Price */
 .tc-price-col{text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
 .tc-price{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--text);white-space:nowrap}
 .tc-price-sub{font-size:.72rem;color:var(--muted)}
 .btn-select{padding:6px 18px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .btn-select:hover{background:var(--accent);color:#fff}
 
-/* No results */
 .no-results{text-align:center;padding:60px 20px;color:var(--muted)}
 .no-results .emoji{font-size:2.5rem;margin-bottom:12px}
 .no-results p{font-size:.95rem;margin-top:6px}
 
-/* FILTERS PANEL */
 .filters-panel{width:230px;flex-shrink:0}
 .filters-sticky{position:sticky;top:190px;max-height:calc(100vh - 80px);overflow-y:auto;padding-right:2px}
 .filters-sticky::-webkit-scrollbar{width:3px}
@@ -161,7 +145,6 @@ main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction
 .price-val{font-size:.82rem;font-weight:600;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 10px;color:var(--text)}
 .price-min{font-size:.75rem;color:var(--muted)}
 
-/* FOOTER */
 footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
 .footer-inner{padding:40px 48px 28px;margin-left:var(--sidebar-w)}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
@@ -182,7 +165,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
 </head>
 <body>
 
-<!-- ══ HEADER ══ -->
 <header>
   <a href="Accueil.php" class="logo">
     <div class="logo-badge"><span>VoyageVista</span></div>
@@ -201,7 +183,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
 
 <div class="layout">
 
-<!-- ══ SIDEBAR ══ -->
 <aside id="sidebar">
   <a href="Accueil.php" class="nav-item">
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
@@ -232,13 +213,10 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
   </a>
 </aside>
 
-<!-- ══ MAIN ══ -->
 <main>
 
-  <!-- STICKY SEARCH ZONE -->
   <div class="search-zone" id="searchZone">
 
-    <!-- Type tabs -->
     <div class="type-tabs">
       <button class="type-tab active" data-type="avion" onclick="switchType('avion',this)">
         <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
@@ -262,7 +240,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
       </button>
     </div>
 
-    <!-- Search form -->
     <div class="search-form-wrap">
       <div class="trip-type-row" id="tripTypeRow">
         <label class="radio-label active-label">
@@ -316,12 +293,10 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
         <button class="btn-search" onclick="doSearch()">Rechercher</button>
       </div>
     </div>
-  </div><!-- /search-zone -->
+  </div>
 
-  <!-- CONTENT AREA -->
   <div class="content-area">
 
-    <!-- Results column -->
     <div class="results-col">
       <div class="results-header">
         <div class="results-count" id="resultsCount">Chargement…</div>
@@ -335,7 +310,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
       <div id="resultsList"></div>
     </div>
 
-    <!-- Filters panel -->
     <div class="filters-panel">
       <div class="filters-sticky" id="filtersSticky">
         <div class="filter-card">
@@ -348,12 +322,11 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
       </div>
     </div>
 
-  </div><!-- /content-area -->
+  </div>
 
 </main>
-</div><!-- /layout -->
+</div>
 
-<!-- ══ FOOTER ══ -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-grid">
@@ -377,18 +350,18 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a-propos.php">À propos</a>
-        <a href="cgu.php">CGU</a>
-        <a href="contact.php">Contact</a>
+        <a href="a_propos.html">À propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
         <a href="#">Réseaux sociaux</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>2025 VoyageVista – Tous droits réservés</span>
       <div class="footer-bottom-links">
-        <a href="cgu.php">CGU</a>
-        <a href="#">Confidentialité</a>
-        <a href="contact.php">Contact</a>
+        <a href="cgu.html">CGU</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </div>
@@ -403,135 +376,200 @@ footer{background:var(--text);color:rgba(255,255,255,.7);width:100%}
    DATA — all transports from SQL
 ═══════════════════════════════════════════════ */
 const TRANSPORTS = [
-  // ── AVIONS Paris → destinations ──
-  {id:1, compagnie:'Air France',       type:'avion', numero:'AF257',   depart:'Paris',       arrivee:'Bali',             dateDepart:'2026-06-10', heureDepart:'09:00', dateArrivee:'2026-06-11', heureArrivee:'08:30', duree:1410, classe:'economique', prix:620,  places:180},
-  {id:2, compagnie:'Air France',       type:'avion', numero:'AF257',   depart:'Paris',       arrivee:'Bali',             dateDepart:'2026-06-17', heureDepart:'09:00', dateArrivee:'2026-06-18', heureArrivee:'08:30', duree:1410, classe:'economique', prix:650,  places:160},
-  {id:3, compagnie:'KLM',              type:'avion', numero:'KL836',   depart:'Paris',       arrivee:'Bali',             dateDepart:'2026-06-10', heureDepart:'11:30', dateArrivee:'2026-06-11', heureArrivee:'12:00', duree:1470, classe:'economique', prix:590,  places:200},
-  {id:4, compagnie:'KLM',              type:'avion', numero:'KL836',   depart:'Paris',       arrivee:'Bali',             dateDepart:'2026-07-01', heureDepart:'11:30', dateArrivee:'2026-07-02', heureArrivee:'12:00', duree:1470, classe:'economique', prix:680,  places:140},
-  {id:5, compagnie:'Emirates',         type:'avion', numero:'EK076',   depart:'Paris',       arrivee:'Bali',             dateDepart:'2026-06-15', heureDepart:'14:20', dateArrivee:'2026-06-16', heureArrivee:'16:50', duree:1470, classe:'business',   prix:1850, places:40},
-  {id:6, compagnie:'Emirates',         type:'avion', numero:'EK076',   depart:'Paris',       arrivee:'Bali',             dateDepart:'2026-07-10', heureDepart:'14:20', dateArrivee:'2026-07-11', heureArrivee:'16:50', duree:1470, classe:'business',   prix:1950, places:30},
-  {id:7, compagnie:'Vueling',          type:'avion', numero:'VY8320',  depart:'Paris',       arrivee:'Tenerife',         dateDepart:'2026-06-05', heureDepart:'07:15', dateArrivee:'2026-06-05', heureArrivee:'10:45', duree:210,  classe:'economique', prix:89,   places:190},
-  {id:8, compagnie:'Vueling',          type:'avion', numero:'VY8320',  depart:'Paris',       arrivee:'Tenerife',         dateDepart:'2026-06-12', heureDepart:'07:15', dateArrivee:'2026-06-12', heureArrivee:'10:45', duree:210,  classe:'economique', prix:110,  places:175},
-  {id:9, compagnie:'Transavia',        type:'avion', numero:'TO7410',  depart:'Paris',       arrivee:'Tenerife',         dateDepart:'2026-06-07', heureDepart:'10:30', dateArrivee:'2026-06-07', heureArrivee:'14:00', duree:210,  classe:'economique', prix:95,   places:180},
-  {id:10,compagnie:'Transavia',        type:'avion', numero:'TO7410',  depart:'Paris',       arrivee:'Tenerife',         dateDepart:'2026-07-05', heureDepart:'10:30', dateArrivee:'2026-07-05', heureArrivee:'14:00', duree:210,  classe:'economique', prix:130,  places:150},
-  {id:11,compagnie:'Air France',       type:'avion', numero:'AF1350',  depart:'Paris',       arrivee:'Tenerife',         dateDepart:'2026-06-20', heureDepart:'08:00', dateArrivee:'2026-06-20', heureArrivee:'11:30', duree:210,  classe:'economique', prix:145,  places:160},
-  {id:12,compagnie:'TAP Air Portugal', type:'avion', numero:'TP432',   depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-06-03', heureDepart:'08:45', dateArrivee:'2026-06-03', heureArrivee:'10:55', duree:130,  classe:'economique', prix:79,   places:200},
-  {id:13,compagnie:'TAP Air Portugal', type:'avion', numero:'TP432',   depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-06-10', heureDepart:'08:45', dateArrivee:'2026-06-10', heureArrivee:'10:55', duree:130,  classe:'economique', prix:95,   places:185},
-  {id:14,compagnie:'Easyjet',          type:'avion', numero:'U24571',  depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-06-05', heureDepart:'06:30', dateArrivee:'2026-06-05', heureArrivee:'08:40', duree:130,  classe:'economique', prix:65,   places:220},
-  {id:15,compagnie:'Easyjet',          type:'avion', numero:'U24571',  depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-06-15', heureDepart:'06:30', dateArrivee:'2026-06-15', heureArrivee:'08:40', duree:130,  classe:'economique', prix:72,   places:210},
-  {id:16,compagnie:'Air France',       type:'avion', numero:'AF1010',  depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-07-01', heureDepart:'09:15', dateArrivee:'2026-07-01', heureArrivee:'11:25', duree:130,  classe:'business',   prix:320,  places:50},
-  {id:17,compagnie:'Wizz Air',         type:'avion', numero:'W6401',   depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-06-04', heureDepart:'07:00', dateArrivee:'2026-06-04', heureArrivee:'09:30', duree:150,  classe:'economique', prix:55,   places:230},
-  {id:18,compagnie:'Wizz Air',         type:'avion', numero:'W6401',   depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-06-18', heureDepart:'07:00', dateArrivee:'2026-06-18', heureArrivee:'09:30', duree:150,  classe:'economique', prix:68,   places:200},
-  {id:19,compagnie:'Ryanair',          type:'avion', numero:'FR8821',  depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-06-06', heureDepart:'11:20', dateArrivee:'2026-06-06', heureArrivee:'13:50', duree:150,  classe:'economique', prix:48,   places:240},
-  {id:20,compagnie:'Ryanair',          type:'avion', numero:'FR8821',  depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-07-03', heureDepart:'11:20', dateArrivee:'2026-07-03', heureArrivee:'13:50', duree:150,  classe:'economique', prix:75,   places:180},
-  {id:21,compagnie:'Air France',       type:'avion', numero:'AF1230',  depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-06-10', heureDepart:'14:00', dateArrivee:'2026-06-10', heureArrivee:'16:30', duree:150,  classe:'business',   prix:290,  places:45},
-  {id:22,compagnie:'Vietnam Airlines', type:'avion', numero:'VN010',   depart:'Paris',       arrivee:'Hanoi',            dateDepart:'2026-06-08', heureDepart:'10:15', dateArrivee:'2026-06-09', heureArrivee:'05:30', duree:1155, classe:'economique', prix:550,  places:170},
-  {id:23,compagnie:'Vietnam Airlines', type:'avion', numero:'VN010',   depart:'Paris',       arrivee:'Hanoi',            dateDepart:'2026-06-22', heureDepart:'10:15', dateArrivee:'2026-06-23', heureArrivee:'05:30', duree:1155, classe:'economique', prix:580,  places:150},
-  {id:24,compagnie:'Air France',       type:'avion', numero:'AF254',   depart:'Paris',       arrivee:'Hanoi',            dateDepart:'2026-07-01', heureDepart:'11:45', dateArrivee:'2026-07-02', heureArrivee:'07:00', duree:1155, classe:'economique', prix:610,  places:160},
-  {id:25,compagnie:'Air France',       type:'avion', numero:'AF254',   depart:'Paris',       arrivee:'Hanoi',            dateDepart:'2026-07-15', heureDepart:'11:45', dateArrivee:'2026-07-16', heureArrivee:'07:00', duree:1155, classe:'business',   prix:1650, places:35},
-  {id:26,compagnie:'Qatar Airways',    type:'avion', numero:'QR147',   depart:'Paris',       arrivee:'Hanoi',            dateDepart:'2026-06-12', heureDepart:'13:30', dateArrivee:'2026-06-13', heureArrivee:'10:00', duree:1230, classe:'economique', prix:490,  places:190},
-  {id:27,compagnie:'Air France',       type:'avion', numero:'AF882',   depart:'Paris',       arrivee:'Zanzibar',         dateDepart:'2026-06-09', heureDepart:'08:30', dateArrivee:'2026-06-09', heureArrivee:'21:00', duree:750,  classe:'economique', prix:480,  places:160},
-  {id:28,compagnie:'Air France',       type:'avion', numero:'AF882',   depart:'Paris',       arrivee:'Zanzibar',         dateDepart:'2026-07-07', heureDepart:'08:30', dateArrivee:'2026-07-07', heureArrivee:'21:00', duree:750,  classe:'economique', prix:520,  places:140},
-  {id:29,compagnie:'Turkish Airlines', type:'avion', numero:'TK18',    depart:'Paris',       arrivee:'Zanzibar',         dateDepart:'2026-06-14', heureDepart:'10:00', dateArrivee:'2026-06-14', heureArrivee:'23:30', duree:810,  classe:'economique', prix:440,  places:200},
-  {id:30,compagnie:'Turkish Airlines', type:'avion', numero:'TK18',    depart:'Paris',       arrivee:'Zanzibar',         dateDepart:'2026-07-05', heureDepart:'10:00', dateArrivee:'2026-07-05', heureArrivee:'23:30', duree:810,  classe:'business',   prix:1380, places:40},
-  // ── Autres villes ──
-  {id:31,compagnie:'Vueling',          type:'avion', numero:'VY5610',  depart:'Lyon',        arrivee:'Lisbonne',         dateDepart:'2026-06-06', heureDepart:'07:30', dateArrivee:'2026-06-06', heureArrivee:'09:30', duree:120,  classe:'economique', prix:72,   places:190},
-  {id:32,compagnie:'Vueling',          type:'avion', numero:'VY5610',  depart:'Lyon',        arrivee:'Lisbonne',         dateDepart:'2026-06-20', heureDepart:'07:30', dateArrivee:'2026-06-20', heureArrivee:'09:30', duree:120,  classe:'economique', prix:88,   places:170},
-  {id:33,compagnie:'Transavia',        type:'avion', numero:'TO5412',  depart:'Lyon',        arrivee:'Tenerife',         dateDepart:'2026-06-08', heureDepart:'09:15', dateArrivee:'2026-06-08', heureArrivee:'12:30', duree:195,  classe:'economique', prix:98,   places:175},
-  {id:34,compagnie:'Transavia',        type:'avion', numero:'TO5412',  depart:'Lyon',        arrivee:'Tenerife',         dateDepart:'2026-07-06', heureDepart:'09:15', dateArrivee:'2026-07-06', heureArrivee:'12:30', duree:195,  classe:'economique', prix:120,  places:150},
-  {id:35,compagnie:'Air Arabia Maroc', type:'avion', numero:'MAC810',  depart:'Marseille',   arrivee:'Marrakech',        dateDepart:'2026-06-05', heureDepart:'08:00', dateArrivee:'2026-06-05', heureArrivee:'09:40', duree:100,  classe:'economique', prix:69,   places:210},
-  {id:36,compagnie:'Air Arabia Maroc', type:'avion', numero:'MAC810',  depart:'Marseille',   arrivee:'Marrakech',        dateDepart:'2026-06-19', heureDepart:'08:00', dateArrivee:'2026-06-19', heureArrivee:'09:40', duree:100,  classe:'economique', prix:82,   places:195},
-  {id:37,compagnie:'Ryanair',          type:'avion', numero:'FR4510',  depart:'Marseille',   arrivee:'Marrakech',        dateDepart:'2026-07-03', heureDepart:'11:00', dateArrivee:'2026-07-03', heureArrivee:'12:40', duree:100,  classe:'economique', prix:55,   places:230},
-  {id:38,compagnie:'Easyjet',          type:'avion', numero:'U23301',  depart:'Nice',        arrivee:'Prague',           dateDepart:'2026-06-07', heureDepart:'10:00', dateArrivee:'2026-06-07', heureArrivee:'12:30', duree:150,  classe:'economique', prix:62,   places:200},
-  {id:39,compagnie:'Easyjet',          type:'avion', numero:'U23301',  depart:'Nice',        arrivee:'Prague',           dateDepart:'2026-06-21', heureDepart:'10:00', dateArrivee:'2026-06-21', heureArrivee:'12:30', duree:150,  classe:'economique', prix:75,   places:180},
-  {id:40,compagnie:'Ryanair',          type:'avion', numero:'FR9021',  depart:'Bordeaux',    arrivee:'Budapest',         dateDepart:'2026-06-09', heureDepart:'06:45', dateArrivee:'2026-06-09', heureArrivee:'09:30', duree:165,  classe:'economique', prix:58,   places:220},
-  {id:41,compagnie:'Ryanair',          type:'avion', numero:'FR9021',  depart:'Bordeaux',    arrivee:'Budapest',         dateDepart:'2026-07-07', heureDepart:'06:45', dateArrivee:'2026-07-07', heureArrivee:'09:30', duree:165,  classe:'economique', prix:79,   places:190},
-  {id:42,compagnie:'Philippine Airlines',type:'avion',numero:'PR731',  depart:'Paris',       arrivee:'El Nido',          dateDepart:'2026-06-10', heureDepart:'09:00', dateArrivee:'2026-06-11', heureArrivee:'18:30', duree:1770, classe:'economique', prix:720,  places:150},
-  {id:43,compagnie:'Philippine Airlines',type:'avion',numero:'PR731',  depart:'Paris',       arrivee:'El Nido',          dateDepart:'2026-07-01', heureDepart:'09:00', dateArrivee:'2026-07-02', heureArrivee:'18:30', duree:1770, classe:'economique', prix:780,  places:130},
-  {id:44,compagnie:'Air France',       type:'avion', numero:'AF488',   depart:'Paris',       arrivee:'San Jose',         dateDepart:'2026-06-12', heureDepart:'11:30', dateArrivee:'2026-06-12', heureArrivee:'19:45', duree:615,  classe:'economique', prix:560,  places:165},
-  {id:45,compagnie:'Air France',       type:'avion', numero:'AF488',   depart:'Paris',       arrivee:'San Jose',         dateDepart:'2026-07-05', heureDepart:'11:30', dateArrivee:'2026-07-05', heureArrivee:'19:45', duree:615,  classe:'business',   prix:1480, places:40},
-  {id:46,compagnie:'Royal Jordanian',  type:'avion', numero:'RJ119',   depart:'Paris',       arrivee:'Amman',            dateDepart:'2026-06-08', heureDepart:'14:00', dateArrivee:'2026-06-08', heureArrivee:'20:00', duree:360,  classe:'economique', prix:290,  places:175},
-  {id:47,compagnie:'Royal Jordanian',  type:'avion', numero:'RJ119',   depart:'Paris',       arrivee:'Amman',            dateDepart:'2026-06-22', heureDepart:'14:00', dateArrivee:'2026-06-22', heureArrivee:'20:00', duree:360,  classe:'economique', prix:310,  places:160},
-  {id:48,compagnie:'Air France',       type:'avion', numero:'AF2002',  depart:'Paris',       arrivee:'Amman',            dateDepart:'2026-07-10', heureDepart:'09:00', dateArrivee:'2026-07-10', heureArrivee:'15:00', duree:360,  classe:'business',   prix:990,  places:45},
-  // ── TRAINS ──
-  {id:49,compagnie:'Renfe-SNCF',       type:'train', numero:'TGV9731', depart:'Paris',       arrivee:'Madrid',           dateDepart:'2026-06-05', heureDepart:'17:00', dateArrivee:'2026-06-06', heureArrivee:'09:30', duree:990,  classe:'economique', prix:89,   places:300},
-  {id:50,compagnie:'Renfe-SNCF',       type:'train', numero:'TGV9731', depart:'Paris',       arrivee:'Madrid',           dateDepart:'2026-06-19', heureDepart:'17:00', dateArrivee:'2026-06-20', heureArrivee:'09:30', duree:990,  classe:'economique', prix:105,  places:280},
-  {id:51,compagnie:'Renfe-SNCF',       type:'train', numero:'TGV9731', depart:'Paris',       arrivee:'Madrid',           dateDepart:'2026-07-03', heureDepart:'17:00', dateArrivee:'2026-07-04', heureArrivee:'09:30', duree:990,  classe:'business',   prix:195,  places:80},
-  {id:52,compagnie:'Railjet',          type:'train', numero:'RJ40',    depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-06-06', heureDepart:'07:22', dateArrivee:'2026-06-06', heureArrivee:'21:40', duree:858,  classe:'economique', prix:75,   places:350},
-  {id:53,compagnie:'Railjet',          type:'train', numero:'RJ40',    depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-06-20', heureDepart:'07:22', dateArrivee:'2026-06-20', heureArrivee:'21:40', duree:858,  classe:'economique', prix:88,   places:320},
-  {id:54,compagnie:'Railjet',          type:'train', numero:'RJ40',    depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-07-04', heureDepart:'07:22', dateArrivee:'2026-07-04', heureArrivee:'21:40', duree:858,  classe:'business',   prix:180,  places:60},
-  {id:55,compagnie:'DB ICE',           type:'train', numero:'ICE373',  depart:'Paris',       arrivee:'Prague',           dateDepart:'2026-06-04', heureDepart:'09:55', dateArrivee:'2026-06-04', heureArrivee:'19:15', duree:560,  classe:'economique', prix:65,   places:380},
-  {id:56,compagnie:'DB ICE',           type:'train', numero:'ICE373',  depart:'Paris',       arrivee:'Prague',           dateDepart:'2026-06-18', heureDepart:'09:55', dateArrivee:'2026-06-18', heureArrivee:'19:15', duree:560,  classe:'economique', prix:79,   places:350},
-  {id:57,compagnie:'DB ICE',           type:'train', numero:'ICE373',  depart:'Paris',       arrivee:'Prague',           dateDepart:'2026-07-02', heureDepart:'09:55', dateArrivee:'2026-07-02', heureArrivee:'19:15', duree:560,  classe:'business',   prix:155,  places:70},
-  {id:58,compagnie:'Renfe AVE',        type:'train', numero:'AVE102',  depart:'Paris',       arrivee:'Seville',          dateDepart:'2026-06-07', heureDepart:'08:15', dateArrivee:'2026-06-07', heureArrivee:'15:30', duree:555,  classe:'economique', prix:95,   places:290},
-  {id:59,compagnie:'Renfe AVE',        type:'train', numero:'AVE102',  depart:'Paris',       arrivee:'Seville',          dateDepart:'2026-06-21', heureDepart:'08:15', dateArrivee:'2026-06-21', heureArrivee:'15:30', duree:555,  classe:'economique', prix:110,  places:270},
-  {id:60,compagnie:'SNCF TGV',         type:'train', numero:'TGV6012', depart:'Lyon',        arrivee:'Belgrade',         dateDepart:'2026-06-10', heureDepart:'06:30', dateArrivee:'2026-06-10', heureArrivee:'22:00', duree:930,  classe:'economique', prix:82,   places:310},
-  {id:61,compagnie:'SNCF TGV',         type:'train', numero:'TGV6012', depart:'Lyon',        arrivee:'Belgrade',         dateDepart:'2026-07-08', heureDepart:'06:30', dateArrivee:'2026-07-08', heureArrivee:'22:00', duree:930,  classe:'economique', prix:98,   places:280},
-  {id:62,compagnie:'PKP Intercity',    type:'train', numero:'IC31',    depart:'Paris',       arrivee:'Cracovie',         dateDepart:'2026-06-05', heureDepart:'10:00', dateArrivee:'2026-06-05', heureArrivee:'22:30', duree:750,  classe:'economique', prix:72,   places:360},
-  {id:63,compagnie:'PKP Intercity',    type:'train', numero:'IC31',    depart:'Paris',       arrivee:'Cracovie',         dateDepart:'2026-06-19', heureDepart:'10:00', dateArrivee:'2026-06-19', heureArrivee:'22:30', duree:750,  classe:'economique', prix:85,   places:330},
-  {id:64,compagnie:'PKP Intercity',    type:'train', numero:'IC31',    depart:'Paris',       arrivee:'Cracovie',         dateDepart:'2026-07-10', heureDepart:'10:00', dateArrivee:'2026-07-10', heureArrivee:'22:30', duree:750,  classe:'business',   prix:165,  places:65},
-  {id:65,compagnie:'Trenitalia',       type:'train', numero:'EN242',   depart:'Nice',        arrivee:'Bar (Montenegro)', dateDepart:'2026-06-08', heureDepart:'20:15', dateArrivee:'2026-06-09', heureArrivee:'15:30', duree:1155, classe:'economique', prix:88,   places:200},
-  {id:66,compagnie:'Trenitalia',       type:'train', numero:'EN242',   depart:'Nice',        arrivee:'Bar (Montenegro)', dateDepart:'2026-07-06', heureDepart:'20:15', dateArrivee:'2026-07-07', heureArrivee:'15:30', duree:1155, classe:'economique', prix:102,  places:180},
-  {id:67,compagnie:'Trenitalia',       type:'train', numero:'IC504',   depart:'Paris',       arrivee:'Kotor',            dateDepart:'2026-06-09', heureDepart:'07:45', dateArrivee:'2026-06-10', heureArrivee:'08:00', duree:1455, classe:'economique', prix:98,   places:220},
-  {id:68,compagnie:'Trenitalia',       type:'train', numero:'IC504',   depart:'Paris',       arrivee:'Kotor',            dateDepart:'2026-07-07', heureDepart:'07:45', dateArrivee:'2026-07-08', heureArrivee:'08:00', duree:1455, classe:'economique', prix:115,  places:195},
-  {id:69,compagnie:'Georgian Railway', type:'train', numero:'GR101',   depart:'Paris',       arrivee:'Tbilissi',         dateDepart:'2026-06-11', heureDepart:'08:00', dateArrivee:'2026-06-13', heureArrivee:'18:00', duree:3000, classe:'economique', prix:145,  places:180},
-  {id:70,compagnie:'Georgian Railway', type:'train', numero:'GR101',   depart:'Paris',       arrivee:'Tbilissi',         dateDepart:'2026-07-09', heureDepart:'08:00', dateArrivee:'2026-07-11', heureArrivee:'18:00', duree:3000, classe:'business',   prix:310,  places:55},
-  // ── BUS ──
-  {id:71,compagnie:'FlixBus',          type:'bus',   numero:'FX1210',  depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-06-04', heureDepart:'08:00', dateArrivee:'2026-06-05', heureArrivee:'11:00', duree:1620, classe:'economique', prix:39,   places:55},
-  {id:72,compagnie:'FlixBus',          type:'bus',   numero:'FX1210',  depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-06-18', heureDepart:'08:00', dateArrivee:'2026-06-19', heureArrivee:'11:00', duree:1620, classe:'economique', prix:45,   places:50},
-  {id:73,compagnie:'FlixBus',          type:'bus',   numero:'FX1210',  depart:'Paris',       arrivee:'Lisbonne',         dateDepart:'2026-07-02', heureDepart:'08:00', dateArrivee:'2026-07-03', heureArrivee:'11:00', duree:1620, classe:'economique', prix:52,   places:48},
-  {id:74,compagnie:'Eurolines',        type:'bus',   numero:'EU2204',  depart:'Paris',       arrivee:'Madrid',           dateDepart:'2026-06-06', heureDepart:'07:30', dateArrivee:'2026-06-07', heureArrivee:'08:30', duree:1500, classe:'economique', prix:35,   places:60},
-  {id:75,compagnie:'Eurolines',        type:'bus',   numero:'EU2204',  depart:'Paris',       arrivee:'Madrid',           dateDepart:'2026-06-20', heureDepart:'07:30', dateArrivee:'2026-06-21', heureArrivee:'08:30', duree:1500, classe:'economique', prix:42,   places:55},
-  {id:76,compagnie:'FlixBus',          type:'bus',   numero:'FX980',   depart:'Paris',       arrivee:'Madrid',           dateDepart:'2026-07-04', heureDepart:'09:00', dateArrivee:'2026-07-05', heureArrivee:'10:00', duree:1500, classe:'economique', prix:38,   places:58},
-  {id:77,compagnie:'FlixBus',          type:'bus',   numero:'FX4401',  depart:'Paris',       arrivee:'Prague',           dateDepart:'2026-06-05', heureDepart:'09:30', dateArrivee:'2026-06-05', heureArrivee:'22:00', duree:750,  classe:'economique', prix:28,   places:60},
-  {id:78,compagnie:'FlixBus',          type:'bus',   numero:'FX4401',  depart:'Paris',       arrivee:'Prague',           dateDepart:'2026-06-19', heureDepart:'09:30', dateArrivee:'2026-06-19', heureArrivee:'22:00', duree:750,  classe:'economique', prix:33,   places:55},
-  {id:79,compagnie:'FlixBus',          type:'bus',   numero:'FX5512',  depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-06-07', heureDepart:'08:00', dateArrivee:'2026-06-07', heureArrivee:'23:30', duree:930,  classe:'economique', prix:32,   places:60},
-  {id:80,compagnie:'FlixBus',          type:'bus',   numero:'FX5512',  depart:'Paris',       arrivee:'Budapest',         dateDepart:'2026-07-05', heureDepart:'08:00', dateArrivee:'2026-07-05', heureArrivee:'23:30', duree:930,  classe:'economique', prix:40,   places:52},
-  {id:81,compagnie:'Eurolines',        type:'bus',   numero:'EU3301',  depart:'Paris',       arrivee:'Cracovie',         dateDepart:'2026-06-06', heureDepart:'07:00', dateArrivee:'2026-06-06', heureArrivee:'23:30', duree:990,  classe:'economique', prix:36,   places:58},
-  {id:82,compagnie:'Eurolines',        type:'bus',   numero:'EU3301',  depart:'Paris',       arrivee:'Cracovie',         dateDepart:'2026-06-20', heureDepart:'07:00', dateArrivee:'2026-06-20', heureArrivee:'23:30', duree:990,  classe:'economique', prix:44,   places:52},
-  {id:83,compagnie:'FlixBus',          type:'bus',   numero:'FX7720',  depart:'Lyon',        arrivee:'Seville',          dateDepart:'2026-06-08', heureDepart:'06:30', dateArrivee:'2026-06-09', heureArrivee:'09:00', duree:1590, classe:'economique', prix:42,   places:55},
-  {id:84,compagnie:'FlixBus',          type:'bus',   numero:'FX7720',  depart:'Lyon',        arrivee:'Seville',          dateDepart:'2026-07-06', heureDepart:'06:30', dateArrivee:'2026-07-07', heureArrivee:'09:00', duree:1590, classe:'economique', prix:51,   places:48},
-  {id:85,compagnie:'Eurolines',        type:'bus',   numero:'EU5501',  depart:'Marseille',   arrivee:'Belgrade',         dateDepart:'2026-06-09', heureDepart:'07:00', dateArrivee:'2026-06-10', heureArrivee:'08:00', duree:1500, classe:'economique', prix:38,   places:55},
-  {id:86,compagnie:'Eurolines',        type:'bus',   numero:'EU5501',  depart:'Marseille',   arrivee:'Belgrade',         dateDepart:'2026-07-07', heureDepart:'07:00', dateArrivee:'2026-07-08', heureArrivee:'08:00', duree:1500, classe:'economique', prix:46,   places:50},
-  {id:87,compagnie:'Eurolines',        type:'bus',   numero:'EU8810',  depart:'Paris',       arrivee:'Marrakech',        dateDepart:'2026-06-05', heureDepart:'06:00', dateArrivee:'2026-06-06', heureArrivee:'20:00', duree:2160, classe:'economique', prix:55,   places:50},
-  {id:88,compagnie:'Eurolines',        type:'bus',   numero:'EU8810',  depart:'Paris',       arrivee:'Marrakech',        dateDepart:'2026-07-03', heureDepart:'06:00', dateArrivee:'2026-07-04', heureArrivee:'20:00', duree:2160, classe:'economique', prix:65,   places:45},
-  // ── FERRIES ──
-  {id:89, compagnie:'Algerie Ferries', type:'ferrie',numero:'AF501',   depart:'Marseille',   arrivee:'Alger',            dateDepart:'2026-06-05', heureDepart:'14:00', dateArrivee:'2026-06-06', heureArrivee:'09:00', duree:1140, classe:'economique', prix:95,   places:400},
-  {id:90, compagnie:'Algerie Ferries', type:'ferrie',numero:'AF501',   depart:'Marseille',   arrivee:'Alger',            dateDepart:'2026-06-12', heureDepart:'14:00', dateArrivee:'2026-06-13', heureArrivee:'09:00', duree:1140, classe:'economique', prix:105,  places:380},
-  {id:91, compagnie:'SNCM',            type:'ferrie',numero:'SN205',   depart:'Marseille',   arrivee:'Alger',            dateDepart:'2026-06-19', heureDepart:'16:00', dateArrivee:'2026-06-20', heureArrivee:'11:00', duree:1140, classe:'economique', prix:89,   places:420},
-  {id:92, compagnie:'CTN',             type:'ferrie',numero:'CT301',   depart:'Marseille',   arrivee:'Tunis',            dateDepart:'2026-06-06', heureDepart:'12:00', dateArrivee:'2026-06-07', heureArrivee:'10:00', duree:1320, classe:'economique', prix:98,   places:380},
-  {id:93, compagnie:'CTN',             type:'ferrie',numero:'CT301',   depart:'Marseille',   arrivee:'Tunis',            dateDepart:'2026-06-20', heureDepart:'12:00', dateArrivee:'2026-06-21', heureArrivee:'10:00', duree:1320, classe:'economique', prix:110,  places:360},
-  {id:94, compagnie:'Grimaldi Lines',  type:'ferrie',numero:'GL102',   depart:'Marseille',   arrivee:'Tunis',            dateDepart:'2026-07-04', heureDepart:'10:00', dateArrivee:'2026-07-05', heureArrivee:'08:00', duree:1320, classe:'economique', prix:88,   places:400},
-  {id:95, compagnie:'Balearia',        type:'ferrie',numero:'BA401',   depart:'Barcelone',   arrivee:'Ibiza',            dateDepart:'2026-06-05', heureDepart:'09:00', dateArrivee:'2026-06-05', heureArrivee:'18:00', duree:540,  classe:'economique', prix:55,   places:300},
-  {id:96, compagnie:'Balearia',        type:'ferrie',numero:'BA401',   depart:'Barcelone',   arrivee:'Ibiza',            dateDepart:'2026-06-19', heureDepart:'09:00', dateArrivee:'2026-06-19', heureArrivee:'18:00', duree:540,  classe:'economique', prix:65,   places:280},
-  {id:97, compagnie:'Trasmediterranea',type:'ferrie',numero:'TM501',   depart:'Barcelone',   arrivee:'Ibiza',            dateDepart:'2026-07-03', heureDepart:'10:00', dateArrivee:'2026-07-03', heureArrivee:'19:00', duree:540,  classe:'economique', prix:72,   places:260},
-  {id:98, compagnie:'Jadrolinija',     type:'ferrie',numero:'JA211',   depart:'Venise',      arrivee:'Kotor',            dateDepart:'2026-06-07', heureDepart:'08:00', dateArrivee:'2026-06-08', heureArrivee:'08:00', duree:1440, classe:'economique', prix:78,   places:250},
-  {id:99, compagnie:'Jadrolinija',     type:'ferrie',numero:'JA211',   depart:'Venise',      arrivee:'Kotor',            dateDepart:'2026-06-21', heureDepart:'08:00', dateArrivee:'2026-06-22', heureArrivee:'08:00', duree:1440, classe:'economique', prix:88,   places:230},
-  {id:100,compagnie:'Jadrolinija',     type:'ferrie',numero:'JA211',   depart:'Venise',      arrivee:'Kotor',            dateDepart:'2026-07-05', heureDepart:'08:00', dateArrivee:'2026-07-06', heureArrivee:'08:00', duree:1440, classe:'business',   prix:165,  places:60},
-  {id:101,compagnie:'Jadrolinija',     type:'ferrie',numero:'JA315',   depart:'Ancone',      arrivee:'Split',            dateDepart:'2026-06-08', heureDepart:'20:00', dateArrivee:'2026-06-09', heureArrivee:'07:00', duree:660,  classe:'economique', prix:62,   places:300},
-  {id:102,compagnie:'Jadrolinija',     type:'ferrie',numero:'JA315',   depart:'Ancone',      arrivee:'Split',            dateDepart:'2026-06-22', heureDepart:'20:00', dateArrivee:'2026-06-23', heureArrivee:'07:00', duree:660,  classe:'economique', prix:72,   places:280},
-  {id:103,compagnie:'Blue Star Ferries',type:'ferrie',numero:'BS701',  depart:'Athenes',     arrivee:'Santorin',         dateDepart:'2026-06-06', heureDepart:'07:30', dateArrivee:'2026-06-06', heureArrivee:'17:00', duree:570,  classe:'economique', prix:45,   places:400},
-  {id:104,compagnie:'Blue Star Ferries',type:'ferrie',numero:'BS701',  depart:'Athenes',     arrivee:'Santorin',         dateDepart:'2026-06-13', heureDepart:'07:30', dateArrivee:'2026-06-13', heureArrivee:'17:00', duree:570,  classe:'economique', prix:52,   places:380},
-  {id:105,compagnie:'Blue Star Ferries',type:'ferrie',numero:'BS701',  depart:'Athenes',     arrivee:'Santorin',         dateDepart:'2026-07-04', heureDepart:'07:30', dateArrivee:'2026-07-04', heureArrivee:'17:00', duree:570,  classe:'economique', prix:60,   places:360},
-  {id:106,compagnie:'Hellenic Seaways', type:'ferrie',numero:'HS202',  depart:'Athenes',     arrivee:'Santorin',         dateDepart:'2026-06-20', heureDepart:'08:00', dateArrivee:'2026-06-20', heureArrivee:'18:30', duree:630,  classe:'economique', prix:48,   places:350},
-  {id:107,compagnie:'MSC Croisières',  type:'ferrie',numero:'MSC201',  depart:'Civitavecchia',arrivee:'Zanzibar',        dateDepart:'2026-06-10', heureDepart:'18:00', dateArrivee:'2026-06-17', heureArrivee:'08:00', duree:9960, classe:'economique', prix:390,  places:800},
-  {id:108,compagnie:'MSC Croisières',  type:'ferrie',numero:'MSC201',  depart:'Civitavecchia',arrivee:'Zanzibar',        dateDepart:'2026-07-08', heureDepart:'18:00', dateArrivee:'2026-07-15', heureArrivee:'08:00', duree:9960, classe:'business',   prix:780,  places:200},
-  // ── VOITURES ──
-  {id:109,compagnie:'Europcar',        type:'voiture',numero:'LOC-PAR-01',depart:'Paris',    arrivee:'Paris',            dateDepart:'2026-06-05', heureDepart:'08:00', dateArrivee:'2026-06-12', heureArrivee:'08:00', duree:0,    classe:'economique', prix:35,   places:50},
-  {id:110,compagnie:'Hertz',           type:'voiture',numero:'LOC-PAR-02',depart:'Paris',    arrivee:'Paris',            dateDepart:'2026-06-05', heureDepart:'08:00', dateArrivee:'2026-06-12', heureArrivee:'08:00', duree:0,    classe:'economique', prix:42,   places:45},
-  {id:111,compagnie:'Sixt',            type:'voiture',numero:'LOC-PAR-03',depart:'Paris',    arrivee:'Paris',            dateDepart:'2026-06-10', heureDepart:'09:00', dateArrivee:'2026-06-17', heureArrivee:'09:00', duree:0,    classe:'business',   prix:68,   places:30},
-  {id:112,compagnie:'Europcar',        type:'voiture',numero:'LOC-LIS-01',depart:'Lisbonne', arrivee:'Lisbonne',         dateDepart:'2026-06-05', heureDepart:'10:00', dateArrivee:'2026-06-12', heureArrivee:'10:00', duree:0,    classe:'economique', prix:28,   places:40},
-  {id:113,compagnie:'Hertz',           type:'voiture',numero:'LOC-LIS-02',depart:'Lisbonne', arrivee:'Lisbonne',         dateDepart:'2026-06-12', heureDepart:'10:00', dateArrivee:'2026-06-19', heureArrivee:'10:00', duree:0,    classe:'economique', prix:32,   places:35},
-  {id:114,compagnie:'Bali Car Rental', type:'voiture',numero:'LOC-BAL-01',depart:'Bali',     arrivee:'Bali',             dateDepart:'2026-06-11', heureDepart:'09:00', dateArrivee:'2026-06-18', heureArrivee:'09:00', duree:0,    classe:'economique', prix:22,   places:60},
-  {id:115,compagnie:'Bali Car Rental', type:'voiture',numero:'LOC-BAL-02',depart:'Bali',     arrivee:'Bali',             dateDepart:'2026-07-02', heureDepart:'09:00', dateArrivee:'2026-07-09', heureArrivee:'09:00', duree:0,    classe:'economique', prix:25,   places:55},
-  {id:116,compagnie:'Avis Maroc',      type:'voiture',numero:'LOC-MAR-01',depart:'Marrakech',arrivee:'Marrakech',        dateDepart:'2026-06-06', heureDepart:'09:00', dateArrivee:'2026-06-13', heureArrivee:'09:00', duree:0,    classe:'economique', prix:30,   places:40},
-  {id:117,compagnie:'Budget',          type:'voiture',numero:'LOC-MAR-02',depart:'Marrakech',arrivee:'Marrakech',        dateDepart:'2026-07-04', heureDepart:'09:00', dateArrivee:'2026-07-11', heureArrivee:'09:00', duree:0,    classe:'economique', prix:27,   places:45},
-  {id:118,compagnie:'Georgian Car',    type:'voiture',numero:'LOC-TBI-01',depart:'Tbilissi', arrivee:'Tbilissi',         dateDepart:'2026-06-08', heureDepart:'10:00', dateArrivee:'2026-06-15', heureArrivee:'10:00', duree:0,    classe:'economique', prix:20,   places:50},
-  {id:119,compagnie:'Georgian Car',    type:'voiture',numero:'LOC-TBI-02',depart:'Tbilissi', arrivee:'Tbilissi',         dateDepart:'2026-07-06', heureDepart:'10:00', dateArrivee:'2026-07-13', heureArrivee:'10:00', duree:0,    classe:'economique', prix:22,   places:45},
-  {id:120,compagnie:'Vietnam Car',     type:'voiture',numero:'LOC-HAN-01',depart:'Hanoi',    arrivee:'Hanoi',            dateDepart:'2026-06-09', heureDepart:'10:00', dateArrivee:'2026-06-16', heureArrivee:'10:00', duree:0,    classe:'economique', prix:18,   places:55},
-  {id:121,compagnie:'Vietnam Car',     type:'voiture',numero:'LOC-HAN-02',depart:'Hanoi',    arrivee:'Hanoi',            dateDepart:'2026-07-02', heureDepart:'10:00', dateArrivee:'2026-07-09', heureArrivee:'10:00', duree:0,    classe:'economique', prix:20,   places:50},
-  {id:122,compagnie:'Europcar',        type:'voiture',numero:'LOC-BUD-01',depart:'Budapest', arrivee:'Budapest',         dateDepart:'2026-06-07', heureDepart:'09:00', dateArrivee:'2026-06-14', heureArrivee:'09:00', duree:0,    classe:'economique', prix:25,   places:45},
-  {id:123,compagnie:'Sixt',            type:'voiture',numero:'LOC-BUD-02',depart:'Budapest', arrivee:'Budapest',         dateDepart:'2026-07-05', heureDepart:'09:00', dateArrivee:'2026-07-12', heureArrivee:'09:00', duree:0,    classe:'business',   prix:55,   places:25},
+  // ============================================================
+  //  AVIONS — Paris → Europe (low-cost)
+  // ============================================================
+
+  // Paris → Lisbonne
+  {id:1,  compagnie:'Ryanair',          type:'avion', numero:'FR3401',  depart:'Paris Beauvais', arrivee:'Lisbonne',  dateDepart:'2026-06-03', heureDepart:'06:30', dateArrivee:'2026-06-03', heureArrivee:'08:35', duree:125,  classe:'economique', prix:29,  places:189},
+  {id:2,  compagnie:'Ryanair',          type:'avion', numero:'FR3401',  depart:'Paris Beauvais', arrivee:'Lisbonne',  dateDepart:'2026-06-10', heureDepart:'06:30', dateArrivee:'2026-06-10', heureArrivee:'08:35', duree:125,  classe:'economique', prix:39,  places:175},
+  {id:3,  compagnie:'Easyjet',          type:'avion', numero:'U24571',  depart:'Paris CDG',      arrivee:'Lisbonne',  dateDepart:'2026-06-05', heureDepart:'07:15', dateArrivee:'2026-06-05', heureArrivee:'09:20', duree:125,  classe:'economique', prix:52,  places:156},
+  {id:4,  compagnie:'Easyjet',          type:'avion', numero:'U24571',  depart:'Paris CDG',      arrivee:'Lisbonne',  dateDepart:'2026-06-15', heureDepart:'07:15', dateArrivee:'2026-06-15', heureArrivee:'09:20', duree:125,  classe:'economique', prix:65,  places:140},
+  {id:5,  compagnie:'Transavia',        type:'avion', numero:'TO6310',  depart:'Paris Orly',     arrivee:'Lisbonne',  dateDepart:'2026-07-01', heureDepart:'09:45', dateArrivee:'2026-07-01', heureArrivee:'11:50', duree:125,  classe:'economique', prix:48,  places:168},
+
+  // Paris → Budapest
+  {id:6,  compagnie:'Wizz Air',         type:'avion', numero:'W6401',   depart:'Paris CDG',      arrivee:'Budapest',  dateDepart:'2026-06-04', heureDepart:'07:00', dateArrivee:'2026-06-04', heureArrivee:'09:25', duree:145,  classe:'economique', prix:28,  places:230},
+  {id:7,  compagnie:'Wizz Air',         type:'avion', numero:'W6401',   depart:'Paris CDG',      arrivee:'Budapest',  dateDepart:'2026-06-18', heureDepart:'07:00', dateArrivee:'2026-06-18', heureArrivee:'09:25', duree:145,  classe:'economique', prix:35,  places:210},
+  {id:8,  compagnie:'Ryanair',          type:'avion', numero:'FR8821',  depart:'Paris Beauvais', arrivee:'Budapest',  dateDepart:'2026-06-06', heureDepart:'11:20', dateArrivee:'2026-06-06', heureArrivee:'13:45', duree:145,  classe:'economique', prix:22,  places:189},
+  {id:9,  compagnie:'Ryanair',          type:'avion', numero:'FR8821',  depart:'Paris Beauvais', arrivee:'Budapest',  dateDepart:'2026-07-03', heureDepart:'11:20', dateArrivee:'2026-07-03', heureArrivee:'13:45', duree:145,  classe:'economique', prix:42,  places:170},
+  {id:10, compagnie:'Easyjet',          type:'avion', numero:'U28801',  depart:'Paris CDG',      arrivee:'Budapest',  dateDepart:'2026-06-20', heureDepart:'14:00', dateArrivee:'2026-06-20', heureArrivee:'16:25', duree:145,  classe:'economique', prix:38,  places:156},
+
+  // Paris → Prague
+  {id:11, compagnie:'Ryanair',          type:'avion', numero:'FR5521',  depart:'Paris Beauvais', arrivee:'Prague',    dateDepart:'2026-06-04', heureDepart:'08:10', dateArrivee:'2026-06-04', heureArrivee:'10:20', duree:130,  classe:'economique', prix:19,  places:189},
+  {id:12, compagnie:'Ryanair',          type:'avion', numero:'FR5521',  depart:'Paris Beauvais', arrivee:'Prague',    dateDepart:'2026-06-18', heureDepart:'08:10', dateArrivee:'2026-06-18', heureArrivee:'10:20', duree:130,  classe:'economique', prix:31,  places:180},
+  {id:13, compagnie:'Easyjet',          type:'avion', numero:'U23301',  depart:'Paris CDG',      arrivee:'Prague',    dateDepart:'2026-06-07', heureDepart:'10:00', dateArrivee:'2026-06-07', heureArrivee:'12:10', duree:130,  classe:'economique', prix:45,  places:156},
+  {id:14, compagnie:'Wizz Air',         type:'avion', numero:'W6551',   depart:'Paris CDG',      arrivee:'Prague',    dateDepart:'2026-07-02', heureDepart:'06:45', dateArrivee:'2026-07-02', heureArrivee:'08:55', duree:130,  classe:'economique', prix:25,  places:200},
+  {id:15, compagnie:'Transavia',        type:'avion', numero:'TO4210',  depart:'Paris Orly',     arrivee:'Prague',    dateDepart:'2026-06-21', heureDepart:'12:30', dateArrivee:'2026-06-21', heureArrivee:'14:40', duree:130,  classe:'economique', prix:55,  places:145},
+
+  // Paris → Tenerife
+  {id:16, compagnie:'Ryanair',          type:'avion', numero:'FR7210',  depart:'Paris Beauvais', arrivee:'Tenerife',  dateDepart:'2026-06-05', heureDepart:'06:00', dateArrivee:'2026-06-05', heureArrivee:'09:30', duree:210,  classe:'economique', prix:45,  places:189},
+  {id:17, compagnie:'Ryanair',          type:'avion', numero:'FR7210',  depart:'Paris Beauvais', arrivee:'Tenerife',  dateDepart:'2026-06-12', heureDepart:'06:00', dateArrivee:'2026-06-12', heureArrivee:'09:30', duree:210,  classe:'economique', prix:59,  places:175},
+  {id:18, compagnie:'Transavia',        type:'avion', numero:'TO7410',  depart:'Paris Orly',     arrivee:'Tenerife',  dateDepart:'2026-06-07', heureDepart:'10:30', dateArrivee:'2026-06-07', heureArrivee:'14:00', duree:210,  classe:'economique', prix:62,  places:168},
+  {id:19, compagnie:'Transavia',        type:'avion', numero:'TO7410',  depart:'Paris Orly',     arrivee:'Tenerife',  dateDepart:'2026-07-05', heureDepart:'10:30', dateArrivee:'2026-07-05', heureArrivee:'14:00', duree:210,  classe:'economique', prix:78,  places:150},
+  {id:20, compagnie:'Vueling',          type:'avion', numero:'VY8320',  depart:'Paris CDG',      arrivee:'Tenerife',  dateDepart:'2026-06-20', heureDepart:'07:15', dateArrivee:'2026-06-20', heureArrivee:'10:45', duree:210,  classe:'economique', prix:72,  places:156},
+
+  // Paris → Séville
+  {id:21, compagnie:'Vueling',          type:'avion', numero:'VY4410',  depart:'Paris CDG',      arrivee:'Seville',   dateDepart:'2026-06-07', heureDepart:'08:00', dateArrivee:'2026-06-07', heureArrivee:'10:15', duree:135,  classe:'economique', prix:35,  places:180},
+  {id:22, compagnie:'Ryanair',          type:'avion', numero:'FR6610',  depart:'Paris Beauvais', arrivee:'Seville',   dateDepart:'2026-06-14', heureDepart:'06:45', dateArrivee:'2026-06-14', heureArrivee:'09:00', duree:135,  classe:'economique', prix:22,  places:189},
+  {id:23, compagnie:'Ryanair',          type:'avion', numero:'FR6610',  depart:'Paris Beauvais', arrivee:'Seville',   dateDepart:'2026-07-05', heureDepart:'06:45', dateArrivee:'2026-07-05', heureArrivee:'09:00', duree:135,  classe:'economique', prix:48,  places:170},
+  {id:24, compagnie:'Transavia',        type:'avion', numero:'TO5510',  depart:'Paris Orly',     arrivee:'Seville',   dateDepart:'2026-06-21', heureDepart:'11:00', dateArrivee:'2026-06-21', heureArrivee:'13:15', duree:135,  classe:'economique', prix:55,  places:145},
+  {id:25, compagnie:'Easyjet',          type:'avion', numero:'U29901',  depart:'Paris CDG',      arrivee:'Seville',   dateDepart:'2026-06-28', heureDepart:'09:30', dateArrivee:'2026-06-28', heureArrivee:'11:45', duree:135,  classe:'economique', prix:42,  places:156},
+
+  // Paris → Cracovie
+  {id:26, compagnie:'Ryanair',          type:'avion', numero:'FR4401',  depart:'Paris Beauvais', arrivee:'Cracovie',  dateDepart:'2026-06-05', heureDepart:'07:30', dateArrivee:'2026-06-05', heureArrivee:'10:10', duree:160,  classe:'economique', prix:18,  places:189},
+  {id:27, compagnie:'Ryanair',          type:'avion', numero:'FR4401',  depart:'Paris Beauvais', arrivee:'Cracovie',  dateDepart:'2026-06-19', heureDepart:'07:30', dateArrivee:'2026-06-19', heureArrivee:'10:10', duree:160,  classe:'economique', prix:29,  places:175},
+  {id:28, compagnie:'Wizz Air',         type:'avion', numero:'W6301',   depart:'Paris CDG',      arrivee:'Cracovie',  dateDepart:'2026-07-03', heureDepart:'06:00', dateArrivee:'2026-07-03', heureArrivee:'08:40', duree:160,  classe:'economique', prix:24,  places:200},
+  {id:29, compagnie:'Easyjet',          type:'avion', numero:'U27701',  depart:'Paris CDG',      arrivee:'Cracovie',  dateDepart:'2026-06-12', heureDepart:'10:00', dateArrivee:'2026-06-12', heureArrivee:'12:40', duree:160,  classe:'economique', prix:49,  places:156},
+  {id:30, compagnie:'Transavia',        type:'avion', numero:'TO3310',  depart:'Paris Orly',     arrivee:'Cracovie',  dateDepart:'2026-06-26', heureDepart:'12:00', dateArrivee:'2026-06-26', heureArrivee:'14:40', duree:160,  classe:'economique', prix:58,  places:140},
+
+  // ============================================================
+  //  AVIONS — Paris → hors Europe (low-cost long courrier)
+  // ============================================================
+
+  // Paris → Marrakech
+  {id:31, compagnie:'Ryanair',          type:'avion', numero:'FR2210',  depart:'Paris Beauvais', arrivee:'Marrakech', dateDepart:'2026-06-05', heureDepart:'07:00', dateArrivee:'2026-06-05', heureArrivee:'08:50', duree:110,  classe:'economique', prix:25,  places:189},
+  {id:32, compagnie:'Ryanair',          type:'avion', numero:'FR2210',  depart:'Paris Beauvais', arrivee:'Marrakech', dateDepart:'2026-06-12', heureDepart:'07:00', dateArrivee:'2026-06-12', heureArrivee:'08:50', duree:110,  classe:'economique', prix:32,  places:175},
+  {id:33, compagnie:'Transavia',        type:'avion', numero:'TO1810',  depart:'Paris Orly',     arrivee:'Marrakech', dateDepart:'2026-06-08', heureDepart:'09:00', dateArrivee:'2026-06-08', heureArrivee:'10:50', duree:110,  classe:'economique', prix:39,  places:168},
+  {id:34, compagnie:'Transavia',        type:'avion', numero:'TO1810',  depart:'Paris Orly',     arrivee:'Marrakech', dateDepart:'2026-07-06', heureDepart:'09:00', dateArrivee:'2026-07-06', heureArrivee:'10:50', duree:110,  classe:'economique', prix:52,  places:150},
+  {id:35, compagnie:'Easyjet',          type:'avion', numero:'U21101',  depart:'Paris CDG',      arrivee:'Marrakech', dateDepart:'2026-06-19', heureDepart:'10:15', dateArrivee:'2026-06-19', heureArrivee:'12:05', duree:110,  classe:'economique', prix:45,  places:156},
+
+  // Paris → Bali
+  {id:36, compagnie:'AirAsia X',        type:'avion', numero:'D7301',   depart:'Paris CDG',      arrivee:'Bali',      dateDepart:'2026-06-10', heureDepart:'21:00', dateArrivee:'2026-06-12', heureArrivee:'07:00', duree:1440, classe:'economique', prix:380, places:150},
+  {id:37, compagnie:'AirAsia X',        type:'avion', numero:'D7301',   depart:'Paris CDG',      arrivee:'Bali',      dateDepart:'2026-06-24', heureDepart:'21:00', dateArrivee:'2026-06-26', heureArrivee:'07:00', duree:1440, classe:'economique', prix:420, places:130},
+  {id:38, compagnie:'Scoot',            type:'avion', numero:'TR901',   depart:'Paris CDG',      arrivee:'Bali',      dateDepart:'2026-07-01', heureDepart:'19:30', dateArrivee:'2026-07-03', heureArrivee:'05:30', duree:1440, classe:'economique', prix:350, places:160},
+  {id:39, compagnie:'Scoot',            type:'avion', numero:'TR901',   depart:'Paris CDG',      arrivee:'Bali',      dateDepart:'2026-07-15', heureDepart:'19:30', dateArrivee:'2026-07-17', heureArrivee:'05:30', duree:1440, classe:'economique', prix:395, places:140},
+  {id:40, compagnie:'Norwegian',        type:'avion', numero:'DY7510',  depart:'Paris CDG',      arrivee:'Bali',      dateDepart:'2026-06-17', heureDepart:'20:45', dateArrivee:'2026-06-19', heureArrivee:'06:45', duree:1440, classe:'economique', prix:410, places:145},
+
+  // Paris → Hanoï
+  {id:41, compagnie:'AirAsia X',        type:'avion', numero:'D7201',   depart:'Paris CDG',      arrivee:'Hanoi',     dateDepart:'2026-06-08', heureDepart:'20:00', dateArrivee:'2026-06-09', heureArrivee:'17:30', duree:1290, classe:'economique', prix:290, places:160},
+  {id:42, compagnie:'AirAsia X',        type:'avion', numero:'D7201',   depart:'Paris CDG',      arrivee:'Hanoi',     dateDepart:'2026-06-22', heureDepart:'20:00', dateArrivee:'2026-06-23', heureArrivee:'17:30', duree:1290, classe:'economique', prix:320, places:145},
+  {id:43, compagnie:'Scoot',            type:'avion', numero:'TR801',   depart:'Paris CDG',      arrivee:'Hanoi',     dateDepart:'2026-07-06', heureDepart:'18:30', dateArrivee:'2026-07-07', heureArrivee:'16:00', duree:1290, classe:'economique', prix:275, places:170},
+  {id:44, compagnie:'VietJet Air',      type:'avion', numero:'VJ901',   depart:'Paris CDG',      arrivee:'Hanoi',     dateDepart:'2026-06-15', heureDepart:'21:00', dateArrivee:'2026-06-16', heureArrivee:'18:30', duree:1290, classe:'economique', prix:305, places:155},
+  {id:45, compagnie:'Jetstar',          type:'avion', numero:'JQ501',   depart:'Paris CDG',      arrivee:'Hanoi',     dateDepart:'2026-07-01', heureDepart:'19:45', dateArrivee:'2026-07-02', heureArrivee:'17:15', duree:1290, classe:'economique', prix:260, places:180},
+
+  // Paris → Zanzibar
+  {id:46, compagnie:'Corsair',          type:'avion', numero:'SS901',   depart:'Paris Orly',     arrivee:'Zanzibar',  dateDepart:'2026-06-09', heureDepart:'10:00', dateArrivee:'2026-06-09', heureArrivee:'22:00', duree:720,  classe:'economique', prix:320, places:200},
+  {id:47, compagnie:'Corsair',          type:'avion', numero:'SS901',   depart:'Paris Orly',     arrivee:'Zanzibar',  dateDepart:'2026-07-07', heureDepart:'10:00', dateArrivee:'2026-07-07', heureArrivee:'22:00', duree:720,  classe:'economique', prix:360, places:185},
+  {id:48, compagnie:'Condor',           type:'avion', numero:'DE901',   depart:'Paris CDG',      arrivee:'Zanzibar',  dateDepart:'2026-06-14', heureDepart:'08:30', dateArrivee:'2026-06-14', heureArrivee:'20:30', duree:720,  classe:'economique', prix:298, places:210},
+  {id:49, compagnie:'Condor',           type:'avion', numero:'DE901',   depart:'Paris CDG',      arrivee:'Zanzibar',  dateDepart:'2026-07-05', heureDepart:'08:30', dateArrivee:'2026-07-05', heureArrivee:'20:30', duree:720,  classe:'economique', prix:335, places:190},
+  {id:50, compagnie:'TUI fly',          type:'avion', numero:'X31001',  depart:'Paris CDG',      arrivee:'Zanzibar',  dateDepart:'2026-06-28', heureDepart:'09:15', dateArrivee:'2026-06-28', heureArrivee:'21:15', duree:720,  classe:'economique', prix:280, places:220},
+
+  // Paris → El Nido
+  {id:51, compagnie:'AirAsia X',        type:'avion', numero:'D7401',   depart:'Paris CDG',      arrivee:'El Nido',   dateDepart:'2026-06-10', heureDepart:'20:00', dateArrivee:'2026-06-12', heureArrivee:'14:00', duree:1680, classe:'economique', prix:450, places:140},
+  {id:52, compagnie:'AirAsia X',        type:'avion', numero:'D7401',   depart:'Paris CDG',      arrivee:'El Nido',   dateDepart:'2026-07-01', heureDepart:'20:00', dateArrivee:'2026-07-03', heureArrivee:'14:00', duree:1680, classe:'economique', prix:490, places:125},
+  {id:53, compagnie:'Cebu Pacific',     type:'avion', numero:'5J901',   depart:'Paris CDG',      arrivee:'El Nido',   dateDepart:'2026-06-17', heureDepart:'21:30', dateArrivee:'2026-06-19', heureArrivee:'15:30', duree:1680, classe:'economique', prix:420, places:155},
+
+  // Paris → Costa Rica
+  {id:54, compagnie:'Iberia Express',   type:'avion', numero:'I2601',   depart:'Paris CDG',      arrivee:'San Jose',  dateDepart:'2026-06-12', heureDepart:'10:30', dateArrivee:'2026-06-12', heureArrivee:'18:30', duree:600,  classe:'economique', prix:380, places:160},
+  {id:55, compagnie:'Iberia Express',   type:'avion', numero:'I2601',   depart:'Paris CDG',      arrivee:'San Jose',  dateDepart:'2026-07-03', heureDepart:'10:30', dateArrivee:'2026-07-03', heureArrivee:'18:30', duree:600,  classe:'economique', prix:420, places:145},
+  {id:56, compagnie:'Condor',           type:'avion', numero:'DE501',   depart:'Paris CDG',      arrivee:'San Jose',  dateDepart:'2026-06-19', heureDepart:'09:00', dateArrivee:'2026-06-19', heureArrivee:'17:00', duree:600,  classe:'economique', prix:355, places:175},
+
+  // Paris → Amman
+  {id:57, compagnie:'Wizz Air',         type:'avion', numero:'W6901',   depart:'Paris CDG',      arrivee:'Amman',     dateDepart:'2026-06-08', heureDepart:'06:00', dateArrivee:'2026-06-08', heureArrivee:'11:45', duree:345,  classe:'economique', prix:89,  places:200},
+  {id:58, compagnie:'Wizz Air',         type:'avion', numero:'W6901',   depart:'Paris CDG',      arrivee:'Amman',     dateDepart:'2026-06-22', heureDepart:'06:00', dateArrivee:'2026-06-22', heureArrivee:'11:45', duree:345,  classe:'economique', prix:105, places:185},
+  {id:59, compagnie:'Ryanair',          type:'avion', numero:'FR9901',  depart:'Paris Beauvais', arrivee:'Amman',     dateDepart:'2026-07-06', heureDepart:'05:30', dateArrivee:'2026-07-06', heureArrivee:'11:15', duree:345,  classe:'economique', prix:79,  places:189},
+
+  // Autres villes de départ
+  {id:60, compagnie:'Ryanair',          type:'avion', numero:'FR4510',  depart:'Marseille',      arrivee:'Marrakech', dateDepart:'2026-06-05', heureDepart:'08:00', dateArrivee:'2026-06-05', heureArrivee:'09:50', duree:110,  classe:'economique', prix:22,  places:189},
+  {id:61, compagnie:'Ryanair',          type:'avion', numero:'FR4510',  depart:'Marseille',      arrivee:'Marrakech', dateDepart:'2026-07-03', heureDepart:'08:00', dateArrivee:'2026-07-03', heureArrivee:'09:50', duree:110,  classe:'economique', prix:38,  places:175},
+  {id:62, compagnie:'Vueling',          type:'avion', numero:'VY5610',  depart:'Lyon',           arrivee:'Lisbonne',  dateDepart:'2026-06-06', heureDepart:'07:30', dateArrivee:'2026-06-06', heureArrivee:'09:25', duree:115,  classe:'economique', prix:42,  places:156},
+  {id:63, compagnie:'Vueling',          type:'avion', numero:'VY5610',  depart:'Lyon',           arrivee:'Lisbonne',  dateDepart:'2026-06-20', heureDepart:'07:30', dateArrivee:'2026-06-20', heureArrivee:'09:25', duree:115,  classe:'economique', prix:55,  places:140},
+  {id:64, compagnie:'Transavia',        type:'avion', numero:'TO5412',  depart:'Lyon',           arrivee:'Tenerife',  dateDepart:'2026-06-08', heureDepart:'09:15', dateArrivee:'2026-06-08', heureArrivee:'12:25', duree:190,  classe:'economique', prix:58,  places:155},
+  {id:65, compagnie:'Easyjet',          type:'avion', numero:'U23301',  depart:'Nice',           arrivee:'Prague',    dateDepart:'2026-06-07', heureDepart:'10:00', dateArrivee:'2026-06-07', heureArrivee:'12:10', duree:130,  classe:'economique', prix:35,  places:156},
+  {id:66, compagnie:'Ryanair',          type:'avion', numero:'FR9021',  depart:'Bordeaux',       arrivee:'Budapest',  dateDepart:'2026-06-09', heureDepart:'06:45', dateArrivee:'2026-06-09', heureArrivee:'09:20', duree:155,  classe:'economique', prix:28,  places:189},
+  {id:67, compagnie:'Ryanair',          type:'avion', numero:'FR9021',  depart:'Bordeaux',       arrivee:'Budapest',  dateDepart:'2026-07-07', heureDepart:'06:45', dateArrivee:'2026-07-07', heureArrivee:'09:20', duree:155,  classe:'economique', prix:45,  places:175},
+
+  // ============================================================
+  //  TRAINS
+  // ============================================================
+  {id:68, compagnie:'Renfe-SNCF',       type:'train', numero:'TGV9731', depart:'Paris',          arrivee:'Madrid',    dateDepart:'2026-06-05', heureDepart:'17:00', dateArrivee:'2026-06-06', heureArrivee:'09:30', duree:990,  classe:'economique', prix:52,  places:300},
+  {id:69, compagnie:'Renfe-SNCF',       type:'train', numero:'TGV9731', depart:'Paris',          arrivee:'Madrid',    dateDepart:'2026-06-19', heureDepart:'17:00', dateArrivee:'2026-06-20', heureArrivee:'09:30', duree:990,  classe:'economique', prix:65,  places:280},
+  {id:70, compagnie:'Renfe-SNCF',       type:'train', numero:'TGV9731', depart:'Paris',          arrivee:'Madrid',    dateDepart:'2026-07-03', heureDepart:'17:00', dateArrivee:'2026-07-04', heureArrivee:'09:30', duree:990,  classe:'economique', prix:78,  places:80},
+  {id:71, compagnie:'Railjet',          type:'train', numero:'RJ40',    depart:'Paris',          arrivee:'Budapest',  dateDepart:'2026-06-06', heureDepart:'07:22', dateArrivee:'2026-06-06', heureArrivee:'21:40', duree:858,  classe:'economique', prix:49,  places:350},
+  {id:72, compagnie:'Railjet',          type:'train', numero:'RJ40',    depart:'Paris',          arrivee:'Budapest',  dateDepart:'2026-06-20', heureDepart:'07:22', dateArrivee:'2026-06-20', heureArrivee:'21:40', duree:858,  classe:'economique', prix:58,  places:320},
+  {id:73, compagnie:'Railjet',          type:'train', numero:'RJ40',    depart:'Paris',          arrivee:'Budapest',  dateDepart:'2026-07-04', heureDepart:'07:22', dateArrivee:'2026-07-04', heureArrivee:'21:40', duree:858,  classe:'economique', prix:72,  places:60},
+  {id:74, compagnie:'DB ICE',           type:'train', numero:'ICE373',  depart:'Paris',          arrivee:'Prague',    dateDepart:'2026-06-04', heureDepart:'09:55', dateArrivee:'2026-06-04', heureArrivee:'19:15', duree:560,  classe:'economique', prix:39,  places:380},
+  {id:75, compagnie:'DB ICE',           type:'train', numero:'ICE373',  depart:'Paris',          arrivee:'Prague',    dateDepart:'2026-06-18', heureDepart:'09:55', dateArrivee:'2026-06-18', heureArrivee:'19:15', duree:560,  classe:'economique', prix:49,  places:350},
+  {id:76, compagnie:'DB ICE',           type:'train', numero:'ICE373',  depart:'Paris',          arrivee:'Prague',    dateDepart:'2026-07-02', heureDepart:'09:55', dateArrivee:'2026-07-02', heureArrivee:'19:15', duree:560,  classe:'economique', prix:62,  places:70},
+  {id:77, compagnie:'Renfe AVE',        type:'train', numero:'AVE102',  depart:'Paris',          arrivee:'Seville',   dateDepart:'2026-06-07', heureDepart:'08:15', dateArrivee:'2026-06-07', heureArrivee:'17:30', duree:615,  classe:'economique', prix:55,  places:290},
+  {id:78, compagnie:'Renfe AVE',        type:'train', numero:'AVE102',  depart:'Paris',          arrivee:'Seville',   dateDepart:'2026-06-21', heureDepart:'08:15', dateArrivee:'2026-06-21', heureArrivee:'17:30', duree:615,  classe:'economique', prix:69,  places:270},
+  {id:79, compagnie:'SNCF + OBB',       type:'train', numero:'NJ421',   depart:'Lyon',           arrivee:'Belgrade',  dateDepart:'2026-06-10', heureDepart:'18:30', dateArrivee:'2026-06-11', heureArrivee:'14:00', duree:1170, classe:'economique', prix:55,  places:200},
+  {id:80, compagnie:'SNCF + OBB',       type:'train', numero:'NJ421',   depart:'Lyon',           arrivee:'Belgrade',  dateDepart:'2026-07-08', heureDepart:'18:30', dateArrivee:'2026-07-09', heureArrivee:'14:00', duree:1170, classe:'economique', prix:68,  places:185},
+  {id:81, compagnie:'PKP Intercity',    type:'train', numero:'IC31',    depart:'Paris',          arrivee:'Cracovie',  dateDepart:'2026-06-05', heureDepart:'10:00', dateArrivee:'2026-06-05', heureArrivee:'22:30', duree:750,  classe:'economique', prix:45,  places:360},
+  {id:82, compagnie:'PKP Intercity',    type:'train', numero:'IC31',    depart:'Paris',          arrivee:'Cracovie',  dateDepart:'2026-06-19', heureDepart:'10:00', dateArrivee:'2026-06-19', heureArrivee:'22:30', duree:750,  classe:'economique', prix:55,  places:330},
+  {id:83, compagnie:'PKP Intercity',    type:'train', numero:'IC31',    depart:'Paris',          arrivee:'Cracovie',  dateDepart:'2026-07-10', heureDepart:'10:00', dateArrivee:'2026-07-10', heureArrivee:'22:30', duree:750,  classe:'economique', prix:68,  places:65},
+  {id:84, compagnie:'Trenitalia',       type:'train', numero:'EN242',   depart:'Nice',           arrivee:'Bar',       dateDepart:'2026-06-08', heureDepart:'20:15', dateArrivee:'2026-06-09', heureArrivee:'15:30', duree:1155, classe:'economique', prix:49,  places:200},
+  {id:85, compagnie:'Trenitalia',       type:'train', numero:'EN242',   depart:'Nice',           arrivee:'Bar',       dateDepart:'2026-07-06', heureDepart:'20:15', dateArrivee:'2026-07-07', heureArrivee:'15:30', duree:1155, classe:'economique', prix:59,  places:180},
+  {id:86, compagnie:'Trenitalia',       type:'train', numero:'IC504',   depart:'Paris',          arrivee:'Kotor',     dateDepart:'2026-06-09', heureDepart:'07:45', dateArrivee:'2026-06-10', heureArrivee:'18:00', duree:1455, classe:'economique', prix:65,  places:220},
+  {id:87, compagnie:'Trenitalia',       type:'train', numero:'IC504',   depart:'Paris',          arrivee:'Kotor',     dateDepart:'2026-07-07', heureDepart:'07:45', dateArrivee:'2026-07-08', heureArrivee:'18:00', duree:1455, classe:'economique', prix:79,  places:195},
+  {id:88, compagnie:'TCDD',             type:'train', numero:'TC101',   depart:'Paris',          arrivee:'Tbilissi',  dateDepart:'2026-06-11', heureDepart:'08:00', dateArrivee:'2026-06-14', heureArrivee:'10:00', duree:4320, classe:'economique', prix:98,  places:120},
+  {id:89, compagnie:'TCDD',             type:'train', numero:'TC101',   depart:'Paris',          arrivee:'Tbilissi',  dateDepart:'2026-07-09', heureDepart:'08:00', dateArrivee:'2026-07-12', heureArrivee:'10:00', duree:4320, classe:'economique', prix:112, places:100},
+
+  // ============================================================
+  //  BUS
+  // ============================================================
+  {id:90, compagnie:'FlixBus',          type:'bus',   numero:'FX1210',  depart:'Paris',          arrivee:'Lisbonne',  dateDepart:'2026-06-04', heureDepart:'08:00', dateArrivee:'2026-06-05', heureArrivee:'11:00', duree:1620, classe:'economique', prix:29,  places:55},
+  {id:91, compagnie:'FlixBus',          type:'bus',   numero:'FX1210',  depart:'Paris',          arrivee:'Lisbonne',  dateDepart:'2026-06-18', heureDepart:'08:00', dateArrivee:'2026-06-19', heureArrivee:'11:00', duree:1620, classe:'economique', prix:35,  places:50},
+  {id:92, compagnie:'FlixBus',          type:'bus',   numero:'FX1210',  depart:'Paris',          arrivee:'Lisbonne',  dateDepart:'2026-07-02', heureDepart:'08:00', dateArrivee:'2026-07-03', heureArrivee:'11:00', duree:1620, classe:'economique', prix:42,  places:48},
+  {id:93, compagnie:'FlixBus',          type:'bus',   numero:'FX2204',  depart:'Paris',          arrivee:'Madrid',    dateDepart:'2026-06-06', heureDepart:'07:30', dateArrivee:'2026-06-07', heureArrivee:'07:30', duree:1440, classe:'economique', prix:19,  places:60},
+  {id:94, compagnie:'FlixBus',          type:'bus',   numero:'FX2204',  depart:'Paris',          arrivee:'Madrid',    dateDepart:'2026-06-20', heureDepart:'07:30', dateArrivee:'2026-06-21', heureArrivee:'07:30', duree:1440, classe:'economique', prix:24,  places:55},
+  {id:95, compagnie:'Eurolines',        type:'bus',   numero:'EU2204',  depart:'Paris',          arrivee:'Madrid',    dateDepart:'2026-07-04', heureDepart:'09:00', dateArrivee:'2026-07-05', heureArrivee:'09:00', duree:1440, classe:'economique', prix:29,  places:58},
+  {id:96, compagnie:'FlixBus',          type:'bus',   numero:'FX4401',  depart:'Paris',          arrivee:'Prague',    dateDepart:'2026-06-05', heureDepart:'09:30', dateArrivee:'2026-06-05', heureArrivee:'21:30', duree:720,  classe:'economique', prix:15,  places:60},
+  {id:97, compagnie:'FlixBus',          type:'bus',   numero:'FX4401',  depart:'Paris',          arrivee:'Prague',    dateDepart:'2026-06-19', heureDepart:'09:30', dateArrivee:'2026-06-19', heureArrivee:'21:30', duree:720,  classe:'economique', prix:19,  places:55},
+  {id:98, compagnie:'FlixBus',          type:'bus',   numero:'FX5512',  depart:'Paris',          arrivee:'Budapest',  dateDepart:'2026-06-07', heureDepart:'08:00', dateArrivee:'2026-06-07', heureArrivee:'23:30', duree:930,  classe:'economique', prix:18,  places:60},
+  {id:99, compagnie:'FlixBus',          type:'bus',   numero:'FX5512',  depart:'Paris',          arrivee:'Budapest',  dateDepart:'2026-07-05', heureDepart:'08:00', dateArrivee:'2026-07-05', heureArrivee:'23:30', duree:930,  classe:'economique', prix:25,  places:52},
+  {id:100,compagnie:'FlixBus',          type:'bus',   numero:'FX3301',  depart:'Paris',          arrivee:'Cracovie',  dateDepart:'2026-06-06', heureDepart:'07:00', dateArrivee:'2026-06-06', heureArrivee:'22:30', duree:930,  classe:'economique', prix:16,  places:58},
+  {id:101,compagnie:'FlixBus',          type:'bus',   numero:'FX3301',  depart:'Paris',          arrivee:'Cracovie',  dateDepart:'2026-06-20', heureDepart:'07:00', dateArrivee:'2026-06-20', heureArrivee:'22:30', duree:930,  classe:'economique', prix:22,  places:52},
+  {id:102,compagnie:'FlixBus',          type:'bus',   numero:'FX7720',  depart:'Lyon',           arrivee:'Seville',   dateDepart:'2026-06-08', heureDepart:'06:30', dateArrivee:'2026-06-09', heureArrivee:'08:00', duree:1530, classe:'economique', prix:32,  places:55},
+  {id:103,compagnie:'FlixBus',          type:'bus',   numero:'FX7720',  depart:'Lyon',           arrivee:'Seville',   dateDepart:'2026-07-06', heureDepart:'06:30', dateArrivee:'2026-07-07', heureArrivee:'08:00', duree:1530, classe:'economique', prix:39,  places:48},
+  {id:104,compagnie:'FlixBus',          type:'bus',   numero:'FX5501',  depart:'Marseille',      arrivee:'Belgrade',  dateDepart:'2026-06-09', heureDepart:'07:00', dateArrivee:'2026-06-10', heureArrivee:'07:00', duree:1440, classe:'economique', prix:28,  places:55},
+  {id:105,compagnie:'FlixBus',          type:'bus',   numero:'FX5501',  depart:'Marseille',      arrivee:'Belgrade',  dateDepart:'2026-07-07', heureDepart:'07:00', dateArrivee:'2026-07-08', heureArrivee:'07:00', duree:1440, classe:'economique', prix:35,  places:50},
+  {id:106,compagnie:'Eurolines',        type:'bus',   numero:'EU8810',  depart:'Paris',          arrivee:'Marrakech', dateDepart:'2026-06-05', heureDepart:'06:00', dateArrivee:'2026-06-06', heureArrivee:'21:00', duree:2220, classe:'economique', prix:42,  places:50},
+  {id:107,compagnie:'Eurolines',        type:'bus',   numero:'EU8810',  depart:'Paris',          arrivee:'Marrakech', dateDepart:'2026-07-03', heureDepart:'06:00', dateArrivee:'2026-07-04', heureArrivee:'21:00', duree:2220, classe:'economique', prix:48,  places:45},
+  {id:108,compagnie:'FlixBus',          type:'bus',   numero:'FX6610',  depart:'Paris',          arrivee:'Seville',   dateDepart:'2026-06-07', heureDepart:'07:00', dateArrivee:'2026-06-08', heureArrivee:'08:30', duree:1530, classe:'economique', prix:22,  places:58},
+  {id:109,compagnie:'FlixBus',          type:'bus',   numero:'FX6610',  depart:'Paris',          arrivee:'Seville',   dateDepart:'2026-06-21', heureDepart:'07:00', dateArrivee:'2026-06-22', heureArrivee:'08:30', duree:1530, classe:'economique', prix:28,  places:52},
+
+  // ============================================================
+  //  FERRIES
+  // ============================================================
+  {id:110,compagnie:'Algerie Ferries',  type:'ferrie',numero:'AF501',   depart:'Marseille',      arrivee:'Alger',     dateDepart:'2026-06-05', heureDepart:'14:00', dateArrivee:'2026-06-06', heureArrivee:'09:00', duree:1140, classe:'economique', prix:58,  places:400},
+  {id:111,compagnie:'Algerie Ferries',  type:'ferrie',numero:'AF501',   depart:'Marseille',      arrivee:'Alger',     dateDepart:'2026-06-12', heureDepart:'14:00', dateArrivee:'2026-06-13', heureArrivee:'09:00', duree:1140, classe:'economique', prix:65,  places:380},
+  {id:112,compagnie:'SNCM',             type:'ferrie',numero:'SN205',   depart:'Marseille',      arrivee:'Alger',     dateDepart:'2026-06-19', heureDepart:'16:00', dateArrivee:'2026-06-20', heureArrivee:'11:00', duree:1140, classe:'economique', prix:52,  places:420},
+  {id:113,compagnie:'CTN',              type:'ferrie',numero:'CT301',   depart:'Marseille',      arrivee:'Tunis',     dateDepart:'2026-06-06', heureDepart:'12:00', dateArrivee:'2026-06-07', heureArrivee:'10:00', duree:1320, classe:'economique', prix:62,  places:380},
+  {id:114,compagnie:'CTN',              type:'ferrie',numero:'CT301',   depart:'Marseille',      arrivee:'Tunis',     dateDepart:'2026-06-20', heureDepart:'12:00', dateArrivee:'2026-06-21', heureArrivee:'10:00', duree:1320, classe:'economique', prix:70,  places:360},
+  {id:115,compagnie:'Grimaldi Lines',   type:'ferrie',numero:'GL102',   depart:'Marseille',      arrivee:'Tunis',     dateDepart:'2026-07-04', heureDepart:'10:00', dateArrivee:'2026-07-05', heureArrivee:'08:00', duree:1320, classe:'economique', prix:55,  places:400},
+  {id:116,compagnie:'Balearia',         type:'ferrie',numero:'BA401',   depart:'Barcelone',      arrivee:'Ibiza',     dateDepart:'2026-06-05', heureDepart:'09:00', dateArrivee:'2026-06-05', heureArrivee:'17:30', duree:510,  classe:'economique', prix:28,  places:300},
+  {id:117,compagnie:'Balearia',         type:'ferrie',numero:'BA401',   depart:'Barcelone',      arrivee:'Ibiza',     dateDepart:'2026-06-19', heureDepart:'09:00', dateArrivee:'2026-06-19', heureArrivee:'17:30', duree:510,  classe:'economique', prix:35,  places:280},
+  {id:118,compagnie:'Trasmediterranea', type:'ferrie',numero:'TM501',   depart:'Barcelone',      arrivee:'Ibiza',     dateDepart:'2026-07-03', heureDepart:'10:00', dateArrivee:'2026-07-03', heureArrivee:'18:30', duree:510,  classe:'economique', prix:42,  places:260},
+  {id:119,compagnie:'Jadrolinija',      type:'ferrie',numero:'JA211',   depart:'Venise',         arrivee:'Split',     dateDepart:'2026-06-07', heureDepart:'10:00', dateArrivee:'2026-06-08', heureArrivee:'06:00', duree:1200, classe:'economique', prix:38,  places:250},
+  {id:120,compagnie:'Jadrolinija',      type:'ferrie',numero:'JA211',   depart:'Venise',         arrivee:'Split',     dateDepart:'2026-06-21', heureDepart:'10:00', dateArrivee:'2026-06-22', heureArrivee:'06:00', duree:1200, classe:'economique', prix:45,  places:230},
+  {id:121,compagnie:'Jadrolinija',      type:'ferrie',numero:'JA211',   depart:'Venise',         arrivee:'Split',     dateDepart:'2026-07-05', heureDepart:'10:00', dateArrivee:'2026-07-06', heureArrivee:'06:00', duree:1200, classe:'economique', prix:52,  places:210},
+  {id:122,compagnie:'Jadrolinija',      type:'ferrie',numero:'JA315',   depart:'Ancone',         arrivee:'Split',     dateDepart:'2026-06-08', heureDepart:'20:00', dateArrivee:'2026-06-09', heureArrivee:'06:00', duree:600,  classe:'economique', prix:28,  places:300},
+  {id:123,compagnie:'Jadrolinija',      type:'ferrie',numero:'JA315',   depart:'Ancone',         arrivee:'Split',     dateDepart:'2026-06-22', heureDepart:'20:00', dateArrivee:'2026-06-23', heureArrivee:'06:00', duree:600,  classe:'economique', prix:35,  places:280},
+  {id:124,compagnie:'Blue Star Ferries',type:'ferrie',numero:'BS701',   depart:'Athenes',        arrivee:'Santorin',  dateDepart:'2026-06-06', heureDepart:'07:30', dateArrivee:'2026-06-06', heureArrivee:'16:00', duree:510,  classe:'economique', prix:25,  places:400},
+  {id:125,compagnie:'Blue Star Ferries',type:'ferrie',numero:'BS701',   depart:'Athenes',        arrivee:'Santorin',  dateDepart:'2026-06-13', heureDepart:'07:30', dateArrivee:'2026-06-13', heureArrivee:'16:00', duree:510,  classe:'economique', prix:28,  places:380},
+  {id:126,compagnie:'Blue Star Ferries',type:'ferrie',numero:'BS701',   depart:'Athenes',        arrivee:'Santorin',  dateDepart:'2026-07-04', heureDepart:'07:30', dateArrivee:'2026-07-04', heureArrivee:'16:00', duree:510,  classe:'economique', prix:35,  places:360},
+  {id:127,compagnie:'Hellenic Seaways', type:'ferrie',numero:'HS202',   depart:'Athenes',        arrivee:'Santorin',  dateDepart:'2026-06-20', heureDepart:'08:00', dateArrivee:'2026-06-20', heureArrivee:'17:30', duree:570,  classe:'economique', prix:22,  places:350},
+  {id:128,compagnie:'FRS',              type:'ferrie',numero:'FR101',   depart:'Algeciras',      arrivee:'Tanger',    dateDepart:'2026-06-05', heureDepart:'10:00', dateArrivee:'2026-06-05', heureArrivee:'11:20', duree:80,   classe:'economique', prix:12,  places:500},
+  {id:129,compagnie:'Balearia',         type:'ferrie',numero:'BA201',   depart:'Algeciras',      arrivee:'Tanger',    dateDepart:'2026-06-12', heureDepart:'09:00', dateArrivee:'2026-06-12', heureArrivee:'10:20', duree:80,   classe:'economique', prix:10,  places:480},
+
+  // ============================================================
+  //  VOITURES DE LOCATION — prix par jour
+  // ============================================================
+  {id:130,compagnie:'Europcar',         type:'voiture',numero:'LOC-PAR-01',depart:'Paris',       arrivee:'Paris',     dateDepart:'2026-06-05', heureDepart:'08:00', dateArrivee:'2026-06-12', heureArrivee:'08:00', duree:0,    classe:'economique', prix:22,  places:50},
+  {id:131,compagnie:'Sixt',             type:'voiture',numero:'LOC-PAR-02',depart:'Paris',       arrivee:'Paris',     dateDepart:'2026-06-10', heureDepart:'09:00', dateArrivee:'2026-06-17', heureArrivee:'09:00', duree:0,    classe:'economique', prix:18,  places:45},
+  {id:132,compagnie:'Europcar',         type:'voiture',numero:'LOC-LIS-01',depart:'Lisbonne',    arrivee:'Lisbonne',  dateDepart:'2026-06-05', heureDepart:'10:00', dateArrivee:'2026-06-12', heureArrivee:'10:00', duree:0,    classe:'economique', prix:15,  places:40},
+  {id:133,compagnie:'Hertz',            type:'voiture',numero:'LOC-LIS-02',depart:'Lisbonne',    arrivee:'Lisbonne',  dateDepart:'2026-06-12', heureDepart:'10:00', dateArrivee:'2026-06-19', heureArrivee:'10:00', duree:0,    classe:'economique', prix:18,  places:35},
+  {id:134,compagnie:'Bali Car Rental',  type:'voiture',numero:'LOC-BAL-01',depart:'Bali',        arrivee:'Bali',      dateDepart:'2026-06-11', heureDepart:'09:00', dateArrivee:'2026-06-18', heureArrivee:'09:00', duree:0,    classe:'economique', prix:8,   places:60},
+  {id:135,compagnie:'Bali Car Rental',  type:'voiture',numero:'LOC-BAL-02',depart:'Bali',        arrivee:'Bali',      dateDepart:'2026-07-02', heureDepart:'09:00', dateArrivee:'2026-07-09', heureArrivee:'09:00', duree:0,    classe:'economique', prix:10,  places:55},
+  {id:136,compagnie:'Avis Maroc',       type:'voiture',numero:'LOC-MAR-01',depart:'Marrakech',   arrivee:'Marrakech', dateDepart:'2026-06-06', heureDepart:'09:00', dateArrivee:'2026-06-13', heureArrivee:'09:00', duree:0,    classe:'economique', prix:12,  places:40},
+  {id:137,compagnie:'Budget',           type:'voiture',numero:'LOC-MAR-02',depart:'Marrakech',   arrivee:'Marrakech', dateDepart:'2026-07-04', heureDepart:'09:00', dateArrivee:'2026-07-11', heureArrivee:'09:00', duree:0,    classe:'economique', prix:10,  places:45},
+  {id:138,compagnie:'Georgian Car',     type:'voiture',numero:'LOC-TBI-01',depart:'Tbilissi',    arrivee:'Tbilissi',  dateDepart:'2026-06-08', heureDepart:'10:00', dateArrivee:'2026-06-15', heureArrivee:'10:00', duree:0,    classe:'economique', prix:9,   places:50},
+  {id:139,compagnie:'Georgian Car',     type:'voiture',numero:'LOC-TBI-02',depart:'Tbilissi',    arrivee:'Tbilissi',  dateDepart:'2026-07-06', heureDepart:'10:00', dateArrivee:'2026-07-13', heureArrivee:'10:00', duree:0,    classe:'economique', prix:11,  places:45},
+  {id:140,compagnie:'Vietnam Car',      type:'voiture',numero:'LOC-HAN-01',depart:'Hanoi',       arrivee:'Hanoi',     dateDepart:'2026-06-09', heureDepart:'10:00', dateArrivee:'2026-06-16', heureArrivee:'10:00', duree:0,    classe:'economique', prix:7,   places:55},
+  {id:141,compagnie:'Vietnam Car',      type:'voiture',numero:'LOC-HAN-02',depart:'Hanoi',       arrivee:'Hanoi',     dateDepart:'2026-07-02', heureDepart:'10:00', dateArrivee:'2026-07-09', heureArrivee:'10:00', duree:0,    classe:'economique', prix:8,   places:50},
+  {id:142,compagnie:'Europcar',         type:'voiture',numero:'LOC-BUD-01',depart:'Budapest',    arrivee:'Budapest',  dateDepart:'2026-06-07', heureDepart:'09:00', dateArrivee:'2026-06-14', heureArrivee:'09:00', duree:0,    classe:'economique', prix:14,  places:45},
+  {id:143,compagnie:'Sixt',             type:'voiture',numero:'LOC-BUD-02',depart:'Budapest',    arrivee:'Budapest',  dateDepart:'2026-07-05', heureDepart:'09:00', dateArrivee:'2026-07-12', heureArrivee:'09:00', duree:0,    classe:'economique', prix:16,  places:40},
 ];
 
 /* ═══════════════════════════════════════════════
@@ -595,63 +633,49 @@ function getCode(compagnie) {
   return map[compagnie] || compagnie.substring(0,3).toUpperCase();
 }
 
-/* Unique values for a field on the current type */
 function uniqueVals(field) {
   return [...new Set(TRANSPORTS.filter(t=>t.type===state.type).map(t=>t[field]))].sort();
 }
 
-/* Max price for current type */
 function maxPriceForType() {
   const prices = TRANSPORTS.filter(t=>t.type===state.type).map(t=>t.prix);
   return Math.ceil(Math.max(...prices) / 50) * 50;
 }
 
-/* ═══════════════════════════════════════════════
-   FILTER LOGIC
-═══════════════════════════════════════════════ */
 function applyAndRender() {
   state.sort = document.getElementById('sortSelect').value;
   let data = TRANSPORTS.filter(t => t.type === state.type);
 
-  /* Search filters */
   if (state.searched) {
     if (state.depart)  data = data.filter(t => t.depart.toLowerCase().includes(state.depart.toLowerCase()));
     if (state.arrivee) data = data.filter(t => t.arrivee.toLowerCase().includes(state.arrivee.toLowerCase()));
     if (state.dateAller) data = data.filter(t => t.dateDepart >= state.dateAller);
   }
 
-  /* Filter: compagnie */
   const compChecked = [...document.querySelectorAll('.f-compagnie:checked')].map(el=>el.value);
   if (compChecked.length) data = data.filter(t => compChecked.includes(t.compagnie));
 
-  /* Filter: classe */
   const classeChecked = [...document.querySelectorAll('.f-classe:checked')].map(el=>el.value);
   if (classeChecked.length) data = data.filter(t => classeChecked.includes(t.classe));
 
-  /* Filter: escale (avion only) */
   const escaleVal = document.querySelector('.f-escale:checked');
   if (escaleVal && escaleVal.value !== 'tous') {
     if (escaleVal.value === 'direct') data = data.filter(t => !isEscale(t));
     else data = data.filter(t => isEscale(t));
   }
 
-  /* Filter: prix max */
   const prixMax = document.getElementById('prixMaxSlider');
   if (prixMax) data = data.filter(t => t.prix <= parseInt(prixMax.value));
 
-  /* Filter: horaire */
   const horaireChecked = [...document.querySelectorAll('.f-horaire:checked')].map(el=>el.value);
   if (horaireChecked.length) data = data.filter(t => horaireChecked.includes(getHeureTranche(t.heureDepart)));
 
-  /* Filter: durée max (bus) */
   const durMax = document.getElementById('durMaxSlider');
   if (durMax) data = data.filter(t => t.duree <= parseInt(durMax.value));
 
-  /* Filter: ville (voiture) */
   const villeChecked = [...document.querySelectorAll('.f-ville:checked')].map(el=>el.value);
   if (villeChecked.length) data = data.filter(t => villeChecked.includes(t.depart));
 
-  /* Sort */
   data.sort((a,b) => {
     if (state.sort === 'prix-asc')   return a.prix - b.prix;
     if (state.sort === 'prix-desc')  return b.prix - a.prix;
@@ -663,9 +687,6 @@ function applyAndRender() {
   renderResults(data);
 }
 
-/* ═══════════════════════════════════════════════
-   RENDER RESULTS
-═══════════════════════════════════════════════ */
 function renderResults(data) {
   const list = document.getElementById('resultsList');
   const cnt  = document.getElementById('resultsCount');
@@ -768,21 +789,16 @@ function renderCarCard(t) {
   </div>`;
 }
 
-/* ═══════════════════════════════════════════════
-   RENDER FILTERS
-═══════════════════════════════════════════════ */
 function renderFilters() {
   const companies = uniqueVals('compagnie');
   const maxPrix = maxPriceForType();
   let html = '';
 
-  /* ── Compagnies ── */
   html += `<div class="f-section">
     <div class="f-section-title">Compagnie</div>
     ${companies.map(c => `<label class="f-check"><input type="checkbox" class="f-compagnie" value="${c}" onchange="applyAndRender()"> ${c}</label>`).join('')}
   </div>`;
 
-  /* ── Escale (avion only) ── */
   if (state.type === 'avion') {
     html += `<div class="f-section">
       <div class="f-section-title">Escale</div>
@@ -792,7 +808,6 @@ function renderFilters() {
     </div>`;
   }
 
-  /* ── Classe ── */
   const classes = uniqueVals('classe');
   const classeLabels = {economique:'Économique',business:'Business',premiere:'Première'};
   html += `<div class="f-section">
@@ -800,7 +815,6 @@ function renderFilters() {
     ${classes.map(c => `<label class="f-check"><input type="checkbox" class="f-classe" value="${c}" onchange="applyAndRender()"> ${classeLabels[c]||c}</label>`).join('')}
   </div>`;
 
-  /* ── Prix max ── */
   const prixLabel = state.type === 'voiture' ? 'Prix max / jour' : 'Prix max / personne';
   html += `<div class="f-section">
     <div class="f-section-title">${prixLabel}</div>
@@ -813,7 +827,6 @@ function renderFilters() {
     </div>
   </div>`;
 
-  /* ── Horaire départ (not for voitures) ── */
   if (state.type !== 'voiture') {
     html += `<div class="f-section">
       <div class="f-section-title">Horaire de départ</div>
@@ -823,7 +836,6 @@ function renderFilters() {
     </div>`;
   }
 
-  /* ── Durée max (bus) ── */
   if (state.type === 'bus') {
     const maxDur = 2500;
     html += `<div class="f-section">
@@ -838,7 +850,6 @@ function renderFilters() {
     </div>`;
   }
 
-  /* ── Ville de prise en charge (voiture) ── */
   if (state.type === 'voiture') {
     const villes = uniqueVals('depart');
     html += `<div class="f-section">
@@ -850,9 +861,6 @@ function renderFilters() {
   document.getElementById('filtersContent').innerHTML = html;
 }
 
-/* ═══════════════════════════════════════════════
-   DATALISTS for search autocomplete
-═══════════════════════════════════════════════ */
 function buildDataLists() {
   const departsAll   = [...new Set(TRANSPORTS.map(t=>t.depart))].sort();
   const arrivesAll   = [...new Set(TRANSPORTS.map(t=>t.arrivee))].sort();
@@ -860,16 +868,12 @@ function buildDataLists() {
   document.getElementById('citiesArrivee').innerHTML = arrivesAll.map(c=>`<option value="${c}">`).join('');
 }
 
-/* ═══════════════════════════════════════════════
-   UI EVENTS
-═══════════════════════════════════════════════ */
 function switchType(type, btn) {
   state.type = type;
   state.searched = false;
   document.querySelectorAll('.type-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 
-  /* Adjust search bar for voitures */
   const departLabel = document.querySelector('#departField label');
   const arriveeField = document.getElementById('arriveeField');
   const tripTypeRow = document.getElementById('tripTypeRow');
@@ -946,14 +950,12 @@ function changeVoy(type, delta, e) {
   el.className='voy-val';
 }
 
-/* Select transport → could add to cart */
 function selectTransport(id) {
   const t = TRANSPORTS.find(x=>x.id===id);
   if (!t) return;
-  alert(`✅ Transport sélectionné :\n${t.compagnie} · ${t.depart} → ${t.arrivee}\n${t.dateDepart} à ${t.heureDepart} · ${t.prix}€/pers.\n\nAjouté à votre itinéraire.`);
+  window.location.href = 'transport_detail.php?id=' + id;
 }
 
-/* Sticky filters top offset */
 function updateFiltersTop() {
   const sz = document.getElementById('searchZone');
   const fs = document.getElementById('filtersSticky');
@@ -961,7 +963,6 @@ function updateFiltersTop() {
   fs.style.top = offset + 'px';
 }
 
-/* Sidebar stops at footer */
 function updateSidebarBottom() {
   const footer = document.getElementById('footer');
   const sidebar = document.getElementById('sidebar');
@@ -970,7 +971,6 @@ function updateSidebarBottom() {
   sidebar.style.bottom = footerTop < winH ? (winH - footerTop) + 'px' : '0px';
 }
 
-/* Back to top */
 const btt = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {
   btt.classList.toggle('visible', window.scrollY > 300);
@@ -978,9 +978,6 @@ window.addEventListener('scroll', () => {
 });
 window.addEventListener('resize', () => { updateSidebarBottom(); updateFiltersTop(); });
 
-/* ═══════════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════════ */
 buildDataLists();
 renderFilters();
 applyAndRender();
