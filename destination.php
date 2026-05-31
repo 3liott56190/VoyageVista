@@ -21,7 +21,6 @@ if ($id <= 0) {
 
 mysqli_close($conn);
 
-// Points forts par catégorie
 $pointsForts = [
     'Plage'      => ['Plages de sable fin', 'Eaux turquoise', 'Activités nautiques', 'Couchers de soleil', 'Restaurants en bord de mer', 'Snorkeling & plongée'],
     'Montagne'   => ['Randonnées épiques', 'Paysages sauvages', 'Villages authentiques', 'Air pur & nature', 'Refuges de montagne', 'Faune locale'],
@@ -41,7 +40,7 @@ $moisIdeaux = [
 ];
 $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
 ?>
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -67,7 +66,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    /* ── HEADER ── */
     header {
       position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
       background: var(--surface); border-bottom: 1px solid var(--border);
@@ -105,7 +103,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     }
     .btn-connexion:hover { background: var(--accent); color: #fff; }
 
-    /* ── SIDEBAR ── */
     aside {
       width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border);
       position: fixed; top: var(--header-h); left: 0; bottom: 0;
@@ -122,10 +119,8 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     .nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
     .nav-item.active svg { stroke: #fff; }
 
-    /* ── MAIN ── */
     main { margin-left: var(--sidebar-w); padding-top: var(--header-h); min-height: 100vh; }
 
-    /* ── GALERIE PHOTO ── */
     .gallery {
       position: relative; width: 100%; height: 420px;
       background: linear-gradient(135deg, #ddd5c8 0%, #c4b5a0 100%);
@@ -159,11 +154,9 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     .gbadge-populaire { background: #1a1714; color: #fff; }
     .gbadge-recommande { background: var(--accent); color: #fff; }
 
-    /* ── CONTENT AREA ── */
     .content-wrap { display: flex; gap: 32px; padding: 36px 40px 80px; align-items: flex-start; }
     .content-main { flex: 1; min-width: 0; }
 
-    /* ── TITRE & MÉTA ── */
     .dest-header { margin-bottom: 20px; }
     .dest-breadcrumb { font-size: .75rem; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; }
     .dest-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; line-height: 1.15; margin-bottom: 10px; }
@@ -191,7 +184,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ── APERÇU ── */
     .section-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
     .section-title-lg { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 14px; }
     .desc-text { font-size: .9rem; line-height: 1.75; color: #444; margin-bottom: 28px; }
@@ -207,11 +199,9 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     .info-card-value { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--accent); }
     .info-card-sub { font-size: .72rem; color: var(--muted); }
 
-    /* ── AVIS ── */
     .avis-empty { padding: 40px 0; text-align: center; color: var(--muted); font-size: .9rem; }
     .avis-empty svg { width: 40px; height: 40px; stroke: var(--muted); fill: none; stroke-width: 1.3; opacity: .4; margin-bottom: 10px; }
 
-    /* ── SIDEBAR RÉSERVATION ── */
     .booking-sidebar {
       width: 300px; flex-shrink: 0;
       background: var(--surface); border: 1.5px solid var(--border);
@@ -229,7 +219,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
 
     .booking-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
 
-    /* Compteur voyageurs */
     .voy-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
     .voy-row:last-of-type { border-bottom: none; }
     .voy-label { font-size: .875rem; font-weight: 500; }
@@ -268,7 +257,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     .booking-note-info { margin-top: 12px; font-size: .75rem; color: var(--muted); text-align: center; line-height: 1.5; }
     .booking-note-info svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 2; vertical-align: middle; margin-right: 3px; }
 
-    /* ── FOOTER ── */
     footer { background: var(--text); color: rgba(255,255,255,.7); }
     .footer-inner { padding: 40px 48px 28px; margin-left: var(--sidebar-w); }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
@@ -282,14 +270,12 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     .footer-bottom-links a { color: rgba(255,255,255,.5); text-decoration: none; }
     .footer-bottom-links a:hover { color: #fff; }
 
-    /* ── ERROR ── */
     .error-state { margin-left: var(--sidebar-w); padding-top: var(--header-h); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; }
     .error-state svg { width: 56px; height: 56px; stroke: var(--muted); fill: none; stroke-width: 1.2; opacity: .4; }
     .error-state h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; }
     .error-state p { color: var(--muted); font-size: .9rem; }
     .error-state a { margin-top: 8px; padding: 10px 24px; background: var(--accent); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .9rem; }
 
-    /* Toast */
     #toast {
       position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
       background: var(--text); color: #fff; padding: 14px 24px; border-radius: 10px;
@@ -302,7 +288,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
 </head>
 <body>
 
-<!-- ── HEADER ── -->
 <header>
   <div class="header-left">
     <a href="Accueil.php" class="logo">
@@ -325,7 +310,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
   </div>
 </header>
 
-<!-- ── SIDEBAR ── -->
 <aside id="sidebar">
   <a href="Accueil.php" class="nav-item">
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
@@ -357,7 +341,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
 </aside>
 
 <?php if ($error): ?>
-<!-- ── ERREUR ── -->
 <div class="error-state">
   <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
   <h2>Destination introuvable</h2>
@@ -374,10 +357,7 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
   $starsHTML = str_repeat('★', $fullStars) . ($halfStar ? '½' : '') . str_repeat('☆', 5 - $fullStars - ($halfStar ? 1 : 0));
 ?>
 
-<!-- ── MAIN ── -->
 <main>
-
-  <!-- GALERIE -->
   <div class="gallery" id="gallery">
     <img
       src="<?= htmlspecialchars($d['image_url'] ?? '') ?>"
@@ -390,7 +370,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
       <span><?= htmlspecialchars($d['nom']) ?></span>
     </div>
 
-    <!-- Badges -->
     <div class="gallery-badge">
       <?php if ($d['badge'] === 'Coup de cœur'): ?>
         <span class="gbadge gbadge-coeur">Coup de cœur</span>
@@ -405,7 +384,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
       <?php endif; ?>
     </div>
 
-    <!-- Nav galerie (fonctionnel avec plusieurs images ou décoratif) -->
     <button class="gallery-nav prev" onclick="prevImg()" title="Photo précédente">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
@@ -413,14 +391,8 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
       <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
-
-  <!-- CONTENU -->
   <div class="content-wrap">
-
-    <!-- COLONNE PRINCIPALE -->
     <div class="content-main">
-
-      <!-- En-tête destination -->
       <div class="dest-header">
         <div class="dest-breadcrumb"><?= htmlspecialchars($d['continent']) ?> · <?= htmlspecialchars($d['pays']) ?></div>
         <h1 class="dest-title"><?= htmlspecialchars($d['nom']) ?>, <?= htmlspecialchars($d['pays']) ?></h1>
@@ -446,8 +418,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
           </span>
         </div>
       </div>
-
-      <!-- Infos rapides -->
       <div class="info-cards">
         <div class="info-card">
           <span class="info-card-label">Prix de base</span>
@@ -471,13 +441,11 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
         </div>
       </div>
 
-      <!-- TABS -->
       <div class="tabs">
         <button class="tab-btn active" onclick="switchTab('apercu', this)">Aperçu</button>
         <button class="tab-btn" onclick="switchTab('avis', this)">Avis</button>
       </div>
 
-      <!-- TAB : APERÇU -->
       <div class="tab-panel active" id="tab-apercu">
         <div class="section-label">À propos</div>
         <div class="section-title-lg">À propos de <?= htmlspecialchars($d['nom']) ?></div>
@@ -496,7 +464,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
         </div>
       </div>
 
-      <!-- TAB : AVIS -->
       <div class="tab-panel" id="tab-avis">
         <div class="avis-empty">
           <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -504,9 +471,8 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
         </div>
       </div>
 
-    </div><!-- /content-main -->
+    </div>
 
-    <!-- ── SIDEBAR RÉSERVATION ── -->
     <aside class="booking-sidebar">
 
       <div class="booking-price">
@@ -559,12 +525,11 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
 
     </aside>
 
-  </div><!-- /content-wrap -->
+  </div>
 </main>
 
 <?php endif; ?>
 
-<!-- ── FOOTER ── -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-grid">
@@ -588,18 +553,18 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
       </div>
       <div class="footer-col">
         <h4>Informations</h4>
-        <a href="a-propos.php">À propos</a>
-        <a href="cgu.php">CGU</a>
-        <a href="contact.php">Contact</a>
+        <a href="a_propos.html">À propos</a>
+        <a href="cgu.html">CGU</a>
+        <a href="contact.html">Contact</a>
         <a href="#">Réseaux sociaux</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2025 VoyageVista — Tous droits réservés</span>
       <div class="footer-bottom-links">
-        <a href="cgu.php">CGU</a>
-        <a href="#">Politique de confidentialité</a>
-        <a href="contact.php">Contact</a>
+        <a href="cgu.html">CGU</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </div>
@@ -617,7 +582,7 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
   const counts = { adults: 1, children: 0 };
 
   function changeCount(type, delta) {
-    const min = (type === 'adults') ? 1 : 0; // au moins 1 adulte
+    const min = (type === 'adults') ? 1 : 0; 
     counts[type] = Math.max(min, counts[type] + delta);
     document.getElementById(type + 'Count').textContent = counts[type];
     updateTotal();
@@ -627,7 +592,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     const total = counts.adults + counts.children;
     const montant = total * PRIX_BASE;
 
-    // Formatage FR
     const fmt = n => n.toLocaleString('fr-FR') + '\u00a0€';
 
     document.getElementById('totalPrice').textContent = fmt(montant);
@@ -637,18 +601,15 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     if (counts.children) detail.push(counts.children + ' enfant'  + (counts.children > 1 ? 's' : '') + ' × ' + PRIX_BASE.toLocaleString('fr-FR') + ' €');
     document.getElementById('totalDetail').textContent = detail.join(' + ');
 
-    // Désactiver si 0 voyageurs (ne devrait pas arriver)
     document.getElementById('btnReserver').disabled = (total === 0);
   }
 
-  // ── Ajout au panier ───────────────────────────────────────
   function ajouterAuPanier() {
     const total = counts.adults + counts.children;
     if (total === 0) return;
 
     const montant = total * PRIX_BASE;
 
-    // Stockage sessionStorage pour usage futur par panier.php
     const item = {
       id_destination: DEST_ID,
       nom:            DEST_NOM,
@@ -659,11 +620,9 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
       montant_total:  montant
     };
 
-    // On ajoute à un tableau dans sessionStorage
     let panier = [];
     try { panier = JSON.parse(sessionStorage.getItem('voyagevista_panier') || '[]'); } catch(e) {}
 
-    // Si la destination est déjà dans le panier, on met à jour
     const idx = panier.findIndex(p => p.id_destination === DEST_ID);
     if (idx >= 0) panier[idx] = item; else panier.push(item);
     sessionStorage.setItem('voyagevista_panier', JSON.stringify(panier));
@@ -671,7 +630,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     showToast('✓ ' + DEST_NOM + ' ajouté au panier !');
   }
 
-  // ── Toast ─────────────────────────────────────────────────
   function showToast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -679,7 +637,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
-  // ── Tabs ─────────────────────────────────────────────────
   function switchTab(id, btn) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -687,8 +644,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     document.getElementById('tab-' + id).classList.add('active');
   }
 
-  // ── Galerie (décorative si 1 seule image) ─────────────────
-  // Pour étendre plus tard avec plusieurs images par destination
   const images = [<?= json_encode($d['image_url'] ?? '') ?>];
   let imgIndex = 0;
 
@@ -706,7 +661,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
     document.getElementById('galleryPlaceholder').style.display = 'none';
   }
 
-  // ── Sidebar stops at footer ────────────────────────────────
   const sidebar = document.getElementById('sidebar');
   const footer  = document.getElementById('footer');
   function updateSidebarBottom() {
@@ -719,7 +673,6 @@ $mois = $moisIdeaux[$destination['continent'] ?? ''] ?? 'Toute l\'année';
   window.addEventListener('resize', updateSidebarBottom);
   updateSidebarBottom();
 
-  // Init
   updateTotal();
 </script>
 
